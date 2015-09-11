@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0162015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>Virtual Age Soluções em Tecnologia Ltda</RazaoSocial>
+            <Cnpj>14934661000107</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Brasil</Logradouro>
+                <Numero>2185</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Cianorte</Municipio>
+                <Uf>PR</Uf>
+                <Cep>87201100</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>Marcélia Fecchio de Melo</Nome>
+                <Cpf>64650790972</Cpf>
+                <Telefone>4436194410</Telefone>
+                <Email>marcelia@gruponabhan.com.br</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>Luciano Sanches Canonico</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-06-22-03:00</DataInicio>
+                <DataFim>2015-06-24-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>STORE AGE</NomeComercial>
+            <Versao>3.5</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>STOREAGE.EXE</Nome>
+                <Md5>17ED8826C31E3E24F14A735A1CA5C5B4</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>IdPafEcf.TXT</Nome>
+                <Md5>53873eb3faee58fce9f12c36e7466de2</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>STOREAGE.EXE</Nome>
+                    <Md5>17ED8826C31E3E24F14A735A1CA5C5B4</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>RELACAO.TXT</Nome>
+                    <Md5>101130bd238741bd350ad1949df419a3</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7773947</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+                <PerfilRequisito>W</PerfilRequisito>
+                <PerfilRequisito>Y</PerfilRequisito>
+                <PerfilRequisito>Z</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Delphi</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>Oracle</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Exclusivamente stand alone</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo PAF-ECF</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Cancelamento automático</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>STORE AGE</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>Virtual Age Soluções em Tecnologia Ltda</RazaoSocial>
+                    <Cnpj>14934661000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>STOREAGE.EXE</Nome>
+                        <Md5>17ED8826C31E3E24F14A735A1CA5C5B4</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>Requisito II</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>STORE AGE</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>Virtual Age Soluções em Tecnologia</RazaoSocial>
+                    <Cnpj>14934661000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>STOREAGE.EXE</Nome>
+                        <Md5>17ED8826C31E3E24F14A735A1CA5C5B4</Md5>
+                        <Funcao>SPED/SINTEGRA/DOCUMENTOS/LIVROS</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>STORE AGE</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>Virtual Age Soluções em Tecnologia</RazaoSocial>
+                    <Cnpj>14934661000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>STOREAGE.EXE</Nome>
+                        <Md5>17ED8826C31E3E24F14A735A1CA5C5B4</Md5>
+                        <Funcao>-</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI R</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-40 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-50 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FBIII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST2500</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>ECF 2570 MR</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>S-2070</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS345</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS318</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS2100 T</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 400 1E-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 400 2E</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 500 1E</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>IF 6000TH</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>X5</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 800-S</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>FX7</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF S-7000I</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF S-7000II</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF S-7000IE</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>ECF-IF S-9000PR</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF S-9000II</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF S-9000IIIE</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST100</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST1000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST200</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST120</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST2000</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0202</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0202</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>-</Requisito>
+                <Item>-</Item>
+                <Descricao>-</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-06-24-03:00</Data>
+            <Local>Londrina, PR</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Sergio Akio Tanaka</Nome>
+            <Cargo>Coordenador</Cargo>
+            <Cpf>73183920930</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

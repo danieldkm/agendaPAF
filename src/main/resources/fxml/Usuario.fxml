@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import java.net.*?>
+
+<VBox fx:id="mainUsuario" prefHeight="632.0" prefWidth="490.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.UsuarioController">
+    <children>
+      <HBox alignment="CENTER" style="-fx-background-color: #AEFCD5;">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblAgenda" text="Usuário" textAlignment="LEFT" wrapText="false">
+                     <effect>
+                        <Reflection />
+                     </effect>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <children>
+                  <ImageView fitHeight="120.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/logoPAFECFUNIFIL.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <effect>
+            <Reflection fraction="0.59" topOpacity="0.49" />
+         </effect>
+      </HBox>
+        <VBox prefHeight="312.0" prefWidth="464.0" spacing="5.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Label text="Nome:" VBox.vgrow="ALWAYS">
+                    <font>
+                        <Font size="18.0" fx:id="x1" />
+                    </font>
+                </Label>
+                <TextField id="textField" fx:id="txtNome" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: transparent;" styleClass="textField" VBox.vgrow="ALWAYS">
+                    <effect>
+                        <InnerShadow height="6.0" radius="2.5" width="6.0" fx:id="x2">
+                            <color>
+                                <Color blue="0.063" green="0.400" red="0.000" fx:id="x3" />
+                            </color>
+                        </InnerShadow>
+                    </effect>
+                </TextField>
+                <Label font="$x1" text="Login:" VBox.vgrow="ALWAYS" />
+                <TextField id="textField" fx:id="txtLogin" effect="$x2" prefHeight="50.0" prefWidth="200.0" styleClass="textField" VBox.vgrow="ALWAYS" />
+                <Label font="$x1" text="Senha:" VBox.vgrow="ALWAYS" />
+                <PasswordField id="textField" fx:id="txtSenha" prefHeight="50.0" prefWidth="200.0" styleClass="textField" VBox.vgrow="ALWAYS">
+                    <effect>
+                        <InnerShadow color="$x3" height="6.0" radius="2.5" width="6.0" />
+                    </effect>
+                </PasswordField>
+            <Label font="$x1" text="E-mail:" />
+            <TextField id="textField" fx:id="txtEmail" effect="$x2" prefHeight="50.0" prefWidth="200.0" styleClass="textField" />
+                <Label font="$x1" text="Tipo Usuário:" VBox.vgrow="ALWAYS" />
+                <ComboBox fx:id="cbTipo" prefHeight="50.0" prefWidth="1000.0" VBox.vgrow="ALWAYS">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="Gerencial" />
+                            <String fx:value="Colaborador" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+            </children>
+            <padding>
+                <Insets />
+            </padding>
+            <VBox.margin>
+                <Insets left="10.0" right="10.0" top="25.0" />
+            </VBox.margin>
+        </VBox>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" prefWidth="122.0" text="Salvar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial Bold" size="13.0" />
+                    </font>
+                </Button>
+                <Button id="textField" fx:id="btnBuscar" mnemonicParsing="false" onAction="#iniciarTabelaUsuario" prefHeight="50.0" prefWidth="150.0" text="Buscar Usuário" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#actionBtnCancelar" prefHeight="50.0" text="Limpar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#onActionBtnDeletar" prefHeight="50.0" text="Deletar">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>

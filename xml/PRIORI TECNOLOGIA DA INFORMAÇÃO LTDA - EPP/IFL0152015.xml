@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0152015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
+            <Cnpj>06028222000107</Cnpj>
+            <Ie>254726321</Ie>
+            <Endereco>
+                <Logradouro>RUA ERWINO MENEGOTTI</Logradouro>
+                <Numero>1320</Numero>
+                <Complemento>SALA 1</Complemento>
+                <Bairro>AGUA VERDE</Bairro>
+                <Municipio>Pato Branco</Municipio>
+                <Uf>SC</Uf>
+                <Cep>89254000</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>ADEMILSON OSNI PICCOLI</Nome>
+                <Cpf>68252129900</Cpf>
+                <Telefone>4732761100</Telefone>
+                <Email>piccoli@priorize.com.br</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>DIONEI SELONKE</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-05-27-03:00</DataInicio>
+                <DataFim>2015-05-28-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>Priorize PDV</NomeComercial>
+            <Versao>1.4.0</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>PRIORIZEPDV.EXE</Nome>
+                <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>Arq038.txt</Nome>
+                <Md5>34907513b6376afb8ee27403f2cc27ca</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>BEMAFI32.DLLl</Nome>
+                    <Md5>F5844A2F35204D273B8686A124DD7A9A</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>BEMAMFD.DLL</Nome>
+                    <Md5>35C532B94CD183788A48F94586CFB199</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>BEMAMFD2.DLL</Nome>
+                    <Md5>9FCAE7D1DE0595724D6CFA7E55748775</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>BEMAMFD3.DLL</Nome>
+                    <Md5>FD1B862390649F4177EF38F5592D871D</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>DARUMAFRAMEW ORK.DLL</Nome>
+                    <Md5>332963A7B52FF86C719B5AE42AEF2888</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>INTERFACEEPSON.DLL</Nome>
+                    <Md5>F48559304D6E877CF503F86C1CF5BF0E</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ELGIN.DLL</Nome>
+                    <Md5>8D3C4FA90336A14FA3E79888BE7CB92B</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ATO17.DLL</Nome>
+                    <Md5>02B0086ABFD2A8609B26EC24F4E35138</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>DLLG2.DLL</Nome>
+                    <Md5>57B8021F6E91FFC567AA91EFCB56A7D5</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>LEITURA.DLL</Nome>
+                    <Md5>79BF7CEB68D63C601D17DD7B563F8616</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>LEITURAMFDBIN.DLL</Nome>
+                    <Md5>7B1E9D4A19C0B7CD5BCE3F9521BFED88</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>PRIORIZENFE.EXE</Nome>
+                    <Md5>BAAD19E816CBD56298775475D07B9746</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>PRIORIZEPDV.EXE</Nome>
+                    <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>relacao.txt</Nome>
+                    <Md5>6ad8a7aa5ca62a6afa1d27aeafbed0ba</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7773946</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Delphi</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>Firebird</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Parametrizável</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo sistema de retaguarda</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+                <Modo>Não concomitante, com emissão de DAV</Modo>
+                <Modo>Não concomitante, com controle de pré-venda</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Cancelamento automático</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>Priorize PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <Cnpj>06028222000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>PRIORIZEPDV.EXE</Nome>
+                        <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>Requisito II, V e VI.....</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>Priorize PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <Cnpj>06028222000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>PRIORIZEPDV.EXE</Nome>
+                        <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                        <Funcao>Sped/sintegra</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>Priorize PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <Cnpj>06028222000107</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>PRIORIZENFE.EXE</Nome>
+                        <Md5>BAAD19E816CBD56298775475D07B9746</Md5>
+                        <Funcao>--</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/1FIT LOGGER UR011007252</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS2100 T</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBIII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1FIT LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/3EF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>K</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0202</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0202</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>X</Requisito>
+                <Item>--</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2b</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2c</Item>
+                <Descricao>Ausência de Clientes na Paraíba.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2</Item>
+                <Descricao>Ausência de Clientes em Minas Gerais.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2a</Item>
+                <Descricao>Ausência de Clientes no Rio de Janeiro.</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-05-28-03:00</Data>
+            <Local>Londrina, PR</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Sergio Akio Tanaka</Nome>
+            <Cargo>Coordenador</Cargo>
+            <Cpf>73183920930</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

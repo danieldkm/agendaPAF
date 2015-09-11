@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import java.util.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+<?import java.net.*?>
+
+<BorderPane fx:id="mainTbAgenda" prefHeight="600.0" prefWidth="761.0" style="-fx-background-color: white;" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.TabelaAgendaController">
+    <center>
+        <TableView fx:id="tvAgenda" onMousePressed="#onMouseClickedTabelaAgenda" prefHeight="200.0" prefWidth="200.0">
+            <columns>
+                <TableColumn fx:id="tcEmpresa" prefWidth="250.0" text="Empresa">
+                    <cellValueFactory> 
+                        <PropertyValueFactory property="idEmpresa" /> 
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcResponsavel" prefWidth="150.0" text="Responsável">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="responsavel" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcTipo" prefWidth="150.0" text="Serviço">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="tipo" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcStatusAgenda" maxWidth="5000.0" minWidth="10.0" prefWidth="118.0" text="Status Agenda">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="statusAgenda" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcDtInicial" prefWidth="75.0" text="Dt Inicial">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dataInicial" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcDtFinal" prefWidth="75.0" text="Dt Final">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dataFinal" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcDiaSemana" prefWidth="75.0" text="Dia semana">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="diaSemana" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcStatusBoleto" prefWidth="75.0" text="Status Boleto">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="statusBoleto" />
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn fx:id="tcDtVencimento" prefWidth="75.0" text="Dt Vencimento Boleto">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="dataVencimentoBoleto" />
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </TableView>
+    </center>
+    <top>
+        <HBox fx:id="hbPane" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #EBEBEB;&#10;" visible="true">
+            <children>
+                <ComboBox fx:id="cbComboBox" onAction="#actionCB" prefHeight="30.0" prefWidth="150.0">
+                    <items>
+                        <FXCollections fx:factory="observableArrayList">
+                            <String fx:value="TODOS" />
+                            <String fx:value="Empresa" />
+                            <String fx:value="Data" />
+                            <String fx:value="Status da Agenda" />
+                        </FXCollections>
+                    </items>
+                </ComboBox>
+                <Pane fx:id="pane" prefHeight="100.0" prefWidth="468.0">
+                    <children>
+                        <TextField fx:id="txtBuscar" alignment="CENTER_LEFT" disable="false" focusTraversable="true" layoutX="14.0" layoutY="33.0" onKeyPressed="#onKeyPressdTxtBuscar" prefHeight="34.0" prefWidth="380.0" visible="true" />
+                        <Button fx:id="btnBuscar" defaultButton="true" layoutX="398.0" layoutY="33.0" mnemonicParsing="false" onAction="#actionBtnBuscarEmpresa" prefHeight="34.0" styleClass="button-raised" text="Buscar" />
+                        <ComboBox fx:id="cbStatusAgenda" layoutX="14.0" layoutY="35.0" onAction="#actionCBStatusAgenda" prefHeight="30.0" prefWidth="150.0" visible="false">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Data Agendada" />
+                                    <String fx:value="Concluído" />
+                                    <String fx:value="Não compareceu" />
+                                    <String fx:value="Reagendada" />
+                                    <String fx:value="Pendente" />
+                                    <String fx:value="Pendente Web" />
+                                    <String fx:value="Cancelado" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </children>
+                </Pane>
+            </children>
+        </HBox>
+    </top>
+</BorderPane>

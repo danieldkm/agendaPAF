@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.collections.*?>
+<?import java.net.*?>
+<?import java.net.*?>
+
+<VBox fx:id="mainLogin" alignment="TOP_CENTER" fillWidth="false" maxHeight="300.0" maxWidth="270.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="270.0" spacing="10.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.LoginController">
+    <children>
+      <Rectangle fx:id="rect1" fill="#fffa99" height="5.0" stroke="TRANSPARENT" strokeLineCap="BUTT" strokeMiterLimit="5.7" strokeType="INSIDE" strokeWidth="0.0" width="270.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </Rectangle>
+          <HBox alignment="CENTER" spacing="5.0" style="-fx-background-color: transparent;">
+              <children>
+                  <ToggleButton fx:id="btnLocal" mnemonicParsing="false" onAction="#setOnActionToggleButtonLocal" selected="true" />
+                  <ToggleButton fx:id="btnServidor" mnemonicParsing="false" onAction="#setOnActionToggleButtonServidor" />
+                  <Button fx:id="btnFerramenta" mnemonicParsing="false" onAction="#setOnActionBtnFerramenta" styleClass="button-raised" />
+              </children>
+          </HBox>
+      <HBox fx:id="hbImg" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <children>
+              <ImageView fx:id="logo" fitHeight="68.43269006781999" fitWidth="79.96629333496094" pickOnBounds="true" preserveRatio="true">
+                  <effect>
+                      <Reflection />
+                  </effect>
+                  <image>
+                      <Image url="@../image/logoPAFECFUNIFIL.png" />
+                  </image>
+              </ImageView>
+         </children>
+         <VBox.margin>
+            <Insets top="-10.0" />
+         </VBox.margin>
+      </HBox>
+        <VBox alignment="CENTER_LEFT" prefHeight="-1.0" prefWidth="270.0" spacing="5.0">
+            <children>
+                <Label fx:id="lblLogin" text="Login" />
+                <TextField fx:id="txtLogin" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" />
+                <Label text="Senha" />
+                <PasswordField fx:id="txtSenha" prefHeight="30.0" prefWidth="200.0" />
+            </children>
+            <padding>
+                <Insets left="10.0" right="10.0" />
+            </padding>
+        </VBox>
+        <Button fx:id="btnLogar" defaultButton="true" mnemonicParsing="false" onAction="#setOnActionBtnLogar" prefHeight="30.0" prefWidth="118.0" styleClass="button-raised" text="Logar" />
+        <Rectangle fx:id="rect2" fill="#fffa99" height="5.0" stroke="TRANSPARENT" strokeLineCap="BUTT" strokeMiterLimit="5.7" strokeType="INSIDE" strokeWidth="0.0" width="270.0" />
+    </children>
+</VBox>

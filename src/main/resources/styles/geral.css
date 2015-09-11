@@ -1,0 +1,16 @@
+.passwordTxt { 
+    -fx-background-color: crimson;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: beige;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.textField{
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: black;
+    -fx-text-alignment: left;
+    -fx-font: 22pt "Tahoma Bold";
+}

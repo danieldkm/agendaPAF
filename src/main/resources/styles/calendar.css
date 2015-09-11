@@ -1,0 +1,273 @@
+.date-chooser {
+    -fx-skin: "com.unifil.agendapaf.DateChooserSkin";
+}
+
+.weekday-cell { 
+    -fx-background-color: lightgray;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: darkgray;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.week-of-year-cell { 
+    -fx-background-color: lightgray;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.calendar-cell { 
+    -fx-background-color: skyblue, derive(skyblue, 25%), derive(skyblue, 50%), derive(skyblue, 75%);
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: skyblue;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.calendar-cell:hover { 
+    -fx-background-color: skyblue; 
+    -fx-text-fill: white;   
+}
+
+.calendar-cell:pressed { 
+    -fx-background-color: chocolate;  
+    -fx-text-fill: aqua;   
+}
+
+.calendar-cell-selected { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: dimgrey;  
+    -fx-text-fill: white;
+}
+
+.calendar-cell-inactive { 
+    -fx-background-color: derive(lightgray, 75%);
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: darkgray;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.calendar-cell-today { 
+    -fx-background-color: darkorange;  
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: skyblue;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+}
+
+.calendar-cell-data-agendada { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color:   #0066FF;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-concluido { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: #FFD119;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-nao-comparaceu { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: #E81919;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-cancelado { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color:  #CCCCFF;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-pendente { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color:  #99FF99;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-feriado{
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: linear-gradient(from 20px 30px to 15px 30px, reflect, #5D5B59 30%, transparent 20%);
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-sabado-e-domingo{
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-text-fill: darkgray;
+    -fx-background-color: #000000;
+}
+
+
+.calendar-cell-sabado-e-domingo2{
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-text-fill: darkgray;
+    -fx-background-color: #000000;
+}
+/*-*/
+
+
+.calendar-cell-concluido-data-agendada { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: linear-gradient(to left, khaki 50%, midnightblue 50%);
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-não-apareceu-data-agendada { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 32pt "Tahoma Bold";
+    -fx-background-color: linear-gradient(to left, crimson 50%, midnightblue 50%);
+    -fx-text-fill: brown;
+}
+
+//-- SEMESTRAL
+.week-of-year-cell2 { 
+    -fx-background-color: lightgray;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: white;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+}
+
+.weekday-cell2 { 
+    -fx-background-color: lightgray;
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: darkgray;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+}
+
+.calendar-cell2 { 
+    -fx-background-color: skyblue, derive(skyblue, 25%), derive(skyblue, 50%), derive(skyblue, 75%);
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: skyblue;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+}
+
+
+.calendar-cell-inactive2 { 
+    -fx-background-color: derive(lightgray, 75%);
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: darkgray;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+}
+
+.calendar-cell-selected2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color: dimgrey;  
+    -fx-text-fill: white;
+}
+
+
+.calendar-cell-today2 { 
+    -fx-background-color: darkorange;  
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-fill: skyblue;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+}
+
+
+.calendar-cell-data-agendada2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color: #0066FF;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-concluido2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color: #FFD119;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-nao-comparaceu2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color: #E81919;
+    -fx-text-fill: brown;
+}
+
+
+.calendar-cell-cancelado2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color:  #CCCCFF;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-pendente2 { 
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color:  #99FF99;
+    -fx-text-fill: brown;
+}
+
+.calendar-cell-feriado2{
+    -fx-background-radius: 5 5 5 5;
+    -fx-background-insets: 2 2 2 2 ;
+    -fx-text-alignment: left;
+    -fx-font: 12pt "Tahoma Bold";
+    -fx-background-color: linear-gradient(from 20px 30px to 15px 30px, reflect, #5D5B59 30%, transparent 20%);
+    -fx-text-fill: brown;
+}

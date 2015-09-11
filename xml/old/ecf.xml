@@ -1,0 +1,798 @@
+<MarcasModelosCompativeis>
+        <MarcaModelo>
+                <Marca>a</Marca>
+                <Modelo>b</Modelo>
+        </MarcaModelo>        
+        <MarcaModelo>
+                <Marca>APB</Marca>
+                <Modelo>MSD 6600 IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ASTICK</Marca>
+                <Modelo>ASTICK L</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ASTICK</Marca>
+                <Modelo>ASTICK 100</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 2000 TH FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 6000 TH FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI R</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-40 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-50 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF FM-20 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF MP-30 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II ECF-IF</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II R ECF-IF</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+        </MarcaModelo>     
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II ECF-IF</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II R ECF-IF</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI II</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>BETHA</Marca>
+                <Modelo>BETHA 1E</Modelo>
+        </MarcaModelo> 
+        <MarcaModelo>
+                <Marca>BETHA</Marca>
+                <Modelo>BETHA 2E</Modelo>
+        </MarcaModelo>  
+        <MarcaModelo>
+                <Marca>CHRONOS</Marca>
+                <Modelo>ACC 220</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CHRONOS</Marca>
+                <Modelo>CHRONOS-250 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CHRONOS</Marca>
+                <Modelo>CHRONOS-260 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CHRONOS</Marca>
+                <Modelo>CHRONOS-270 2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>CT7000V3</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>ECF-IF CT7000 V3</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>ECF-IF CT7000-V1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>ECF-IF CT7000V3</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000 V2A</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000 V2B</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000 V2C</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000 V2D</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000 V2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>CORISCO</Marca>
+                <Modelo>KIT ECF-IF CT7000V2</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>COSMOPOLITAN</Marca>
+                <Modelo>COSMOS/1EFM</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>COSMOPOLITAN</Marca>
+                <Modelo>COSMOS/2EFC</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS2100 T</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS318</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS345</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS420</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600 USB</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS800I</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>BABY</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>DT12000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>DT12000 - TEF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF1-Q</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF300-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF375-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF950-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF PDV DT12000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF-IF DT 4000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>IF/1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>IF/1N</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>IF/2</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>MT100</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>1Q</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>1Q-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>300-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>3202DT</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>375-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>6000EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>950-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DIGIARTE</Marca>
+                <Modelo>DIGIARTE 1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DIGIARTE</Marca>
+                <Modelo>DIGIARTE 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DIGIARTE</Marca>
+                <Modelo>2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DIGISAT</Marca>
+                <Modelo>1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF 7000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-IF 2001-II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-MR 408 I</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-MR 5020</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-MR 620</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-MR 650R</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>DISMAC</Marca>
+                <Modelo>ECF-MR 7000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>EAGLE</Marca>
+                <Modelo>PRINTER 2000 ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>EAGLE</Marca>
+                <Modelo>PRINTER 2000 II ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>EAGLE</Marca>
+                <Modelo>PRINTER 2001 ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>EAGLE</Marca>
+                <Modelo>PRINTER 2002 II ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 400 1E-EP</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 400 2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 500 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 800-S</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>FX7</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>IF 6000TH</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>K</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>X5</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-H6000 FB</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-H6000 FBII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-H6000 FBIII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T800F</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T81 FBII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T81 FBIII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T88 FB</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T88 FBII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T88 FBIII</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>EPSON</Marca>
+            <Modelo>TM-T900F</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>ECF-MR G-880</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>ECF-MR G-980</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G 930 E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-3900</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-910</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-910 E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-910E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-930</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GENERAL</Marca>
+            <Modelo>G-930E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GOLD</Marca>
+            <Modelo>ECF-MR 1220/20I</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GOLD</Marca>
+            <Modelo>ECF-MR 1220/50R</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GOLD</Marca>
+            <Modelo>ECF-MR 1220/70TR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GOLD</Marca>
+            <Modelo>ECFMR 1220/70TR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>GOLD</Marca>
+            <Modelo>ECF-MR 1220/8I</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>ECF-IF 4679-3FB</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>IB 20 FI II ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>IB 40 FI II ECF-IF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>POS ENTRY</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4610-KJ4</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4610-KN4</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4610-KR4</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4610-SJ6</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4679 3BS</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4679-EBM</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4679-3BM</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IBM</Marca>
+            <Modelo>4679-3BS</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>INFOTECNICA</Marca>
+            <Modelo>EXCELER 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>INFOTECNICA</Marca>
+            <Modelo>EXCELER 2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>INTERPROM</Marca>
+            <Modelo>ICASH IF-II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IONICS</Marca>
+            <Modelo>IONICS 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>IONICS</Marca>
+            <Modelo>IONICS 2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>INFOWAY 1E T1</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>INFOWAY 1E T2</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>KIT POS 4000 ECF-IF 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>KIT POS 4000 ECF-IF 3E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>KUBUS 1EF</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS ECF IF/1E M</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS ECF IF/2E M</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF 1E BR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF 3E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF 3E BR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF/1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF/1E BR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 ECF-IF/3E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS 4000 3E/BR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS4000 ECF-IF/1E BR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS4000 ECF-IF/1E II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>POS4000 ECF-IF/3E II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>QW PRINTER 1E T3</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>ITAUTEC</Marca>
+            <Modelo>QW PRINTER 6000 MT2</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MECAF</Marca>
+            <Modelo>COMPACT FISCAL</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MECAF</Marca>
+            <Modelo>ECF 1E-3001</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MECAF</Marca>
+            <Modelo>ECF 2E 4002</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MECAF</Marca>
+            <Modelo>ECF 2E-3002</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MECAF</Marca>
+            <Modelo>MECAF COMPACT FCR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MICROMAN</Marca>
+            <Modelo>MICROMAN 1E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>MICROMAN</Marca>
+            <Modelo>MICROMAN 2E</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF IF 72 EPS 02</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF 72EPS-01</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF 72EPS-02</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF-02-01</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF-03-02</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF-7141</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF-72EPS-01</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-IF-72EPS-02</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-PDV 7445</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>ECF-PVD 7445</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>NCR2003</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>NCR2050</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>7167</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>NCR</Marca>
+            <Modelo>7197</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>OLIVETTI</Marca>
+            <Modelo>ECF-IF PR4/F</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>OLIVETTI</Marca>
+            <Modelo>PR 4/FSW</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>ECF 2570 MR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>ECF-IF S-9000PR</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST100</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST1000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST120</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST200</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST2000</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF ST2500</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF S-7000I</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF S-7000IE</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF S-7000II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF S-9000II</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>IF S-9000IIIE</Modelo>
+        </MarcaModelo>
+        <MarcaModelo>
+            <Marca>SWEDA</Marca>
+            <Modelo>S-2070</Modelo>
+        </MarcaModelo>
+</MarcasModelosCompativeis>

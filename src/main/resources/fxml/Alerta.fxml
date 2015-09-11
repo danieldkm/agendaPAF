@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane id="BorderPane" fx:id="mainAlerta" prefHeight="276.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.AlertaController">
+  <center>
+    <TextArea fx:id="txtaTexto" editable="false" prefWidth="200.0" text="                                              Faltam 2 meses!!!!&#10;Empresas:" wrapText="true">
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </TextArea>
+  </center>
+  <top>
+    <Pane prefHeight="57.0" prefWidth="367.0" style="-fx-background-color: #FF8533">
+      <children>
+        <Label layoutX="14.0" layoutY="7.0" text="Aviso!!!" textFill="WHITE">
+          <font>
+            <Font name="System Bold" size="32.0" />
+          </font>
+        </Label>
+      </children>
+      <effect>
+        <Reflection />
+      </effect>
+    </Pane>
+  </top>
+</BorderPane>

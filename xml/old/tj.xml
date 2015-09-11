@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+<Mensagem>
+<Numero>IFL0172015</Numero>
+<EmiteNfe>true</EmiteNfe>
+<Desenvolvedora>
+<RazaoSocial>T&amp;J Informática Ltda</RazaoSocial>
+<Cnpj>03086192000199</Cnpj>
+<Ie>9018588967</Ie>
+<Endereco>
+<Logradouro>Rua Curitiba</Logradouro>
+<Numero>2450</Numero>
+<Complemento></Complemento>
+<Bairro>Nossa Senhora Aparecida</Bairro>
+<Municipio>Francisco Beltrão</Municipio>
+<Uf>PR</Uf>
+<Cep>85601630</Cep>
+</Endereco>
+<Contato>
+<Nome>Tarcizio Meurer</Nome>
+<Cpf>55444768968</Cpf>
+<Telefone>4635242555</Telefone>
+<Email>tarcizio@tjsistemas.com.br</Email>
+</Contato>
+<ResponsavelAcompanhamentoTestes>Anderson Ilivio Fritzen</ResponsavelAcompanhamentoTestes>
+</Desenvolvedora>
+<Otc>
+<RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+<Cnpj>78624202000100</Cnpj>
+<Ie>Isento</Ie>
+<Endereco>
+<Logradouro>Av. Juscelino Kubischeck</Logradouro>
+<Numero>1626</Numero>
+<Complemento></Complemento>
+<Bairro>Centro</Bairro>
+<Municipio>Londrina</Municipio>
+<Uf>PR</Uf>
+<Cep>10900000</Cep>
+</Endereco>
+<PeriodoAnalise>
+<DataInicio>2015-06-24-03:00</DataInicio>
+<DataFim>2015-06-25-03:00</DataFim>
+</PeriodoAnalise>
+<VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
+</Otc>
+<IdentificacaoPaf>
+<NomeComercial>EASYPDV</NomeComercial>
+<Versao>1.4</Versao>
+<ArquivoExecutavelPrincipal>
+<Nome>EASYPDV.EXE</Nome>
+<Md5>83E0CEBC4C581D16227E9950AB9B7798</Md5>
+</ArquivoExecutavelPrincipal>
+<ArquivoRelacaoExecutaveis>
+<Nome>IdentificacaoPAFECF.txt</Nome>
+<Md5>dc2a910d921da13076e46d78a4a5699f</Md5>
+</ArquivoRelacaoExecutaveis>
+<ArquivosExecutaveis>
+<ArquivoExecutavel>
+<Nome>EASYNFE.EXE</Nome>
+<Md5>CD85D6F5064AC72AE5A4CD5EA1FCA44F</Md5>
+</ArquivoExecutavel>
+<ArquivoExecutavel>
+<Nome>EASYPDV.EXE</Nome>
+<Md5>83E0CEBC4C581D16227E9950AB9B7798</Md5>
+</ArquivoExecutavel>
+<ArquivoExecutavel>
+<Nome>STANDALONE.EXE</Nome>
+<Md5>5509CDFF54643BB06D1C726FB528E44B</Md5>
+</ArquivoExecutavel>
+</ArquivosExecutaveis>
+<ArquivosOutros>
+<ArquivoOutro>
+<Nome>relacao.txt</Nome>
+<Md5>7f776af571b90b6731ebed3ea57cafdf</Md5>
+</ArquivoOutro>
+</ArquivosOutros>
+<EnvelopeSeguranca>
+<Marca>Starlock</Marca>
+<Modelo>7</Modelo>
+<Numero>7773949</Numero>
+</EnvelopeSeguranca>
+<PerfisRequisitos>
+<PerfilRequisito>V</PerfilRequisito>
+</PerfisRequisitos>
+</IdentificacaoPaf>
+<CaracteristicasPaf>
+<LinguagemProgramacao>Delphi</LinguagemProgramacao>
+<SistemaOperacional>Windows</SistemaOperacional>
+<GerenciadorBancoDados>PostgreSQL</GerenciadorBancoDados>
+<TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+<TipoFuncionamento>Parametrizável</TipoFuncionamento>
+<MeioGeracaoArquivoSintegraEfd>
+<Modo>Pelo PAF-ECF</Modo>
+</MeioGeracaoArquivoSintegraEfd>
+<IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+<FormaImpressao>
+<Modo>Concomitante</Modo>
+<Modo>Não concomitante, com controle de pré-venda</Modo>
+<Modo>Não concomitante, com controle de conta de cliente</Modo>
+</FormaImpressao>
+<TratamentoInterrupcao>
+<Modo>Cancelamento automático</Modo>
+</TratamentoInterrupcao>
+<AplicacoesEspeciais>
+<AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-normal e sem balança interligada</AplicacaoEspecial>
+<AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+</AplicacoesEspeciais>
+</CaracteristicasPaf>
+<SistemasGestao>
+<SistemaGestao>
+<Nome>-</Nome>
+<EmpresaDesenvolvedora>
+<RazaoSocial>-</RazaoSocial>
+<Cnpj>00000000000000</Cnpj>
+</EmpresaDesenvolvedora>
+<ArquivosExecutaveis>
+<ArquivoExecutavel>
+<Nome>-</Nome>
+<Md5>00000000000000000000000000000000</Md5>
+<RequisitosExecutados>
+<RequisitoExecutado>-</RequisitoExecutado>
+</RequisitosExecutados>
+</ArquivoExecutavel>
+</ArquivosExecutaveis>
+</SistemaGestao>
+</SistemasGestao>
+<SistemasPed>
+<SistemaPed>
+<Nome>EasyPlus / EasyChef</Nome>
+<EmpresaDesenvolvedora>
+<RazaoSocial>T&amp;J Informática Ltda</RazaoSocial>
+<Cnpj>03086192000199</Cnpj>
+</EmpresaDesenvolvedora>
+<ArquivosExecutaveis>
+<ArquivoExecutavel>
+<Nome>EasyPlus.exe</Nome>
+<Md5>769ce473884b32bb7edf284f8c8c7753</Md5>
+<Funcao>SPED/SINTEGRA/DOCUMENTOS/LIVROS</Funcao>
+</ArquivoExecutavel>
+<ArquivoExecutavel>
+<Nome>EasyChef.exe</Nome>
+<Md5>dc6e4b0052affe41f03b6662abeaa049</Md5>
+<Funcao>SPED/SINTEGRA/DOCUMENTOS/LIVROS</Funcao>
+</ArquivoExecutavel>
+</ArquivosExecutaveis>
+</SistemaPed>
+</SistemasPed>
+<SistemasPedNfe>
+<SistemaPedNfe>
+<Nome>EasyPlus / EasyChef</Nome>
+<EmpresaDesenvolvedora>
+<RazaoSocial>T&amp;J Informática Ltda</RazaoSocial>
+<Cnpj>03086192000199</Cnpj>
+</EmpresaDesenvolvedora>
+<ArquivosExecutaveis>
+<ArquivoExecutavel>
+<Nome>EasyPlus.exe</Nome>
+<Md5>769ce473884b32bb7edf284f8c8c7753</Md5>
+<Funcao>--</Funcao>
+</ArquivoExecutavel>
+<ArquivoExecutavel>
+<Nome>EasyChef.exe</Nome>
+<Md5>dc6e4b0052affe41f03b6662abeaa049</Md5>
+<Funcao>--</Funcao>
+</ArquivoExecutavel>
+</ArquivosExecutaveis>
+</SistemaPedNfe>
+</SistemasPedNfe>
+<EcfAnaliseFuncional>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-4000 TH FI</Modelo>
+</MarcaModelo>
+</EcfAnaliseFuncional>
+<MarcasModelosCompativeis>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-20 FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-20 FI II ECF-IF</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-3000 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-4000 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-20 FI II R ECF-IF</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-40 FI II ECF-IF</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-40 FI II R ECF-IF</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>ECF-IF MP-50 FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>ECF-IF MP 2000 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-2100 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>MP-7000 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>BEMATECH</Marca>
+<Modelo>ECF-IF MP 6000 TH FI</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>EPSON</Marca>
+<Modelo>TM-T81 FBII</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>MECAF</Marca>
+<Modelo>ECF 1E-3001</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DATAREGIS</Marca>
+<Modelo>3202DT</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DATAREGIS</Marca>
+<Modelo>MT100</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DATAREGIS</Marca>
+<Modelo>6000EP</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST1000</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST2000</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST2500</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST100</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST120</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>SWEDA</Marca>
+<Modelo>IF ST200</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS345</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS600</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS2100 T</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS700 H</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS700 L</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>FS700 M</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>MACH 1</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>MACH 2</Modelo>
+</MarcaModelo>
+<MarcaModelo>
+<Marca>DARUMA AUTOMACAO</Marca>
+<Modelo>MACH 3</Modelo>
+</MarcaModelo>
+</MarcasModelosCompativeis>
+<VersaoErPaf>02.02</VersaoErPaf>
+<RoteiroAnalise>
+<VersaoRoteiro>02.02</VersaoRoteiro>
+<Mes>8</Mes>
+<Ano>2014</Ano>
+</RoteiroAnalise>
+<NaoConformidades>
+<NaoConformidade>
+<Requisito>X</Requisito>
+<Item>--</Item>
+<Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+</NaoConformidade>
+<NaoConformidade>
+<Requisito>IX</Requisito>
+<Item>2b</Item>
+<Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+</NaoConformidade>
+<NaoConformidade>
+<Requisito>IX</Requisito>
+<Item>2c</Item>
+<Descricao>Ausência de Clientes na Paraíba.</Descricao>
+</NaoConformidade>
+<NaoConformidade>
+<Requisito>IX</Requisito>
+<Item>2</Item>
+<Descricao>Ausência de Clientes em Minas Gerais.</Descricao>
+</NaoConformidade>
+<NaoConformidade>
+<Requisito>IX</Requisito>
+<Item>2a</Item>
+<Descricao>Ausência de Clientes no Rio de Janeiro.</Descricao>
+</NaoConformidade>
+</NaoConformidades>
+<ComentarioOtc></ComentarioOtc>
+<Declaracao>true</Declaracao>
+<Emissao>
+<Data>2015-06-25-03:00</Data>
+<Local>Londrina</Local>
+</Emissao>
+<ExecucaoTestes>
+<Nome>Sandro Teixeira Pinto</Nome>
+<Cargo>Técnico Responsável</Cargo>
+<Cpf>64555011953</Cpf>
+</ExecucaoTestes>
+<AprovacaoRelatorio>
+<Nome>Sergio Akio Tanaka</Nome>
+<Cargo>Coordenador</Cargo>
+<Cpf>73183920930</Cpf>
+</AprovacaoRelatorio>
+</Mensagem>
+</Laudo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<com.sun.javafx.collections.ObservableListWrapper>
+  <changeBuilder>
+    <list class="com.sun.javafx.collections.ObservableListWrapper" reference="../.."/>
+    <changeLock>0</changeLock>
+    <addRemoveChanges/>
+  </changeBuilder>
+  <backingList>
+    <categoria>
+      <id>0</id>
+      <nome>Normal</nome>
+      <porcento>0</porcento>
+    </categoria>
+    <categoria>
+      <id>1</id>
+      <nome>Empresas APL</nome>
+      <porcento>10</porcento>
+    </categoria>
+    <categoria>
+      <id>2</id>
+      <nome>Cintec</nome>
+      <porcento>20</porcento>
+    </categoria>
+    <categoria>
+      <id>3</id>
+      <nome>Governança da APL</nome>
+      <porcento>30</porcento>
+    </categoria>
+    <categoria>
+      <id>3</id>
+      <nome>Reavaliação</nome>
+      <porcento>10</porcento>
+    </categoria>
+  </backingList>
+</com.sun.javafx.collections.ObservableListWrapper>

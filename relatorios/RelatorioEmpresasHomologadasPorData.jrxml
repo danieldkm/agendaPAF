@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioEmpresasHomologadasPorData" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="950a6746-22fb-442d-bc5d-26b3b290a798">
+	<property name="ireport.zoom" value="1.0000000000000038"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Row">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$V{REPORT_COUNT}%2 == 0]]></conditionExpression>
+			<style backcolor="#FFF2D8"/>
+		</conditionalStyle>
+	</style>
+	<parameter name="data" class="java.util.Date">
+		<defaultValueExpression><![CDATA[$P{data}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.awt.Image"/>
+	<queryString>
+		<![CDATA[select * from empresasHomologadas eh
+inner join empresa e on e.id = eh.idEmpresa
+where dataHomologada = $P{data};]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataAviso" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataHomologada" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="email" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="visualizado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idEmpresa" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="bairro" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="categoria" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="celular" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cep" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cnpj" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cpf" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataCadastro" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="endereco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fax" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="inscricaoEstadual" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="inscricaoMunicipal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeContato" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeFantasia" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="observacao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="responsavelTeste" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="telefone" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idCidade" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-34" y="-25" width="624" height="104" backcolor="#DBECFF" uuid="c213ca34-a789-4178-974d-23443a577098"/>
+			</rectangle>
+			<image>
+				<reportElement x="459" y="0" width="96" height="74" uuid="927b8d5d-bb0d-4562-b3a4-aaec862da5c2"/>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="0" y="0" width="395" height="63" uuid="869085ed-b5cc-4f28-84c5-be7621ff6c5f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true" isItalic="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Relatório de Empresas Homologadas agrupado por Data]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="56" splitType="Stretch">
+			<rectangle>
+				<reportElement x="148" y="15" width="407" height="34" uuid="e9aca602-507f-4d5a-aa43-4e00aab391da"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="15" width="150" height="34" backcolor="#FFCC66" uuid="6c1cfd8c-f3a3-453b-8002-d5ae114995a6"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="15" width="148" height="34" forecolor="#000000" backcolor="#FFCC66" uuid="a5fbebc5-4176-4621-8b5a-6c20d82d5ec8"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="155" y="15" width="397" height="34" uuid="ef284100-9695-47cc-8237-6fddbbe05c3f"/>
+				<textElement verticalAlignment="Middle">
+					<font size="20" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataHomologada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="39" splitType="Stretch">
+			<rectangle>
+				<reportElement x="0" y="0" width="255" height="31" uuid="276880e8-8905-4aaf-90f5-17cb8f8b2265"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="455" y="0" width="100" height="31" uuid="0ad43162-12b9-40af-bd02-45f396174931"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="255" y="0" width="100" height="31" uuid="e895925f-2027-40b1-93a0-c4fcb14fb6f8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="355" y="0" width="100" height="31" uuid="379c3588-3d73-4c04-a583-7e85ab0dc679"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="2" y="5" width="250" height="20" forecolor="#CC6600" uuid="1c2cf601-8e41-4ceb-83cb-ef1441f47f14"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOME EMPRESA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="257" y="5" width="95" height="20" forecolor="#CC6600" uuid="808fa24a-f294-49fc-85b8-aa107ca3a689"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA AVISO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="357" y="5" width="95" height="20" forecolor="#CC6600" uuid="f049ea6d-2378-4175-9858-50e246101bc4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="457" y="5" width="95" height="20" forecolor="#CC6600" uuid="726e56dc-6dd9-4a62-a77b-5a679e6f407f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[VISUALIZADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="38" splitType="Stretch">
+			<rectangle>
+				<reportElement style="Row" x="0" y="0" width="256" height="31" uuid="e5197e91-3aca-49b1-be5c-3de65c1baa94"/>
+			</rectangle>
+			<rectangle>
+				<reportElement style="Row" x="456" y="0" width="100" height="31" uuid="329c22ce-7f15-4cf1-acd8-9901a13ab101"/>
+			</rectangle>
+			<rectangle>
+				<reportElement style="Row" x="256" y="0" width="100" height="31" uuid="43f50cf2-6f0f-4e16-b122-46e015b8374b"/>
+			</rectangle>
+			<rectangle>
+				<reportElement style="Row" x="356" y="0" width="100" height="31" uuid="44f04f2c-191c-4f02-957f-781b9f9b9b2d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="4" y="5" width="248" height="20" uuid="96ab7186-bf35-4af1-9e09-5385527b9dc1"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="257" y="5" width="95" height="20" uuid="6fad8a54-c405-4275-8858-d8043e7b93a3"/>
+				<textFieldExpression><![CDATA[$F{dataAviso}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="359" y="5" width="93" height="20" uuid="4c08fe30-6346-4b10-9bcd-f3c5dfe9c671"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="459" y="5" width="93" height="20" uuid="eed63c80-8d77-4dad-a990-2e560fbbafbb"/>
+				<textFieldExpression><![CDATA[$F{visualizado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="28">
+			<textField>
+				<reportElement x="435" y="0" width="80" height="20" uuid="d3749cea-90bb-4da8-abc7-c0f23833dae0"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="20" uuid="037d50ac-4351-4e64-8618-18eccd8d5d0c"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

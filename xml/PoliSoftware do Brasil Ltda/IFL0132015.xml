@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0132015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>PoliSoftware do Brasil Ltda</RazaoSocial>
+            <Cnpj>05033191000101</Cnpj>
+            <Ie>9034310324</Ie>
+            <Endereco>
+                <Logradouro>Rua Tamoio Loja 100</Logradouro>
+                <Numero>113</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Pato Branco</Municipio>
+                <Uf>PR</Uf>
+                <Cep>85501067</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>Alcemar J. Dalcortivo</Nome>
+                <Cpf>02754236970</Cpf>
+                <Telefone>4632255467</Telefone>
+                <Email>alcemar@polisoftware.com.br</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>Alcemar J. Dalcortivo</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-05-27-03:00</DataInicio>
+                <DataFim>2015-05-28-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>POLIPDV</NomeComercial>
+            <Versao>2.4</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>POLIPDV.EXE</Nome>
+                <Md5>67522146983aff6df2b7b75ea1de96e9</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>POLIPDV_MD5.txt</Nome>
+                <Md5>25800a7e61e40ff6e4a1a1bdc872d302</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>POLIPDV.exe</Nome>
+                    <Md5>67522146983aff6df2b7b75ea1de96e9</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>Concentrador.exe</Nome>
+                    <Md5>ba8079916b7c26f59c7a3ccb8a331613</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>VEGA.exe</Nome>
+                    <Md5>8aae3f5a3239ed2c92ad42e27c87b74e</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ACONTAWIN.exe</Nome>
+                    <Md5>4bbe09d25887f688922dac46a5f639dc</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>POLIFISC.exe</Nome>
+                    <Md5>e36c43abbd9429cd96beeb9d2cc308aa</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>BemaFI32.dll</Nome>
+                    <Md5>b82f4a3f246c2055e0a789efefa9078b</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>BemaMFD2.dll</Nome>
+                    <Md5>9fcae7d1de0595724d6cfa7e55748775</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>Elgin.dll</Nome>
+                    <Md5>a474dfd6ba22c77e52c7d50724f0651e</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>DarumaFramework.dll</Nome>
+                    <Md5>1db71d0c2bc46d4ac721505902b52218</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>DLLG2.dll</Nome>
+                    <Md5>871ed54823cea664a2f0cc687d0b88b0</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>CONVECF.dll</Nome>
+                    <Md5>9bc06c21c90c32776e508a934959909b</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>InterfaceEpson.dll</Nome>
+                    <Md5>36cc1754fec56a7eef4475283794a319</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>relacao.txt</Nome>
+                    <Md5>efbed79decdf248e775f37ca7510ecb9</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7773957</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Delphi</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>SQL Server</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Parametrizável</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo sistema de retaguarda</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+                <Modo>Não concomitante, com emissão de DAV</Modo>
+                <Modo>Não concomitante, com controle de pré-venda</Modo>
+                <Modo>Não concomitante, com controle de conta de cliente</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Recuperação de dados</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Oficina de conserto com DAV-OS</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-normal e balança interligada</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-normal e sem balança interligada</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>POLIPDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PoliSoftware do Brasil Ltda.</RazaoSocial>
+                    <Cnpj>05033191000101</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>VEGA.exe</Nome>
+                        <Md5>8aae3f5a3239ed2c92ad42e27c87b74e</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>Requisito II e IV.</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                    <ArquivoExecutavel>
+                        <Nome>ACONTAWIN.exe</Nome>
+                        <Md5>4bbe09d25887f688922dac46a5f639dc</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>Requisito II e IV.</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>POLIPDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PoliSoftware do Brasil Ltda</RazaoSocial>
+                    <Cnpj>05033191000101</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>POLIFISC.exeeeeee</Nome>
+                        <Md5>e36c43abbd9429cd96beeb9d2cc308aa</Md5>
+                        <Funcao>Sped/Sintegra/Documentos/Livros</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>POLIPDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>PoliSoftware do Brasil Ltda.</RazaoSocial>
+                    <Cnpj>05033191000101</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>VEGA.exe</Nome>
+                        <Md5>8aae3f5a3239ed2c92ad42e27c87b74e</Md5>
+                        <Funcao>--</Funcao>
+                    </ArquivoExecutavel>
+                    <ArquivoExecutavel>
+                        <Nome>ACONTAWIN.exe</Nome>
+                        <Md5>4bbe09d25887f688922dac46a5f639dc</Md5>
+                        <Funcao>--</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI BE091010100010045187</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST120</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST200</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST2500</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>3202DT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>MT100</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN</Marca>
+                <Modelo>ECF IF 500 1E</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>X5</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>IF 6000TH</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>K</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1FIT LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2ECF</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0202</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0202</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>X</Requisito>
+                <Item>--</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2b</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2c</Item>
+                <Descricao>Ausência de Clientes na Paraíba.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2</Item>
+                <Descricao>Ausência de Clientes em Minas Gerais.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IXxxxxxxx</Requisito>
+                <Item>2a</Item>
+                <Descricao>Ausência de Clientes no Rio de Janeiro.</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-05-28-03:00</Data>
+            <Local>Londrina, PR</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Sergio Akio Tanaka</Nome>
+            <Cargo>Coordenador</Cargo>
+            <Cpf>73183920930</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

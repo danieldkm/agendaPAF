@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<BorderPane fx:id="principalId" maxHeight="600.0" maxWidth="800.0" onMouseMoved="#mouseMovedPrincipal" prefHeight="600.0" prefWidth="800.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.PrincipalController">
+    <bottom>
+        <HBox prefHeight="24.0" prefWidth="800.0" spacing="10.0">
+            <children>
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #FFD119;&#10;" />
+                <Label text="Concluído" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #E81919;" />
+                <Label text="Não Compareceu" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #0066FF;&#10;" />
+                <Label text="Data Agendada" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #99FF99;&#10;" />
+                <Label text="Pendente" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #FF9900;" />
+                <Label text="Data Atual" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: #CCCCFF;" />
+                <Label text="Cancelado" />
+                <Pane prefHeight="24.0" prefWidth="35.0" style="-fx-background-color: linear-gradient(from 20px 30px to 15px 30px, reflect, #5D5B59 30%, transparent 20%)" />
+                <Label text="Feriados" />
+            </children>
+        </HBox>
+    </bottom>
+    <center>
+        <SplitPane fx:id="spPane" dividerPositions="0.7456140350877193" focusTraversable="true" onMouseMoved="#mouseMovedPrincipal" prefHeight="552.0" prefWidth="786.0" BorderPane.alignment="CENTER">
+            <items>
+                <BorderPane prefHeight="550.0" prefWidth="695.0">
+               <center>
+                        <Pane fx:id="pane" onMouseMoved="#mouseMovedPrincipal" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                            <BorderPane.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                            </BorderPane.margin>
+                        </Pane>
+               </center>
+                </BorderPane>
+                <BorderPane minWidth="107.0" prefHeight="550.0" prefWidth="107.0">
+                    <bottom>
+                        <HBox prefHeight="150.0" prefWidth="200.0">
+                            <children>
+                                <ImageView fitHeight="113.25" fitWidth="132.337072257536" pickOnBounds="true" preserveRatio="true">
+                                    <image>
+                                        <Image url="@../image/logoPAFECFUNIFIL.png" />
+                                    </image>
+                                </ImageView>
+                                <TextArea fx:id="txtArea2" editable="false" onMouseMoved="#mouseMovedPrincipal" onMousePressed="#setOnMousePressedTextArea" prefWidth="1000.0" text="Atalhos:&#10;Ctrl + A = Cadastro de agenda&#10;Ctrl + E = Cadastro de Empresa&#10;Ctrl + U = Cadastro de Usuário&#10;Ctrl + R = Tela de Relatório&#10;Ctrl + S = Calendario Semestral&#10;Ao clicar em uma celula o conteúdo dela irá travar no campo &quot;Empresas do dia&quot; ao clicar mais uma vez em qualquer celula destrava e volta ao normal." wrapText="true" />
+                            </children>
+                        </HBox>
+                    </bottom>
+                    <center>
+                        <TextArea fx:id="txtArea" editable="false" onMouseMoved="#mouseMovedPrincipal" prefHeight="357.0" prefWidth="99.0" style="-fx-background-color: ;" text="" wrapText="true">
+                            <BorderPane.margin>
+                                <Insets fx:id="x1" />
+                            </BorderPane.margin>
+                        </TextArea>
+                    </center>
+                    <top>
+                        <Label text="Empresas do dia:" />
+                    </top>
+                </BorderPane>
+            </items>
+         <BorderPane.margin>
+            <Insets fx:id="x2" />
+         </BorderPane.margin>
+        </SplitPane>
+    </center>
+    <top>
+        <MenuBar>
+            <menus>
+                <Menu fx:id="mCadastros" mnemonicParsing="false" text="Cadastros">
+                    <items>
+                        <MenuItem fx:id="miCadastroEmpresa" mnemonicParsing="false" onAction="#iniciarCadastroEmpresa" text="Empresa (ctrl+e)" />
+                        <MenuItem fx:id="miCadastroUsuario" mnemonicParsing="false" onAction="#iniciarCadastroUsuario" text="Usuário (ctrl+u)" />
+                        <MenuItem fx:id="miCadastroAgenda" mnemonicParsing="false" onAction="#iniciarCadastroAgenda" text="Agenda (ctrl+a)" />
+                        <MenuItem fx:id="miFeriado" mnemonicParsing="false" onAction="#iniciarCadastroFeriado" text="Feriado" />
+                        <MenuItem fx:id="miFinanceiro" mnemonicParsing="false" onAction="#iniciarCadastroFinanceiro" text="Financeiro" />
+                  <MenuItem fx:id="miLaudo" mnemonicParsing="false" onAction="#iniciarCadastroLaudo" text="Laudo" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Consultas">
+                    <items>
+                        <MenuItem fx:id="miConsultarHistorico" mnemonicParsing="false" onAction="#iniciarConsultaHistorico" text="Histórico" />
+                        <MenuItem fx:id="miConsultaAgenda" mnemonicParsing="false" onAction="#iniciarConsultaAgenda" text="Agenda" />
+                        <MenuItem fx:id="miConsultaEmpresa" mnemonicParsing="false" onAction="#iniciarConsultaEmpresa" text="Empresa" />
+                        <MenuItem fx:id="miConsultaEmpresasHomologadas" mnemonicParsing="false" onAction="#iniciarConsultaEmpresasHomologadas" text="Empresas Homologadas" />
+                    </items>
+                </Menu>
+                <Menu fx:id="mRelatorio" mnemonicParsing="false" text="Relatórios">
+                    <items>
+                        <MenuItem fx:id="miConfigurar" mnemonicParsing="false" onAction="#iniciarRelatorio" text="Configurar dados" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Ajuda">
+                    <items>
+                        <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#sobre" text="Sobre" />
+                    </items>
+                </Menu>
+                <Menu fx:id="mSair" mnemonicParsing="false" text="Sair">
+                    <items>
+                        <MenuItem fx:id="miLogout" mnemonicParsing="false" onAction="#setOnActionMenuLogout" text="Logout" />
+                    </items>
+                </Menu>
+                <Menu fx:id="mSincronizar" mnemonicParsing="false" onAction="#onActionMSincronizar" text="Sincronizar" visible="false">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Iniciar sincronismo" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+</BorderPane>

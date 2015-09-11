@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:id="mainMotivo" prefHeight="300.0" prefWidth="353.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.MotivoReagendamentoController">
+  <bottom>
+    <HBox alignment="BOTTOM_RIGHT" prefHeight="60.0" prefWidth="353.0" spacing="10.0" style="-fx-background-color: #AEFCD5;&#10;">
+      <children>
+        <Button fx:id="btnContinuar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnContinuar" styleClass="button-raised" text="Continuar" />
+        <Button fx:id="btnCancelar" cancelButton="true" mnemonicParsing="false" onAction="#actionBtnCancelar" styleClass="button-raised" text="Cancelar" />
+      </children>
+      <padding>
+        <Insets bottom="10.0" right="10.0" />
+      </padding>
+      <BorderPane.margin>
+        <Insets />
+      </BorderPane.margin>
+    </HBox>
+  </bottom>
+  <center>
+    <TextArea fx:id="txtaTexto" prefWidth="200.0" wrapText="true">
+      <BorderPane.margin>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+      </BorderPane.margin>
+    </TextArea>
+  </center>
+</BorderPane>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.*?>
+
+<BorderPane fx:id="mainMotivo" prefHeight="227.0" prefWidth="344.0" style="-fx-background-color: #FFFF99;&#10;" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.VisualizadorMotivoController">
+    <center>
+        <TextArea fx:id="txtMotivo" prefWidth="200.0" style="-fx-background-color: #FFFF99;" wrapText="true">
+            <effect>
+                <DropShadow height="6.888888888888889" radius="2.9444444444444446" width="6.888888888888889" />
+            </effect>
+            <BorderPane.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </BorderPane.margin>
+        </TextArea>
+    </center>
+</BorderPane>

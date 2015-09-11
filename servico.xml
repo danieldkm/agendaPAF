@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<com.sun.javafx.collections.ObservableListWrapper>
+  <changeBuilder>
+    <list class="com.sun.javafx.collections.ObservableListWrapper" reference="../.."/>
+    <changeLock>0</changeLock>
+    <addRemoveChanges/>
+  </changeBuilder>
+  <backingList>
+    <servico>
+      <id>1</id>
+      <nome>Avaliação</nome>
+      <valor>2106.0</valor>
+    </servico>
+    <servico>
+      <id>2</id>
+      <nome>Avaliação - Intinerante</nome>
+      <valor>2538.0</valor>
+    </servico>
+    <servico>
+      <id>3</id>
+      <nome>Pré-Avaliacação</nome>
+      <valor>1058.0</valor>
+    </servico>
+    <servico>
+      <id>4</id>
+      <nome>Pré-Avaliacação - Remoto</nome>
+      <valor>1058.0</valor>
+    </servico>
+    <servico>
+      <id>5</id>
+      <nome>Hora Adicional</nome>
+      <valor>151.0</valor>
+    </servico>
+  </backingList>
+</com.sun.javafx.collections.ObservableListWrapper>

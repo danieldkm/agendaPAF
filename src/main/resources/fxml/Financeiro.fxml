@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.*?>
+<?import java.net.*?>
+
+<VBox fx:id="mainFinanceiro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="467.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.FinanceiroController">
+    <children>
+      <HBox alignment="CENTER" style="-fx-background-color: #AEFCD5;">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="120.0" prefWidth="68.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label fx:id="lblAgenda" text="Financeiro" textAlignment="LEFT" wrapText="false">
+                     <effect>
+                        <Reflection />
+                     </effect>
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="32.0" />
+                     </font>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="120.0" prefWidth="0.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <HBox.margin>
+                  <Insets right="10.0" />
+               </HBox.margin>
+               <children>
+                          <Button fx:id="btnParametro" mnemonicParsing="false" onAction="#iniciarCadastroParametro" text="Parâmetro">
+                              <effect>
+                                  <InnerShadow />
+                              </effect>
+                          </Button>
+                  <ImageView fitHeight="120.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/logoPAFECFUNIFIL.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </HBox>
+         </children>
+         <effect>
+            <Reflection fraction="0.59" topOpacity="0.49" />
+         </effect>
+      </HBox>
+        <GridPane VBox.vgrow="ALWAYS">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <VBox.margin>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="25.0" />
+            </VBox.margin>
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Label text="Buscar empresa:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="20.0" GridPane.columnIndex="1">
+                    <children>
+                        <TextField fx:id="txtBuscarEmpresa" editable="false" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnBuscarEmpresa" defaultButton="true" mnemonicParsing="false" onAction="#actionBuscarEmpresa" text="Buscar" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
+                    <children>
+                        <Label text="Tipo de serviço:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <children>
+                        <ComboBox fx:id="cbTipoServico" onAction="#actionCbTipoServico" prefHeight="26.0" prefWidth="372.0" HBox.hgrow="ALWAYS">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Avaliação" />
+                                    <String fx:value="Avaliação - Intinerante" />
+                                    <String fx:value="Pré-Avaliação" />
+                                    <String fx:value="Pré-Avaliação - Remoto" />
+                                    <String fx:value="Pré-Avaliação - Intinerante" />
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+                    <children>
+                        <Label text="Horas adicionais:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <children>
+                        <TextField fx:id="txtHoraAdicional" disable="true" onKeyPressed="#actionTxtHoraAdicional" onKeyReleased="#actionTxtHoraAdicional" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
+                    <children>
+                        <Label text="Categoria:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                    <children>
+                        <ComboBox fx:id="cbCategoria" onAction="#actionCbCategoria" prefHeight="26.0" prefWidth="325.0" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
+                    <children>
+                        <Label text="Valor pago:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                    <children>
+                        <TextField fx:id="txtValorPago" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
+                    <children>
+                        <Label text="Número do laudo:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                    <children>
+                        <TextField fx:id="txtLaudo" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
+                    <children>
+                        <Label text="Data inicial:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                    <children>
+                        <DatePicker fx:id="dtInicial" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="7">
+                    <children>
+                        <Label text="Data final:" HBox.hgrow="ALWAYS">
+                            <font>
+                                <Font name="Arial" size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                    <children>
+                        <DatePicker fx:id="dtFinal" HBox.hgrow="ALWAYS" />
+                    </children>
+                </HBox>
+            </children>
+        </GridPane>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="30.0">
+            <children>
+                <Button fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" style="-fx-background-radius: 30; -fx-background-insets: 0,1,2,3,0;" styleClass="button-raised" text="Salvar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial Bold" size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnBuscarFinanceiro" mnemonicParsing="false" onAction="#iniciarTabelaFinanceiro" prefHeight="50.0" styleClass="button-raised" text="Buscar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionBtnLimpar" prefHeight="50.0" styleClass="button-raised" text="Limpar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+                <Button fx:id="btnDeletar" cancelButton="true" mnemonicParsing="false" onAction="#actionBtnDeletar" prefHeight="50.0" style="-fx-border-radius: 10;" styleClass="button-raised" text="Deletar" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font name="Arial" size="18.0" />
+                    </font>
+                </Button>
+            </children>
+        </HBox>
+    </children>
+</VBox>
