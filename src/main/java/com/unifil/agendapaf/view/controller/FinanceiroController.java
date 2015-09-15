@@ -46,9 +46,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            if (utilDialog == null) {
-                utilDialog = new UtilDialog();
-            }
+            System.out.println("Iniciar initialize: Tela Financeiro");
             mainFinanceiro.setOnKeyReleased(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent t) {
@@ -57,7 +55,6 @@ public class FinanceiroController extends FXMLController implements Initializabl
                     }
                 }
             });
-            System.out.println("Iniciar initialize: Tela Financeiro");
             servicos = Controller.getServicos();
             categorias = Controller.getCategorias();
             setComboBox();
@@ -82,7 +79,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
             System.out.println("Finalizar initialize: Tela Financeiro");
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
         }
     }
 
@@ -120,7 +117,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
             System.out.println("Finalizar Start: Tela Financeiro");
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start financeiro", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start financeiro", e, "Exception:");
         }
     }
 
@@ -154,7 +151,6 @@ public class FinanceiroController extends FXMLController implements Initializabl
     private boolean isParametro = false;
     private static double valorServico = 0;
     private static double porCategoria = 0;
-    private UtilDialog utilDialog;
 
     @FXML
     private void actionBuscarEmpresa() {
@@ -210,7 +206,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
                         valorServico = valorServico * Integer.parseInt(txtHoraAdicional.getText());
                         n = valorServico + "";
                     } catch (Exception e) {
-                        utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
+                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             } else {
@@ -223,7 +219,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
                             n = (valorServico - (valorServico * (porCategoria / 100))) + "";
                         }
                     } catch (Exception e) {
-                        utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
+                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             }
@@ -273,7 +269,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
                     fs.editar(f);
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
                 } else {
                     Financeiro f = new Financeiro();
                     f.setIdEmpresa(empresaEncontrada);
@@ -293,13 +289,13 @@ public class FinanceiroController extends FXMLController implements Initializabl
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
                     fs.salvar(f);
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                 }
                 JPA.em(false).close();
                 actionBtnLimpar();
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
             } catch (Exception e) {
-                utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
+                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
                 e.printStackTrace();
             }
         }
@@ -309,22 +305,22 @@ public class FinanceiroController extends FXMLController implements Initializabl
     private void actionBtnDeletar() {
         if (financeiroEncontrada != null) {
             try {
-                Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
+                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     FinanceiroService fs = new FinanceiroService();
                     fs.deletar(financeiroEncontrada);
                     JPA.em(false).close();
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                     StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
                 }
             } catch (Exception ex) {
                 JPA.em(false).close();
                 Logger.getLogger(FinanceiroController.class.getName()).log(Level.SEVERE, null, ex);
-                utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), ex, "Exception");
+                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), ex, "Exception");
             }
             limpar();
         } else {
-            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FinanceiroErroNaoSelecionado.getMensagem());
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FinanceiroErroNaoSelecionado.getMensagem());
         }
     }
 
@@ -339,21 +335,19 @@ public class FinanceiroController extends FXMLController implements Initializabl
         ValidationSupport validationSupport = new ValidationSupport();
         boolean ok = true;
         String preencher = "";
+        removerStyle();
         if (txtBuscarEmpresa.getText().equals("")) {
-            removerStyle();
             preencher += EnumMensagem.InformeEmpresa.getMensagem() + "\n";
             validationSupport.registerValidator(txtBuscarEmpresa, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             txtBuscarEmpresa.requestFocus();
             ok = false;
         }
         if (cbTipoServico.getSelectionModel().getSelectedItem() == null) {
-            removerStyle();
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbTipoServico, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbTipoServico.requestFocus();
             ok = false;
         } else if (cbTipoServico.getSelectionModel().getSelectedItem().equals("")) {
-            removerStyle();
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbTipoServico, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbTipoServico.requestFocus();
@@ -361,13 +355,11 @@ public class FinanceiroController extends FXMLController implements Initializabl
         }
 
         if (cbCategoria.getSelectionModel().getSelectedItem() == null) {
-            removerStyle();
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbCategoria, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbCategoria.requestFocus();
             ok = false;
         } else if (cbCategoria.getSelectionModel().getSelectedItem().equals("")) {
-            removerStyle();
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbCategoria, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbCategoria.requestFocus();
@@ -375,7 +367,6 @@ public class FinanceiroController extends FXMLController implements Initializabl
         }
 
         if (txtValorPago.getText().equals("") || txtValorPago.getText().contains(".")) {
-            removerStyle();
             preencher += EnumMensagem.FinanceiroTxtValorInvalido.getMensagem() + "\n";
             validationSupport.registerValidator(txtValorPago, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             txtValorPago.requestFocus();
@@ -386,15 +377,28 @@ public class FinanceiroController extends FXMLController implements Initializabl
             try {
                 int n = Integer.parseInt(txtHoraAdicional.getText());
             } catch (Exception e) {
-                removerStyle();
-                preencher += EnumMensagem.FinanceiroHoraAdicionalInvalido + "\n";
+                preencher += EnumMensagem.FinanceiroHoraAdicionalInvalido.getMensagem() + "\n";
                 validationSupport.registerValidator(txtHoraAdicional, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
                 txtHoraAdicional.requestFocus();
                 ok = false;
             }
         }
+        if (dtInicial.getValue() == null) {
+            preencher += EnumMensagem.FinanceiroDataInicialInvalido.getMensagem() + "\n";
+            validationSupport.registerValidator(dtInicial, Validator.createEmptyValidator(EnumMensagem.RequerDtInicial.getMensagem()));
+            dtInicial.requestFocus();
+            ok = false;
+        }
+
+        if (dtFinal.getValue() == null) {
+            preencher += EnumMensagem.FinanceiroDataFinalInvalido.getMensagem() + "\n";
+            validationSupport.registerValidator(dtFinal, Validator.createEmptyValidator(EnumMensagem.RequerDtFinal.getMensagem()));
+            dtInicial.requestFocus();
+            ok = false;
+        }
+
         if (!ok) {
-            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }
@@ -405,6 +409,8 @@ public class FinanceiroController extends FXMLController implements Initializabl
         txtValorPago.setStyle(null);
         cbCategoria.setStyle(null);
         cbTipoServico.setStyle(null);
+        dtInicial.setStyle(null);
+        dtFinal.setStyle(null);
 
     }
 

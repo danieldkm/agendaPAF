@@ -21,7 +21,7 @@ import org.controlsfx.dialog.LoginDialog;
  */
 public class UtilDialog {
 
-    public void criarDialogException(String titulo, String subtitulo, String informacao, Object ex, String tituloException) {
+    public static void criarDialogException(String titulo, String subtitulo, String informacao, Object ex, String tituloException) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(titulo);
         alert.setHeaderText(subtitulo);
@@ -61,7 +61,7 @@ public class UtilDialog {
         alert.showAndWait();
     }
 
-    public void criarDialogInfomation(String titulo, String subtitulo, String informacao) {
+    public static void criarDialogInfomation(String titulo, String subtitulo, String informacao) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(subtitulo);
@@ -75,7 +75,7 @@ public class UtilDialog {
 //        dialogPane.getStyleClass().add("myDialog");
     }
 
-    public Optional<ButtonType> criarDialogConfirmacao(String titulo, String subtitulo, String informacao) {
+    public static Optional<ButtonType> criarDialogConfirmacao(String titulo, String subtitulo, String informacao) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle(titulo);
         alert.setHeaderText(subtitulo);
@@ -92,7 +92,7 @@ public class UtilDialog {
          */
     }
 
-    public void criarDialogWarning(String titulo, String subtitulo, String informacao) {
+    public static void criarDialogWarning(String titulo, String subtitulo, String informacao) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle(titulo);
         alert.setHeaderText(subtitulo);
@@ -104,7 +104,7 @@ public class UtilDialog {
         alert.showAndWait();
     }
 
-    public String criarDialogInput(String titulo, String subTitulo, String confirmacao) {
+    public static String criarDialogInput(String titulo, String subTitulo, String confirmacao) {
         TextInputDialog dlg = new TextInputDialog("");
         dlg.setTitle(titulo);
 
@@ -118,7 +118,7 @@ public class UtilDialog {
         return dlg.getResult();
     }
 
-    public Pair<String, String> criarLoginDialog() {
+    public static Pair<String, String> criarLoginDialog() {
 //        Pair<String, String> p = new Pair<>("Usu�rio","Senha");
         LoginDialog dlg = new LoginDialog(null, null);
         dlg.setTitle("Login");
