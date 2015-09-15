@@ -12,7 +12,7 @@
 <?import javafx.collections.*?>
 <?import javafx.scene.control.cell.*?>
 
-<VBox fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="924.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.LaudoController">
+<VBox fx:id="main" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="628.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.LaudoController">
     <children>
         <HBox alignment="CENTER" maxHeight="125.0" prefHeight="0.0" prefWidth="800.0" spacing="20.0" style="-fx-background-color: #AEFCD5;" VBox.vgrow="ALWAYS">
             <children>

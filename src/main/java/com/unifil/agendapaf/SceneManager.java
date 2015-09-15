@@ -6,6 +6,8 @@ import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
@@ -14,8 +16,12 @@ import javafx.stage.WindowEvent;
  */
 public class SceneManager {
 
+    private VBox loginLayout;
+
     private MainApp application;
     private static SceneManager instance;
+
+    private LoginController loginController;
 
     private SceneManager() {
     }
@@ -28,29 +34,37 @@ public class SceneManager {
     }
 
     void setPrimaryStage(MainApp aThis) {
-        this.application = application;
+        this.application = aThis;
         initPrimaryStage();
 
     }
 
     private void initPrimaryStage() {
+        showLogin();
+    }
+
+    public void showLogin() {
 
         try {
-//            stage = primaryStage;
-//            System.out.println("EnumCaminho.Login.getCaminho() " + EnumCaminho.Login.getCaminho());
-//            MainLogin = FXMLLoader.load(LoginController.class.getResource(EnumCaminho.Login.getCaminho()));
-//            Scene s = new Scene(MainLogin);
-//            stage.setScene(s);
-//            stage.setTitle("Agenda PAF-ECF");
-//            stage.setResizable(false);
-//            stage.show();
-//            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//
-//                @Override
-//                public void handle(WindowEvent t) {
-//                    JPA.getFactory().close();
-//                }
-//            });
+
+            Stage rootStage = this.application.getStage();
+            FXMLLoader rootLoader = new FXMLLoader();
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.Login.getCaminho()));
+            loginLayout = (VBox) rootLoader.load();
+            loginController = rootLoader.getController();
+            loginController.setStage(rootStage);
+
+            Scene s = new Scene(loginLayout);
+            rootStage.setScene(s);
+            rootStage.setTitle("Agenda PAF-ECF");
+            rootStage.setResizable(false);
+            rootStage.show();
+            rootStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    JPA.getFactory().close();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }

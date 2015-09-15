@@ -11,7 +11,7 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <mainClass>com.unifil.agendapaf.view.controller.LoginController</mainClass>
+        <mainClass>com.unifil.agendapaf.MainApp</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate.version>4.3.10.Final</hibernate.version>
     </properties>
@@ -38,7 +38,7 @@
                             </descriptorRefs>
                             <archive>
                                 <manifest>
-                                    <mainClass>com.unifil.agendapaf.view.controller.LoginController</mainClass>
+                                    <mainClass>com.unifil.agendapaf.MainApp</mainClass>
                                 </manifest>
                             </archive>
                         </configuration>

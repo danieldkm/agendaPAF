@@ -230,9 +230,6 @@ public class EmpresaController extends FXMLController implements Initializable {
                     e.setEmail(txtEmail.getText());
 
                     if (cbEstado.getValue() == null || cbEstado.getValue().equals("")) {
-//                        System.out.println("nada");
-//                        e.setEstado("nd");
-//                        e.setCidade("nd");
                         e.setIdCidade(null);
                     } else {
                         e.setIdCidade(cbCidade.getValue());
@@ -331,8 +328,6 @@ public class EmpresaController extends FXMLController implements Initializable {
     @FXML
     private void onKeyReleasedCbEstado(KeyEvent ke) {
         txtEstado += ke.getText().toLowerCase();
-        System.out.println("ke.getText() " + ke.getText());
-        System.out.println("ke.getCode() " + ke.getCode());
         if (ke.getCode() == KeyCode.ENTER) {
             if (cbEstado.getValue() != null) {
                 addCidade(cbEstado.getValue().toString());

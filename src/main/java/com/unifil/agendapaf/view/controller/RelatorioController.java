@@ -612,10 +612,10 @@ public class RelatorioController extends FXMLController implements Initializable
         System.out.println("ANO - " + ano);
         ObservableList<Financeiro> listaFinanceiro = Controller.getFinanceiros();
         for (Financeiro fi : listaFinanceiro) {
-            if (UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).getMonth() == 0) {
-                System.out.println("FIIII " + fi.getValorPago());
-                System.out.println("FINANCEIRO mes de janeiro " + fi);
-            }
+//            if (UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).getMonth() == 0) {
+//                System.out.println("FIIII " + fi.getValorPago());
+//                System.out.println("FINANCEIRO mes de janeiro " + fi);
+//            }
             if (UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).after(new java.sql.Date(ano, 0, 0)) && UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).before(new java.sql.Date(ano, 0, 32))) {
                 setAnual(fi, 1);
             }

@@ -173,7 +173,7 @@ public class PrincipalController extends FXMLController implements Initializable
         System.out.println("logout");
         isLogout = true;
         stage.close();
-        RunAnotherApp.runAnotherApp(LoginController.class);
+//        RunAnotherApp.runAnotherApp(LoginController.class);
     }
 
     @FXML

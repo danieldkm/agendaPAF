@@ -45,16 +45,13 @@ import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import javafx.util.Pair;
 
-public class LoginController extends Application implements Initializable {
+public class LoginController {
 
-    public static void main(String[] args) {
-//        launch(args);
-        Application.launch(LoginController.class, (java.lang.String[]) null);
-
+    public LoginController() {
     }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    
+    @FXML
+    public void initialize() {
         if (dialog == null) {
             dialog = new UtilDialog();
         }
@@ -62,14 +59,7 @@ public class LoginController extends Application implements Initializable {
         btnLocal.setTooltip(new Tooltip("BD Local"));
         btnServidor.setTooltip(new Tooltip("BD Servidor"));
         btnFerramenta.setTooltip(new Tooltip("Configurar conexão"));
-//        MainLogin.setOnKeyReleased(new EventHandler<KeyEvent>() {
-//            @Override
-//            public void handle(KeyEvent t) {
-//                if (t.getCode() == KeyCode.ESCAPE) {
-//                    stage.close();
-//                }
-//            }
-//        });
+        
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -112,54 +102,6 @@ public class LoginController extends Application implements Initializable {
 
         logo.toBack();
         conectarComBD();
-    }
-
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        try {
-//            try {//TODO habilitar apos finalizar ;;
-//                fxmlController.setLogs("LoginController");
-//            } catch (IOException ex) {
-//                ex.printStackTrace();
-//            }
-            stage = primaryStage;
-            System.out.println("EnumCaminho.Login.getCaminho() " + EnumCaminho.Login.getCaminho());
-            MainLogin = FXMLLoader.load(LoginController.class.getResource(EnumCaminho.Login.getCaminho()));
-//            iniciarLogin();
-            Scene s = new Scene(MainLogin);
-            stage.setScene(s);
-            stage.setTitle("Agenda PAF-ECF");
-            stage.setResizable(false);
-            stage.show();
-//            stage.toFront();
-//            File exeFile = new File("");
-//            System.out.println(exeFile.getAbsolutePath()+ "/agendaPAF_ECF.ico");
-//            Controller.icoPAF = new Image(exeFile.getAbsolutePath() + "/agendaPAF_ECF.ico");
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent t) {
-                    JPA.getFactory().close();
-                }
-            });
-//            stage.setOnHidden(new EventHandler<WindowEvent>() {
-//                @Override
-//                public void handle(WindowEvent t) {
-////                    System.out.println("HIDE");
-//                }
-//            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    private void iniciarSincrinizacaoBD() {
-        try {
-//            RunAnotherApp.runAnotherApp(SincronizarBDController.class);
-//            SincronizarBDController profile = (SincronizarBDController) replaceSceneContent("/view/SincronizarBD.fxml");
-        } catch (Exception e) {
-        }
     }
 
     private static Stage stage;
@@ -432,5 +374,9 @@ public class LoginController extends Application implements Initializable {
 
         stage.sizeToScene();
         return (Initializable) loader.getController();
+    }
+
+    public void setStage(Stage rootStage) {
+        this.stage = rootStage;
     }
 }

@@ -13,9 +13,6 @@
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
          <children>
             <Label fx:id="lblAgenda" text="Texto" textAlignment="LEFT" wrapText="false">
-               <effect>
-                  <Reflection />
-               </effect>
                <font>
                   <Font name="Arial Rounded MT Bold" size="32.0" />
                </font>

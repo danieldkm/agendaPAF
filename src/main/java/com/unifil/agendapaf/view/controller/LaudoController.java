@@ -90,6 +90,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javassist.bytecode.annotation.EnumMemberValue;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.Wizard.LinearFlow;
@@ -115,13 +116,12 @@ public class LaudoController extends FXMLController implements Initializable {
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtTelefone);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCEP);
-        
+
 //        try {//TODO habilitar apos finalizar ;
 //            FXMLController.setLogs("LaudoController");
 //        } catch (IOException ex) {
 //            ex.printStackTrace();
 //        }
-
         if (utilDialog == null) {
             utilDialog = new UtilDialog();
         }
@@ -147,7 +147,7 @@ public class LaudoController extends FXMLController implements Initializable {
             Scene scene = new Scene(main);
             stage.setScene(scene);
             stage.setTitle("Laudo");
-            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.toFront();
 //            stage.getIcons().add(Controller.icoPAF);
@@ -1614,16 +1614,22 @@ public class LaudoController extends FXMLController implements Initializable {
 
     @FXML
     private void actionCbEMarca() {
+        cb1.getItems().clear();
+        cb2.getItems().clear();
         ObservableList<String> liModelo = FXCollections.observableArrayList();
         if (mct != null) {
             for (MarcaModeloType mmt : mct.getMarcaModelo()) {
                 if (ecfU.isSelected()) {
                     if (mmt.getMarca().equals(eCbMarca.getValue().toString())) {
-                        liModelo.add(mmt.getModelo());
+                        if (!liModelo.contains(mmt.getModelo())) {
+                            liModelo.add(mmt.getModelo());
+                        }
                     }
                 } else if (relacaoE.isSelected()) {
                     if (mmt.getMarca().equals(rCbMarca.getValue().toString())) {
-                        liModelo.add(mmt.getModelo());
+                        if (!liModelo.contains(mmt.getModelo())) {
+                            liModelo.add(mmt.getModelo());
+                        }
                     }
                 }
             }
@@ -1687,6 +1693,9 @@ public class LaudoController extends FXMLController implements Initializable {
         }
     }
 
+    private boolean existe = false;
+    private String msgExiste;
+
     @FXML
     private void actionBtnEAdd() {
         ObservableList<MarcaModeloType> lmmt = null;
@@ -1696,19 +1705,38 @@ public class LaudoController extends FXMLController implements Initializable {
                 lmmt = eTvTabela.getItems();
                 if (cbSelecionarTodos.isSelected()) {
                     for (String s : cb1.getItems()) {
-                        mmt = new MarcaModeloType();
-                        mmt.setMarca(eCbMarca.getValue().toString());
-                        mmt.setModelo(s);
-                        lmmt.add(mmt);
+                        existe = false;
+                        lmmt.stream().forEach((string) -> {
+                            if (string.getModelo().equals(s)) {//TODO
+                                existe = true;
+                            }
+                        });
+                        if (!existe) {
+                            mmt = new MarcaModeloType();
+                            mmt.setMarca(eCbMarca.getValue().toString());
+                            mmt.setModelo(s);
+                            lmmt.add(mmt);
+                        }
                     }
                 } else {
                     for (String s : cb1.getCheckModel().getCheckedItems()) {
-                        mmt = new MarcaModeloType();
-                        mmt.setMarca(eCbMarca.getValue().toString());
-                        mmt.setModelo(s);
-                        lmmt.add(mmt);
+                        existe = false;
+                        lmmt.stream().forEach((string) -> {
+                            if (string.getModelo().equals(s)) {//TODO
+//                                System.out.println("EXISTE " + string.getModelo());
+//                                System.out.println("SS -> " + s);
+                                existe = true;
+                            }
+                        });
+                        if (!existe) {
+                            mmt = new MarcaModeloType();
+                            mmt.setMarca(eCbMarca.getValue().toString());
+                            mmt.setModelo(s);
+                            lmmt.add(mmt);
+                        } else {
+                            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                        }
                     }
-
                 }
                 eTvTabela.setItems(lmmt);
             } else {
@@ -1719,17 +1747,35 @@ public class LaudoController extends FXMLController implements Initializable {
                 lmmt = tTvTabela.getItems();
                 if (cbSelecionarTodos2.isSelected()) {
                     for (String s : cb2.getItems()) {
-                        mmt = new MarcaModeloType();
-                        mmt.setMarca(rCbMarca.getValue().toString());
-                        mmt.setModelo(s);
-                        lmmt.add(mmt);
+                        existe = false;
+                        lmmt.stream().forEach((string) -> {
+                            if (string.getModelo().equals(s)) {//TODO
+                                existe = true;
+                            }
+                        });
+                        if (!existe) {
+                            mmt = new MarcaModeloType();
+                            mmt.setMarca(rCbMarca.getValue().toString());
+                            mmt.setModelo(s);
+                            lmmt.add(mmt);
+                        }
                     }
                 } else {
                     for (String s : cb2.getCheckModel().getCheckedItems()) {
-                        mmt = new MarcaModeloType();
-                        mmt.setMarca(rCbMarca.getValue().toString());
-                        mmt.setModelo(s);
-                        lmmt.add(mmt);
+                        existe = false;
+                        lmmt.stream().forEach((string) -> {
+                            if (string.getModelo().equals(s)) {//TODO
+                                existe = true;
+                            }
+                        });
+                        if (!existe) {
+                            mmt = new MarcaModeloType();
+                            mmt.setMarca(rCbMarca.getValue().toString());
+                            mmt.setModelo(s);
+                            lmmt.add(mmt);
+                        } else {
+                            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                        }
                     }
 
                 }
