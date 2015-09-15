@@ -90,7 +90,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javassist.bytecode.annotation.EnumMemberValue;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.Wizard.LinearFlow;
@@ -147,7 +146,7 @@ public class LaudoController extends FXMLController implements Initializable {
             Scene scene = new Scene(main);
             stage.setScene(scene);
             stage.setTitle("Laudo");
-//            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initModality(Modality.APPLICATION_MODAL);
             stage.show();
             stage.toFront();
 //            stage.getIcons().add(Controller.icoPAF);
@@ -1738,6 +1737,7 @@ public class LaudoController extends FXMLController implements Initializable {
                         }
                     }
                 }
+                cb1.getCheckModel().clearChecks();
                 eTvTabela.setItems(lmmt);
             } else {
                 utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
@@ -1779,6 +1779,7 @@ public class LaudoController extends FXMLController implements Initializable {
                     }
 
                 }
+                cb2.getCheckModel().clearChecks();
                 tTvTabela.setItems(lmmt);
             } else {
                 utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
