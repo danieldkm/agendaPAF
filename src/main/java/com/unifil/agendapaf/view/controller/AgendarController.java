@@ -63,7 +63,6 @@ public class AgendarController extends FXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            utilDialog = new UtilDialog();
             mainAgendamento.setOnKeyReleased(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent t) {
@@ -74,7 +73,7 @@ public class AgendarController extends FXMLController implements Initializable {
             });
             lblAgenda.setText("Agendamento");
             setOnActionsDts();
-            System.out.println("StaticDates.getDataSelecionada() " + StaticCalendar.getDataSelecionada());
+//            System.out.println("StaticDates.getDataSelecionada() " + StaticCalendar.getDataSelecionada());
             if (StaticCalendar.getDataSelecionada() != null) {
                 dtInicial.setValue(StaticCalendar.getDataSelecionada());
                 setSomarUmDiaDtFinal();
@@ -132,7 +131,7 @@ public class AgendarController extends FXMLController implements Initializable {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar agenda", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar agenda", e, "Exception:");
         }
 
     }
@@ -163,7 +162,7 @@ public class AgendarController extends FXMLController implements Initializable {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start da agenda", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start da agenda", e, "Exception:");
         }
     }
 
@@ -202,18 +201,13 @@ public class AgendarController extends FXMLController implements Initializable {
     private Agenda agendaEncontrada = null;
     private boolean isReagendamento = false;
     private boolean isCancelamento = false;
-    private Agenda a;
     private String motivoReagendamento = "";
     private static Stage stage;
-//    private ObservableList<Agenda> listaTemp = FXCollections.observableArrayList();
-//    private SimpleDateFormat diaSemana2 = new SimpleDateFormat("EEEE");
-//    private SimpleDateFormat dtFormatada = new SimpleDateFormat("yyyy-MM-dd");
     private String alteracao = "";
     private Calendar cale1 = new GregorianCalendar();
     private Calendar cale2 = new GregorianCalendar();
     private SimpleDateFormat diaSemana = new SimpleDateFormat("EEEE");
     private boolean isUpdate = false;
-    private UtilDialog utilDialog;
 
     @FXML
     private void actionBtnSalvar() {
@@ -226,13 +220,13 @@ public class AgendarController extends FXMLController implements Initializable {
                 }
                 if (gravarHistorico() && seConcluido()) {
                     if (isUpdate) {
-                        utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                        UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
                     } else {
-                        utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                        UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                     }
                 }
                 if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())) {
-                    Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
+                    Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
                     if (result.get() == ButtonType.OK) {
                         iniciarCadastroFinanceiro();
                     }
@@ -248,7 +242,7 @@ public class AgendarController extends FXMLController implements Initializable {
                 resetarCampos();
             } catch (Exception e) {
                 e.printStackTrace();
-                utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
             }
         }
     }
@@ -309,7 +303,7 @@ public class AgendarController extends FXMLController implements Initializable {
 
     private void salvarOuAtualizar(boolean atualizar) {
         try {
-            a = new Agenda();
+            Agenda a = new Agenda();
             if (atualizar) {
                 a.setId(agendaEncontrada.getId());
             }
@@ -346,6 +340,7 @@ public class AgendarController extends FXMLController implements Initializable {
                 as.salvar(a);
                 JPA.em(false).close();
             }
+            agendaEncontrada = a;
         } catch (Exception ex) {
             Logger.getLogger(AgendarController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -427,7 +422,7 @@ public class AgendarController extends FXMLController implements Initializable {
         } catch (Exception ex) {
             Logger.getLogger(AgendarController.class
                     .getName()).log(Level.SEVERE, null, ex);
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(),
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(),
                     EnumMensagem.AgendaErroSalvarHistoricoAgenda.getMensagem(), ex, "Exception:");
             System.out.println(
                     "Erro: ao salvar no banco. Metodo: gravarHistorico. classe: AgendarController");
@@ -496,7 +491,7 @@ public class AgendarController extends FXMLController implements Initializable {
                     validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
                             -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
                     dtInicial.requestFocus();
-                    utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                    UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                             EnumMensagem.Aviso.getMensagem() + "\n"
                             + "data final não pode ser de sabado ou domingo");
                     ok = false;
@@ -506,7 +501,7 @@ public class AgendarController extends FXMLController implements Initializable {
                 validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
                 dtInicial.requestFocus();
-                utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem() + "\n"
                         + "data final no mesmo dia da data inicial!!!");
                 ok = false;
@@ -546,7 +541,7 @@ public class AgendarController extends FXMLController implements Initializable {
                         validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                                 -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
                         dtFinal.requestFocus();
-                        utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                                 EnumMensagem.Aviso.getMensagem() + "\n"
                                 + "com data final em dois dias a mais de diferença da data inicial!!!");
                         ok = false;
@@ -555,7 +550,7 @@ public class AgendarController extends FXMLController implements Initializable {
             }
         }
         if (contemFeriado(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()))) {
-            utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "nos feriados");
+            UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "nos feriados");
             ok = false;
         }
         if (cbTipo.getValue().equals(EnumServico.HoraAdicional.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacao.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacaoIntinerante.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacaoRemoto.getServico())) {
@@ -563,7 +558,7 @@ public class AgendarController extends FXMLController implements Initializable {
                 validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
                 dtFinal.requestFocus();
-                utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem()
                         + "\n com data final diferente da data inicial");
                 return false;
@@ -575,7 +570,7 @@ public class AgendarController extends FXMLController implements Initializable {
             } else {
                 validationSupport.registerValidator(cbStatusAgenda, Validator.createEmptyValidator("ComboBox Selection required"));
                 cbStatusAgenda.requestFocus();
-                utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem() + "\n"
                         + "Status inválido, para criar o agendamento sem data,"
                         + "\ntroque o status do agendamento para Pendente");
@@ -589,7 +584,7 @@ public class AgendarController extends FXMLController implements Initializable {
                 dtInicial.requestFocus();
                 validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
-                utilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "\n" + "Prencher a data inicial e/ou final");
+                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "\n" + "Prencher a data inicial e/ou final");
                 ok = false;
             }
         }
@@ -669,7 +664,6 @@ public class AgendarController extends FXMLController implements Initializable {
                 lblAgenda.setText("Reagendamento");
                 dtInicial.setDisable(false);
                 dtFinal.setDisable(false);
-//                cbStatusAgenda.setDisable(true);
             } else if (isCancelamento) {
                 lblAgenda.setText("Cancelamento");
                 dtInicial.setDisable(true);
@@ -689,7 +683,7 @@ public class AgendarController extends FXMLController implements Initializable {
             txtSemana.setText(agendaEncontrada.getDiaSemana());
             String aux = agendaEncontrada.getStatusAgenda();
             aux = Util.porAcentuacaoServico(aux);
-            while (!cbStatusAgenda.getSelectionModel().getSelectedItem().toString().toLowerCase().equals(aux)) {
+            while (!cbStatusAgenda.getSelectionModel().getSelectedItem().toString().equals(aux)) {
                 if (aux.equals(EnumStatus.Reagendada.getStatus()) || aux.equals(EnumStatus.Cancelado.getStatus())
                         || aux.equals(EnumStatus.PendenteWeb.getStatus())) {
                     cbStatusAgenda.getSelectionModel().selectLast();
@@ -697,7 +691,6 @@ public class AgendarController extends FXMLController implements Initializable {
                 } else {
                     cbStatusAgenda.getSelectionModel().selectNext();
                 }
-//                }
             }
             cbStatusBoleto.getSelectionModel().selectFirst();
             String boleto = Util.porAcentuacaoServico(agendaEncontrada.getStatusBoleto());
@@ -716,7 +709,6 @@ public class AgendarController extends FXMLController implements Initializable {
             dtFinal.setValue(agendaEncontrada.getDataFinal());
             if (agendaEncontrada.getDataVencimentoBoleto() != null) {
                 dtVencimentoBoleto.setValue(agendaEncontrada.getDataVencimentoBoleto());
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -793,9 +785,9 @@ public class AgendarController extends FXMLController implements Initializable {
     }
 
     protected void iniciarCadastroFinanceiro() {
-        AgendaService as = new AgendaService();
-        agendaEncontrada = as.findLast();
-        JPA.em(false).close();
+//        AgendaService as = new AgendaService();
+//        agendaEncontrada = as.findLast();
+//        JPA.em(false).close();
         StaticObject.setAgendaEncontrada(agendaEncontrada);
         StaticObject.setEmpresaEncontrada(empresaEncontrada);
         RunAnotherApp.runAnotherApp(FinanceiroController.class

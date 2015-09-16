@@ -197,7 +197,7 @@
 .combo-box-base, .choice-box {
 	-fx-background-color: transparent;
 	-fx-border-color: -swatch-grey;
-	-fx-border-width: 0 0 2 0;
+	-fx-border-width: 1 1 2 1;
 	-fx-background-radius: 0;
 	-fx-border-radius: 0;
 }
@@ -622,7 +622,8 @@
 .spinner .text-field {
 	-fx-background-color: transparent;
 	-fx-background-radius: 0;
-	-fx-border-width: 0;
+	-fx-border-width: 10;
+	-fx-border-color: -swatch-grey;
 	-fx-padding: 0.5em 0.5em 0.5em 0.1em;
 	-fx-prompt-text-fill: derive(-dark, 50.0%);
 	-fx-highlight-fill: rgb(94.0, 203.0, 234.0);
@@ -707,7 +708,8 @@
 	-fx-background-radius: 2.0;
 	-fx-padding: 0.5em 0.5em 0.5em 0.1em;
 	-fx-border-color: -swatch-grey;
-	-fx-border-width: 0 0 2 0;
+	-fx-border-width: 1 1 2 1;
+	/*-fx-border-width: 1;*/
 	/*-fx-prompt-text-fill: derive(-dark, 50.0%);*/
 	-fx-highlight-fill: rgb(94.0, 203.0, 234.0);
 }

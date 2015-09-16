@@ -245,8 +245,7 @@ public class EmpresaController extends FXMLController implements Initializable {
                     e.setInscricaoMunicipal(txtIM.getText());
                     e.setCpf(txtCpf.getText());
                     e.setResponsavelTeste(txtResponsavel.getText());
-
-                    e.setCategoria(cbCategoria.getSelectionModel().getSelectedIndex());
+                    e.setCategoria(((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome());
                     EmpresaService es = new EmpresaService();
                     es.salvar(e);
                     JPA.em(false).close();
@@ -308,7 +307,7 @@ public class EmpresaController extends FXMLController implements Initializable {
 //                    e.setCidade(cbCidade.getValue() + "");
                 }
                 e.setDataCadastro(empresaEncontrada.getDataCadastro());
-                e.setCategoria(cbCategoria.getSelectionModel().getSelectedIndex());
+                e.setCategoria(((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome());
                 EmpresaService es = new EmpresaService();
                 es.editar(e);
                 JPA.em(false).close();
@@ -521,21 +520,9 @@ public class EmpresaController extends FXMLController implements Initializable {
         txtResponsavel.setText(empresaEncontrada.getResponsavelTeste());
         addEstado();
         cbEstado.getSelectionModel().select(empresaEncontrada.getIdCidade().getIdEstado());
-//        cbEstado.getSelectionModel().selectFirst();
-//        while (!cbEstado.getValue().getNome().equals(empresaEncontrada.getIdCidade().getIdEstado().getNome())) {
-//            cbEstado.getSelectionModel().selectNext();
-//        }
         addCidade(cbEstado.getValue().toString());
         cbCidade.getSelectionModel().select(empresaEncontrada.getIdCidade());
-//        cbCidade.getSelectionModel().selectFirst();
-//        if (!empresaEncontrada.getIdCidade().getNome().equals("null")) {
-//            while (!cbCidade.getValue().equals(empresaEncontrada.getIdCidade())) {
-//                cbCidade.getSelectionModel().selectNext();
-//            }
-//        }
-
-//        if (!empresaEncontrada.getEstado().equals("")) {
-//        }
+        cbCategoria.getSelectionModel().select(empresaEncontrada.getCategoria());
     }
 
 }

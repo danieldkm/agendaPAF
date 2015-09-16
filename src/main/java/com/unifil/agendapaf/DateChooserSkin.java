@@ -590,7 +590,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
             }
             if (listaAgenda != null) {
                 if (agenda.getDataInicial() != null) {
-                    if (agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.Avaliacao.getServico())) 
+                    if (agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.Avaliacao.getServico()))
                             || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.AvaliacaoIntinerante.getServico()))) {
                         Calendar ca2 = new GregorianCalendar();
                         ca2.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
@@ -618,9 +618,9 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                         if (ca1.equals(ca3)) {
                             escolherStatus(dayCell, listaAgenda);
                         }
-                    } else if (agenda.getTipo().equals(EnumServico.HoraAdicional.getServico()) 
-                            || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacao.getServico())) 
-                            || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacaoIntinerante.getServico())) 
+                    } else if (agenda.getTipo().equals(EnumServico.HoraAdicional.getServico())
+                            || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacao.getServico()))
+                            || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacaoIntinerante.getServico()))
                             || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacaoRemoto.getServico()))) {
                         Calendar ca2 = new GregorianCalendar();
                         ca2.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
@@ -686,21 +686,15 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 //                    ObservableList<Empresa> listaEmpresas = Conf.getEmpresas();
                     if (ca1.equals(ca2) || ca1.equals(ca3)) {
                         ObservableList<Historico> his = StaticLista.getListaGlobalHistorico();
-                        Long idAgenda;
                         ArrayList<Long> codAgendas = new ArrayList();
-                        String empresasAgendadas = "";
                         String txtAux = "";
                         boolean codExiste = false;
                         for (Historico historico : his) {
                             if (historico.getIdAgenda().getId().equals(agenda.getId())) {
                                 if (historico.getStatus().equals("Reagendada")) {
                                     txtAux += "\nREAGENDAMENTO!";
-//                                    txtAux += "\nEmpresa: " + historico.getIdEmpresa().getDescricao();
-//                                    txtAux += "\nData anterior: " + historico.getDataReagendada();
                                     txtAux += "\nData agendamento: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd-MM-yyyy");
-//                                    txtAux += "\nReagendada: " + historico.getDtInicioReagendada();
                                     txtAux += "\nMotivo: " + historico.getMotivo();
-//                                    txtAux += "\nAlteração: " + historico.getAlteracao();
                                     txtAux += "\nData da alteração: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataAlteracao()), "dd-MM-yyyy");
                                     txtAux += "\n----------------------------\n";
                                 }
@@ -711,9 +705,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                 }
                                 if (!codExiste) {
                                     codAgendas.add(historico.getIdAgenda().getId());
-//                                    codAgendas.add(historico.getCodAgenda());
                                     if (!historico.getStatus().equals("Reagendada")) {
-                                        idAgenda = historico.getIdAgenda().getId();
                                         txtAux += "\nEmpresa: " + historico.getIdEmpresa().getDescricao();
                                         txtAux += "\nData: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd-MM-yyyy");
                                         txtAux += "\nServiço: " + Util.porAcentuacaoServico(historico.getIdAgenda().getTipo());
@@ -723,7 +715,6 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                             txtAux += "\nDt envio Boleto: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(agenda.getDataVencimentoBoleto()), "dd-MM-yyyy");
                                         }
                                         txtAux += "\nUsuário: " + historico.getIdUsuario().getNome();
-//                                        txtAux += "\nCOD Agenda: " + historico.getCodAgenda();
                                         txtAux += "\n----------------------------\n";
                                     }
                                 } else {
@@ -732,7 +723,6 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                             }
                         }
                         textoHistorico += txtAux;
-//                        textoHistorico = empresasAgendadas + "\n" + textoHistorico;
                     }
                 }
                 if (!clickOnCell) {

@@ -323,9 +323,9 @@ public class Empresa implements Externalizable {
         return responsavelTeste;
     }
 
-    private IntegerProperty categoria = new SimpleIntegerProperty(this, "categoria");
+    private StringProperty categoria = new SimpleStringProperty(this, "categoria");
 
-    public Integer getCategoria() {
+    public String getCategoria() {
         return categoria.get();
     }
 
@@ -341,11 +341,11 @@ public class Empresa implements Externalizable {
 //        }
 //        return null;
 //    }
-    public void setCategoria(Integer categoria) {
+    public void setCategoria(String categoria) {
         this.categoria.set(categoria);
     }
 
-    public IntegerProperty categoriaProperty() {
+    public StringProperty categoriaProperty() {
         return categoria;
     }
 
@@ -370,7 +370,7 @@ public class Empresa implements Externalizable {
         out.writeObject(getInscricaoMunicipal());
         out.writeObject(getCpf());
         out.writeObject(getResponsavelTeste());
-        out.writeInt(getCategoria());
+        out.writeObject(getCategoria());
     }
 
     @Override
@@ -394,7 +394,7 @@ public class Empresa implements Externalizable {
         setInscricaoMunicipal((String) in.readObject());
         setCpf((String) in.readObject());
         setResponsavelTeste((String) in.readObject());
-        setCategoria((Integer) in.readInt());
+        setCategoria((String) in.readObject());
     }
 
     public void validate() {
@@ -411,7 +411,5 @@ public class Empresa implements Externalizable {
     public String toString2() {
         return id.get() + " " + idCidade.get().getNome() + " " + descricao.get() + " " + nomeContato.get() + " " + telefone.get() + " " + observacao.get() + " " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(dataCadastro.get()), "dd-MM-yyyy") + " " + email.get() + " " + nomeFantasia.get() + " " + endereco.get() + " " + bairro.get() + " " + cep.get() + " " + fax.get() + " " + celular.get() + " " + cnpj.get() + " " + inscricaoEstadual.get() + " " + inscricaoMunicipal.get() + " " + cpf.get() + " " + responsavelTeste.get() + " " + categoria.get();
     }
-    
-    
 
 }

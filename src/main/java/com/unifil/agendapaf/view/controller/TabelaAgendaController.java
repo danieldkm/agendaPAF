@@ -449,7 +449,7 @@ public class TabelaAgendaController extends FXMLController implements Initializa
         if (event.getClickCount() == 2) {
             switch (tvAgenda.getSelectionModel().getSelectedItem().getStatusAgenda()) {
                 case "Reagendada":
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroReagendado.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroReagendado.getMensagem());
                     break;
                 case "Pendente":
                     padrao1();

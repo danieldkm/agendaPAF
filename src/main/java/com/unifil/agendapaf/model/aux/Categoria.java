@@ -13,7 +13,7 @@ public class Categoria {
     public void setId(int id) {
         this.id = id;
     }
-    
+
     public String getNome() {
         return nome;
     }
@@ -34,7 +34,5 @@ public class Categoria {
     public String toString() {
         return nome;
     }
-    
-    
 
 }

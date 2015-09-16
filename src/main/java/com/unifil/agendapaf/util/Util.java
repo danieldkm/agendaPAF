@@ -52,7 +52,7 @@ public class Util {
         } else if (semAcento.equals("Concluido")) {
             retorna = EnumStatus.Concluido.getStatus();
         } else if (semAcento.equals("Nao enviado")) {
-            retorna = EnumStatus.Concluido.getStatus();
+            retorna = EnumStatus.NaoEnviado.getStatus();
         }
         return retorna;
     }

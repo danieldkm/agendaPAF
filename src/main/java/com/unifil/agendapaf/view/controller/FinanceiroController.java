@@ -58,6 +58,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
             servicos = Controller.getServicos();
             categorias = Controller.getCategorias();
             setComboBox();
+            cbCategoria.getSelectionModel().selectFirst();
             if (StaticObject.getAgendaEncontrada() != null && StaticObject.getEmpresaEncontrada() != null) {
                 empresaEncontrada = StaticObject.getEmpresaEncontrada();
                 setCampos(empresaEncontrada, StaticObject.getAgendaEncontrada());
@@ -455,6 +456,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
         txtBuscarEmpresa.setText(empresa.getDescricao());
         cbCategoria.getSelectionModel().select(empresa.getCategoria());
         cbTipoServico.getSelectionModel().selectFirst();
+        calcularServico();
     }
 
     public void setCampos() {
@@ -483,5 +485,6 @@ public class FinanceiroController extends FXMLController implements Initializabl
         txtValorPago.setText(n.replace(".", ","));
         dtFinal.setValue(financeiroEncontrada.getDataFinal());
         isUpdate = true;
+        calcularServico();
     }
 }

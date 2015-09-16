@@ -12,7 +12,7 @@
 <?import javafx.scene.control.cell.*?>
 <?import java.net.*?>
 
-<BorderPane fx:id="mainTbAgenda" prefHeight="600.0" prefWidth="761.0" style="-fx-background-color: white;" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.TabelaAgendaController">
+<BorderPane fx:id="mainTbAgenda" prefHeight="600.0" prefWidth="761.0" stylesheets="@../styles/material-fx-v0_3.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.TabelaAgendaController">
     <center>
         <TableView fx:id="tvAgenda" onMousePressed="#onMouseClickedTabelaAgenda" prefHeight="200.0" prefWidth="200.0">
             <columns>
