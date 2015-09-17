@@ -214,7 +214,7 @@
                         <Font name="Arial" size="18.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnDeletar" cancelButton="true" mnemonicParsing="false" onAction="#actionBtnDeletar" prefHeight="50.0" style="-fx-border-radius: 10;" styleClass="button-raised" text="Deletar" HBox.hgrow="ALWAYS">
+                <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#actionBtnDeletar" prefHeight="50.0" style="-fx-border-radius: 10;" styleClass="button-raised" text="Deletar" HBox.hgrow="ALWAYS">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>

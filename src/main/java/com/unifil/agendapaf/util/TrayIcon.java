@@ -24,14 +24,9 @@ import javafx.stage.WindowEvent;
 public class TrayIcon {
 
     private java.awt.TrayIcon trayIcon;
-    private UtilDialog dialog;
     private boolean firstAccess = true;
 
     public TrayIcon() {
-        if (dialog == null) {
-            dialog = new UtilDialog();
-
-        }
     }
 
     public void createTrayIcon(Stage stage) {
@@ -50,7 +45,7 @@ public class TrayIcon {
                     public void run() {
                         if (SystemTray.isSupported()) {
                             if (firstAccess) {
-                                Optional<ButtonType> n = dialog.criarDialogConfirmacao("Informações do Sistema",
+                                Optional<ButtonType> n = UtilDialog.criarDialogConfirmacao("Informações do Sistema",
                                         "O sistema não será fechado, permanecerá acessível\n" //                                    + "no canto inferior direito ao lado do rel�gio",
                                         , "Deseja continuar?");
                                 if (n.get() == ButtonType.OK) {

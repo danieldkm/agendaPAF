@@ -1,29 +1,16 @@
 package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.DateChooser;
-import com.unifil.agendapaf.util.UtilDialog;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.ResourceBundle;
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
-public class CalendarioSemestralController extends Application implements Initializable {
+public class CalendarioSemestralController {
 
     @FXML
     private BorderPane mainCalendario;
@@ -39,49 +26,33 @@ public class CalendarioSemestralController extends Application implements Initia
     private DateChooser dc5;
     private DateChooser dc6;
     private Stage stage;
-    private String n = null;
-    private UtilDialog dialog;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        System.out.println("iniciar start");
-        stage = primaryStage;
-        mainCalendario = FXMLLoader.load(EmpresaController.class.getResource(EnumCaminho.CalendarioSemestral.getCaminho()));
-        Scene scene = new Scene(mainCalendario);
-        stage.setScene(scene);
-        stage.setTitle("Calendário Semestral");
-//        stage.setResizable(false);
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.show();
-        stage.toFront();
-//        stage.getIcons().add(Controller.icoPAF);
-        stage.setResizable(true);
-        stage.setOnHidden(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-            }
-        });
-        System.out.println("fim start");
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//        System.out.println("iniciar start");
+//        stage = primaryStage;
+//        mainCalendario = FXMLLoader.load(EmpresaController.class.getResource(EnumCaminho.CalendarioSemestral.getCaminho()));
+//        Scene scene = new Scene(mainCalendario);
+//        stage.setScene(scene);
+//        stage.setTitle("Calendário Semestral");
+////        stage.setResizable(false);
+//        stage.initModality(Modality.APPLICATION_MODAL);
+//        stage.show();
+//        stage.toFront();
+////        stage.getIcons().add(Controller.icoPAF);
+//        stage.setResizable(true);
+//        stage.setOnHidden(new EventHandler<WindowEvent>() {
+//            @Override
+//            public void handle(WindowEvent t) {
+//            }
+//        });
+//        System.out.println("fim start");
+//    }
+    @FXML
+    public void initialize() {
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        System.out.println("inicio do initialize");
-        mainCalendario.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.ESCAPE) {
-                    stage.close();
-                }
-            }
-        });
-        if (dialog == null){
-            dialog = new UtilDialog();
-        }
-        do {
-            n = dialog.criarDialogInput("Confirmação", "1 - Primeiro semestre\n2 - Segundo semestre", "Digite 1 ou 2");
-        } while (!n.equals("1") && !n.equals("2"));
-
+    public void setFormatDate(String n) {
         Date data1 = null;
         Date data2 = null;
         Date data3 = null;
@@ -92,7 +63,6 @@ public class CalendarioSemestralController extends Application implements Initia
         Calendar cal = Calendar.getInstance();
         cal.setTime(controle);
         String ano = cal.get(Calendar.YEAR) + "";
-        System.out.println("ano " + ano);
         try {
             if (n.equals("1")) {
                 data1 = sdf.parse("1/01/" + ano);
@@ -130,7 +100,14 @@ public class CalendarioSemestralController extends Application implements Initia
         dc6 = new DateChooser(data6);
         gpPane.add(dc6, 2, 4);
 
-        System.out.println("fim do initialize");
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMainCalendario(BorderPane mainCalendario) {
+        this.mainCalendario = mainCalendario;
     }
 
 }

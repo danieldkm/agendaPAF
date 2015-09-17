@@ -7,10 +7,9 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalDate;
-import javafx.beans.property.IntegerProperty;
+import java.util.Objects;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -410,6 +409,18 @@ public class Empresa implements Externalizable {
 
     public String toString2() {
         return id.get() + " " + idCidade.get().getNome() + " " + descricao.get() + " " + nomeContato.get() + " " + telefone.get() + " " + observacao.get() + " " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(dataCadastro.get()), "dd-MM-yyyy") + " " + email.get() + " " + nomeFantasia.get() + " " + endereco.get() + " " + bairro.get() + " " + cep.get() + " " + fax.get() + " " + celular.get() + " " + cnpj.get() + " " + inscricaoEstadual.get() + " " + inscricaoMunicipal.get() + " " + cpf.get() + " " + responsavelTeste.get() + " " + categoria.get();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Empresa other = (Empresa) obj;
+        return true;
     }
 
 }

@@ -57,7 +57,7 @@ public class Util {
         return retorna;
     }
 
-    public void salvarArquivo(String documento, String file) {
+    public static void salvarArquivo(String documento, String file) {
         File exeFile = new File("");
 //        File path = new File(exeFile.getAbsolutePath() + file);
         File path = new File(exeFile.getAbsolutePath() + file);

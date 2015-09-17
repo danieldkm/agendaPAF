@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.unifil.agendapaf.dao.conexao;
 
-import com.unifil.agendapaf.statics.StaticBoolean;
 import com.unifil.agendapaf.util.huffman.JSONHuffman;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -42,12 +36,6 @@ public class ConexaoLocal {
                 System.out.println("jdbc:mysql://localhost:3306/" + nomeDataBase + "\nusuario: " + user + " senha: " + pass);
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + nomeDataBase, user, pass);
-                if (StaticBoolean.isDbServidor()) {
-                    StaticBoolean.setDbServidor(false);
-                }
-                if (!StaticBoolean.isDbLocal()) {
-                    StaticBoolean.setDbLocal(true);
-                }
                 erro = false;
             } else {
                 System.out.println("ERRO AO LER O ARQUIVO ~CONEXAOLOCAL.TXT~");
@@ -55,7 +43,6 @@ public class ConexaoLocal {
         } catch (Exception sq) {
             sq.printStackTrace();
             erro = true;
-            StaticBoolean.setDbLocal(false);
         }
         return con;
     }

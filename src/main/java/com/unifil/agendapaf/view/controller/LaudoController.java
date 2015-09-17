@@ -46,7 +46,6 @@ import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilXML;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.File;
@@ -63,9 +62,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -87,9 +83,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.Wizard.LinearFlow;
@@ -101,13 +95,13 @@ import org.controlsfx.dialog.WizardPane;
  *
  * @author danielmorita
  */
-public class LaudoController extends FXMLController implements Initializable {
+public class LaudoController {
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE);
         MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(oTxtIE);
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCNPJ);
@@ -115,15 +109,10 @@ public class LaudoController extends FXMLController implements Initializable {
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtTelefone);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCEP);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
 
-//        try {//TODO habilitar apos finalizar ;
-//            FXMLController.setLogs("LaudoController");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-        if (utilDialog == null) {
-            utilDialog = new UtilDialog();
-        }
         enableEditAllTable();
 
         mensagem = new MensagemType();
@@ -132,34 +121,8 @@ public class LaudoController extends FXMLController implements Initializable {
         paneCheckBox1.getChildren().add(cbSelecionarTodos);
         paneCheckBox2.getChildren().add(cb2);
         paneCheckBox2.getChildren().add(cbSelecionarTodos2);
-//        LaudoType l = (LaudoType) xmlController.unmarshalFromFile(LaudoType.class, "out.xml");
-//        preenchimentoInicial(l);
         preencherCbMarca();
         carregarDiretorioXML();
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        try {
-            stage = primaryStage;
-            main = FXMLLoader.load(LaudoController.class.getResource(EnumCaminho.Laudo.getCaminho()));
-            Scene scene = new Scene(main);
-            stage.setScene(scene);
-            stage.setTitle("Laudo");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
-        }
-
     }
 
     @FXML
@@ -499,7 +462,6 @@ public class LaudoController extends FXMLController implements Initializable {
     private MensagemType mensagem;
     private UtilXML utilXml;
     private MarcasModelosCompativeisType mct;
-    private UtilDialog utilDialog;
 
     private void carregarDiretorioXML() {
         utilXml.setEmpresas(FXCollections.observableArrayList());
@@ -507,10 +469,9 @@ public class LaudoController extends FXMLController implements Initializable {
         cbEmpresa.setItems(utilXml.getEmpresas());
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
+//    public static void main(String[] args) {
+//        launch(args);
+//    }
     private void showLinearWizard() {
         // define pages to show
         Wizard wizard = new Wizard();
@@ -930,7 +891,7 @@ public class LaudoController extends FXMLController implements Initializable {
             utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
             File criarArquivo = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + ".xml");
             if (criarArquivo.exists()) {
-                Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
+                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
                 if (result.get() == ButtonType.OK) {
                     finalizarAoSalvar(criarArquivo, lt);
                 }
@@ -940,7 +901,7 @@ public class LaudoController extends FXMLController implements Initializable {
             System.out.println("- Finalizar metodo actionBtnSalvar");
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e, "Obs:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e, "Obs:");
         }
     }
 
@@ -948,7 +909,7 @@ public class LaudoController extends FXMLController implements Initializable {
         System.out.println("Salvando arquivo XML");
         utilXml.salvarArquivo(criarArquivo, utilXml.marshal(lt));
         if (utilXml.validarXMLSchema("xml/laudo.xsd", criarArquivo, true)) {
-            utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
+            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
             carregarDiretorioXML();
             System.out.println(utilXml.marshal(lt));
             actionBtnLimpar(null);
@@ -1436,7 +1397,7 @@ public class LaudoController extends FXMLController implements Initializable {
                         }
                     }
                     if (buscouArquivo == false) {
-                        utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoWarningArquivoInvalido.getMensagem());
+                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoWarningArquivoInvalido.getMensagem());
                     }
 
                 } catch (FileNotFoundException ex) {
@@ -1667,11 +1628,11 @@ public class LaudoController extends FXMLController implements Initializable {
                         li.remove(eTvTabela.getSelectionModel().getSelectedItem());
                         eTvTabela.setItems(li);
                     } else {
-                        utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
+                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
                     }
                 }
             } else {
-                utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
+                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
             }
         } else if (relacaoE.isSelected()) {
             if (tTvTabela.getItems().size() > 0) {
@@ -1683,11 +1644,11 @@ public class LaudoController extends FXMLController implements Initializable {
                         li.remove(tTvTabela.getSelectionModel().getSelectedItem());
                         tTvTabela.setItems(li);
                     } else {
-                        utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
+                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
                     }
                 }
             } else {
-                utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
+                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
             }
         }
     }
@@ -1733,14 +1694,14 @@ public class LaudoController extends FXMLController implements Initializable {
                             mmt.setModelo(s);
                             lmmt.add(mmt);
                         } else {
-                            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
                         }
                     }
                 }
                 cb1.getCheckModel().clearChecks();
                 eTvTabela.setItems(lmmt);
             } else {
-                utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
+                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
             }
         } else if (relacaoE.isSelected()) {
             if (rCbMarca.getSelectionModel().getSelectedItem() != null && !cb2.getCheckModel().getCheckedItems().isEmpty() || cbSelecionarTodos2.isSelected()) {
@@ -1774,7 +1735,7 @@ public class LaudoController extends FXMLController implements Initializable {
                             mmt.setModelo(s);
                             lmmt.add(mmt);
                         } else {
-                            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
                         }
                     }
 
@@ -1782,7 +1743,7 @@ public class LaudoController extends FXMLController implements Initializable {
                 cb2.getCheckModel().clearChecks();
                 tTvTabela.setItems(lmmt);
             } else {
-                utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
+                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
             }
         }
     }
@@ -2029,4 +1990,13 @@ public class LaudoController extends FXMLController implements Initializable {
                 }
         );
     }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMain(VBox main) {
+        this.main = main;
+    }
+
 }

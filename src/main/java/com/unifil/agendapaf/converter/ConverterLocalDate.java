@@ -1,7 +1,6 @@
 package com.unifil.agendapaf.converter;
 
 import java.sql.Date;
-import java.time.Instant;
 import java.time.LocalDate;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -15,7 +14,6 @@ public class ConverterLocalDate implements AttributeConverter<LocalDate, Date> {
 
     @Override
     public Date convertToDatabaseColumn(LocalDate date) {
-        System.out.println("TESTE DATE " + date);
         Date dt = null;
         if (date != null) {
             dt = Date.valueOf(date);

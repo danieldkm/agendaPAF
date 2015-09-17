@@ -2,65 +2,37 @@ package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.DateChooser;
 import com.unifil.agendapaf.DateChooserSkin;
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
-import com.unifil.agendapaf.dao.JPA;
-import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.notificador.Agendador;
-import com.unifil.agendapaf.service.AgendaService;
-import com.unifil.agendapaf.statics.StaticBoolean;
-import com.unifil.agendapaf.statics.StaticCalendar;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticObject;
-import com.unifil.agendapaf.statics.StaticPopUp;
-import com.unifil.agendapaf.util.TrayIcon;
 import com.unifil.agendapaf.util.UtilDialog;
-import com.unifil.agendapaf.util.RunAnotherApp;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
-import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import java.net.URL;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.MenuItemBuilder;
-import javafx.scene.control.SeparatorMenuItemBuilder;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class PrincipalController extends FXMLController implements Initializable {
+public class PrincipalController {
 
-//    public void setApp(LoginController application) {
-//        this.application = application;
-//    }
     public PrincipalController(Stage stage) {
         this.stage = stage;
     }
@@ -68,69 +40,10 @@ public class PrincipalController extends FXMLController implements Initializable
     public PrincipalController() {
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        System.out.println("Iniciando o start da tela principal");
-        stage = primaryStage;
+    @FXML
+    public void initialize() {
+        sceneManager = SceneManager.getInstance();
         Platform.setImplicitExit(false);
-        principalId = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.Principal.getCaminho()));
-        Scene scene = new Scene(principalId);
-        stage.setScene(scene);
-        stage.setTitle("AgendaPAF");
-        stage.setResizable(true);
-//        stage.initOwner(this.myParent);
-//        stage.initModality(Modality.APPLICATION_MODAL);
-//        stage.getIcons().add(Controller.icoPAF);
-        stage.show();
-        stage.toFront();
-//        stage.setOnHidden(new EventHandler<WindowEvent>() {
-//            @Override
-//            public void handle(WindowEvent t) {
-//                if (stage != null) {
-//                    stage.close();
-//                }
-//                if (isLogout) {
-//                    try {
-//                        System.out.println("Fechando conexao");
-//                        Dao.getCon().close();
-//                    } catch (SQLException ex) {
-//                        ex.printStackTrace();
-//                    }
-//                    System.exit(0);
-//                }
-//            }
-//        });
-//
-//        stage.iconifiedProperty().addListener(new ChangeListener<Boolean>() {
-//
-//            @Override
-//            public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
-//                System.out.println("minimized:" + t1.booleanValue());
-//            }
-//        });
-//        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//            @Override
-//            public void handle(WindowEvent t) {
-//                System.exit(0);
-//            }
-//        });
-        StaticPopUp.setPopUp(new ContextMenu());
-        criarPopUp();
-        trayIcon = new TrayIcon();
-        trayIcon.createTrayIcon(stage);
-//        trayIcon = new TrayIcon();
-//        trayIcon.createTrayIcon(stage);
-//        LoginController.hideStageLogin();
-        System.out.println("Finalizando o start da tela principal");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-//        System.out.println("Iniciando o initialize da tela principal");
-        if (utilDialog == null) {
-            utilDialog = new UtilDialog();
-        }
-        utilConverter = new UtilConverter();
         Agendador agendador = new Agendador();
         try {
             agendador.inicia();
@@ -140,32 +53,18 @@ public class PrincipalController extends FXMLController implements Initializable
         dc = new DateChooser(principalId, txtArea);
         pane.getChildren().add(dc);
         lista = Controller.getEmpresasHomologadas();
-        showAlert();
         principalId.setOnKeyReleased(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent t) {
                 atalhos(t);
             }
         });
-
-        Usuario ul = StaticObject.getUsuarioLogado();
+        Usuario ul = sceneManager.getUsuarioLogado();
         if (!ul.getTipo().equals("Gerencial")) {
             mCadastros.setVisible(false);
             mRelatorio.setVisible(false);
             miConsultarHistorico.setVisible(false);
         }
-
-        StaticLista.setListaGlobalAgenda(Controller.getAgendas());
-        StaticLista.setListaGlobalHistorico(Controller.getHistoricos());
-        StaticLista.setListaGlobalFeriado(Controller.getFeriados());
-        StaticLista.setListaGlobalEstado(Controller.getEstados());
-        StaticLista.setListaGlobalCidade(Controller.getCidades());
-        StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-        StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
-        StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
-        StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
-
-        System.out.println("Finalizando o initialize da tela principal");
     }
 
     @FXML
@@ -173,7 +72,7 @@ public class PrincipalController extends FXMLController implements Initializable
         System.out.println("logout");
         isLogout = true;
         stage.close();
-//        RunAnotherApp.runAnotherApp(LoginController.class);
+        SceneManager.getInstance().showLogin();
     }
 
     @FXML
@@ -224,12 +123,10 @@ public class PrincipalController extends FXMLController implements Initializable
     private double paneW = 0;
     private double paneH = 0;
     private ObservableList<EmpresasHomologadas> lista = FXCollections.observableArrayList();
-    private static Stage stage;
+    private Stage stage;
     private boolean isLogout = false;
     private RelatorioController relatorioController;
-    private TrayIcon trayIcon;
-    private UtilDialog utilDialog;
-    private UtilConverter utilConverter;
+    private SceneManager sceneManager;
 
     /**
      * Metodo para redimensionar o calendario conforme a resolução da tela
@@ -240,111 +137,80 @@ public class PrincipalController extends FXMLController implements Initializable
             paneW = pane.getWidth();
             paneH = pane.getHeight();
             dc.setPrefSize(paneW, paneH);
-
         }
     }
 
     @FXML
     protected void iniciarCadastroFinanceiro() {
-        RunAnotherApp.runAnotherApp(FinanceiroController.class);
+        sceneManager.showFinanceiro(false, null, null);
     }
 
     @FXML
     protected void iniciarCadastroFeriado() {
-        RunAnotherApp.runAnotherApp(FeriadoController.class);
+        sceneManager.showFeriado();
     }
 
     @FXML
     protected void iniciarCadastroEmpresa() {
-        RunAnotherApp.runAnotherApp(EmpresaController.class);
+        sceneManager.showEmpresa(false);
     }
 
     @FXML
     protected void iniciarCadastroUsuario() {
-        RunAnotherApp.runAnotherApp(UsuarioController.class);
+        sceneManager.showUsuario();
     }
 
     @FXML
     protected void iniciarCadastroAgenda() {
-        RunAnotherApp.runAnotherApp(AgendarController.class);
+        sceneManager.setDataSelecionada(null);
+        sceneManager.showAgenda(null);
     }
 
     @FXML
     protected void iniciarCadastroLaudo() {
-        RunAnotherApp.runAnotherApp(LaudoController.class);
+        sceneManager.showLaudo();
     }
 
     @FXML
     protected void iniciarConsultaAgenda() {
-        RunAnotherApp.runAnotherApp(TabelaAgendaController.class);
+        sceneManager.showTabelaAgenda();
     }
 
     @FXML
     protected void iniciarConsultaHistorico() {
-        RunAnotherApp.runAnotherApp(TabelaHistoricoController.class);
+        sceneManager.showTabelaHistorico();
     }
 
     @FXML
     protected void iniciarConsultaEmpresa() {
-        StaticBoolean.setConsulta(true);
-        RunAnotherApp.runAnotherApp(TabelaEmpresaController.class);
+        sceneManager.showTabelaEmpresa(false, false, false, false, true, false);
     }
 
     @FXML
     protected void iniciarConsultaEmpresasHomologadas() {
-        RunAnotherApp.runAnotherApp(TabelaEmpresasHomologadasController.class);
+        sceneManager.showTabelaEmpresasHomologadas();
     }
 
     @FXML
     protected void iniciarCalendarioSemestral() {
-        RunAnotherApp.runAnotherApp(CalendarioSemestralController.class);
+        String n = null;
+        do {
+            n = UtilDialog.criarDialogInput("Confirmação", "1 - Primeiro semestre\n2 - Segundo semestre", "Digite 1 ou 2");
+            if (n == null) {
+                break;
+            }
+        } while (!n.equals("1") && !n.equals("2"));
+        if (n != null) {
+            sceneManager.showCalendarioSemestral(n);
+        }
     }
 
     @FXML
     protected void iniciarRelatorio() {
-        RunAnotherApp.runAnotherApp(RelatorioController.class);
+        sceneManager.showRelatorio();
     }
 
-    @FXML
-    private void setOnMousePressedTextArea(MouseEvent me) {
-        System.out.println("RELEASED");
-//        if (me.isPrimaryButtonDown()) {
-//            setX(me.getX());
-//            setY(me.getY());
-//            System.out.println("X " + me.getSceneX());
-//            System.out.println("Y " + me.getSceneY());
-//            System.out.println("Bot�o esquerdo");
-//            runAnotherApp(PopUpController.class);
-//        }
-    }
-
-    @FXML
-    private void onActionMSincronizar() {
-        System.out.println("Reavaliar");
-//        Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalConfirmarSincronizarBD.getMensagem());
-//        if (result.get() == ButtonType.OK) {
-//            Dao.setCon(Conexao.getInstance());
-//            if (Dao.getCon() == null) {
-//                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroConexaoBD.getMensagem());
-//            } else {
-//                ObservableList<Script> a = selectScript(ConexaoLocal.getInstance());
-////                System.out.println("listaScript size  " + a.size());
-//                if (a.size() > 0) {
-//                    executarConteudoScript(a, Dao.getCon(), true);
-//                }
-////                Dao<Script> dao = new Dao(Script.class);
-//                System.out.println("SERVIDOR " + Controller.dbServidor);
-////                if (Controller.dbServidor) {
-//                executarConteudoScript(Controller.getScript(), ConexaoLocal.getInstance(), false);
-////                } else {
-////                    FXMLController.criarDialogInfomation("Informa��o", "Sincronizar BD local", "N�o foi possivel estabelecer conex�o com o servidor");
-////                }
-//            }
-//            Dao.setCon(ConexaoLocal.getInstance());
-//        }
-    }
-
-    private void showAlert() {
+    public void showAlert() {
         Calendar ca1 = new GregorianCalendar();
         Calendar ca2 = new GregorianCalendar();
         for (EmpresasHomologadas eh : lista) {
@@ -356,7 +222,7 @@ public class PrincipalController extends FXMLController implements Initializable
             ca1.set(Calendar.SECOND, 0);
             ca1.set(Calendar.MILLISECOND, 0);
 
-            ca2.setTime(utilConverter.converterLocalDateToUtilDate(eh.getDataAviso()));
+            ca2.setTime(UtilConverter.converterLocalDateToUtilDate(eh.getDataAviso()));
             ca2.set(Calendar.HOUR_OF_DAY, 0);
             ca2.set(Calendar.MINUTE, 0);
             ca2.set(Calendar.SECOND, 0);
@@ -364,17 +230,17 @@ public class PrincipalController extends FXMLController implements Initializable
 
             // se ca1 for maior que ca2 ou se ca1 for igual a ca2 entra no if
             if (ca1.after(ca2) || ca1.equals(ca2)) {
-                if (AlertaController.stage == null) {
+                if (sceneManager.getAlertaController() == null) {
                     if (eh.getVisualizado().equals("NAO")) {
-                        RunAnotherApp.runAnotherApp(AlertaController.class);
-                        for (Empresa empresa : Controller.getEmpresas()) {
-//                        for (Empresa empresa : Conf.getEmpresas()) {
+                        sceneManager.showAlerta();
+                        for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
-                                AlertaController.txtaTexto.setText(AlertaController.txtaTexto.getText() + "\nEmpresa: " + eh.getIdEmpresa().getDescricao()
+                                sceneManager.getAlertaController().setTxtaTexto("\nEmpresa: " + eh.getIdEmpresa().getDescricao()
                                         + "\nContato: " + empresa.getNomeContato()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel " + empresa.getTelefone()
-                                        + new Button("Testando TODO"));
+                                        + "\nTel: " + empresa.getTelefone()
+                                        + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
+                                );
                                 break;
                             }
                         }
@@ -382,13 +248,14 @@ public class PrincipalController extends FXMLController implements Initializable
                 } else {
                     if (eh.getVisualizado().equals("NAO")) {
                         for (Empresa empresa : Controller.getEmpresas()) {
-//                        for (Empresa empresa : Conf.getEmpresas()) {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
-                                AlertaController.txtaTexto.setText(AlertaController.txtaTexto.getText() + "\n------------------------------------------"
+                                sceneManager.getAlertaController().setTxtaTexto("\n------------------------------------------"
                                         + "\nEmpresa: " + eh.getIdEmpresa().getDescricao()
                                         + "\nContato: " + empresa.getNomeContato()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel " + empresa.getTelefone());
+                                        + "\nTel: " + empresa.getTelefone()
+                                        + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
+                                );
                                 break;
                             }
                         }
@@ -401,7 +268,7 @@ public class PrincipalController extends FXMLController implements Initializable
 
     @FXML
     private void sobre() {
-        utilDialog.criarDialogInfomation("Sobre", "UniFil - PAF-ECF",
+        UtilDialog.criarDialogInfomation("Sobre", "UniFil - PAF-ECF",
                 "Desenvolvido por: Daniel K. Morita\n"
                 + "Ver.: 1.1\n"
                 + "Copyright - 2015 PAF-ECF. Todos os direitos reservados.\n"
@@ -413,93 +280,6 @@ public class PrincipalController extends FXMLController implements Initializable
                 + "José Ricardo Guidetti Junior\n"
                 + "Sando T. Pinto\n"
                 + "Daniel K. Morita");
-    }
-
-    public void criarPopUp() {
-        try {
-            StaticPopUp.getPopUp().getItems().addAll(
-                    MenuItemBuilder.create()
-                    .text("Agendar")
-                    .onAction(new EventHandler() {
-                        @Override
-                        public void handle(Event t) {
-                            RunAnotherApp.runAnotherApp(AgendarController.class);
-                        }
-                    })
-                    .
-                    build(),
-                    SeparatorMenuItemBuilder.create().build(),
-                    MenuItemBuilder.create()
-                    .text("Reagendar")
-                    .onAction(new EventHandler() {
-                        @Override
-                        public void handle(Event t) {
-                            StaticBoolean.setReagendamento(true);
-                            RunAnotherApp.runAnotherApp(TabelaAgendaController.class);
-                        }
-                    })
-                    .build(),
-                    /*.graphic(createIcon())*/
-                    SeparatorMenuItemBuilder.create().build(),
-                    MenuItemBuilder.create()
-                    .text("Atualizar Agenda")
-                    .onAction(new EventHandler() {
-
-                        @Override
-                        public void handle(Event t) {
-                            AgendaService as = new AgendaService();
-                            ObservableList<Agenda> listaAgendas = as.findByDate(StaticCalendar.getDataSelecionada());
-                            JPA.em(false).close();
-                            if (listaAgendas.size() == 0) {
-                                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
-                            } else {
-                                StaticBoolean.setUpdate(true);
-                                RunAnotherApp.runAnotherApp(TabelaAgendaController.class);
-                            }
-                        }
-
-                    }).build(),
-                    SeparatorMenuItemBuilder.create().build(),
-                    MenuItemBuilder.create()
-                    .text("Cancelar Agendamento")
-                    .onAction(new EventHandler() {
-                        @Override
-                        public void handle(Event t) {
-                            AgendaService as = new AgendaService();
-                            ObservableList<Agenda> listaAgendas = as.findByDate(StaticCalendar.getDataSelecionada());
-                            JPA.em(false).close();
-                            if (listaAgendas.size() == 0) {
-                                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
-                            } else {
-                                boolean dataAgendada = false;
-                                for (Agenda agenda : listaAgendas) {
-                                    if (agenda.getStatusAgenda().equals("Data Agendada")) {
-                                        dataAgendada = true;
-                                        break;
-                                    }
-                                }
-                                if (dataAgendada) {
-                                    StaticBoolean.setCancelamento(true);
-                                    RunAnotherApp.runAnotherApp(TabelaAgendaController.class);
-                                } else {
-                                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
-                                }
-                            }
-                        }
-                    })
-                    .build()
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Erro!! Classe: Controller.class  Metodo: criarPopUp");
-        }
-    }
-
-    private TextField createTextField(String id) {
-        TextField textField = new TextField();
-        textField.setId(id);
-        GridPane.setHgrow(textField, Priority.ALWAYS);
-        return textField;
     }
 
     private void atalhos(KeyEvent t) {
@@ -523,10 +303,21 @@ public class PrincipalController extends FXMLController implements Initializable
             DateChooserSkin.getMonthForward().arm();
             DateChooserSkin.getMonthForward().fire();
         } else if (t.getCode() == KeyCode.ESCAPE) {
-            Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Confirme para finalizar o programa");
-            if (result.get() == ButtonType.OK) {
-                stage.close();
-            }
+//            ALERTA o avisa que quer fechar o stage, assim aciona setOnClose
+            stage.fireEvent(
+                    new WindowEvent(
+                            stage,
+                            WindowEvent.WINDOW_CLOSE_REQUEST
+                    )
+            );
         }
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setPrincipalId(BorderPane principalId) {
+        this.principalId = principalId;
     }
 }

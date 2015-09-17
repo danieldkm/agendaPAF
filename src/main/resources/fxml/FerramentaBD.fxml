@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.*?>
 
-<VBox fx:id="mainFerramentaBD" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.FerramentaBDController">
+<VBox fx:id="mainFerramentaBD" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="398.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.FerramentaBDController">
     <stylesheets>
         <URL value="@../css/buttonStyle.css" />
     </stylesheets>
@@ -184,7 +184,7 @@
         <HBox alignment="CENTER" prefHeight="0.0" prefWidth="481.0" spacing="10.0" VBox.vgrow="ALWAYS">
             <children>
                 <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#setOnActionBtnSalvar" prefHeight="50.0" prefWidth="113.0" text="Salvar" />
-                <Button fx:id="btnLimpar" cancelButton="true" mnemonicParsing="false" onAction="#setOnActionBtnLimpar" prefHeight="50.0" text="Limpar">
+                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#setOnActionBtnLimpar" prefHeight="50.0" text="Limpar">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Button>

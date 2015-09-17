@@ -1,11 +1,9 @@
 package com.unifil.agendapaf.view.controller;
 
-import com.fasterxml.jackson.core.io.UTF32Reader;
-import com.unifil.agendapaf.statics.StaticBoolean;
+import com.unifil.agendapaf.SceneManager;
+import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.huffman.JSONHuffman;
 import com.unifil.agendapaf.util.huffman.Huffman;
-import com.unifil.agendapaf.util.UtilDialog;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -13,84 +11,36 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javassist.bytecode.annotation.EnumMemberValue;
 
 /**
  *
  * @author danielmorita
  */
-public class FerramentaBDController extends FXMLController implements Initializable {
+public class FerramentaBDController {
 
     /**
      * Initializes the controller class.
      */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        if (dialog == null) {
-            dialog = new UtilDialog();
-        }
-        mainFerramentaBD.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent t) {
-                if (t.getCode() == KeyCode.ESCAPE) {
-                    stage.close();
-                }
-            }
-        });
+    @FXML
+    public void initialize() {
+        sceneManager = SceneManager.getInstance();
         lerJSONSistema("sistema.txt");
-        System.out.println("LOCAL " + StaticBoolean.isLocal() + " SERVIDOR " + StaticBoolean.isServidor());
-        if (StaticBoolean.isLocal()) {
+        if (sceneManager.getBDLOCAL()) {
             arquivoServidor = "conexaoLocal.txt";
             lerJSONConexao(arquivoServidor);
-        } else if (StaticBoolean.isServidor()) {
+        } else if (sceneManager.getBDSERVIDOR()) {
             arquivoServidor = "conexao.txt";
             lerJSONConexao(arquivoServidor);
-        }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            stage = primaryStage;
-            mainFerramentaBD = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.FerramentaBD.getCaminho()));
-            Scene scene = new Scene(mainFerramentaBD);
-            stage.setScene(scene);
-            stage.setTitle("Ferramenta BD");
-//            stage.setResizable(false);
-//        stage.initOwner(this.myParent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent t) {
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            dialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
         }
     }
 
@@ -114,15 +64,14 @@ public class FerramentaBDController extends FXMLController implements Initializa
     private Tab tabSistema;
     @FXML
     private Tab tabBd;
-    private static Stage stage;
+    private Stage stage;
     private String arquivoServidor;
-    private boolean local;
-
-    private UtilDialog dialog;
+//    private boolean local;
+    private SceneManager sceneManager;
 
     @FXML
     private void setOnActionBtnSalvar() {
-        Optional<ButtonType> result = dialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Deseja salvar?");
+        Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Deseja salvar?");
         if (result.get() == ButtonType.OK) {
             if (tabSistema.isSelected()) {
                 criarJSONSistema("sistema.txt");
@@ -149,7 +98,7 @@ public class FerramentaBDController extends FXMLController implements Initializa
             String line = buf.readLine();
             JSONHuffman j = new JSONHuffman();
             String tipoConexao = "";
-            if (StaticBoolean.isSelectedLocal()) {
+            if (sceneManager.getBDLOCAL()) {
                 tipoConexao = "conexaoLocal.json";
             } else {
                 tipoConexao = "conexao.json";
@@ -192,7 +141,7 @@ public class FerramentaBDController extends FXMLController implements Initializa
 
             String tipoConexao = "";
 
-            if (StaticBoolean.isSelectedLocal()) {
+            if (sceneManager.getBDLOCAL()) {
                 tipoConexao = "conexaoLocal.json";
             } else {
                 tipoConexao = "conexao.json";
@@ -211,10 +160,10 @@ public class FerramentaBDController extends FXMLController implements Initializa
             writer.flush();
             writer.close();
             bw.close();
-            dialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
         } catch (IOException ex) {
             Logger.getLogger(FerramentaBDController.class.getName()).log(Level.SEVERE, null, ex);
-            dialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
         }
 
     }
@@ -277,12 +226,20 @@ public class FerramentaBDController extends FXMLController implements Initializa
             writer.flush();
             writer.close();
             bw.close();
-            dialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
         } catch (IOException ex) {
             Logger.getLogger(FerramentaBDController.class.getName()).log(Level.SEVERE, null, ex);
-            dialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
         }
 
+    }
+
+    public void setMainFerramentaBD(VBox mainFerramentaBD) {
+        this.mainFerramentaBD = mainFerramentaBD;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
 }

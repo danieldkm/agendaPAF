@@ -408,7 +408,7 @@
                         <Font name="Arial" size="18.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnDeletar" cancelButton="true" mnemonicParsing="false" onAction="#actionBtnDeletar" prefHeight="50.0" prefWidth="101.0" styleClass="button-raised" text="Deletar">
+                <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#actionBtnDeletar" prefHeight="50.0" prefWidth="101.0" styleClass="button-raised" text="Deletar">
                     <font>
                         <Font name="Arial" size="18.0" />
                     </font>

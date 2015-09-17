@@ -1,26 +1,21 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.aux.Anual;
 import com.unifil.agendapaf.model.Financeiro;
-import com.unifil.agendapaf.statics.StaticBoolean;
-import com.unifil.agendapaf.statics.StaticObject;
 import com.unifil.agendapaf.util.GerarRelatorios;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import com.unifil.agendapaf.util.RunAnotherApp;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
-import com.unifil.agendapaf.view.util.enums.EnumStatus;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -29,39 +24,21 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
 
-public class RelatorioController extends FXMLController implements Initializable {
+public class RelatorioController {
 
-    public RelatorioController() {
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         try {
-            utilDialog = new UtilDialog();
-            utilConverter = new UtilConverter();
-            mainRelatorio.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent t) {
-                    if (t.getCode() == KeyCode.ESCAPE) {
-                        stage.close();
-                    }
-                }
-            });
+            sceneManager = SceneManager.getInstance();
             isAnual = false;
 //        setRelatorioAnual();
             txtInfo = new TextField("Click em Buscar!");
@@ -91,37 +68,15 @@ public class RelatorioController extends FXMLController implements Initializable
 
                 @Override
                 public void handle(Event t) {
-                    System.out.println("handle on cbGrupo");
+//                    System.out.println("handle on cbGrupo");
                     actionCbGrupo(t);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar relatorio", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar relatorio", e, "Exception:");
         }
 
-    }
-
-    //TODO verificar tudoc
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            stage = primaryStage;
-            mainRelatorio = FXMLLoader.load(RelatorioController.class.getResource(EnumCaminho.Relatorio.getCaminho()));
-            Scene scene = new Scene(mainRelatorio);
-            scene.getStylesheets().add(EnumCaminho.CSS.getCaminho());
-            stage.setScene(scene);
-            stage.setTitle("Relatório");
-            stage.setResizable(false);
-//        stage.initOwner(this.myParent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-        } catch (Exception e) {
-            e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start relatorio", e, "Exception:");
-        }
     }
 
     @FXML
@@ -156,8 +111,7 @@ public class RelatorioController extends FXMLController implements Initializable
     private static DatePicker dataFinal;
     private static int ano;
     public static boolean isAnual = false;
-    private UtilDialog utilDialog;
-    private UtilConverter utilConverter;
+    private SceneManager sceneManager;
 
     @FXML
     private void actionBtnGerar() {
@@ -166,7 +120,7 @@ public class RelatorioController extends FXMLController implements Initializable
 //            ds = new JRBeanCollectionDataSource(Controller.getAgendasOrderBy());
             if (cbGrupo.getValue().equals("Empresa")) {
 //                System.out.println("Relatorio de agenda1 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + empresaEncontrada.getCodEmpresa() + "\nExtensao: " + cbExtensao.getValue());
-                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), StaticObject.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "Agenda"*/, false, listaAnual);
+                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "Agenda"*/, false, listaAnual);
             } else if (cbGrupo.getValue().equals("Período")) {
 //                System.out.println("Relatorio de agenda2 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + dataPicker.getValue() + "\nExtensao: " + cbExtensao.getValue());
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Agenda");
@@ -183,10 +137,10 @@ public class RelatorioController extends FXMLController implements Initializable
         } else if (cbRelatorio.getValue().equals("Historico")) {
             if (cbGrupo.getValue().equals("Empresa")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), cbExtensao.getValue().toString(), "Historico");
-                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), StaticObject.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
             } else if (cbGrupo.getValue().equals("Data")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Historico");
-                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), utilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
             } else {
 //                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Historico");
                 relatorio.gerarRelatorio(stage, getJasperFile("Historico", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
@@ -194,10 +148,10 @@ public class RelatorioController extends FXMLController implements Initializable
         } else if (cbRelatorio.getValue().equals("Empresas Homologas")) {
             if (cbGrupo.getValue().equals("Empresa")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), cbExtensao.getValue().toString(), "Empresas Homologadas");
-                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), StaticObject.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
             } else if (cbGrupo.getValue().equals("Data")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Empresas Homologadas");
-                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), utilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
             } else {
 //                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Empresas Homologadas");
                 relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
@@ -274,13 +228,11 @@ public class RelatorioController extends FXMLController implements Initializable
     }
 
     private void actionBtnBuscar(ActionEvent t) {
-        StaticBoolean.setRelatorio(true);
-//        TabelaEmpresaController.isRelatorio = true;
-        RunAnotherApp.runAnotherApp(TabelaEmpresaController.class);
+        sceneManager.showTabelaEmpresa(false, false, false, true, false, false);
     }
 
-    public static void setCampos(Stage stage) {
-        txtInfo.setText(StaticObject.getEmpresaEncontrada().getDescricao());
+    public void setCampos(Stage stage) {
+        txtInfo.setText(sceneManager.getEmpresaEncontrada().getDescricao());
         stage.close();
     }
 
@@ -292,9 +244,7 @@ public class RelatorioController extends FXMLController implements Initializable
     }
 
     private void iniciarRelatorioFinanceiro(String tipo, String titulo) {
-//        TabelaEmpresaController.isRelatorio = true;
-        RelatorioFinanceiroController.setCampos(tipo, titulo);
-        RunAnotherApp.runAnotherApp(RelatorioFinanceiroController.class);
+        sceneManager.showRelatorioFinanceiro(titulo, tipo);
     }
 
     /**
@@ -327,8 +277,8 @@ public class RelatorioController extends FXMLController implements Initializable
                         return caminhoAbsoluto + "/RelatorioAgendaPorEmpresa.jasper";
                     case "Período":
 //                        parametros.put("data", dados);
-                        parametros.put("dataInicial", utilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
-                        parametros.put("dataFinal", utilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
+                        parametros.put("dataInicial", UtilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
+                        parametros.put("dataFinal", UtilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
                         return caminhoAbsoluto + "/RelatorioAgendaPorData.jasper";
                     case "":
                         return caminhoAbsoluto + "/RelatorioAgenda.jasper";
@@ -364,8 +314,8 @@ public class RelatorioController extends FXMLController implements Initializable
             case "Financeiro":
                 switch (agrupadoPor) {
                     case "Mensal":
-                        parametros.put("dataInicial", utilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
-                        parametros.put("dataFinal", utilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
+                        parametros.put("dataInicial", UtilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
+                        parametros.put("dataFinal", UtilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
                         return caminhoAbsoluto + "/RelatorioFinanceiro.jasper";
                     case "Anual":
                         limpar();
@@ -374,8 +324,8 @@ public class RelatorioController extends FXMLController implements Initializable
                         setParametrosAnual();
                         return caminhoAbsoluto + "/RelatorioFinanceiroAnual.jasper";
                     case "Período":
-                        parametros.put("dataInicial", utilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
-                        parametros.put("dataFinal", utilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
+                        parametros.put("dataInicial", UtilConverter.converterLocalDateToUtilDate(dataInicial.getValue()));
+                        parametros.put("dataFinal", UtilConverter.converterLocalDateToUtilDate(dataFinal.getValue()));
                         return caminhoAbsoluto + "/RelatorioFinanceiro.jasper";
                 }
                 break;
@@ -733,7 +683,7 @@ public class RelatorioController extends FXMLController implements Initializable
         total = total / div;
         parametros.put("ttMedia", total);
     }
-    
+
 //    double total = 0;
 //        int div = 0;
 //        for (Anual a : listaTotal) {
@@ -743,7 +693,6 @@ public class RelatorioController extends FXMLController implements Initializable
 //        System.out.println("div " + div);
 //        total = total / div;
 //        parametros.put("ttMedia", Controller.converterDoubleDoisDecimais(total));
-
     public void setParametrosAnual() {
         try {
             parametros.put("1janQTD", preJanQTD);
@@ -881,6 +830,14 @@ public class RelatorioController extends FXMLController implements Initializable
         horOut = 0;
         horNov = 0;
         horDez = 0;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMainRelatorio(VBox mainRelatorio) {
+        this.mainRelatorio = mainRelatorio;
     }
 
 }

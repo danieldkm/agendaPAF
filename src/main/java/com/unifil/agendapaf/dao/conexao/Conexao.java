@@ -1,6 +1,5 @@
 package com.unifil.agendapaf.dao.conexao;
 
-import com.unifil.agendapaf.statics.StaticBoolean;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.huffman.JSONHuffman;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
@@ -48,17 +47,11 @@ public class Conexao {
             if (lerTxtConexao()) {
                 Class.forName("com.mysql.jdbc.Driver");
                 con = DriverManager.getConnection("jdbc:mysql://" + ip + ":3306/" + nomeDataBase, user, pass);
-                if (!StaticBoolean.isDbServidor()) {
-                    StaticBoolean.setDbServidor(true);
-                }
-                if (StaticBoolean.isDbLocal()) {
-                    StaticBoolean.setDbLocal(false);
-                }
             } else {
                 System.out.println("ERRO AO LER O ARQUIVO ~CONEXAOLOCAL.TXT~");
             }
         } catch (Exception sq) {
-            StaticBoolean.setDbServidor(false);
+            sq.printStackTrace();
         }
         return con;
     }

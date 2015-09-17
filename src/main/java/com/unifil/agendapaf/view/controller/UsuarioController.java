@@ -1,97 +1,76 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.service.UsuarioService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticObject;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import com.unifil.agendapaf.util.RunAnotherApp;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
-import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
-import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class UsuarioController extends FXMLController implements Initializable {
+public class UsuarioController {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         try {
-            utilDialog = new UtilDialog();
-            mainUsuario.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent t) {
-                    if (t.getCode() == KeyCode.ESCAPE) {
-                        stage.close();
-                    }
-                }
-            });
-            if (StaticObject.getUsuarioEncontrada() != null) {
-                usuarioEncontrado = StaticObject.getUsuarioEncontrada();
-                StaticObject.setUsuarioEncontrada(null);
+            sceneManager = SceneManager.getInstance();
+            if (sceneManager.getUsuarioEncontrada() != null) {
+                usuarioEncontrado = sceneManager.getUsuarioEncontrada();
+                sceneManager.setUsuarioEncontrada(null);
                 setCampos();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar usuário", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar usuário", e, "Exception:");
         }
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            stage = primaryStage;
-            mainUsuario = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.Usuario.getCaminho()));
-            Scene scene = new Scene(mainUsuario);
-            stage.setScene(scene);
-            stage.setTitle("Cadastro de Usuário");
-//        stage.setResizable(false);
-//        stage.initOwner(this.myParent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-//                TabelaEmpresaController.isEmpresa = false;
-                }
-            });
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent event) {
-                    if (txtLogin != null) {
-                        resetarCampos();
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e, "Exception:");
-        }
-    }
-
+//    @Override
+//    public void start(Stage primaryStage) throws Exception {
+//        try {
+//            stage = primaryStage;
+//            mainUsuario = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.Usuario.getCaminho()));
+//            Scene scene = new Scene(mainUsuario);
+//            stage.setScene(scene);
+//            stage.setTitle("Cadastro de Usuário");
+////        stage.setResizable(false);
+////        stage.initOwner(this.myParent);
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.show();
+//            stage.toFront();
+////            stage.getIcons().add(Controller.icoPAF);
+//            stage.setOnHidden(new EventHandler<WindowEvent>() {
+//                @Override
+//                public void handle(WindowEvent t) {
+////                TabelaEmpresaController.isEmpresa = false;
+//                }
+//            });
+//            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//
+//                @Override
+//                public void handle(WindowEvent event) {
+//                    if (txtLogin != null) {
+//                        resetarCampos();
+//                    }
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e, "Exception:");
+//        }
+//    }
     @FXML
     private TextField txtNome;
     @FXML
@@ -105,33 +84,32 @@ public class UsuarioController extends FXMLController implements Initializable {
     @FXML
     private ComboBox cbTipo;
 
-//    private Dao<Usuario> dao;
     private Usuario u;
     private static Stage stage;
+    private SceneManager sceneManager;
     private Usuario usuarioEncontrado;
 
-    private UtilDialog utilDialog;
     private boolean isUpdate = false;
 
     @FXML
     private void onActionBtnDeletar() {
         try {
             if (usuarioEncontrado != null) {
-                Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.UsuarioPerguntaDeletar.getTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getSubTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getMensagem());
+                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.UsuarioPerguntaDeletar.getTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getSubTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     UsuarioService us = new UsuarioService();
                     us.deletar(usuarioEncontrado);
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                     resetarCampos();
                     JPA.em(false).close();
                     StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
                 }
             } else {
-                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.UsuarioErroNaoExiste.getMensagem());
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.UsuarioErroNaoExiste.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar deletar usuario: " + usuarioEncontrado.getId(), e, "Exception");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar deletar usuario: " + usuarioEncontrado.getId(), e, "Exception");
             e.printStackTrace();
         }
     }
@@ -156,11 +134,11 @@ public class UsuarioController extends FXMLController implements Initializable {
                     JPA.em(false).close();
                     resetarCampos();
                     StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                 }
             } catch (Exception e) {
-//                JPA.em(false).close();
-                utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+                JPA.em(false).close();
+                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
                 e.printStackTrace();
             }
         }
@@ -174,7 +152,7 @@ public class UsuarioController extends FXMLController implements Initializable {
     @FXML
     protected void iniciarTabelaUsuario() {
         stage.close();
-        RunAnotherApp.runAnotherApp(TabelaUsuarioController.class);
+        sceneManager.showTabelaUsuario();
     }
 
     private void actionBtnAlterar() {
@@ -194,11 +172,11 @@ public class UsuarioController extends FXMLController implements Initializable {
                 JPA.em(false).close();
                 resetarCampos();
                 StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
             }
         } catch (Exception e) {
-//            JPA.em(false).close();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e, "Exception:");
+            JPA.em(false).close();
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e, "Exception:");
             e.printStackTrace();
         }
     }
@@ -209,41 +187,40 @@ public class UsuarioController extends FXMLController implements Initializable {
         txtSenha.setText("");
         txtEmail.setText("");
         usuarioEncontrado = null;
-        StaticObject.setUsuarioEncontrada(null);
+        sceneManager.setUsuarioEncontrada(null);
         isUpdate = false;
     }
 
     private boolean validarCampos() {
-
         boolean ok = true;
         String preencher = "";
         if (txtLogin.getText().equals("")) {
-            preencher += alertaLogin(preencher);
+            preencher = alertaLogin(preencher);
             ok = false;
         }
         if (txtNome.getText().equals("")) {
-            preencher += alertaNome(preencher);
+            preencher = alertaNome(preencher);
             ok = false;
         }
         if (txtSenha.getText().equals("")) {
-            preencher += alertaSenha(preencher);
+            preencher = alertaSenha(preencher);
             ok = false;
         }
         if (cbTipo.getValue() == null) {
-            preencher += alertaCbTipo(preencher);
+            preencher = alertaCbTipo(preencher);
             ok = false;
         }
         if (txtEmail.getText() == null) {
-            preencher += alertaEmail(preencher);
+            preencher = alertaEmail(preencher);
             ok = false;
         } else {
             if (txtEmail.getText().equals("")) {
-                preencher += alertaEmail(preencher);
+                preencher = alertaEmail(preencher);
                 ok = false;
             }
         }
         if (!ok) {
-            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }
@@ -296,4 +273,13 @@ public class UsuarioController extends FXMLController implements Initializable {
             }
         }
     }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMainUsuario(VBox mainUsuario) {
+        this.mainUsuario = mainUsuario;
+    }
+
 }

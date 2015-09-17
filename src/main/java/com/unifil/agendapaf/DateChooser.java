@@ -1,6 +1,5 @@
 package com.unifil.agendapaf;
 
-import com.unifil.agendapaf.statics.StaticCalendar;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import java.util.Date;
 import javafx.scene.control.Control;
@@ -13,21 +12,25 @@ public class DateChooser extends Control {
     private Date date;
     private static BorderPane principalId;
     private static TextArea txtArea;
+    private Boolean semestral;
 
     public DateChooser(Date preset) {
-        StaticCalendar.setSemestral(true);
+//        StaticCalendar.setSemestral(true);
+        semestral = Boolean.TRUE;
         getStyleClass().setAll(DEFAULT_STYLE_CLASS);
         this.date = preset;
     }
 
     public DateChooser() {
         this(new Date(System.currentTimeMillis()));
-        StaticCalendar.setSemestral(false);
+        semestral = Boolean.FALSE;
+//        StaticCalendar.setSemestral(false);
     }
 
     public DateChooser(BorderPane principalId, TextArea txtArea) {
         this(new Date(System.currentTimeMillis()));
-        StaticCalendar.setSemestral(false);
+//        StaticCalendar.setSemestral(false);
+        semestral = Boolean.FALSE;
         this.principalId = principalId;
         this.txtArea = txtArea;
     }
@@ -55,6 +58,10 @@ public class DateChooser extends Control {
 
     public static void setTxtArea(TextArea txtArea) {
         DateChooser.txtArea = txtArea;
+    }
+
+    public Boolean getSemestral() {
+        return semestral;
     }
 
 }

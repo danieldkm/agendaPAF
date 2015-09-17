@@ -1,5 +1,6 @@
 package com.unifil.agendapaf;
 
+import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -19,8 +20,8 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
-        mainStage.setTitle("Musicott");
-        mainStage.getIcons().add(new Image("file:resources/images/musicotticon.png"));
+        mainStage.setTitle("Agenda PAF");
+        mainStage.getIcons().add(new Image(EnumCaminho.LogoPAFECFUniFil.getCaminho()));
         SceneManager.getInstance().setPrimaryStage(this);
     }
 

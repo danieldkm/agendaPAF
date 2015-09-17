@@ -1,32 +1,22 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.service.AgendaService;
-import com.unifil.agendapaf.statics.StaticBoolean;
-import com.unifil.agendapaf.statics.StaticCalendar;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticObject;
-import com.unifil.agendapaf.statics.StaticString;
-import com.unifil.agendapaf.util.RunAnotherApp;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import java.net.URL;
 import java.time.LocalDate;
-import java.util.ResourceBundle;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -34,25 +24,22 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Callback;
-import org.controlsfx.control.action.Action;
 
-public class TabelaAgendaController extends FXMLController implements Initializable {
+public class TabelaAgendaController {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         try {
-            utilDialog = new UtilDialog();
+            sceneManager = SceneManager.getInstance();
 
             btnBuscar.setVisible(false);
 
@@ -171,40 +158,6 @@ public class TabelaAgendaController extends FXMLController implements Initializa
             data.setTranslateY(40);
             data.setVisible(false);
 
-//            System.out.println("EMPRESA?? " + getEmpresaEncontrada());
-//            System.out.println("TABELA AGENDA FINANCEIRO?? " + isTabelaAgendaToFinanceiro());
-//            System.out.println("REAGENDAMENTO?? " + isReagendamento());
-//            System.out.println("UPDATE?? " + isUpdate());
-            AgendaService as = new AgendaService();
-            if (StaticBoolean.isReagendamento()) {
-//            TabelaAgendaController.data.setSelectedDate(AgendarController.dataSelecionada);
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                cbComboBox.getSelectionModel().selectLast();
-//            TabelaAgendaController.getCbComboBox().getSelectionModel().selectLast();
-//                Dao<Agenda> dao = new Dao(Agenda.class);
-                listaAgendas.clear();
-                listaAgendas = as.findByDate(StaticCalendar.getDataSelecionada());
-                tvAgenda.getItems().setAll(listaAgendas);
-            } else if (StaticBoolean.isUpdate()) {
-                data.setValue(StaticCalendar.getDataSelecionada());
-                cbComboBox.getSelectionModel().selectLast();
-                listaAgendas.clear();
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                listaAgendas = as.findByDate(StaticCalendar.getDataSelecionada());
-                tvAgenda.getItems().setAll(listaAgendas);
-            } else if (StaticBoolean.isCancelamento()) {
-//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                cbComboBox.getSelectionModel().selectLast();
-                listaAgendas.clear();
-                listaAgendas = as.findByDate(StaticCalendar.getDataSelecionada());
-                tvAgenda.setItems(listaAgendas);
-            } else {
-                cbComboBox.getSelectionModel().selectFirst();
-                listaAgendas = as.findOrderBy("dataInicial");
-                tvAgenda.getItems().setAll(listaAgendas);
-            }
-            JPA.em(false).close();
-
             data.setOnKeyReleased(new EventHandler<KeyEvent>() {
                 @Override
                 public void handle(KeyEvent t) {
@@ -224,53 +177,15 @@ public class TabelaAgendaController extends FXMLController implements Initializa
                 }
             });
 
-            if (StaticObject.getEmpresaEncontrada() != null) {
-                empresaEncontrada = StaticObject.getEmpresaEncontrada();
+            if (sceneManager.getEmpresaEncontrada() != null) {
+                empresaEncontrada = sceneManager.getEmpresaEncontrada();
                 setCampos();
-                StaticObject.setEmpresaEncontrada(null);
+                sceneManager.setEmpresaEncontrada(null);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela agenda", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela agenda", e, "Exception:");
         }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            stage = primaryStage;
-            mainTbAgenda = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.TabelaAgenda.getCaminho()));
-            Scene scene = new Scene(mainTbAgenda);
-            stage.setScene(scene);
-            stage.setTitle("Tabela de Agenda");
-//        stage.setResizable(false);
-//        stage.initOwner(this.myParent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent t) {
-//                TabelaEmpresaController.isTabelaAgenda = false;
-                }
-            });
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent event) {
-                    StaticBoolean.setTabelaAgenda(false);
-                    StaticBoolean.setReagendamento(false);
-                    StaticBoolean.setUpdate(false);
-                    StaticBoolean.setCancelamento(false);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela agenda", e, "Exception:");
-        }
-
     }
 
     @FXML
@@ -279,10 +194,6 @@ public class TabelaAgendaController extends FXMLController implements Initializa
     public TableView<Agenda> tvAgenda;
     @FXML
     private TableColumn tcEmpresa;
-//    @FXML
-//    private TableColumn<Agenda, String> tcEmpresa;
-//    @FXML
-//    private TableColumn<Agenda, String> tcResponsavel;
     @FXML
     private TableColumn<Agenda, String> tcTipo;
     @FXML
@@ -291,8 +202,6 @@ public class TabelaAgendaController extends FXMLController implements Initializa
     private TableColumn tcDtFinal;
     @FXML
     private TableColumn tcDtVencimento;
-//    @FXML
-//    private TableColumn<Agenda, String> tcDiaSemana;
     @FXML
     private TableColumn<Agenda, String> tcStatusBoleto;
     @FXML
@@ -310,13 +219,12 @@ public class TabelaAgendaController extends FXMLController implements Initializa
     @FXML
     private ComboBox cbStatusAgenda;
 
-    private static Stage stage;
-//    public eu.schudt.javafx.controls.calendar.DatePicker data;
+    private Stage stage;
     private DatePicker data;
 
     public ObservableList<Agenda> listaAgendas = FXCollections.observableArrayList();
     public Empresa empresaEncontrada;
-    private UtilDialog utilDialog = new UtilDialog();
+    private SceneManager sceneManager;
 
     @FXML
     private void actionCB() {
@@ -387,12 +295,8 @@ public class TabelaAgendaController extends FXMLController implements Initializa
 
     @FXML
     private void actionBtnBuscarEmpresa() {
-//        TabelaEmpresaController.isTabelaAgenda = true;
         stage.close();
-        RunAnotherApp.runAnotherApp(TabelaEmpresaController.class
-        );
-        StaticBoolean.setTabelaAgenda(
-                true);
+        sceneManager.showTabelaEmpresa(false, false, true, false, false, false);
     }
 
     public void setCampos() {
@@ -409,26 +313,24 @@ public class TabelaAgendaController extends FXMLController implements Initializa
     }
 
     private void abrirTelaAgendamento() {
-        StaticObject.setAgendaEncontrada(tvAgenda.getSelectionModel().getSelectedItem());
-        RunAnotherApp.runAnotherApp(AgendarController.class
-        );
-        if (StaticObject.getEmpresaEncontrada()
+        sceneManager.setAgendaEncontrada(tvAgenda.getSelectionModel().getSelectedItem());
+        sceneManager.showAgenda(null);
+        if (sceneManager.getEmpresaEncontrada()
                 == null) {
-            System.out.println("empresa nulo " + StaticObject.getEmpresaEncontrada());
+            System.out.println("empresa nulo " + sceneManager.getEmpresaEncontrada());
         }
 
         stage.close();
     }
 
     private void setReagendamento() {
-        StaticObject.setAgendaEncontrada(tvAgenda.getSelectionModel().getSelectedItem());
-        RunAnotherApp.runAnotherApp(MotivoReagendamentoController.class
-        );
+        sceneManager.setAgendaEncontrada(tvAgenda.getSelectionModel().getSelectedItem());
+        sceneManager.showMotivoReagendamento();
         stage.close();
     }
 
     private void padrao1() {
-        if (StaticBoolean.isReagendamento() || StaticBoolean.isCancelamento()) {
+        if (sceneManager.getReagendamento() || sceneManager.getCancelamento()) {
             setReagendamento();
         } else {
             abrirTelaAgendamento();
@@ -436,11 +338,10 @@ public class TabelaAgendaController extends FXMLController implements Initializa
     }
 
     private void padrao2() {
-        if (StaticBoolean.isReagendamento()) {
-            utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroStatusAgenda.getMensagem());
+        if (sceneManager.getReagendamento()) {
+            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroStatusAgenda.getMensagem());
         } else {
             abrirTelaAgendamento();
-//            AgendarController.bloquearCampos();
         }
     }
 
@@ -467,7 +368,7 @@ public class TabelaAgendaController extends FXMLController implements Initializa
                     padrao2();
                     break;
                 case "Cancelado":
-                    utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroCancelado.getMensagem());
+                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroCancelado.getMensagem());
                     break;
             }
         }
@@ -480,6 +381,56 @@ public class TabelaAgendaController extends FXMLController implements Initializa
 
     public void setCbComboBox(ComboBox cb) {
         cbComboBox = cb;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+        stage.setOnHidden(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent t) {
+                System.out.println("HIDDEN TABELA AGENDA");
+            }
+        });
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent event) {
+                sceneManager.setReagendamento(Boolean.FALSE);
+                sceneManager.setUpdate(Boolean.FALSE);
+                sceneManager.setCancelamento(Boolean.FALSE);
+            }
+        });
+    }
+
+    public void setMainTbAgenda(BorderPane mainTbAgenda) {
+        this.mainTbAgenda = mainTbAgenda;
+    }
+
+    public void setDataSelecionada(LocalDate dataSelecionada) {
+        AgendaService as = new AgendaService();
+        if (sceneManager.getReagendamento()) {
+            cbComboBox.getSelectionModel().selectLast();
+            listaAgendas.clear();
+            listaAgendas = as.findByDate(dataSelecionada);
+            tvAgenda.getItems().setAll(listaAgendas);
+        } else if (sceneManager.getUpdate()) {
+            data.setValue(dataSelecionada);
+            cbComboBox.getSelectionModel().selectLast();
+            listaAgendas.clear();
+            listaAgendas = as.findByDate(dataSelecionada);
+            tvAgenda.getItems().setAll(listaAgendas);
+        } else if (sceneManager.getCancelamento()) {
+            cbComboBox.getSelectionModel().selectLast();
+            listaAgendas.clear();
+            listaAgendas = as.findByDate(dataSelecionada);
+            tvAgenda.setItems(listaAgendas);
+        } else {
+            cbComboBox.getSelectionModel().selectFirst();
+            listaAgendas = as.findOrderBy("dataInicial");
+            tvAgenda.getItems().setAll(listaAgendas);
+        }
+        JPA.em(false).close();
     }
 
 }

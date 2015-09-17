@@ -1,5 +1,6 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.aux.Categoria;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
@@ -8,121 +9,53 @@ import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.service.FinanceiroService;
-import com.unifil.agendapaf.statics.StaticBoolean;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticObject;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import com.unifil.agendapaf.util.RunAnotherApp;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class FinanceiroController extends FXMLController implements Initializable {
+public class FinanceiroController {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         try {
-            System.out.println("Iniciar initialize: Tela Financeiro");
-            mainFinanceiro.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent t) {
-                    if (t.getCode() == KeyCode.ESCAPE) {
-                        stage.close();
-                    }
-                }
-            });
+            sceneManager = SceneManager.getInstance();
             servicos = Controller.getServicos();
             categorias = Controller.getCategorias();
             setComboBox();
             cbCategoria.getSelectionModel().selectFirst();
-            if (StaticObject.getAgendaEncontrada() != null && StaticObject.getEmpresaEncontrada() != null) {
-                empresaEncontrada = StaticObject.getEmpresaEncontrada();
-                setCampos(empresaEncontrada, StaticObject.getAgendaEncontrada());
+            if (sceneManager.getAgendaEncontrada() != null && sceneManager.getEmpresaEncontrada() != null) {
+                empresaEncontrada = sceneManager.getEmpresaEncontrada();
+                setCampos(empresaEncontrada, sceneManager.getAgendaEncontrada());
             }
-            if (StaticBoolean.isTabelaEmpresaToFinanceiro()) {
-                empresaEncontrada = StaticObject.getEmpresaEncontrada();
-                StaticObject.setEmpresaEncontrada(null);
-                StaticBoolean.setTabelaEmpresaToFinanceiro(false);
-                setCampos(empresaEncontrada);
-
-            }
-            if (StaticObject.getFinanceiroEncontrada() != null) {
-                financeiroEncontrada = StaticObject.getFinanceiroEncontrada();
-                StaticObject.setFinanceiroEncontrada(null);
+            if (sceneManager.getFinanceiroEncontrada() != null) {
+                financeiroEncontrada = sceneManager.getFinanceiroEncontrada();
+                sceneManager.setFinanceiroEncontrada(null);
+                System.out.println("PASSO1");
                 setCampos();
             }
-            StaticObject.setAgendaEncontrada(null);
-            StaticObject.setEmpresaEncontrada(null);
-            System.out.println("Finalizar initialize: Tela Financeiro");
+            sceneManager.setAgendaEncontrada(null);
+            sceneManager.setEmpresaEncontrada(null);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
         }
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            System.out.println("Iniciar Start: Tela Financeiro");
-            stage = primaryStage;
-            mainFinanceiro = FXMLLoader.load(FXMLController.class.getResource(EnumCaminho.Financeiro.getCaminho()));
-            Scene scene = new Scene(mainFinanceiro);
-            scene.getStylesheets().add(EnumCaminho.CSS.getCaminho());
-            stage.setScene(scene);
-            stage.setTitle("Financeiro");
-            stage.setResizable(false);
-//        stage.initOwner(this.myParent);
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent t) {
-                }
-            });
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent event) {
-                    if (txtBuscarEmpresa != null) {
-                        limpar();
-                    }
-                }
-            });
-            System.out.println("Finalizar Start: Tela Financeiro");
-        } catch (Exception e) {
-            e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start financeiro", e, "Exception:");
-        }
-    }
-
-    private static Stage stage;
     @FXML
     private ComboBox cbTipoServico;
     @FXML
@@ -142,34 +75,33 @@ public class FinanceiroController extends FXMLController implements Initializabl
     @FXML
     private DatePicker dtFinal;
 
+    private Stage stage;
     private Empresa empresaEncontrada;
     private Financeiro financeiroEncontrada;
     private ObservableList<Servico> servicos;
     private ObservableList<Categoria> categorias;
-//    private FXCalendar dataInicial;
-//    private FXCalendar dataFinal;
     private boolean isUpdate = false;
     private boolean isParametro = false;
-    private static double valorServico = 0;
-    private static double porCategoria = 0;
+    private double valorServico = 0;
+    private double porCategoria = 0;
+    private SceneManager sceneManager;
 
     @FXML
     private void actionBuscarEmpresa() {
         stage.close();
-        StaticBoolean.setTabelaEmpresaToFinanceiro(true);
-        RunAnotherApp.runAnotherApp(TabelaEmpresaController.class);
+        sceneManager.showTabelaEmpresa(false, false, false, false, false, true);
     }
 
     @FXML
     private void iniciarCadastroParametro() {
         stage.close();
-        RunAnotherApp.runAnotherApp(ParametroController.class);
+        sceneManager.showParametro();
     }
 
     @FXML
     private void iniciarTabelaFinanceiro() {
         stage.close();
-        RunAnotherApp.runAnotherApp(TabelaFinanceiroController.class);
+        sceneManager.showTabelaFinanceiro();
     }
 
     @FXML
@@ -192,7 +124,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
             }
             if (cbCategoria.getSelectionModel().getSelectedItem() != null) {
                 for (Categoria categoria : categorias) {
-                    if (cbCategoria.getSelectionModel().getSelectedItem().toString().equals(categoria.getNome())) {
+                    if (((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome().equals(categoria.getNome())) {
                         porCategoria = categoria.getPorcento();
                         break;
                     }
@@ -360,7 +292,7 @@ public class FinanceiroController extends FXMLController implements Initializabl
             validationSupport.registerValidator(cbCategoria, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbCategoria.requestFocus();
             ok = false;
-        } else if (cbCategoria.getSelectionModel().getSelectedItem().equals("")) {
+        } else if (((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome().equals("")) {
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbCategoria, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbCategoria.requestFocus();
@@ -443,18 +375,29 @@ public class FinanceiroController extends FXMLController implements Initializabl
     }
 
     public void setCampos(Empresa empresa, Agenda agenda) {
+        empresaEncontrada = empresa;
         txtBuscarEmpresa.setText(empresa.getDescricao());
         dtInicial.setValue(agenda.getDataInicial());
         dtFinal.setValue(agenda.getDataFinal());
-        cbTipoServico.getSelectionModel().selectFirst();
-        cbCategoria.getSelectionModel().select(empresa.getCategoria());
+        for (int i = 0; i < cbCategoria.getItems().size(); i++) {
+            if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(empresa.getCategoria())) {
+                cbCategoria.getItems().get(i);
+            }
+        }
         cbTipoServico.getSelectionModel().selectFirst();
         calcularServico();
     }
 
     public void setCampos(Empresa empresa/*java.sql.Date dtInicial, java.sql.Date dtFinal*/) {
+        System.out.println("EMPRESA CATEGORIA " + empresa.getCategoria());
+        empresaEncontrada = empresa;
         txtBuscarEmpresa.setText(empresa.getDescricao());
-        cbCategoria.getSelectionModel().select(empresa.getCategoria());
+        for (int i = 0; i < cbCategoria.getItems().size(); i++) {
+            if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(empresa.getCategoria())) {
+                cbCategoria.getSelectionModel().select(i);
+                break;
+            }
+        }
         cbTipoServico.getSelectionModel().selectFirst();
         calcularServico();
     }
@@ -462,29 +405,40 @@ public class FinanceiroController extends FXMLController implements Initializabl
     public void setCampos() {
         cbTipoServico.getSelectionModel().selectFirst();
         cbCategoria.getSelectionModel().selectFirst();
-        for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
-            if (financeiroEncontrada.getIdEmpresa().getId().equals(empresa.getId())) {
-                txtBuscarEmpresa.setText(empresa.getDescricao());
-                break;
-            }
-        }
-        txtLaudo.setText(financeiroEncontrada.getNumeroLaudo());
+
+        empresaEncontrada = financeiroEncontrada.getIdEmpresa();
+        txtBuscarEmpresa.setText(financeiroEncontrada.getIdEmpresa().getDescricao());
+
         while (!cbTipoServico.getSelectionModel().getSelectedItem().equals(financeiroEncontrada.getTipoServico())) {
             cbTipoServico.getSelectionModel().selectNext();
         }
-        Categoria c = null;
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {
-            c = (Categoria) cbCategoria.getSelectionModel().getSelectedItem();
-            if (!c.getNome().equals(financeiroEncontrada.getCategoria())) {
-                cbCategoria.getSelectionModel().selectNext();
+            if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(financeiroEncontrada.getCategoria())) {
+                cbCategoria.getSelectionModel().select(i);
+                break;
             }
         }
-        txtHoraAdicional.setText(financeiroEncontrada.getHoraAdicional() + "");
+        if (financeiroEncontrada.getTipoServico().equals(EnumServico.HoraAdicional.getServico())) {
+            txtHoraAdicional.setText(financeiroEncontrada.getHoraAdicional() + "");
+        }
         String n = financeiroEncontrada.getValorPago() + "";
-        dtInicial.setValue(financeiroEncontrada.getDataInicial());
         txtValorPago.setText(n.replace(".", ","));
+        txtLaudo.setText(financeiroEncontrada.getNumeroLaudo());
+        dtInicial.setValue(financeiroEncontrada.getDataInicial());
         dtFinal.setValue(financeiroEncontrada.getDataFinal());
         isUpdate = true;
-        calcularServico();
     }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMainFinanceiro(VBox mainFinanceiro) {
+        this.mainFinanceiro = mainFinanceiro;
+    }
+
+//    public void setCampos(Empresa empresa) {
+//        empresaEncontrada = empresa;
+//        setCampos(empresa);
+//    }
 }

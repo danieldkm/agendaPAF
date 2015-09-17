@@ -1,95 +1,38 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.service.FeriadoService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticObject;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import com.unifil.agendapaf.util.RunAnotherApp;
-import com.unifil.agendapaf.view.util.enums.EnumCaminho;
-import java.net.URL;
 import java.util.Optional;
-import java.util.ResourceBundle;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class FeriadoController extends FXMLController implements Initializable {
+public class FeriadoController {
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    @FXML
+    public void initialize() {
         try {
-            if (utilDialog == null) {
-                utilDialog = new UtilDialog();
-            }
-
-            mainFeriado.setOnKeyReleased(new EventHandler<KeyEvent>() {
-                @Override
-                public void handle(KeyEvent t) {
-                    if (t.getCode() == KeyCode.ESCAPE) {
-                        stage.close();
-                    }
-                }
-            });
-            if (StaticObject.getFeriadoEncontrada() != null) {
-                feriadoEncontrado = StaticObject.getFeriadoEncontrada();
-                StaticObject.setFeriadoEncontrada(null);
+            if (SceneManager.getInstance().getFeriadoEncontrado() != null) {
+                feriadoEncontrado = SceneManager.getInstance().getFeriadoEncontrado();
+                SceneManager.getInstance().setFeriadoEncontrado(null);
                 isUpdate = true;
                 setCampos();
             }
         } catch (Exception e) {
             e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar feriado", e, "Exception:");
-        }
-    }
-
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        try {
-            stage = primaryStage;
-            mainFeriado = FXMLLoader.load(EmpresaController.class.getResource(EnumCaminho.Feriado.getCaminho()));
-            Scene scene = new Scene(mainFeriado);
-            scene.getStylesheets().add(EnumCaminho.CSS.getCaminho());
-            stage.setScene(scene);
-            stage.setTitle("Cadastrar Feriados");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
-            stage.setOnHidden(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                }
-            });
-//            stage.getIcons().add(Controller.icoPAF);
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-                @Override
-                public void handle(WindowEvent event) {
-                    if (txtFeriado != null) {
-                        actionBtnLimpar();
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start feriado", e, "Exception:");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar feriado", e, "Exception:");
         }
     }
 
@@ -108,10 +51,9 @@ public class FeriadoController extends FXMLController implements Initializable {
     @FXML
     private DatePicker dataFeriado;
 
-    private static Stage stage;
+    private Stage stage;
     private boolean isUpdate = false;
     private Feriado feriadoEncontrado;
-    private UtilDialog utilDialog;
 
     @FXML
     private void actionBtnSalvar() {
@@ -131,10 +73,10 @@ public class FeriadoController extends FXMLController implements Initializable {
                 }
                 actionBtnLimpar();
                 StaticLista.setListaGlobalFeriado(Controller.getFeriados());
-                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
             }
         } catch (Exception e) {
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
             e.printStackTrace();
             JPA.em(false).close();
         }
@@ -145,7 +87,7 @@ public class FeriadoController extends FXMLController implements Initializable {
     private void actionBtnDeletar() {
         try {
             if (feriadoEncontrado != null) {
-                Optional<ButtonType> result = utilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
+                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     FeriadoService fs = new FeriadoService();
                     fs.deletar(feriadoEncontrado);
@@ -154,11 +96,11 @@ public class FeriadoController extends FXMLController implements Initializable {
                 }
                 StaticLista.setListaGlobalFeriado(Controller.getFeriados());
             } else {
-                utilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroNaoExisteEmpresa.getMensagem());
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroNaoExiste.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            utilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroTentarDeletar.getMensagem() + feriadoEncontrado.getId(), e, "Exception");
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroTentarDeletar.getMensagem() + feriadoEncontrado.getId(), e, "Exception");
             e.printStackTrace();
         }
     }
@@ -169,13 +111,13 @@ public class FeriadoController extends FXMLController implements Initializable {
         dataFeriado.setValue(null);
         isUpdate = false;
         feriadoEncontrado = null;
-        StaticObject.setFeriadoEncontrada(null);
+        SceneManager.getInstance().setFeriadoEncontrado(null);
     }
 
     @FXML
     private void iniciarTabelaFeriado() {
         stage.close();
-        RunAnotherApp.runAnotherApp(TabelaFeriadoController.class);
+        SceneManager.getInstance().showTabelaFeriado();
     }
 
     private boolean validarCampos() {
@@ -193,7 +135,7 @@ public class FeriadoController extends FXMLController implements Initializable {
             ok = false;
         }
         if (!ok) {
-            utilDialog.criarDialogWarning(EnumMensagem.Requer.getTitulo(), "Validando campos", preencher);
+            UtilDialog.criarDialogWarning(EnumMensagem.Requer.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }
@@ -201,5 +143,14 @@ public class FeriadoController extends FXMLController implements Initializable {
     public void setCampos() {
         txtFeriado.setText(feriadoEncontrado.getFeriado());
         dataFeriado.setValue(feriadoEncontrado.getData());
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
+    public void setMainFeriado(VBox mainFeriado) {
+        this.mainFeriado = mainFeriado;
+
     }
 }

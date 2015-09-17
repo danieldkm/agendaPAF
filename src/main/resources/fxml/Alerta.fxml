@@ -9,9 +9,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<BorderPane id="BorderPane" fx:id="mainAlerta" prefHeight="276.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.AlertaController">
+<BorderPane id="BorderPane" fx:id="mainAlerta" prefHeight="276.0" prefWidth="367.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.AlertaController">
   <center>
-    <TextArea fx:id="txtaTexto" editable="false" prefWidth="200.0" text="                                              Faltam 2 meses!!!!&#10;Empresas:" wrapText="true">
+    <TextArea fx:id="txtaTexto" editable="false" prefWidth="200.0" text="&#10;Empresas:" wrapText="true">
       <BorderPane.margin>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
       </BorderPane.margin>

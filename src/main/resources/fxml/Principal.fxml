@@ -51,7 +51,7 @@
                                         <Image url="@../image/logoPAFECFUNIFIL.png" />
                                     </image>
                                 </ImageView>
-                                <TextArea fx:id="txtArea2" editable="false" onMouseMoved="#mouseMovedPrincipal" onMousePressed="#setOnMousePressedTextArea" prefWidth="1000.0" text="Atalhos:&#10;Ctrl + A = Cadastro de agenda&#10;Ctrl + E = Cadastro de Empresa&#10;Ctrl + U = Cadastro de Usuário&#10;Ctrl + R = Tela de Relatório&#10;Ctrl + S = Calendario Semestral&#10;Ao clicar em uma celula o conteúdo dela irá travar no campo &quot;Empresas do dia&quot; ao clicar mais uma vez em qualquer celula destrava e volta ao normal." wrapText="true" />
+                                <TextArea fx:id="txtArea2" editable="false" onMouseMoved="#mouseMovedPrincipal" prefWidth="1000.0" text="Atalhos:&#10;Ctrl + A = Cadastro de agenda&#10;Ctrl + E = Cadastro de Empresa&#10;Ctrl + U = Cadastro de Usuário&#10;Ctrl + R = Tela de Relatório&#10;Ctrl + S = Calendario Semestral&#10;Ao clicar em uma celula o conteúdo dela irá travar no campo &quot;Empresas do dia&quot; ao clicar mais uma vez em qualquer celula destrava e volta ao normal." wrapText="true" />
                             </children>
                         </HBox>
                     </bottom>
@@ -108,7 +108,7 @@
                         <MenuItem fx:id="miLogout" mnemonicParsing="false" onAction="#setOnActionMenuLogout" text="Logout" />
                     </items>
                 </Menu>
-                <Menu fx:id="mSincronizar" mnemonicParsing="false" onAction="#onActionMSincronizar" text="Sincronizar" visible="false">
+                <Menu fx:id="mSincronizar" mnemonicParsing="false" text="Sincronizar" visible="false">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Iniciar sincronismo" />
                     </items>

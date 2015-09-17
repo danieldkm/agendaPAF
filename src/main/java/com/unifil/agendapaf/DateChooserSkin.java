@@ -7,9 +7,7 @@ import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Historico;
 import com.unifil.agendapaf.service.AgendaService;
-import com.unifil.agendapaf.statics.StaticCalendar;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.statics.StaticPopUp;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
@@ -50,7 +48,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 
     private static BorderPane principalId;
     private static TextArea txtArea;
-    private UtilConverter utilConverter;
+    private Boolean semestral;
 
     private static class CalendarCell extends StackPane {
 
@@ -70,7 +68,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
     public DateChooserSkin(DateChooser dateChooser) {
 //        super(dateChooser, new BehaviorBase<DateChooser>(dateChooser));
         super(dateChooser);
-        utilConverter = new UtilConverter();
+        semestral = dateChooser.getSemestral();
         principalId = dateChooser.getPrincipalId();
         txtArea = dateChooser.getTxtArea();
         // this date is the selected date
@@ -80,7 +78,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
         month = new Label(simpleDateFormat.format(calendarPane.getShownMonth()));
         HBox hbox = new HBox(10);
 
-        if (!StaticCalendar.isSemestral()) {
+        if (!semestral) {
             // create the navigation Buttons
             Button yearBack = new Button("<<");
             yearBack.addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
@@ -149,13 +147,11 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
         private final CalendarCell woyCell = new CalendarCell(new Date(), "");
 
         private int rows, columns;//default
-        private UtilConverter utilConverter;
 
         public DatePickerPane(Date date) {
 //            setPrefSize(300, 300);
             autosize();
-            utilConverter = new UtilConverter();
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
                 woyCell.getStyleClass().add("week-of-year-cell2");
             } else {
                 woyCell.getStyleClass().add("week-of-year-cell");
@@ -208,7 +204,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
             for (int i = 1; i < 8; i++) { // array starts with an empty field
 //                System.out.println("dayNames[i] " + dayNames[i]);
                 CalendarCell calendarCell = new CalendarCell(cal.getTime(), dayNames[i]);
-                if (StaticCalendar.isSemestral()) {
+                if (semestral) {
                     calendarCell.getStyleClass().add("weekday-cell2");
                 } else {
                     calendarCell.getStyleClass().add("weekday-cell");
@@ -259,7 +255,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 
 //                 first column shows the week of year
                 CalendarCell calendarCell = new CalendarCell(cal.getTime(), "" + cal.get(Calendar.WEEK_OF_YEAR));
-                if (StaticCalendar.isSemestral()) {
+                if (semestral) {
                     calendarCell.getStyleClass().add("week-of-year-cell2");
                 } else {
                     calendarCell.getStyleClass().add("week-of-year-cell");
@@ -270,13 +266,13 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                 for (int j = 0; j < columns; j++) {
                     String formatted = sdf.format(cal.getTime());
                     final CalendarCell dayCell = new CalendarCell(cal.getTime(), formatted);
-                    if (StaticCalendar.isSemestral()) {
+                    if (semestral) {
                         dayCell.getStyleClass().add("calendar-cell2");
                     } else {
                         dayCell.getStyleClass().add("calendar-cell");
                     }
                     if (cal.get(Calendar.MONTH) != month) {
-                        if (StaticCalendar.isSemestral()) {
+                        if (semestral) {
                             dayCell.getStyleClass().add("calendar-cell-inactive2");
                         } else {
 
@@ -285,7 +281,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 
                     } else {
                         if (isSameDay(testSelected, cal)) {
-                            if (StaticCalendar.isSemestral()) {
+                            if (semestral) {
                                 dayCell.getStyleClass().add("calendar-cell-selected2");
                             } else {
 
@@ -294,7 +290,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                             selectedDayCell = dayCell;
                         }
                         if (isToday(cal)) {
-                            if (StaticCalendar.isSemestral()) {
+                            if (semestral) {
                                 dayCell.getStyleClass().add("calendar-cell-today2");
                             } else {
                                 dayCell.getStyleClass().add("calendar-cell-today");
@@ -306,7 +302,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                     c.setTime(dayCell.getDate());
                     int dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
                     if (dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY) {
-                        if (StaticCalendar.isSemestral()) {
+                        if (semestral) {
                             dayCell.getStyleClass().remove("calendar-cell2");
                             dayCell.getStyleClass().add("calendar-cell-sabado-e-domingo2");
                         } else {
@@ -323,14 +319,14 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                         // desnecessariamente no metodo pintarCelulas.
                         if (agenda.getDataInicial() != null) {
                             Calendar ca3 = new GregorianCalendar();
-                            ca3.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
+                            ca3.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
                             ca3.set(Calendar.HOUR_OF_DAY, 0);
                             ca3.set(Calendar.MINUTE, 0);
                             ca3.set(Calendar.SECOND, 0);
                             ca3.set(Calendar.MILLISECOND, 0);
 
                             Calendar ca4 = new GregorianCalendar();
-                            ca4.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
+                            ca4.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
                             ca4.set(Calendar.HOUR_OF_DAY, 0);
                             ca4.set(Calendar.MINUTE, 0);
                             ca4.set(Calendar.SECOND, 0);
@@ -352,7 +348,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                         @Override
                         public void handle(MouseEvent t) {
                             if (selectedDayCell != null) {
-                                if (StaticCalendar.isSemestral()) {
+                                if (semestral) {
                                     selectedDayCell.getStyleClass().add("calendar-cell2");
                                     selectedDayCell.getStyleClass().remove("calendar-cell-selected2");
                                     dayCell.getStyleClass().add("calendar-cell-selected2");
@@ -371,7 +367,6 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                 if (checkMonth.get(Calendar.MONTH) != month) {
                                     forward(checkMonth.get(Calendar.MONTH) - month);
                                 }
-//                                System.out.println("dia selecionado " + selectedDate);
                             }
                         }
                     });
@@ -380,9 +375,9 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 
                         @Override
                         public void handle(MouseEvent t) {
-                            if (!StaticCalendar.isSemestral()) {
+                            if (!semestral) {
                                 if (t.isPrimaryButtonDown()) {
-                                    StaticPopUp.getPopUp().hide();
+                                    SceneManager.getInstance().getPopUp().getPopUp().hide();
                                     selectedDate.setTime(dayCell.getDate().getTime());
                                     if (clickOnCell) {
                                         clickOnCell = false;
@@ -391,20 +386,17 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                     }
                                 } else if (t.isSecondaryButtonDown()) {
                                     clickOnCell = false;
-                                    System.err.println("dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() " + dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                                    StaticCalendar.setDataSelecionada(dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+//                                    StaticCalendar.setDataSelecionada(dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                                    SceneManager.getInstance().setDataSelecionada(dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                                     if (contemFeriado(dayCell)) {
                                         txtArea.setText("Não é possivel agendar nos feriados");
                                     } else if (!diaSemana.format(dayCell.getDate()).equals("Sábado") && !diaSemana.format(dayCell.getDate()).equals("Domingo")) {
-//                                        setDataAgendaController(StaticCalendar.getDataSelecionada());
-//                                System.out.println("data botao direito " + AgendarController.dataSelecionada.getTime());
-                                        StaticPopUp.getPopUp().show(principalId, t.getScreenX(), t.getScreenY());
+                                        SceneManager.getInstance().getPopUp().getPopUp().show(principalId, t.getScreenX(), t.getScreenY());
                                     } else {
                                         txtArea.setText("Não é possivel agendar nos finais de semana e/ou feriados");
                                     }
                                 }
                             }
-//                            System.out.println("pressed");
                         }
                     });
 
@@ -415,13 +407,8 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                         public void handle(MouseEvent e) {
                             dayCell.setScaleX(1.1);
                             dayCell.setScaleY(1.1);
-//                            System.out.println("dayCell " + dayCell.getDate());
-
-//                            System.out.println("dia da semana � " + diaSemana.format(dayCell.getDate()));
                             if (!clickOnCell) {
-//                                System.out.println("DIA SEMANA " + diaSemana.format(dayCell.getDate()).equals("S�bado"));
                                 if (!diaSemana.format(dayCell.getDate()).equals("Sábado") && !diaSemana.format(dayCell.getDate()).equals("Domingo")) {
-//                                    Controller.setDataSelecionada(dayCell.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
                                     preencherTxtArea(dayCell.getDate());
                                     if (contemFeriado(dayCell)) {
                                         txtArea.setText(feriado);
@@ -533,7 +520,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
             statusAtual += agenda1.getStatusAgenda() + " ";
         }
         if (statusAtual.contains(EnumStatus.DataAgendada.getStatus())) {
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
 //                dayCell.getStyleClass().clear();
                 dayCell.getStyleClass().add("calendar-cell-data-agendada2");
             } else {
@@ -541,7 +528,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                 dayCell.getStyleClass().add("calendar-cell-data-agendada");
             }
         } else if (statusAtual.contains(EnumStatus.Pendente.getStatus())) {
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
 //                dayCell.getStyleClass().clear();
                 dayCell.getStyleClass().add("calendar-cell-pendente2");
             } else {
@@ -549,7 +536,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                 dayCell.getStyleClass().add("calendar-cell-pendente");
             }
         } else if (statusAtual.contains(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))) {
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
 //                dayCell.getStyleClass().clear();
                 dayCell.getStyleClass().add("calendar-cell-nao-comparaceu2");
             } else {
@@ -557,7 +544,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                 dayCell.getStyleClass().add("calendar-cell-nao-comparaceu");
             }
         } else if (statusAtual.contains(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))) {
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
 //                dayCell.getStyleClass().clear();
                 dayCell.getStyleClass().add("calendar-cell-concluido2");
             } else {
@@ -565,7 +552,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                 dayCell.getStyleClass().add("calendar-cell-concluido");
             }
         } else if (statusAtual.contains(EnumStatus.Cancelado.getStatus())) {
-            if (StaticCalendar.isSemestral()) {
+            if (semestral) {
                 dayCell.getStyleClass().clear();
                 dayCell.getStyleClass().add("calendar-cell-cancelado2");
             } else {
@@ -593,14 +580,14 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                     if (agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.Avaliacao.getServico()))
                             || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.AvaliacaoIntinerante.getServico()))) {
                         Calendar ca2 = new GregorianCalendar();
-                        ca2.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
+                        ca2.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
                         ca2.set(Calendar.HOUR_OF_DAY, 0);
                         ca2.set(Calendar.MINUTE, 0);
                         ca2.set(Calendar.SECOND, 0);
                         ca2.set(Calendar.MILLISECOND, 0);
 
                         Calendar ca3 = new GregorianCalendar();
-                        ca3.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
+                        ca3.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
                         ca3.set(Calendar.HOUR_OF_DAY, 0);
                         ca3.set(Calendar.MINUTE, 0);
                         ca3.set(Calendar.SECOND, 0);
@@ -623,7 +610,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                             || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacaoIntinerante.getServico()))
                             || agenda.getTipo().equals(Util.removerAcentuacaoServico(EnumServico.PreAvaliacaoRemoto.getServico()))) {
                         Calendar ca2 = new GregorianCalendar();
-                        ca2.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
+                        ca2.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
                         ca2.set(Calendar.HOUR_OF_DAY, 0);
                         ca2.set(Calendar.MINUTE, 0);
                         ca2.set(Calendar.SECOND, 0);
@@ -665,13 +652,13 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
             ObservableList<Agenda> listaAgendas = StaticLista.getListaGlobalAgenda();
             for (Agenda agenda : listaAgendas) {
                 if (agenda.getDataInicial() != null) {
-                    ca3.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
+                    ca3.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataInicial()));
                     ca3.set(Calendar.HOUR_OF_DAY, 0);
                     ca3.set(Calendar.MINUTE, 0);
                     ca3.set(Calendar.SECOND, 0);
                     ca3.set(Calendar.MILLISECOND, 0);
 
-                    ca2.setTime(utilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
+                    ca2.setTime(UtilConverter.converterLocalDateToUtilDate(agenda.getDataFinal()));
                     ca2.set(Calendar.HOUR_OF_DAY, 0);
                     ca2.set(Calendar.MINUTE, 0);
                     ca2.set(Calendar.SECOND, 0);
@@ -712,7 +699,9 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                         txtAux += "\nStatus Agenda: " + Util.porAcentuacaoServico(historico.getIdAgenda().getStatusAgenda());
                                         txtAux += "\nStatus Boleto: " + Util.porAcentuacaoServico(agenda.getStatusBoleto());
                                         if (!agenda.getStatusBoleto().equals("Nao enviado")) {
-                                            txtAux += "\nDt envio Boleto: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(agenda.getDataVencimentoBoleto()), "dd-MM-yyyy");
+                                            if (agenda.getDataVencimentoBoleto() != null) {
+                                                txtAux += "\nDt envio Boleto: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(agenda.getDataVencimentoBoleto()), "dd-MM-yyyy");
+                                            }
                                         }
                                         txtAux += "\nUsuário: " + historico.getIdUsuario().getNome();
                                         txtAux += "\n----------------------------\n";
@@ -745,7 +734,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
 
         for (Feriado feriado : StaticLista.getListaGlobalFeriado()) {
 //            System.out.println("data sql convertido para util " + new java.util.Date(feriado.getData()).getTime());
-            cale2.setTime(utilConverter.converterLocalDateToUtilDate(feriado.getData()));
+            cale2.setTime(UtilConverter.converterLocalDateToUtilDate(feriado.getData()));
 
             cale2.set(Calendar.HOUR_OF_DAY,
                     0);
@@ -758,7 +747,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
             cale2.set(Calendar.YEAR,
                     0);
             if (cale1.equals(cale2)) {
-                if (StaticCalendar.isSemestral()) {
+                if (semestral) {
                     dayCell.getStyleClass().clear();
                     dayCell.getStyleClass().add("calendar-cell-feriado2");
                 } else {
@@ -782,7 +771,7 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
         cale1.set(Calendar.YEAR, 0);
 
         for (Feriado f : StaticLista.getListaGlobalFeriado()) {
-            cale2.setTime(utilConverter.converterLocalDateToUtilDate(f.getData()));
+            cale2.setTime(UtilConverter.converterLocalDateToUtilDate(f.getData()));
 
             cale2.set(Calendar.HOUR_OF_DAY,
                     0);
