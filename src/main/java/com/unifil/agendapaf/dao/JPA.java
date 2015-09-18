@@ -53,12 +53,9 @@ public class JPA {
         if (em == null || !em.isOpen()) {
 
             if (criar) {
-
                 em = getFactory().createEntityManager();
                 threadLocal.set(em);
-
             }
-
         }
 
         return em;

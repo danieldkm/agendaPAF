@@ -48,7 +48,7 @@ inner join agenda a on a.id = h.idAgenda;]]>
 	<field name="bairro" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<field name="categoria" class="java.lang.Integer">
+	<field name="categoria" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="celular" class="java.lang.String">

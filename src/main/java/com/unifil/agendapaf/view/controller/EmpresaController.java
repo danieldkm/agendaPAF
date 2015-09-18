@@ -17,6 +17,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
@@ -513,8 +514,8 @@ public class EmpresaController {
         });
     }
 
-    public void setMainEmpresa(VBox mainEmpresa) {
-        this.mainEmpresa = mainEmpresa;
+    public void setMainEmpresa(Parent mainEmpresa) {
+        this.mainEmpresa = (VBox) mainEmpresa;
     }
 
     public void setIsTabelaEmpresa(boolean isTabelaEmpresa) {

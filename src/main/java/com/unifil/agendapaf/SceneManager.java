@@ -1,13 +1,11 @@
 package com.unifil.agendapaf;
 
-import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Usuario;
-import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -18,9 +16,11 @@ import com.unifil.agendapaf.view.controller.EmpresaController;
 import com.unifil.agendapaf.view.controller.FeriadoController;
 import com.unifil.agendapaf.view.controller.FerramentaBDController;
 import com.unifil.agendapaf.view.controller.FinanceiroController;
+import com.unifil.agendapaf.view.controller.InicialController;
 import com.unifil.agendapaf.view.controller.LaudoController;
 import com.unifil.agendapaf.view.controller.LoginController;
 import com.unifil.agendapaf.view.controller.MotivoReagendamentoController;
+import com.unifil.agendapaf.view.controller.NewLoginController;
 import com.unifil.agendapaf.view.controller.ParametroController;
 import com.unifil.agendapaf.view.controller.PrincipalController;
 import com.unifil.agendapaf.view.controller.RelatorioController;
@@ -48,6 +48,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 /**
@@ -56,6 +57,7 @@ import javafx.stage.WindowEvent;
  */
 public class SceneManager {
 
+    private Stage inicialStage;
     private Stage principalStage;
     private Stage agendaStage;
 
@@ -64,6 +66,8 @@ public class SceneManager {
     private MainApp application;
     private static SceneManager instance;
 
+    private InicialController inicialController;
+    private NewLoginController newLoginController;
     private LoginController loginController;
     private PrincipalController principalController;
     private AgendarController agendaController;
@@ -121,16 +125,42 @@ public class SceneManager {
     }
 
     private void initPrimaryStage() {
-        StaticLista.setListaGlobalAgenda(Controller.getAgendas());
-        StaticLista.setListaGlobalHistorico(Controller.getHistoricos());
-        StaticLista.setListaGlobalFeriado(Controller.getFeriados());
-        StaticLista.setListaGlobalEstado(Controller.getEstados());
-        StaticLista.setListaGlobalCidade(Controller.getCidades());
-        StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-        StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
-        StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
-        StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
-        showLogin();
+//        showLogin();
+        inicial();
+    }
+
+    public void inicial() {
+        try {
+            Stage stage = this.application.getStage();
+            FXMLLoader rootLoader = new FXMLLoader();
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.Inicial.getCaminho()));
+            Parent loginLayout = rootLoader.load();
+            inicialController = rootLoader.getController();
+            inicialController.setStage(stage);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setResizable(false);
+            criarPadrao("Carregando", stage, loginLayout);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showNewLogin() {
+        try {
+            Stage rootStage = new Stage();
+            FXMLLoader rootLoader = new FXMLLoader();
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.NewLogin.getCaminho()));
+            Parent parent = rootLoader.load();
+            newLoginController = rootLoader.getController();
+            newLoginController.setStage(rootStage);
+            rootStage.initStyle(StageStyle.UNDECORATED);
+            rootStage.setResizable(false);
+            criarPadrao("Login", rootStage, parent);
+        } catch (Exception e) {
+            e.printStackTrace();
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+        }
     }
 
     public void showLogin() {
@@ -204,18 +234,13 @@ public class SceneManager {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(EnumCaminho.Empresa.getCaminho()));
-            VBox layout = (VBox) loader.load();
+            Parent layout = loader.load();
             empresaController = loader.getController();
             empresaController.setStage(stage);
             empresaController.setMainEmpresa(layout);
             empresaController.setIsTabelaEmpresa(isTabelaEmpresa);
 
-            Scene scene = new Scene(layout);
-            stage.setScene(scene);
-            stage.setTitle("Cadastro de empresa");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.show();
-            stage.toFront();
+            criarPadraoModal("Cadastro de empresa", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro do start empresa", e, "Exception:");
@@ -554,13 +579,8 @@ public class SceneManager {
      * @param stage palco
      * @param layout BorderPane
      */
-    private void criarPadraoModal(String titulo, Stage stage, Object layout) {
-        if (layout instanceof BorderPane) {
-            layout = (BorderPane) layout;
-        } else if (layout instanceof VBox) {
-            layout = (VBox) layout;
-        }
-        Scene scene = new Scene((Parent) layout);
+    private void criarPadraoModal(String titulo, Stage stage, Parent layout) {
+        Scene scene = new Scene(layout);
         stage.setTitle(titulo);
         stage.initOwner(scene.getWindow());
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -585,13 +605,8 @@ public class SceneManager {
      * @param stage palco
      * @param layout BorderPane
      */
-    private void criarPadrao(String titulo, Stage stage, Object layout) {
-        if (layout instanceof BorderPane) {
-            layout = (BorderPane) layout;
-        } else if (layout instanceof VBox) {
-            layout = (VBox) layout;
-        }
-        Scene scene = new Scene((Parent) layout);
+    private void criarPadrao(String titulo, Stage stage, Parent layout) {
+        Scene scene = new Scene(layout);
         stage.setTitle(titulo);
         stage.setScene(scene);
         stage.show();
@@ -600,8 +615,10 @@ public class SceneManager {
             @Override
             public void handle(WindowEvent t) {
                 System.out.println("FECHAR PROGRAMA");
-                if (JPA.em(false).isOpen()) {
-                    JPA.em(false).close();
+                if (JPA.em(false) != null) {
+                    if (JPA.em(false).isOpen()) {
+                        JPA.em(false).close();
+                    }
                 }
                 JPA.getFactory().close();
                 System.exit(0);

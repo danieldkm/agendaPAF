@@ -6,6 +6,7 @@ package com.unifil.agendapaf.view.util.enums;
  */
 public enum EnumCaminho {
 
+    Inicial("/fxml/Inicial.fxml"),
     Agenda("/fxml/Agendar.fxml"),
     Alerta("/fxml/Alerta.fxml"),
     CalendarioSemestral("/fxml/CalendarioSemestral.fxml"),
@@ -15,6 +16,7 @@ public enum EnumCaminho {
     Financeiro("/fxml/Financeiro.fxml"),
     Laudo("/fxml/Laudo.fxml"),
     Login("/fxml/Login.fxml"),
+    NewLogin("/fxml/NewLogin.fxml"),
     MotivoReagendamento("/fxml/MotivoReagendamento.fxml"),
     Parametro("/fxml/Parametro.fxml"),
     PopUp("/fxml/PopUp.fxml"),

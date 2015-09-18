@@ -72,7 +72,7 @@ public class PrincipalController {
         System.out.println("logout");
         isLogout = true;
         stage.close();
-        SceneManager.getInstance().showLogin();
+        sceneManager.showNewLogin();
     }
 
     @FXML
