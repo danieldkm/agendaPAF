@@ -1,5 +1,7 @@
 package com.unifil.agendapaf.view.util.enums;
 
+import java.io.File;
+
 /**
  *
  * @author danielmorita
@@ -32,6 +34,8 @@ public enum EnumCaminho {
     TabelaUsuario("/fxml/TabelaUsuario.fxml"),
     Usuario("/fxml/Usuario.fxml"),
     VisualizadorMotivo("/fxml/VisualizarMotivo.fxml"),
+    EscolherDosc("/fxml/EscolherDocs.fxml"),
+    ModeloDocxs(System.getProperty("user.dir") + "/xml/modelo_docxs"),
     CssCalendar("/styles/calendar.css"),
     CSS("/styles/calendar_styles.css"),
     CSSMaterial("/styles/material-fx-v0_3.css"),

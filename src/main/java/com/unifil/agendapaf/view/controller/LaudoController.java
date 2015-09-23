@@ -1,5 +1,6 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.laudo.AplicacoesEspeciaisType;
 import com.unifil.agendapaf.model.laudo.AprovacaoRelatorioType;
 import com.unifil.agendapaf.model.laudo.ArquivoExecutavelComFuncaoType;
@@ -45,7 +46,8 @@ import com.unifil.agendapaf.model.laudo.TratamentoInterrupcaoType;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
-import com.unifil.agendapaf.util.UtilXML;
+import com.unifil.agendapaf.util.UtilFile;
+import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.File;
@@ -77,6 +79,7 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -112,11 +115,15 @@ public class LaudoController {
         MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
+        
 
         enableEditAllTable();
 
         mensagem = new MensagemType();
-        utilXml = new UtilXML();
+        utilXml = new UtilFile();
+        utilXml.listarArquivos(new File(EnumCaminho.ModeloDocxs.getCaminho()));
+        files = utilXml.getDocs();
+        
         paneCheckBox1.getChildren().add(cb1);
         paneCheckBox1.getChildren().add(cbSelecionarTodos);
         paneCheckBox2.getChildren().add(cb2);
@@ -388,17 +395,47 @@ public class LaudoController {
     @FXML
     private TextField dTxtIE;
     @FXML
-    private CheckBox iCkV;
+    private CheckBox iCkA;
     @FXML
-    private TextField oTxtCEP;
+    private CheckBox iCkB;
+    @FXML
+    private CheckBox iCkC;
+    @FXML
+    private CheckBox iCkD;
+    @FXML
+    private CheckBox iCkE;
+    @FXML
+    private CheckBox iCkF;
+    @FXML
+    private CheckBox iCkG;
+    @FXML
+    private CheckBox iCkH;
+    @FXML
+    private CheckBox iCkI;
+    @FXML
+    private CheckBox iCkJ;
+    @FXML
+    private CheckBox iCkR;
+    @FXML
+    private CheckBox iCkS;
+    @FXML
+    private CheckBox iCkT;
+    @FXML
+    private CheckBox iCkU;
+    @FXML
+    private CheckBox iCkV;
     @FXML
     private CheckBox iCkW;
     @FXML
-    private TextField sgTxtNomeSistema;
+    private CheckBox iCkX;
     @FXML
     private CheckBox iCkY;
     @FXML
     private CheckBox iCkZ;
+    @FXML
+    private TextField oTxtCEP;
+    @FXML
+    private TextField sgTxtNomeSistema;
     @FXML
     private TextField sgTxtRazaoSocial;
     @FXML
@@ -453,6 +490,8 @@ public class LaudoController {
     private TableColumn<NaoConformidadeType, String> tcItem;
     @FXML
     private TableColumn<NaoConformidadeType, String> tcDescricao;
+    @FXML
+    private ToggleButton tBtnGerarDocs;
 
     private CheckComboBox<String> cb1 = new CheckComboBox();
     private CheckComboBox<String> cb2 = new CheckComboBox();
@@ -460,8 +499,9 @@ public class LaudoController {
     private CheckBox cbSelecionarTodos2 = new CheckBox("Selecionar Todos");
     private Stage stage;
     private MensagemType mensagem;
-    private UtilXML utilXml;
+    private UtilFile utilXml;
     private MarcasModelosCompativeisType mct;
+    private ObservableList<String> files;
 
     private void carregarDiretorioXML() {
         utilXml.setEmpresas(FXCollections.observableArrayList());
@@ -620,6 +660,52 @@ public class LaudoController {
             if (iCkZ.isSelected()) {
                 pqt.getPerfilRequisito().add("Z");
             }
+            if (iCkA.isSelected()) {
+                pqt.getPerfilRequisito().add("A");
+            }
+            if (iCkB.isSelected()) {
+                pqt.getPerfilRequisito().add("B");
+            }
+            if (iCkC.isSelected()) {
+                pqt.getPerfilRequisito().add("C");
+            }
+            if (iCkD.isSelected()) {
+                pqt.getPerfilRequisito().add("D");
+            }
+            if (iCkE.isSelected()) {
+                pqt.getPerfilRequisito().add("E");
+            }
+            if (iCkF.isSelected()) {
+                pqt.getPerfilRequisito().add("F");
+            }
+            if (iCkG.isSelected()) {
+                pqt.getPerfilRequisito().add("G");
+            }
+            if (iCkH.isSelected()) {
+                pqt.getPerfilRequisito().add("H");
+            }
+            if (iCkI.isSelected()) {
+                pqt.getPerfilRequisito().add("I");
+            }
+            if (iCkJ.isSelected()) {
+                pqt.getPerfilRequisito().add("J");
+            }
+            if (iCkR.isSelected()) {
+                pqt.getPerfilRequisito().add("R");
+            }
+            if (iCkS.isSelected()) {
+                pqt.getPerfilRequisito().add("S");
+            }
+            if (iCkT.isSelected()) {
+                pqt.getPerfilRequisito().add("T");
+            }
+            if (iCkU.isSelected()) {
+                pqt.getPerfilRequisito().add("U");
+            }
+            if (iCkX.isSelected()) {
+                pqt.getPerfilRequisito().add("X");
+            }
+
             identificacao.setPerfisRequisitos(pqt);
             mensagem.setIdentificacaoPaf(identificacao);
 
@@ -922,20 +1008,6 @@ public class LaudoController {
     private void actionBtnLimpar(ActionEvent event) {
         System.out.println("- Iniciar metodo de actionBtnLimpar");
         mensagem = new MensagemType();
-        oDtInicio.setValue(null);
-        ckEspeciais1.setSelected(false);
-        fTxtLocal.setText("");
-        iTxtMarca.setText("");
-        ckEspeciais3.setSelected(false);
-        ckEspeciais2.setSelected(false);
-        ckEspeciais5.setSelected(false);
-        ckEspeciais4.setSelected(false);
-        sgTxtCNPJ.setText("");
-        ckEspeciais7.setText("");
-        cb2.getCheckModel().clearChecks();
-        ckEspeciais6.setSelected(false);
-        ckEspeciais9.setSelected(false);
-        ckEspeciais8.setSelected(false);
 
         feTxtNome.setText("Sandro Teixeira Pinto");
         feTxtCPF.setText("64555011953");
@@ -957,101 +1029,132 @@ public class LaudoController {
         oTxtCNPJ.setText("78624202000100");
         oTxtCEP.setText("10900000");
 
-        sgTvTabela.getItems().clear();
+        txtNumeroLaudo.setText("");
         vTxtVersaoER.setText("");
         vTxtMes.setText("");
+        vTxtAno.setText("");
+        vTxtVersaoRoteiro.setText("");
+        iTxtMD5Outro.setText("");
+        iTxtNomeComercial.setText("");
+        iTxtNumero.setText("");
+        iTxtMarca.setText("");
+        iTxtVersao.setText("");
+        iTxtPrincipalExec.setText("");
+        iTxtModelo.setText("");
+        iTxtRelacaoExec.setText("");
+        iTxtOutroArq.setText("");
+        iTxtMD5Relacao.setText("");
+        iTxtMD5Principal.setText("");
+        dTxtCEP.setText("");
+        dTxtLogradouro.setText("");
+        dTxtBairro.setText("");
+        dTxtNumero.setText("");
+        dTxtNome.setText("");
+        dTxtRazaoSocial.setText("");
+        dTxtUF.setText("");
+        dTxtComplemento.setText("");
+        dTxtCPF.setText("");
+        dTxtResponsavelTestes.setText("");
+        dTxtTelefone.setText("");
+        dTxtCNPJ.setText("");
+        dTxtIE.setText("");
+        dTxtCidade.setText("");
+        dTxtEmail.setText("");
+        fTxtLocal.setText("");
+        fTxtArea.setText("");
+        speTxtNomeSistema.setText("");
+        speTxtCNPJ.setText("");
+        speTxtEmpresaDesenvolvedora.setText("");
+        spTxtNomeSistema.setText("");
+        spTxtCNPJ.setText("");
+        sgTxtNomeSistema.setText("");
+        sgTxtCNPJ.setText("");
+        sgTxtRazaoSocial.setText("");
+        spTxtEmpresaDesenvolvedora.setText("");
+
+        fDt.setValue(null);
+        oDtFinal.setValue(null);
+        oDtInicio.setValue(null);
+
+        spTvTabela.getItems().clear();
+        speTvTabela.getItems().clear();
+        sgTvTabela.getItems().clear();
+        eTvTabela.getItems().clear();
+        tTvTabela.getItems().clear();
+        iTvTabela.getItems().clear();
+        nTvTabela.getItems().clear();
+        lvLaudo.getItems().clear();
+
+        fCkDeclaracao.setSelected(false);
+        eCbMarca.getSelectionModel().clearSelection();
+        rCbMarca.getSelectionModel().clearSelection();
+        cbBD.getSelectionModel().clearSelection();
+        cbSO.getSelectionModel().clearSelection();
+        cbLinguagem.getSelectionModel().clearSelection();
+        cbEmpresa.getSelectionModel().clearSelection();
+        cb1.getCheckModel().clearChecks();
+        cb2.getCheckModel().clearChecks();
+
+        ckEspeciais1.setSelected(false);
+        ckEspeciais2.setSelected(false);
+        ckEspeciais3.setSelected(false);
+        ckEspeciais4.setSelected(false);
+        ckEspeciais5.setSelected(false);
+        ckEspeciais6.setSelected(false);
+        ckEspeciais7.setSelected(false);
+        ckEspeciais8.setSelected(false);
+        ckEspeciais9.setSelected(false);
         ckForma1.setSelected(false);
         ckForma2.setSelected(false);
         ckForma3.setSelected(false);
         ckForma4.setSelected(false);
+        ckForma5.setSelected(false);
+        ckForma6.setSelected(false);
+        ckForma7.setSelected(false);
         ckProprio.setSelected(false);
-        vTxtAno.setText("");
-        txtNumeroLaudo.setText("");
         ckTerceirizado.setSelected(false);
         ckInterrupcao1.setSelected(false);
         ckInterrupcao2.setSelected(false);
         ckInterrupcao3.setSelected(false);
         ckEmite1.setSelected(false);
         ckEmite2.setSelected(false);
-        speTxtNomeSistema.setText("");
         ckGeracao1.setSelected(false);
         ckGeracao2.setSelected(false);
         ckGeracao3.setSelected(false);
-        fCkDeclaracao.setSelected(false);
-        eCbMarca.getSelectionModel().clearSelection();
-        spTvTabela.getItems().clear();
-        iTxtMD5Outro.setText("");
-        iTxtNomeComercial.setText("");
-        eTvTabela.getItems().clear();
-        dTxtCEP.setText("");
-        ckForma5.setSelected(false);
-        ckForma6.setSelected(false);
-        ckForma7.setSelected(false);
-        dTxtLogradouro.setText("");
-        ckTipo2.setSelected(false);
-        dTxtBairro.setText("");
-        fTxtArea.setText("");
-        rCbMarca.getSelectionModel().clearSelection();
-        dTxtNumero.setText("");
-        dTxtNome.setText("");
-        dTxtRazaoSocial.setText("");
         ckComercializavel.setSelected(false);
-
-        iTxtNumero.setText("");
-        speTvTabela.getItems().clear();
-        tTvTabela.getItems().clear();
-        iTxtVersao.setText("");
-        iTvTabela.getItems().clear();
-        dTxtUF.setText("");
         ckIntegracao1.setSelected(false);
         ckIntegracao2.setSelected(false);
         ckIntegracao3.setSelected(false);
         ckIntegracao4.setSelected(false);
         ckTipo1.setSelected(false);
+        ckTipo2.setSelected(false);
         ckTipo3.setSelected(false);
-
-        dTxtComplemento.setText("");
-        fDt.setValue(null);
-        dTxtCPF.setText("");
-        oDtFinal.setValue(null);
-        dTxtResponsavelTestes.setText("");
-        iTxtPrincipalExec.setText("");
-        iTxtModelo.setText("");
-        iTxtRelacaoExec.setText("");
-        spTxtEmpresaDesenvolvedora.setText("");
-        vTxtVersaoRoteiro.setText("");
-        iTxtOutroArq.setText("");
-        cbBD.getSelectionModel().clearSelection();
-        nTvTabela.getItems().clear();
-
-        cbSO.getSelectionModel().clearSelection();
-        speTxtCNPJ.setText("");
-        dTxtTelefone.setText("");
-        speTxtEmpresaDesenvolvedora.setText("");
-        dTxtCNPJ.setText("");
-        spTxtNomeSistema.setText("");
-        iTxtMD5Relacao.setText("");
-        cbLinguagem.getSelectionModel().clearSelection();
         ckEspeciais12.setSelected(false);
         ckEspeciais11.setSelected(false);
         ckEspeciais10.setSelected(false);
-        dTxtEmail.setText("");
-        cb1.getCheckModel().clearChecks();
-        iTxtMD5Principal.setText("");
-        spTxtCNPJ.setText("");
         ckEspeciais15.setSelected(false);
         ckEspeciais14.setSelected(false);
         ckEspeciais13.setSelected(false);
-        dTxtIE.setText("");
+
+        iCkA.setSelected(false);
+        iCkB.setSelected(false);
+        iCkC.setSelected(false);
+        iCkD.setSelected(false);
+        iCkE.setSelected(false);
+        iCkF.setSelected(false);
+        iCkG.setSelected(false);
+        iCkH.setSelected(false);
+        iCkI.setSelected(false);
+        iCkJ.setSelected(false);
+        iCkR.setSelected(false);
+        iCkS.setSelected(false);
+        iCkT.setSelected(false);
+        iCkU.setSelected(false);
+        iCkX.setSelected(false);
         iCkV.setSelected(false);
         iCkW.setSelected(false);
-        sgTxtNomeSistema.setText("");
         iCkY.setSelected(false);
         iCkZ.setSelected(false);
-        sgTxtRazaoSocial.setText("");
-        dTxtCidade.setText("");
-        cbEmpresa.getSelectionModel().clearSelection();
-        lvLaudo.getItems().clear();
         System.out.println("- Finalizar metodo de actionBtnLimpar");
     }
 
@@ -1113,6 +1216,51 @@ public class LaudoController {
             }
             if (s.equals("Z")) {
                 iCkZ.setSelected(true);
+            }
+            if (s.equals("A")) {
+                iCkA.setSelected(true);
+            }
+            if (s.equals("B")) {
+                iCkB.setSelected(true);
+            }
+            if (s.equals("C")) {
+                iCkC.setSelected(true);
+            }
+            if (s.equals("D")) {
+                iCkD.setSelected(true);
+            }
+            if (s.equals("E")) {
+                iCkE.setSelected(true);
+            }
+            if (s.equals("F")) {
+                iCkF.setSelected(true);
+            }
+            if (s.equals("G")) {
+                iCkG.setSelected(true);
+            }
+            if (s.equals("H")) {
+                iCkH.setSelected(true);
+            }
+            if (s.equals("I")) {
+                iCkI.setSelected(true);
+            }
+            if (s.equals("J")) {
+                iCkJ.setSelected(true);
+            }
+            if (s.equals("R")) {
+                iCkR.setSelected(true);
+            }
+            if (s.equals("S")) {
+                iCkS.setSelected(true);
+            }
+            if (s.equals("T")) {
+                iCkT.setSelected(true);
+            }
+            if (s.equals("X")) {
+                iCkX.setSelected(true);
+            }
+            if (s.equals("U")) {
+                iCkU.setSelected(true);
             }
         }
         ObservableList<ArquivoExecutavelSemFuncaoType> listaExecutaveis = FXCollections.observableArrayList();
@@ -1991,12 +2139,21 @@ public class LaudoController {
         );
     }
 
+    @FXML
+    public void onActionGerarDocs() {
+        SceneManager.getInstance().showEscolherDocs();
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
     public void setMain(VBox main) {
         this.main = main;
+    }
+
+    public void setFiles(ObservableList<String> files) {
+        this.files = files;
     }
 
 }

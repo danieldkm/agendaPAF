@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0002015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>old</RazaoSocial>
+            <Cnpj>12345678901234</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>logradouro</Logradouro>
+                <Numero>numero</Numero>
+                <Complemento>complemento</Complemento>
+                <Bairro>bairro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>80000000</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>tester</Nome>
+                <Cpf>12345678901</Cpf>
+                <Telefone>9999999999</Telefone>
+                <Email>email@email.com</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>responsavel</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-09-22-03:00</DataInicio>
+                <DataFim>2015-09-23-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.03</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>nome comercial</NomeComercial>
+            <Versao>1.0</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>principal</Nome>
+                <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>relacao</Nome>
+                <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>executavel</Nome>
+                    <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>outros</Nome>
+                    <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Marca</Marca>
+                <Modelo>modelo</Modelo>
+                <Numero>123</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>C</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>Arquivo plano</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Exclusivamente stand alone</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo PAF-ECF</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+                <Modo>Não concomitante, com emissão de DAV</Modo>
+                <Modo>Não concomitante, com controle de pré-venda</Modo>
+                <Modo>Não concomitante, com controle de conta de cliente</Modo>
+                <Modo>DAV - emitido sem possibilidade de impressão</Modo>
+                <Modo>DAV - impresso em impressora não fiscal</Modo>
+                <Modo>DAV - impresso em ECF</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Recuperação de dados</Modo>
+                <Modo>Cancelamento automático</Modo>
+                <Modo>Bloqueio de funções</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Posto revendedor de combustível com sistema de interligação de bombas</AplicacaoEspecial>
+                <AplicacaoEspecial>Posto revendedor de combustível sem sistema de interligação de bombas</AplicacaoEspecial>
+                <AplicacaoEspecial>Oficina de conserto com DAV-OS</AplicacaoEspecial>
+                <AplicacaoEspecial>Oficina de conserto com conta de cliente</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e balança interligada</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-normal e balança interligada</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e sem balança interligada</AplicacaoEspecial>
+                <AplicacaoEspecial>Bar, restaurante e estabelecimento similar com utilização de ECF-normal e sem balança interligada</AplicacaoEspecial>
+                <AplicacaoEspecial>Farmácia de manipulação</AplicacaoEspecial>
+                <AplicacaoEspecial>Transporte de passageiros</AplicacaoEspecial>
+                <AplicacaoEspecial>Posto de pedágio</AplicacaoEspecial>
+                <AplicacaoEspecial>Estacionamento, motéis e similares, que pratiquem o controle de tráfego de veículos ou pessoas</AplicacaoEspecial>
+                <AplicacaoEspecial>Prestador de serviço de cinema, espetáculos ou similares</AplicacaoEspecial>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+                <AplicacaoEspecial>Estabelecimento enquadrado no simples nacional (art. 5º do ato cotepe da ER-PAF-ECF)</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>nome do sistema teste</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>razao social para teste</RazaoSocial>
+                    <Cnpj>12345678901234</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>nomes</Nome>
+                        <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>requisitos</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>nome do sistema teste</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>razao social para teste</RazaoSocial>
+                    <Cnpj>12345678901234</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>nome</Nome>
+                        <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                        <Funcao>funcao</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>nome do sistema teste</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>razao social para teste</RazaoSocial>
+                    <Cnpj>12345678901234</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>nome</Nome>
+                        <Md5>5213978D5DB517C5992880925F4EB607</Md5>
+                        <Funcao>funcao</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 2000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 6000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI R</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-40 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-50 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF FM-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF MP-30 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI II</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BETHA</Marca>
+                <Modelo>BETHA 1E</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BETHA</Marca>
+                <Modelo>BETHA 2E</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>COSMOPOLITAN</Marca>
+                <Modelo>COSMOS/1EFM</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>COSMOPOLITAN</Marca>
+                <Modelo>COSMOS/2EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS2100 T</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS318</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS345</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS420</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600 USB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS800I</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0203</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0202</VersaoRoteiro>
+            <Mes>9</Mes>
+            <Ano>2015</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>requisito</Requisito>
+                <Item>item</Item>
+                <Descricao>descricao</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc>dgdfg</ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-09-23-03:00</Data>
+            <Local>UniFIl</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Sergio Akio Tanaka</Nome>
+            <Cargo>Coordenador</Cargo>
+            <Cpf>73183920930</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

@@ -104,6 +104,7 @@
                            <children>
                               <Button fx:id="btnCarregar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnCarregar" styleClass="button-raised" text="Carregar" HBox.hgrow="ALWAYS" />
                               <Button defaultButton="true" mnemonicParsing="false" onAction="#actionBtnAbrir" styleClass="button-raised" text="Abrir" HBox.hgrow="ALWAYS" />
+                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" text="Gerar docs" />
                            </children>
                         </HBox>
                      </children>
@@ -1022,30 +1023,129 @@
                                         </Tab>
                                         <Tab text="Perfil">
                                             <content>
-                                                <VBox alignment="CENTER" spacing="10.0">
-                                                    <children>
-                                                        <CheckBox fx:id="iCkW" mnemonicParsing="false" text="W">
-                                                            <font>
-                                                                <Font size="16.0" />
-                                                            </font>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="iCkV" mnemonicParsing="false" text="V">
-                                                            <font>
-                                                                <Font size="16.0" />
-                                                            </font>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="iCkY" mnemonicParsing="false" text="Y">
-                                                            <font>
-                                                                <Font size="16.0" />
-                                                            </font>
-                                                        </CheckBox>
-                                                        <CheckBox fx:id="iCkZ" mnemonicParsing="false" text="Z">
-                                                            <font>
-                                                                <Font size="16.0" />
-                                                            </font>
-                                                        </CheckBox>
-                                                    </children>
-                                                </VBox>
+                                    <HBox alignment="CENTER">
+                                       <children>
+                                          <GridPane HBox.hgrow="ALWAYS">
+                                            <columnConstraints>
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                              <RowConstraints maxHeight="10.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                                              <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="10.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="10.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints maxHeight="10.0" minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                             <children>
+                                                <CheckBox fx:id="iCkA" mnemonicParsing="false" text="A">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkB" mnemonicParsing="false" text="B" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkC" mnemonicParsing="false" text="C" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkD" mnemonicParsing="false" text="D" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkE" mnemonicParsing="false" text="E" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkF" mnemonicParsing="false" text="F" GridPane.columnIndex="1">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkG" mnemonicParsing="false" text="G" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkH" mnemonicParsing="false" text="H" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkI" mnemonicParsing="false" text="I" GridPane.columnIndex="1" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkJ" mnemonicParsing="false" text="J" GridPane.columnIndex="1" GridPane.rowIndex="8">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkR" mnemonicParsing="false" text="R" GridPane.columnIndex="2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkS" mnemonicParsing="false" text="S" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkT" mnemonicParsing="false" text="T" GridPane.columnIndex="2" GridPane.rowIndex="4">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                <CheckBox fx:id="iCkU" mnemonicParsing="false" text="U" GridPane.columnIndex="2" GridPane.rowIndex="6">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                              <CheckBox fx:id="iCkV" mnemonicParsing="false" text="V" GridPane.columnIndex="2" GridPane.rowIndex="8">
+                                                                  <font>
+                                                                      <Font size="16.0" />
+                                                                  </font>
+                                                              </CheckBox>
+                                                              <CheckBox fx:id="iCkW" mnemonicParsing="false" text="W" GridPane.columnIndex="3">
+                                                                  <font>
+                                                                      <Font size="16.0" />
+                                                                  </font>
+                                                              </CheckBox>
+                                                <CheckBox fx:id="iCkX" mnemonicParsing="false" text="X" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                                   <font>
+                                                      <Font size="16.0" />
+                                                   </font>
+                                                </CheckBox>
+                                                              <CheckBox fx:id="iCkY" mnemonicParsing="false" text="Y" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                                                  <font>
+                                                                      <Font size="16.0" />
+                                                                  </font>
+                                                              </CheckBox>
+                                                              <CheckBox fx:id="iCkZ" mnemonicParsing="false" text="Z" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                                                  <font>
+                                                                      <Font size="16.0" />
+                                                                  </font>
+                                                              </CheckBox>
+                                             </children>
+                                             <HBox.margin>
+                                                <Insets left="10.0" right="10.0" />
+                                             </HBox.margin>
+                                          </GridPane>
+                                       </children>
+                                    </HBox>
                                             </content>
                                         </Tab>
                                     </tabs>

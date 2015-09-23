@@ -70,7 +70,7 @@ public class PrincipalController {
     @FXML
     private void setOnActionMenuLogout() {
         System.out.println("logout");
-        isLogout = true;
+//        isLogout = true;
         stage.close();
         sceneManager.showNewLogin();
     }
@@ -119,14 +119,14 @@ public class PrincipalController {
     public SplitPane spPane;
 
     private DateChooser dc;
-    private LoginController application;
     private double paneW = 0;
     private double paneH = 0;
     private ObservableList<EmpresasHomologadas> lista = FXCollections.observableArrayList();
     private Stage stage;
-    private boolean isLogout = false;
     private RelatorioController relatorioController;
     private SceneManager sceneManager;
+//    private LoginController application;
+//    private boolean isLogout = false;
 
     /**
      * Metodo para redimensionar o calendario conforme a resolução da tela
@@ -168,7 +168,7 @@ public class PrincipalController {
 
     @FXML
     protected void iniciarCadastroLaudo() {
-        sceneManager.showLaudo();
+        sceneManager.showLaudo(null);
     }
 
     @FXML

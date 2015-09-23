@@ -1,571 +1,587 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:app1="http://www.w3.org/2000/09/xmldsig#" attributeFormDefault="unqualified" elementFormDefault="qualified">
-<xs:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xs"/>
-<xs:element name="Laudo" type="LaudoType"/>
-<xs:complexType name="EnderecoType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Logradouro"/>
-<xs:element type="EnderecoNumeroType" name="Numero"/>
-<xs:element type="NullOrString4000Type" name="Complemento"/>
-<xs:element type="String4000Type" name="Bairro"/>
-<xs:element type="String4000Type" name="Municipio"/>
-<xs:element type="EnderecoUfType" name="Uf"/>
-<xs:element type="EnderecoCepType" name="Cep"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ContatoType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="CpfType" name="Cpf"/>
-<xs:element type="TelefoneType" name="Telefone"/>
-<xs:element type="EmailType" name="Email"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="DesenvolvedoraType">
-<xs:sequence>
-<xs:element type="String4000Type" name="RazaoSocial"/>
-<xs:element type="CnpjType" name="Cnpj"/>
-<xs:element type="IeType" name="Ie"/>
-<xs:element type="EnderecoType" name="Endereco"/>
-<xs:element type="ContatoType" name="Contato"/>
-<xs:element type="String4000Type" name="ResponsavelAcompanhamentoTestes"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="PeriodoAnaliseType">
-<xs:sequence>
-<xs:element type="xs:date" name="DataInicio"/>
-<xs:element type="xs:date" name="DataFim"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="OtcType">
-<xs:sequence>
-<xs:element type="String4000Type" name="RazaoSocial"/>
-<xs:element type="CnpjType" name="Cnpj"/>
-<xs:element type="IeType" name="Ie"/>
-<xs:element type="EnderecoType" name="Endereco"/>
-<xs:element type="PeriodoAnaliseType" name="PeriodoAnalise"/>
-<xs:element name="VersaoEspecificacaoRequisitos">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="02.01"/>
-<xs:enumeration value="02.02"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoExecutavelPrincipalType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoRelacaoExecutaveisType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoExecutavelSemFuncaoType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivosExecutaveisSemFuncaoType">
-<xs:sequence>
-<xs:element type="ArquivoExecutavelSemFuncaoType" name="ArquivoExecutavel" maxOccurs="40000"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoExecutavelComFuncaoType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-<xs:element type="String4000Type" name="Funcao"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivosExecutaveisComFuncaoType">
-<xs:sequence>
-<xs:element type="ArquivoExecutavelComFuncaoType" name="ArquivoExecutavel" maxOccurs="40000"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoOutroType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivosOutrosType">
-<xs:sequence>
-<xs:element type="ArquivoOutroType" name="ArquivoOutro" minOccurs="0" maxOccurs="40000"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="EnvelopeSegurancaType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Marca"/>
-<xs:element type="String4000Type" name="Modelo"/>
-<xs:element type="Number255Type" name="Numero"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="PerfisRequisitosType">
-<xs:sequence>
-<!--
-Fonte: https://www1.fazenda.gov.br/confaz/confaz/Atos/Despacho/2013/dp054_13.htm
+﻿<?xml version="1.0"  encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:app1="http://www.w3.org/2000/09/xmldsig#">
+<xsd:import namespace="http://www.w3.org/2000/09/xmldsig#" schemaLocation="xmldsig-core-schema.xsd" />
+<xsd:element name="Laudo" type="LaudoType"/>
+<xsd:complexType name="EnderecoType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Logradouro"/>
+<xsd:element type="EnderecoNumeroType" name="Numero" />
+<xsd:element type="NullOrString4000Type" name="Complemento" />
+<xsd:element type="String4000Type" name="Bairro"/>
+<xsd:element type="String4000Type" name="Municipio"/>
+<xsd:element type="EnderecoUfType" name="Uf"/>
+<xsd:element type="EnderecoCepType" name="Cep"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ContatoType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="CpfType" name="Cpf"/>
+<xsd:element type="TelefoneType" name="Telefone"/>
+<xsd:element type="EmailType" name="Email"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="DesenvolvedoraType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="RazaoSocial"/>
+<xsd:element type="CnpjType" name="Cnpj"/>
+<xsd:element type="IeType" name="Ie"/>
+<xsd:element type="EnderecoType" name="Endereco"/>
+<xsd:element type="ContatoType" name="Contato"/>
+<xsd:element type="String4000Type" name="ResponsavelAcompanhamentoTestes"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PeriodoAnaliseType">
+<xsd:sequence>
+<xsd:element type="xsd:date" name="DataInicio"/>
+<xsd:element type="xsd:date" name="DataFim"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="OtcType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="RazaoSocial"/>
+<xsd:element type="CnpjType" name="Cnpj"/>
+<xsd:element type="IeType" name="Ie"/>
+<xsd:element type="EnderecoType" name="Endereco"/>
+<xsd:element type="PeriodoAnaliseType" name="PeriodoAnalise"/>
+<xsd:element name="VersaoEspecificacaoRequisitos">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="02.01"/>
+<xsd:enumeration value="02.02"/>
+<xsd:enumeration value="02.03"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoExecutavelPrincipalType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="Md5Type" name="Md5"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoRelacaoExecutaveisType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="Md5Type" name="Md5"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoExecutavelSemFuncaoType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="Md5Type" name="Md5"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivosExecutaveisSemFuncaoType">
+<xsd:sequence>
+<xsd:element type="ArquivoExecutavelSemFuncaoType" name="ArquivoExecutavel" maxOccurs="40000"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoExecutavelComFuncaoType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="Md5Type" name="Md5"/>
+<xsd:element type="String4000Type" name="Funcao"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivosExecutaveisComFuncaoType">
+<xsd:sequence>
+<xsd:element type="ArquivoExecutavelComFuncaoType" name="ArquivoExecutavel" maxOccurs="40000"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoOutroType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="Md5Type" name="Md5"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivosOutrosType">
+<xsd:sequence>
+<xsd:element type="ArquivoOutroType" name="ArquivoOutro" minOccurs="0" maxOccurs="40000"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="EnvelopeSegurancaType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Marca"/>
+<xsd:element type="String4000Type" name="Modelo"/>
+<xsd:element type="Number255Type" name="Numero"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="PerfisRequisitosType">
+<xsd:sequence>
+<!--Fonte: https://www1.fazenda.gov.br/confaz/confaz/Atos/Despacho/2013/dp054_13.htm
                  https://www1.fazenda.gov.br/confaz/confaz/Atos/Despacho/2013/dp195_13.htm
-                 https://www1.fazenda.gov.br/confaz/confaz/atos/despacho/2014/dp162_14.htm 
--->
-<xs:element name="PerfilRequisito" maxOccurs="14">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="A"/>
-<xs:enumeration value="B"/>
-<xs:enumeration value="C"/>
-<xs:enumeration value="D"/>
-<xs:enumeration value="E"/>
-<xs:enumeration value="F"/>
-<xs:enumeration value="G"/>
-<xs:enumeration value="H"/>
-<xs:enumeration value="I"/>
-<xs:enumeration value="J"/>
-<xs:enumeration value="V"/>
-<xs:enumeration value="W"/>
-<xs:enumeration value="X"/>
-<xs:enumeration value="Y"/>
-<xs:enumeration value="Z"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="IdentificacaoPafType">
-<xs:sequence>
-<xs:element type="String4000Type" name="NomeComercial"/>
-<xs:element type="String4000Type" name="Versao"/>
-<xs:element type="ArquivoExecutavelPrincipalType" name="ArquivoExecutavelPrincipal"/>
-<xs:element type="ArquivoRelacaoExecutaveisType" name="ArquivoRelacaoExecutaveis"/>
-<xs:element type="ArquivosExecutaveisSemFuncaoType" name="ArquivosExecutaveis"/>
-<xs:element type="ArquivosOutrosType" name="ArquivosOutros"/>
-<xs:element type="EnvelopeSegurancaType" name="EnvelopeSeguranca"/>
-<xs:element type="PerfisRequisitosType" name="PerfisRequisitos"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="MeioGeracaoArquivoSintegraEfdType">
-<xs:sequence>
-<xs:element name="Modo" maxOccurs="3">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Pelo PAF-ECF"/>
-<xs:enumeration value="Pelo sistema de retaguarda"/>
-<xs:enumeration value="Pelo sistema PED ou EFD"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="FormaImpressaoType">
-<xs:sequence>
-<xs:element name="Modo" maxOccurs="7">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Concomitante"/>
-<xs:enumeration value="Não concomitante, com emissão de DAV"/>
-<xs:enumeration value="Não concomitante, com controle de pré-venda"/>
-<xs:enumeration value="Não concomitante, com controle de conta de cliente"/>
-<xs:enumeration value="DAV - emitido sem possibilidade de impressão"/>
-<xs:enumeration value="DAV - impresso em impressora não fiscal"/>
-<xs:enumeration value="DAV - impresso em ECF"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="TratamentoInterrupcaoType">
-<xs:sequence>
-<xs:element name="Modo" maxOccurs="3">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Recuperação de dados"/>
-<xs:enumeration value="Cancelamento automático"/>
-<xs:enumeration value="Bloqueio de funções"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="AplicacoesEspeciaisType">
-<xs:sequence>
-<xs:element name="AplicacaoEspecial" maxOccurs="15">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Posto de pedágio"/>
-<xs:enumeration value="Transporte de passageiros"/>
-<xs:enumeration value="Farmácia de manipulação"/>
-<xs:enumeration value="Oficina de conserto com DAV-OS"/>
-<xs:enumeration value="Oficina de conserto com conta de cliente"/>
-<xs:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e balança interligada"/>
-<xs:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-normal e balança interligada"/>
-<xs:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e sem balança interligada"/>
-<xs:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-normal e sem balança interligada"/>
-<xs:enumeration value="Posto revendedor de combustível com sistema de interligação de bombas"/>
-<xs:enumeration value="Posto revendedor de combustível sem sistema de interligação de bombas"/>
-<xs:enumeration value="Estacionamento, motéis e similares, que pratiquem o controle de tráfego de veículos ou pessoas"/>
-<xs:enumeration value="Prestador de serviço de cinema, espetáculos ou similares"/>
-<xs:enumeration value="Demais atividades"/>
-<xs:enumeration value="Estabelecimento enquadrado no simples nacional (art. 5º do ato cotepe da ER-PAF-ECF)"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="CaracteristicasPafType">
-<xs:sequence>
-<xs:element name="LinguagemProgramacao">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="4GL/4Js"/>
-<xs:enumeration value="C"/>
-<xs:enumeration value="C++"/>
-<xs:enumeration value="C#"/>
-<xs:enumeration value="Clarion"/>
-<xs:enumeration value="Cobol"/>
-<xs:enumeration value="DataFlex"/>
-<xs:enumeration value="Delphi"/>
-<xs:enumeration value="Java"/>
-<xs:enumeration value="Object Pascal"/>
-<xs:enumeration value="Objective C"/>
-<xs:enumeration value="PHP"/>
-<xs:enumeration value="PowerBuilder"/>
-<xs:enumeration value="Python"/>
-<xs:enumeration value="Visual Basic"/>
-<xs:enumeration value="Visual FoxPro"/>
-<xs:enumeration value="WLanguage"/>
-<xs:enumeration value="ZIM"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element name="SistemaOperacional">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Windows"/>
-<xs:enumeration value="Linux"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element name="GerenciadorBancoDados" maxOccurs="5">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Access"/>
-<xs:enumeration value="Arquivo plano"/>
-<xs:enumeration value="DataFlex"/>
-<xs:enumeration value="DB2"/>
-<xs:enumeration value="DBISAM"/>
-<xs:enumeration value="Firebird"/>
-<xs:enumeration value="Informix"/>
-<xs:enumeration value="MongoDB"/>
-<xs:enumeration value="MySQL"/>
-<xs:enumeration value="Oracle"/>
-<xs:enumeration value="Paradox"/>
-<xs:enumeration value="PostgreSQL"/>
-<xs:enumeration value="SQL Anywhere"/>
-<xs:enumeration value="SQL Server"/>
-<xs:enumeration value="SQLite"/>
-<xs:enumeration value="XML"/>
-<xs:enumeration value="ZIM"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element name="TipoDesenvolvimento">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Comercializável"/>
-<xs:enumeration value="Exclusivo próprio"/>
-<xs:enumeration value="Exclusivo terceirizado"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element name="TipoFuncionamento">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Exclusivamente stand alone"/>
-<xs:enumeration value="Em rede"/>
-<xs:enumeration value="Parametrizável"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element type="MeioGeracaoArquivoSintegraEfdType" name="MeioGeracaoArquivoSintegraEfd"/>
-<xs:element name="IntegracaoPaf">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:enumeration value="Com sistema de gestão ou retaguarda"/>
-<xs:enumeration value="Com sistema PED"/>
-<xs:enumeration value="Com ambos"/>
-<xs:enumeration value="Não integrado"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element type="FormaImpressaoType" name="FormaImpressao"/>
-<xs:element type="TratamentoInterrupcaoType" name="TratamentoInterrupcao"/>
-<xs:element type="AplicacoesEspeciaisType" name="AplicacoesEspeciais"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="EmpresaDesenvolvedoraType">
-<xs:sequence>
-<xs:element type="String4000Type" name="RazaoSocial"/>
-<xs:element type="CnpjType" name="Cnpj"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="RequisitosExecutadosType">
-<xs:sequence>
-<xs:element type="String4000Type" name="RequisitoExecutado" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivoExecutavelType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="Md5Type" name="Md5"/>
-<xs:element type="RequisitosExecutadosType" name="RequisitosExecutados"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ArquivosExecutaveisType">
-<xs:sequence>
-<xs:element type="ArquivoExecutavelType" name="ArquivoExecutavel" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemaGestaoType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
-<xs:element type="ArquivosExecutaveisType" name="ArquivosExecutaveis"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemasGestaoType">
-<xs:sequence>
-<xs:element type="SistemaGestaoType" name="SistemaGestao" minOccurs="0" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemaPedType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
-<xs:element type="ArquivosExecutaveisComFuncaoType" name="ArquivosExecutaveis"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemasPedType">
-<xs:sequence>
-<xs:element type="SistemaPedType" name="SistemaPed" minOccurs="0" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemaPedNfeType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
-<xs:element type="ArquivosExecutaveisComFuncaoType" name="ArquivosExecutaveis"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="SistemasPedNfeType">
-<xs:sequence>
-<xs:element type="SistemaPedNfeType" name="SistemaPedNfe" minOccurs="0" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="MarcaModeloType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Marca"/>
-<xs:element type="String4000Type" name="Modelo"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="EcfAnaliseFuncionalType">
-<xs:sequence>
-<xs:element type="MarcaModeloType" name="MarcaModelo" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="MarcasModelosCompativeisType">
-<xs:sequence>
-<xs:element type="MarcaModeloType" name="MarcaModelo" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="RoteiroAnaliseType">
-<xs:sequence>
-<xs:element type="String4000Type" name="VersaoRoteiro"/>
-<xs:element type="MesType" name="Mes"/>
-<xs:element type="AnoType" name="Ano"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="NaoConformidadeType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Requisito"/>
-<xs:element type="String4000Type" name="Item"/>
-<xs:element type="String4000Type" name="Descricao"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="NaoConformidadesType">
-<xs:sequence>
-<xs:element type="NaoConformidadeType" name="NaoConformidade" minOccurs="0" maxOccurs="255"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="EmissaoType">
-<xs:sequence>
-<xs:element type="xs:date" name="Data"/>
-<xs:element type="String4000Type" name="Local"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="ExecucaoTestesType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="String4000Type" name="Cargo"/>
-<xs:element type="CpfType" name="Cpf"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="AprovacaoRelatorioType">
-<xs:sequence>
-<xs:element type="String4000Type" name="Nome"/>
-<xs:element type="String4000Type" name="Cargo"/>
-<xs:element type="CpfType" name="Cpf"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="MensagemType">
-<xs:sequence>
-<xs:element name="Numero">
-<xs:simpleType>
-<xs:restriction base="xs:token">
-<xs:pattern value="(R\d)?[A-Z]{3}\d{7}"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element type="xs:boolean" name="EmiteNfe"/>
-<xs:element type="DesenvolvedoraType" name="Desenvolvedora"/>
-<xs:element type="OtcType" name="Otc"/>
-<xs:element type="IdentificacaoPafType" name="IdentificacaoPaf"/>
-<xs:element type="CaracteristicasPafType" name="CaracteristicasPaf"/>
-<xs:element type="SistemasGestaoType" name="SistemasGestao"/>
-<xs:element type="SistemasPedType" name="SistemasPed"/>
-<xs:element type="SistemasPedNfeType" name="SistemasPedNfe"/>
-<xs:element type="EcfAnaliseFuncionalType" name="EcfAnaliseFuncional"/>
-<xs:element type="MarcasModelosCompativeisType" name="MarcasModelosCompativeis"/>
-<xs:element type="String4000Type" name="VersaoErPaf"/>
-<xs:element type="RoteiroAnaliseType" name="RoteiroAnalise"/>
-<xs:element type="NaoConformidadesType" name="NaoConformidades"/>
-<xs:element name="ComentarioOtc">
-<xs:simpleType>
-<xs:restriction base="xs:string">
-<xs:minLength value="0"/>
-<xs:maxLength value="50000"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:element>
-<xs:element type="xs:boolean" name="Declaracao"/>
-<xs:element type="EmissaoType" name="Emissao"/>
-<xs:element type="ExecucaoTestesType" name="ExecucaoTestes"/>
-<xs:element type="AprovacaoRelatorioType" name="AprovacaoRelatorio"/>
-</xs:sequence>
-</xs:complexType>
-<xs:complexType name="LaudoType">
-<xs:sequence>
-<xs:element type="MensagemType" name="Mensagem"/>
-</xs:sequence>
-<xs:attribute type="xs:string" name="Versao" fixed="1.0"/>
-</xs:complexType>
-<!--  String com length min de 0 e max de 4000  -->
-<xs:simpleType name="NullOrString4000Type">
-<xs:restriction base="xs:string">
-<xs:minLength value="0"/>
-<xs:maxLength value="4000"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  String com length min de 1 e max de 4000  -->
-<xs:simpleType name="String4000Type">
-<xs:restriction base="xs:string">
-<xs:minLength value="1"/>
-<xs:maxLength value="4000"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  String com length min e max de 1  -->
-<xs:simpleType name="String1Type">
-<xs:restriction base="xs:string">
-<xs:minLength value="1"/>
-<xs:maxLength value="1"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Número com length min de 1 e max de 255  -->
-<xs:simpleType name="Number255Type">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{1,255}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--
- Mês
-       Fonte: https://stackoverflow.com/questions/2137929/how-can-i-use-a-regular-expression-to-validate-month-input 
--->
-<xs:simpleType name="MesType">
-<xs:restriction base="xs:token">
-<xs:pattern value="(0?[1-9]|1[012])"/>
-</xs:restriction>
-</xs:simpleType>
-<!--
- Ano
-       Fonte: https://stackoverflow.com/questions/4374185/regular-expression-match-to-test-for-a-valid-year 
--->
-<xs:simpleType name="AnoType">
-<xs:restriction base="xs:token">
-<xs:pattern value="(19[789]\d|20[01]\d)"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Cpf  -->
-<xs:simpleType name="CpfType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{11}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Telefone  -->
-<xs:simpleType name="TelefoneType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{1,15}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--
- Email
-       Fonte: https://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address 
--->
-<xs:simpleType name="EmailType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\S+@\S+\.\S+"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Cnpj  -->
-<xs:simpleType name="CnpjType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{14}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Ie  -->
-<xs:simpleType name="IeType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{1,20}|Isento"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Md5  -->
-<xs:simpleType name="Md5Type">
-<xs:restriction base="xs:token">
-<xs:pattern value="[0-9A-Fa-f]{32}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Endereço  -->
-<!--  Número  -->
-<xs:simpleType name="EnderecoNumeroType">
-<xs:restriction base="xs:string">
-<xs:minLength value="1"/>
-<xs:maxLength value="25"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Cep  -->
-<xs:simpleType name="EnderecoCepType">
-<xs:restriction base="xs:token">
-<xs:pattern value="\d{8}"/>
-</xs:restriction>
-</xs:simpleType>
-<!--  Uf  -->
-<xs:simpleType name="EnderecoUfType">
-<xs:restriction base="xs:token">
-<xs:pattern value="[A-Z]{2}"/>
-</xs:restriction>
-</xs:simpleType>
-</xs:schema>
+                 https://www1.fazenda.gov.br/confaz/confaz/atos/despacho/2014/dp162_14.htm
+                 https://www.confaz.fazenda.gov.br/legislacao/despacho/2015/despacho-116-15 Perfil R, S, T, U -->
+<xsd:element name="PerfilRequisito" maxOccurs="14">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="A"/>
+<xsd:enumeration value="B"/>
+<xsd:enumeration value="C"/>
+<xsd:enumeration value="D"/>
+<xsd:enumeration value="E"/>
+<xsd:enumeration value="F"/>
+<xsd:enumeration value="G"/>
+<xsd:enumeration value="H"/>
+<xsd:enumeration value="I"/>
+<xsd:enumeration value="J"/>
+<xsd:enumeration value="R"/>
+<xsd:enumeration value="S"/>
+<xsd:enumeration value="T"/>
+<xsd:enumeration value="U"/>
+<xsd:enumeration value="V"/>
+<xsd:enumeration value="W"/>
+<xsd:enumeration value="X"/>
+<xsd:enumeration value="Y"/>
+<xsd:enumeration value="Z"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="IdentificacaoPafType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="NomeComercial"/>
+<xsd:element type="String4000Type" name="Versao"/>
+<xsd:element type="ArquivoExecutavelPrincipalType" name="ArquivoExecutavelPrincipal" />
+<xsd:element type="ArquivoRelacaoExecutaveisType" name="ArquivoRelacaoExecutaveis" />
+<xsd:element type="ArquivosExecutaveisSemFuncaoType" name="ArquivosExecutaveis"/>
+<xsd:element type="ArquivosOutrosType" name="ArquivosOutros"/>
+<xsd:element type="EnvelopeSegurancaType" name="EnvelopeSeguranca"/>
+<xsd:element type="PerfisRequisitosType" name="PerfisRequisitos"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="MeioGeracaoArquivoSintegraEfdType">
+<xsd:sequence>
+<xsd:element name="Modo" maxOccurs="3">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Pelo PAF-ECF"/>
+<xsd:enumeration value="Pelo sistema de retaguarda"/>
+<xsd:enumeration value="Pelo sistema PED ou EFD"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="FormaImpressaoType">
+<xsd:sequence>
+<xsd:element name="Modo" maxOccurs="7">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Concomitante"/>
+<xsd:enumeration value="Não concomitante, com emissão de DAV"/>
+<xsd:enumeration value="Não concomitante, com controle de pré-venda"/>
+<xsd:enumeration value="Não concomitante, com controle de conta de cliente"/>
+<xsd:enumeration value="DAV - emitido sem possibilidade de impressão"/>
+<xsd:enumeration value="DAV - impresso em impressora não fiscal"/>
+<xsd:enumeration value="DAV - impresso em ECF"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="TratamentoInterrupcaoType">
+<xsd:sequence>
+<xsd:element name="Modo" maxOccurs="3">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Recuperação de dados"/>
+<xsd:enumeration value="Cancelamento automático"/>
+<xsd:enumeration value="Bloqueio de funções"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="AplicacoesEspeciaisType">
+<xsd:sequence>
+<xsd:element name="AplicacaoEspecial" maxOccurs="15">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Posto de pedágio"/>
+<xsd:enumeration value="Transporte de passageiros"/>
+<xsd:enumeration value="Farmácia de manipulação"/>
+<xsd:enumeration value="Oficina de conserto com DAV-OS"/>
+<xsd:enumeration value="Oficina de conserto com conta de cliente"/>
+<xsd:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e balança interligada"/>
+<xsd:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-normal e balança interligada"/>
+<xsd:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-restaurante e sem balança interligada"/>
+<xsd:enumeration value="Bar, restaurante e estabelecimento similar com utilização de ECF-normal e sem balança interligada"/>
+<xsd:enumeration value="Posto revendedor de combustível com sistema de interligação de bombas"/>
+<xsd:enumeration value="Posto revendedor de combustível sem sistema de interligação de bombas"/>
+<xsd:enumeration value="Estacionamento, motéis e similares, que pratiquem o controle de tráfego de veículos ou pessoas"/>
+<xsd:enumeration value="Prestador de serviço de cinema, espetáculos ou similares"/>
+<xsd:enumeration value="Demais atividades"/>
+<xsd:enumeration value="Estabelecimento enquadrado no simples nacional (art. 5º do ato cotepe da ER-PAF-ECF)"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="CaracteristicasPafType">
+<xsd:sequence>
+<xsd:element name="LinguagemProgramacao">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="4GL/4Js"/>
+<xsd:enumeration value="C"/>
+<xsd:enumeration value="C++"/>
+<xsd:enumeration value="C#"/>
+<xsd:enumeration value="Clarion"/>
+<xsd:enumeration value="Cobol"/>
+<xsd:enumeration value="DataFlex"/>
+<xsd:enumeration value="Delphi"/>
+<xsd:enumeration value="Java"/>
+<xsd:enumeration value="Object Pascal"/>
+<xsd:enumeration value="Objective C"/>
+<xsd:enumeration value="PHP"/>
+<xsd:enumeration value="PowerBuilder"/>
+<xsd:enumeration value="Python"/>
+<xsd:enumeration value="xHarbour"/>
+<xsd:enumeration value="Visual Basic"/>
+<xsd:enumeration value="Visual Basic .NET"/>
+<xsd:enumeration value="Visual FoxPro"/>
+<xsd:enumeration value="WLanguage"/>
+<xsd:enumeration value="ZIM"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element name="SistemaOperacional">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Windows"/>
+<xsd:enumeration value="Linux"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element name="GerenciadorBancoDados"  maxOccurs="5">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Access"/>
+<xsd:enumeration value="Apache Derby"/>
+<xsd:enumeration value="Arquivo plano"/>
+<xsd:enumeration value="DataFlex"/>
+<xsd:enumeration value="dBase"/>
+<xsd:enumeration value="DB2"/>
+<xsd:enumeration value="DBISAM"/>
+<xsd:enumeration value="Firebird"/>
+<xsd:enumeration value="Informix"/>
+<xsd:enumeration value="MongoDB"/>
+<xsd:enumeration value="MySQL"/>
+<xsd:enumeration value="Oracle"/>
+<xsd:enumeration value="Paradox"/>
+<xsd:enumeration value="PostgreSQL"/>
+<xsd:enumeration value="SQL Anywhere"/>
+<xsd:enumeration value="SQL Server"/>
+<xsd:enumeration value="SQLite"/>
+<xsd:enumeration value="XML"/>
+<xsd:enumeration value="ZIM"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element name="TipoDesenvolvimento">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Comercializável"/>
+<xsd:enumeration value="Exclusivo próprio"/>
+<xsd:enumeration value="Exclusivo terceirizado"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element name="TipoFuncionamento">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Exclusivamente stand alone"/>
+<xsd:enumeration value="Em rede"/>
+<xsd:enumeration value="Parametrizável"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element type="MeioGeracaoArquivoSintegraEfdType" name="MeioGeracaoArquivoSintegraEfd"/>
+<xsd:element name="IntegracaoPaf">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:enumeration value="Com sistema de gestão ou retaguarda"/>
+<xsd:enumeration value="Com sistema PED"/>
+<xsd:enumeration value="Com ambos"/>
+<xsd:enumeration value="Não integrado"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element type="FormaImpressaoType" name="FormaImpressao"/>
+<xsd:element type="TratamentoInterrupcaoType" name="TratamentoInterrupcao"/>
+<xsd:element type="AplicacoesEspeciaisType" name="AplicacoesEspeciais"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="EmpresaDesenvolvedoraType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="RazaoSocial"/>
+<xsd:element type="CnpjType" name="Cnpj"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="RequisitosExecutadosType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="RequisitoExecutado" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivoExecutavelType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome" />
+<xsd:element type="Md5Type" name="Md5"/>
+<xsd:element type="RequisitosExecutadosType" name="RequisitosExecutados"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ArquivosExecutaveisType">
+<xsd:sequence>
+<xsd:element type="ArquivoExecutavelType" name="ArquivoExecutavel" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemaGestaoType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
+<xsd:element type="ArquivosExecutaveisType" name="ArquivosExecutaveis"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemasGestaoType">
+<xsd:sequence>
+<xsd:element type="SistemaGestaoType" name="SistemaGestao" minOccurs="0" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemaPedType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
+<xsd:element type="ArquivosExecutaveisComFuncaoType" name="ArquivosExecutaveis"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemasPedType">
+<xsd:sequence>
+<xsd:element type="SistemaPedType" name="SistemaPed" minOccurs="0" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemaPedNfeType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="EmpresaDesenvolvedoraType" name="EmpresaDesenvolvedora"/>
+<xsd:element type="ArquivosExecutaveisComFuncaoType" name="ArquivosExecutaveis"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="SistemasPedNfeType">
+<xsd:sequence>
+<xsd:element type="SistemaPedNfeType" name="SistemaPedNfe" minOccurs="0" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="MarcaModeloType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Marca"/>
+<xsd:element type="String4000Type" name="Modelo"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="EcfAnaliseFuncionalType">
+<xsd:sequence>
+<xsd:element type="MarcaModeloType" name="MarcaModelo" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="MarcasModelosCompativeisType">
+<xsd:sequence>
+<xsd:element type="MarcaModeloType" name="MarcaModelo" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="RoteiroAnaliseType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="VersaoRoteiro"/>
+<xsd:element type="MesType" name="Mes"/>
+<xsd:element type="AnoType" name="Ano"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="NaoConformidadeType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Requisito"/>
+<xsd:element type="String4000Type" name="Item"/>
+<xsd:element type="String4000Type" name="Descricao"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="NaoConformidadesType">
+<xsd:sequence>
+<xsd:element type="NaoConformidadeType" name="NaoConformidade" minOccurs="0" maxOccurs="255"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="EmissaoType">
+<xsd:sequence>
+<xsd:element type="xsd:date" name="Data"/>
+<xsd:element type="String4000Type" name="Local"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="ExecucaoTestesType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="String4000Type" name="Cargo"/>
+<xsd:element type="CpfType" name="Cpf"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="AprovacaoRelatorioType">
+<xsd:sequence>
+<xsd:element type="String4000Type" name="Nome"/>
+<xsd:element type="String4000Type" name="Cargo"/>
+<xsd:element type="CpfType" name="Cpf"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="MensagemType">
+<xsd:sequence>
+<xsd:element name="Numero">
+<xsd:simpleType>
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="(R\d)?[A-Z]{3}\d{7}"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element type="xsd:boolean" name="EmiteNfe"/>
+<xsd:element type="DesenvolvedoraType" name="Desenvolvedora"/>
+<xsd:element type="OtcType" name="Otc"/>
+<xsd:element type="IdentificacaoPafType" name="IdentificacaoPaf"/>
+<xsd:element type="CaracteristicasPafType" name="CaracteristicasPaf"/>
+<xsd:element type="SistemasGestaoType" name="SistemasGestao"/>
+<xsd:element type="SistemasPedType" name="SistemasPed"/>
+<xsd:element type="SistemasPedNfeType" name="SistemasPedNfe"/>
+<xsd:element type="EcfAnaliseFuncionalType" name="EcfAnaliseFuncional"/>
+<xsd:element type="MarcasModelosCompativeisType" name="MarcasModelosCompativeis"/>
+<xsd:element type="String4000Type" name="VersaoErPaf"/>
+<xsd:element type="RoteiroAnaliseType" name="RoteiroAnalise"/>
+<xsd:element type="NaoConformidadesType" name="NaoConformidades"/>
+<xsd:element name="ComentarioOtc">
+<xsd:simpleType>
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="0"/>
+<xsd:maxLength value="50000"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:element>
+<xsd:element type="xsd:boolean" name="Declaracao"/>
+<xsd:element type="EmissaoType" name="Emissao"/>
+<xsd:element type="ExecucaoTestesType" name="ExecucaoTestes"/>
+<xsd:element type="AprovacaoRelatorioType" name="AprovacaoRelatorio"/>
+</xsd:sequence>
+</xsd:complexType>
+<xsd:complexType name="LaudoType">
+<xsd:sequence>
+<xsd:element type="MensagemType" name="Mensagem"/>
+
+</xsd:sequence>
+<xsd:attribute type="xsd:string" name="Versao" fixed="1.0"/>
+</xsd:complexType>
+
+<!-- String com length min de 0 e max de 4000 -->
+<xsd:simpleType name="NullOrString4000Type">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="0"/>
+<xsd:maxLength value="4000"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- String com length min de 1 e max de 4000 -->
+<xsd:simpleType name="String4000Type">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="1"/>
+<xsd:maxLength value="4000"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- String com length min e max de 1 -->
+<xsd:simpleType name="String1Type">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="1"/>
+<xsd:maxLength value="1"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Número com length min de 1 e max de 255 -->
+<xsd:simpleType name="Number255Type">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{1,255}"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Mês
+       Fonte: https://stackoverflow.com/questions/2137929/how-can-i-use-a-regular-expression-to-validate-month-input -->
+<xsd:simpleType name="MesType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="(0?[1-9]|1[012])"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Ano
+       Fonte: https://stackoverflow.com/questions/4374185/regular-expression-match-to-test-for-a-valid-year -->
+<xsd:simpleType name="AnoType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="(19[789]\d|20[01]\d)"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Cpf -->
+<xsd:simpleType name="CpfType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{11}"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Telefone -->
+<xsd:simpleType name="TelefoneType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{1,15}"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Email
+       Fonte: https://stackoverflow.com/questions/201323/using-a-regular-expression-to-validate-an-email-address -->
+<xsd:simpleType name="EmailType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\S+@\S+\.\S+"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Cnpj -->
+<xsd:simpleType name="CnpjType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{14}"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Ie -->
+<xsd:simpleType name="IeType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{1,20}|Isento"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Md5 -->
+<xsd:simpleType name="Md5Type">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="[0-9A-Fa-f]{32}"/>
+</xsd:restriction>
+</xsd:simpleType>
+
+<!-- Endereço -->
+<!-- Número -->
+<xsd:simpleType name="EnderecoNumeroType">
+<xsd:restriction base="xsd:string">
+<xsd:minLength value="1"/>
+<xsd:maxLength value="25"/>
+</xsd:restriction>
+</xsd:simpleType>
+<!-- Cep -->
+<xsd:simpleType name="EnderecoCepType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="\d{8}"/>
+</xsd:restriction>
+</xsd:simpleType>
+<!-- Uf -->
+<xsd:simpleType name="EnderecoUfType">
+<xsd:restriction base="xsd:token">
+<xsd:pattern value="[A-Z]{2}"/>
+</xsd:restriction>
+</xsd:simpleType>
+</xsd:schema>

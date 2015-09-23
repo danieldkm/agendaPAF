@@ -13,6 +13,7 @@ import com.unifil.agendapaf.view.controller.AgendarController;
 import com.unifil.agendapaf.view.controller.AlertaController;
 import com.unifil.agendapaf.view.controller.CalendarioSemestralController;
 import com.unifil.agendapaf.view.controller.EmpresaController;
+import com.unifil.agendapaf.view.controller.EscolherDocsController;
 import com.unifil.agendapaf.view.controller.FeriadoController;
 import com.unifil.agendapaf.view.controller.FerramentaBDController;
 import com.unifil.agendapaf.view.controller.FinanceiroController;
@@ -37,6 +38,7 @@ import com.unifil.agendapaf.view.controller.VisualizadorMotivoController;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -91,6 +93,7 @@ public class SceneManager {
     private TabelaUsuarioController tabelaUsuarioController;
     private UsuarioController usuarioController;
     private VisualizadorMotivoController visulizadorMotivoController;
+    private EscolherDocsController escolherDocsController;
 
     private Usuario usuarioLogado;
     private Agenda agendaEncontrada;
@@ -376,7 +379,7 @@ public class SceneManager {
         }
     }
 
-    public void showLaudo() {
+    public void showLaudo(ObservableList<String> files) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -385,6 +388,9 @@ public class SceneManager {
             laudoController = loader.getController();
             laudoController.setStage(stage);
             laudoController.setMain(layout);
+            if (files != null) {
+                laudoController.setFiles(files);
+            }
             criarPadraoModal("Laudo", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
@@ -566,6 +572,25 @@ public class SceneManager {
             visulizadorMotivoController.setMainMotivo(layout);
             visulizadorMotivoController.setMotivo(motivo);
             criarPadraoModal("Motivo!!", stage, layout);
+        } catch (Exception e) {
+            e.printStackTrace();
+            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e, "Exception:");
+        }
+    }
+
+    public void showEscolherDocs() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.EscolherDosc.getCaminho()));
+            VBox layout = (VBox) loader.load();
+            escolherDocsController = loader.getController();
+            System.out.println("escolhcer " + escolherDocsController);
+            escolherDocsController.setStage(stage);
+            escolherDocsController.setVbMain((VBox) layout);
+            stage.setResizable(false);
+            stage.initStyle(StageStyle.UNDECORATED);
+            criarPadraoModal("Gerar docs", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e, "Exception:");
