@@ -104,7 +104,7 @@
                            <children>
                               <Button fx:id="btnCarregar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnCarregar" styleClass="button-raised" text="Carregar" HBox.hgrow="ALWAYS" />
                               <Button defaultButton="true" mnemonicParsing="false" onAction="#actionBtnAbrir" styleClass="button-raised" text="Abrir" HBox.hgrow="ALWAYS" />
-                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" text="Gerar docs" />
+                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" selected="true" text="Gerar docs" />
                            </children>
                         </HBox>
                      </children>

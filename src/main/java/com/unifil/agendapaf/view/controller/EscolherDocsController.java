@@ -79,8 +79,8 @@ public class EscolherDocsController {
                 files.add(item.getName());
             }
         }
-        SceneManager.getInstance().showLaudo(files);
-
+        SceneManager.getInstance().getLaudoController().setFiles(files);
+        stage.close();
     }
 
     @FXML

@@ -1,5 +1,6 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
@@ -76,9 +77,9 @@ public class RelatorioFinanceiroController {
             dia = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
             calendar.set(ano, mes, dia);
             dataFinal.setValue(UtilConverter.converterUtilDateToLocalDate(calendar.getTime()));
-            RelatorioController.setCampos(stage, dataInicial, dataFinal, 0);
+            SceneManager.getInstance().getRelatorioController().setCampos(stage, dataInicial, dataFinal, 0);
+//            RelatorioController.setCampos(stage, dataInicial, dataFinal, 0);
         } else if (lblTexto.getText().equals("Anual")) {
-            System.out.println("ano");
             int ano = 0, mes, dia;
             boolean erro = false;
             try {
@@ -102,14 +103,17 @@ public class RelatorioFinanceiroController {
                     mes = 11;
                     calendar.set(ano, mes, dia);
                     dataFinal.setValue(UtilConverter.converterUtilDateToLocalDate(calendar.getTime()));
-                    RelatorioController.setCampos(stage, dataInicial, dataFinal, Integer.parseInt(combo.getSelectionModel().getSelectedItem() + ""));
+                    System.out.println("ano " + ano);
+                    SceneManager.getInstance().getRelatorioController().setCampos(stage, dataInicial, dataFinal, Integer.parseInt(combo.getSelectionModel().getSelectedItem() + ""));
+//                    RelatorioController.setCampos(stage, dataInicial, dataFinal, Integer.parseInt(combo.getSelectionModel().getSelectedItem() + ""));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else if (lblTexto.getText().equals("Período")) {
             System.out.println("periodo");
-            RelatorioController.setCampos(stage, dataInicial, dataFinal, 0);
+            SceneManager.getInstance().getRelatorioController().setCampos(stage, dataInicial, dataFinal, 0);
+//            RelatorioController.setCampos(stage, dataInicial, dataFinal, 0);
 
         }
     }

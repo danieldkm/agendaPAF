@@ -14,6 +14,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
@@ -52,7 +53,7 @@ public class UtilFile {
      *
      * @param novoDiretorio nome da pasta
      */
-    public void criaDiretorio(String novoDiretorio) {
+    public String criaDiretorio(String novoDiretorio) {
         String nomeDiretorio = diretorioInicial + novoDiretorio;
         try {
             if (!new File(nomeDiretorio).exists()) { // Verifica se o diret�rio existe.
@@ -61,6 +62,7 @@ public class UtilFile {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        return nomeDiretorio;
     }
 
     /**
@@ -95,7 +97,7 @@ public class UtilFile {
         if (directory.isDirectory()) {
             if (!directory.getPath().equals("xml")) {
                 System.out.println("Diretorio => " + directory.getName());
-                if (!directory.getName().equals("modelo_docxs")) {
+                if (!directory.getName().equals("modelo_docxs") || !directory.getName().equals("OLD_XSD")) {
                     empresas.add(directory.getName());
                 }
             }
@@ -355,6 +357,25 @@ public class UtilFile {
             }
         }
         return false;
+    }
+
+    public static void salvarArquivoXML(String documento, String file) {
+        File exeFile = new File("");
+//        File path = new File(exeFile.getAbsolutePath() + file);
+        File path = new File(exeFile.getAbsolutePath() + file);
+        try {
+            PrintWriter writer = new PrintWriter(path);
+            writer.println(
+                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
+            );
+            writer.println(documento);
+            writer.flush();
+            writer.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public ObservableList<String> getEmpresas() {

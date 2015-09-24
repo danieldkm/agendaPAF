@@ -7,6 +7,7 @@ import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.aux.Servico;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import java.util.Optional;
@@ -97,7 +98,7 @@ public class ParametroController {
     private void salvarServico() {
         xStream.alias("servico", Servico.class);
         String xml = xStream.toXML(servicos);
-        Util.salvarArquivo(xml, "/servico.xml");
+        UtilFile.salvarArquivoXML(xml, "/servico.xml");
         btnLimpar.arm();
         btnLimpar.fire();
     }
@@ -105,7 +106,7 @@ public class ParametroController {
     private void salvarCategoria() {
         xStream.alias("categoria", Categoria.class);
         String xml = xStream.toXML(categorias);
-        Util.salvarArquivo(xml, "/categoria.xml");
+        UtilFile.salvarArquivoXML(xml, "/categoria.xml");
         btnLimpar.arm();
         btnLimpar.fire();
     }
@@ -337,7 +338,7 @@ public class ParametroController {
 
                 String xml = xStream.toXML(tipos);
 
-                Util.salvarArquivo(xml,
+                UtilFile.salvarArquivoXML(xml,
                         "/servico.xml");
 
                 xStream.alias(
@@ -388,7 +389,7 @@ public class ParametroController {
 
                 String xml2 = xStream.toXML(categorias);
 
-                Util.salvarArquivo(xml2,
+                UtilFile.salvarArquivoXML(xml2,
                         "/categoria.xml");
 
                 servicos = Controller.getServicos();

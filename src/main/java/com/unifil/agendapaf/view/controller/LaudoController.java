@@ -1,6 +1,9 @@
 package com.unifil.agendapaf.view.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.unifil.agendapaf.SceneManager;
+import com.unifil.agendapaf.model.aux.ParametroDocx;
 import com.unifil.agendapaf.model.laudo.AplicacoesEspeciaisType;
 import com.unifil.agendapaf.model.laudo.AprovacaoRelatorioType;
 import com.unifil.agendapaf.model.laudo.ArquivoExecutavelComFuncaoType;
@@ -43,6 +46,8 @@ import com.unifil.agendapaf.model.laudo.SistemasGestaoType;
 import com.unifil.agendapaf.model.laudo.SistemasPedNfeType;
 import com.unifil.agendapaf.model.laudo.SistemasPedType;
 import com.unifil.agendapaf.model.laudo.TratamentoInterrupcaoType;
+import com.unifil.agendapaf.util.GerarDocx;
+import com.unifil.agendapaf.util.Json;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -54,7 +59,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.text.DateFormat;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -115,7 +123,6 @@ public class LaudoController {
         MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
-        
 
         enableEditAllTable();
 
@@ -123,7 +130,7 @@ public class LaudoController {
         utilXml = new UtilFile();
         utilXml.listarArquivos(new File(EnumCaminho.ModeloDocxs.getCaminho()));
         files = utilXml.getDocs();
-        
+
         paneCheckBox1.getChildren().add(cb1);
         paneCheckBox1.getChildren().add(cbSelecionarTodos);
         paneCheckBox2.getChildren().add(cb2);
@@ -974,7 +981,8 @@ public class LaudoController {
             LaudoType lt = new LaudoType();
             lt.setMensagem(mensagem);
             lt.setVersao("1.0");
-            utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
+            String diretorioDoc = utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
+            addDocx(diretorioDoc);
             File criarArquivo = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + ".xml");
             if (criarArquivo.exists()) {
                 Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
@@ -989,6 +997,76 @@ public class LaudoController {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e, "Obs:");
         }
+    }
+
+    private void addDocx(String diretorioDoc) {
+        if (tBtnGerarDocs.isSelected()) {
+            Json json = new Json();
+            Gson gson = new Gson();
+            Type type = new TypeToken<HashMap<String, String>>() {
+            }.getType();
+            GerarDocx gerarDoc = new GerarDocx();
+            for (ParametroDocx pr : json.lerArquivoJSON("xml/modelo_docxs/Documentos.json")) {
+                pr.setParametros(setHashMap(pr.getDocumento(), gson.fromJson(pr.getParametros(), type)));
+                System.out.println("NEW PARAMETRO " + pr.getParametros());
+                gerarDoc.gerarDocx(diretorioDoc, pr);
+            }
+
+        }
+    }
+
+    public String setHashMap(String documento, HashMap<String, String> hmap) {
+        Gson gson = new Gson();
+        for (String key : hmap.keySet()) {
+            switch (key) {
+                case "txtData":
+                    hmap.replace(key, DateFormat.getDateInstance(DateFormat.MEDIUM).format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
+                    break;
+                case "txtNomeAplicativo":
+                    hmap.replace(key, sgTxtNomeSistema.getText());
+                    break;
+                case "txtVersao":
+                    hmap.replace(key, iTxtVersao.getText());
+                    break;
+                case "txtNome":
+                    hmap.replace(key, dTxtNome.getText());
+                    break;
+                case "txtMd5Principal":
+                    hmap.replace(key, iTxtMD5Principal.getText());
+                    break;
+                case "txtCpf":
+                    hmap.replace(key, dTxtCPF.getText());
+                    break;
+                case "txtCnpj":
+                    hmap.replace(key, dTxtCNPJ.getText());
+                    break;
+                case "txtPrincipalExec":
+                    hmap.replace(key, iTxtPrincipalExec.getText());
+                    break;
+                case "txttxtDataGeracao":
+                    hmap.replace(key, DateFormat.getDateInstance().format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
+                    break;
+                case "txtTamanhoBytes":
+                    hmap.replace(key, "ainda nao disponivel");
+                    break;
+                case "txtNlaudo":
+                    hmap.replace(key, txtNumeroLaudo.getText());
+                    break;
+                case "txtRazaoSocial":
+                    hmap.replace(key, dTxtRazaoSocial.getText());
+                    break;
+                case "txtRg":
+                    hmap.replace(key, "ainda nao disponivel");
+                    break;
+                case "txtckbGerenciadorBD":
+                    hmap.replace(key, "");
+                    break;
+                case "ckbComRegras":
+                    hmap.replace(key, "");
+                    break;
+            }
+        }
+        return gson.toJson(hmap);
     }
 
     private void finalizarAoSalvar(File criarArquivo, LaudoType lt) {
@@ -2141,7 +2219,9 @@ public class LaudoController {
 
     @FXML
     public void onActionGerarDocs() {
-        SceneManager.getInstance().showEscolherDocs();
+        if (tBtnGerarDocs.isSelected()) {
+            SceneManager.getInstance().showEscolherDocs();
+        }
     }
 
     public void setStage(Stage stage) {

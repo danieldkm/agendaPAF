@@ -57,23 +57,4 @@ public class Util {
         return retorna;
     }
 
-    public static void salvarArquivo(String documento, String file) {
-        File exeFile = new File("");
-//        File path = new File(exeFile.getAbsolutePath() + file);
-        File path = new File(exeFile.getAbsolutePath() + file);
-        try {
-            PrintWriter writer = new PrintWriter(path);
-            writer.println(
-                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
-            );
-            writer.println(documento);
-            writer.flush();
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
 }

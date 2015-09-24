@@ -763,4 +763,8 @@ public class SceneManager {
         this.usuarioEncontrada = usuarioEncontrada;
     }
 
+    public LaudoController getLaudoController() {
+        return laudoController;
+    }
+
 }

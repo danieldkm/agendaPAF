@@ -1,9 +1,9 @@
 package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
-import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.aux.Anual;
 import com.unifil.agendapaf.model.Financeiro;
+import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.GerarRelatorios;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -104,66 +104,67 @@ public class RelatorioController {
     private Stage stage;
     ObservableList stringFiltro = FXCollections.observableArrayList();
     private GerarRelatorios relatorio = new GerarRelatorios();
-    private static Map<String, Object> parametros = new HashMap<String, Object>();
+    private Map<String, Object> parametros = new HashMap<String, Object>();
 
     private String caminhoAbsoluto = System.getProperty("user.dir") + "/relatorios";
-    private static DatePicker dataInicial;
-    private static DatePicker dataFinal;
-    private static int ano;
-    public static boolean isAnual = false;
+    private DatePicker dataInicial;
+    private DatePicker dataFinal;
+    private int ano;
+    private boolean isAnual = false;
     private SceneManager sceneManager;
 
     @FXML
     private void actionBtnGerar() {
-        // criando o datasource com os dados criados
-        if (cbRelatorio.getValue().equals("Agenda")) {
+        if (cbRelatorio.getValue() != null) {
+            // criando o datasource com os dados criados
+            if (cbRelatorio.getValue().equals("Agenda")) {
 //            ds = new JRBeanCollectionDataSource(Controller.getAgendasOrderBy());
-            if (cbGrupo.getValue().equals("Empresa")) {
+                if (cbGrupo.getValue().equals("Empresa")) {
 //                System.out.println("Relatorio de agenda1 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + empresaEncontrada.getCodEmpresa() + "\nExtensao: " + cbExtensao.getValue());
-                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "Agenda"*/, false, listaAnual);
-            } else if (cbGrupo.getValue().equals("Período")) {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "Agenda"*/, false, listaAnual);
+                } else if (cbGrupo.getValue().equals("Período")) {
 //                System.out.println("Relatorio de agenda2 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + dataPicker.getValue() + "\nExtensao: " + cbExtensao.getValue());
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Agenda");
 //                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString());
-                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            } else {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                } else {
 //                System.out.println("Relatorio de agenda3 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + txtInfo.getText() + "\nExtensao: " + cbExtensao.getValue());
 //                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Agenda");
-                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            }
-        } else if (cbRelatorio.getValue().equals("Empresa")) {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Agenda", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                }
+            } else if (cbRelatorio.getValue().equals("Empresa")) {
 //            relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Empresa");
-            relatorio.gerarRelatorio(stage, getJasperFile("Empresa", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-        } else if (cbRelatorio.getValue().equals("Historico")) {
-            if (cbGrupo.getValue().equals("Empresa")) {
+                relatorio.gerarRelatorio(stage, getJasperFile("Empresa", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+            } else if (cbRelatorio.getValue().equals("Historico")) {
+                if (cbGrupo.getValue().equals("Empresa")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), cbExtensao.getValue().toString(), "Historico");
-                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            } else if (cbGrupo.getValue().equals("Data")) {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                } else if (cbGrupo.getValue().equals("Data")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Historico");
-                relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            } else {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Historico", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                } else {
 //                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Historico");
-                relatorio.gerarRelatorio(stage, getJasperFile("Historico", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            }
-        } else if (cbRelatorio.getValue().equals("Empresas Homologas")) {
-            if (cbGrupo.getValue().equals("Empresa")) {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Historico", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                }
+            } else if (cbRelatorio.getValue().equals("Empresas Homologas")) {
+                if (cbGrupo.getValue().equals("Empresa")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), cbExtensao.getValue().toString(), "Empresas Homologadas");
-                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            } else if (cbGrupo.getValue().equals("Data")) {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                } else if (cbGrupo.getValue().equals("Data")) {
 //                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Empresas Homologadas");
-                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
-            } else {
+                    relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", cbGrupo.getValue().toString(), UtilConverter.converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                } else {
 //                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Empresas Homologadas");
-                relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                    relatorio.gerarRelatorio(stage, getJasperFile("Empresas Homologadas", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
+                }
+            } else if (cbRelatorio.getValue().equals("Financeiro")) {
+                relatorio.gerarRelatorio(stage, getJasperFile("Financeiro", cbGrupo.getValue().toString(), ""), parametros, cbExtensao.getValue().toString(), isAnual, listaAnual);
             }
-        } else if (cbRelatorio.getValue().equals("Financeiro")) {
-            relatorio.gerarRelatorio(stage, getJasperFile("Financeiro", cbGrupo.getValue().toString(), ""), parametros, cbExtensao.getValue().toString(), isAnual, listaAnual);
-            //TODO
         }
     }
 
     @FXML
-    private void actionBtnLimpar() {
+    public void actionBtnLimpar() {
         cbRelatorio.getSelectionModel().clearSelection();
         cbExtensao.getSelectionModel().clearSelection();
         cbGrupo.getSelectionModel().clearSelection();
@@ -236,10 +237,10 @@ public class RelatorioController {
         stage.close();
     }
 
-    public static void setCampos(Stage stage, DatePicker dataInicial, DatePicker dataFinal, int ano) {
-        RelatorioController.dataInicial = dataInicial;
-        RelatorioController.dataFinal = dataFinal;
-        RelatorioController.ano = ano;
+    public void setCampos(Stage stage, DatePicker dataInicial, DatePicker dataFinal, int ano) {
+        this.dataInicial = dataInicial;
+        this.dataFinal = dataFinal;
+        this.ano = ano;
         stage.close();
     }
 
@@ -560,13 +561,17 @@ public class RelatorioController {
         parametros.put("ano", ano);
         ano = ano - 1900;
         System.out.println("ANO - " + ano);
-        ObservableList<Financeiro> listaFinanceiro = Controller.getFinanceiros();
+//        ObservableList<Financeiro> listaFinanceiro = Controller.getFinanceiros();
+        ObservableList<Financeiro> listaFinanceiro = StaticLista.getListaGlobalFinanceiro();
         for (Financeiro fi : listaFinanceiro) {
 //            if (UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).getMonth() == 0) {
 //                System.out.println("FIIII " + fi.getValorPago());
 //                System.out.println("FINANCEIRO mes de janeiro " + fi);
 //            }
-            if (UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).after(new java.sql.Date(ano, 0, 0)) && UtilConverter.converterLocalDateToUtilDate(fi.getDataInicial()).before(new java.sql.Date(ano, 0, 32))) {
+            if (UtilConverter.converterLocalDateToUtilDate(
+                    fi.getDataInicial()).after(new java.sql.Date(ano, 0, 0))
+                    && UtilConverter.converterLocalDateToUtilDate(
+                            fi.getDataInicial()).before(new java.sql.Date(ano, 0, 32))) {
                 setAnual(fi, 1);
             }
         }
@@ -838,6 +843,10 @@ public class RelatorioController {
 
     public void setMainRelatorio(VBox mainRelatorio) {
         this.mainRelatorio = mainRelatorio;
+    }
+
+    public void setIsAnual(boolean isAnual) {
+        this.isAnual = isAnual;
     }
 
 }

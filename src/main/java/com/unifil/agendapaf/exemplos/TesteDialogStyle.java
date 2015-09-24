@@ -1,4 +1,4 @@
-package com.unifil.agendapaf;
+package com.unifil.agendapaf.exemplos;
 
 import java.util.Optional;
 import javafx.application.Application;
