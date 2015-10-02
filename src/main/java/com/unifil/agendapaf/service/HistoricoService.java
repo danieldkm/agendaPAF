@@ -15,7 +15,6 @@ public class HistoricoService implements InterfaceCrud<Historico> {
 
     private HistoricoDAO dao;
 
-
     public HistoricoService() {
         dao = new HistoricoDAO(JPA.em());
     }
@@ -63,10 +62,13 @@ public class HistoricoService implements InterfaceCrud<Historico> {
         return dao.findAll();
     }
 
+    public Historico findById(Long id) {
+        return dao.findById(id);
+    }
+
     @Override
     public EntityManager getEm() {
         return dao.getEntityManager();
     }
-    
-    
+
 }

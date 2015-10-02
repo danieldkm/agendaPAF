@@ -86,7 +86,7 @@ public class AgendarController {
                 empresaEncontrada = sceneManager.getEmpresaEncontrada();
                 sceneManager.setEmpresaEncontrada(null);
                 txtEmpresa.setText(empresaEncontrada.getDescricao());
-                txtResponsavel.setText(empresaEncontrada.getNomeContato());
+                txtResponsavel.setText(empresaEncontrada.getIdContato().getResponsavelTeste());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,7 +187,7 @@ public class AgendarController {
     private void actionBtnBuscar() {
 //        StaticBoolean.setAgenda(true);
         stage.close();
-        sceneManager.showTabelaEmpresa(false, true, false, false, false, false);
+        sceneManager.showTabelaEmpresa(false, true, false, false, false, false, false);
     }
 
     @FXML
@@ -294,7 +294,7 @@ public class AgendarController {
                         10);
                 eh.setDataAviso(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
                 dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
-                eh.setEmail(empresaEncontrada.getEmail());
+                eh.setEmail(empresaEncontrada.getIdContato().getEmail());
                 eh.setVisualizado(
                         "NAO");
                 EmpresasHomologadasService ehs = new EmpresasHomologadasService();

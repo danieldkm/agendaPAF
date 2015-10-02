@@ -18,6 +18,7 @@ import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.BooleanDefaultTrue;
 import org.docx4j.wml.CTFFCheckBox;
+import org.docx4j.wml.CTFFName;
 import org.docx4j.wml.FldChar;
 
 public class TraverseFind {
@@ -51,14 +52,20 @@ public class TraverseFind {
             // won't be marshalled          
             FldChar fldChar = (FldChar) o;
             if (fldChar.getFfData() != null) {
-//                System.out.println("getFldData " + fldChar.getFfData().getParent());
                 for (JAXBElement<?> nameOrEnabledOrCalcOnExit : fldChar.getFfData().getNameOrEnabledOrCalcOnExit()) {
+//                    System.out.println("nameOrEnabledOrCalcOnExit "+ nameOrEnabledOrCalcOnExit.getValue());
+//                    System.out.println("nameOrEnabledOrCalcOnExit "+ nameOrEnabledOrCalcOnExit.getDeclaredType());
                     if (nameOrEnabledOrCalcOnExit.getValue() instanceof CTFFCheckBox) {
                         CTFFCheckBox ccb = (CTFFCheckBox) nameOrEnabledOrCalcOnExit.getValue();
 
                         System.out.println("COMBO BOX is checked? " + ccb.getDefault().isVal());
                         System.out.println("");
                         ccb.setDefault(new BooleanDefaultTrue());
+                        System.out.println("COMBO BOX is checked?? " + ccb.getDefault().isVal());
+                    } else if (nameOrEnabledOrCalcOnExit.getValue() instanceof CTFFName) {
+                        System.out.println("NAMEEEEEEE");
+                        CTFFName name = (CTFFName) nameOrEnabledOrCalcOnExit.getValue();
+                        System.out.println("name " + name.getVal());
                     }
                 }
             }

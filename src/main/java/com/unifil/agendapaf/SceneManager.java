@@ -1,11 +1,13 @@
 package com.unifil.agendapaf;
 
+import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Usuario;
+import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -38,6 +40,7 @@ import com.unifil.agendapaf.view.controller.VisualizadorMotivoController;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -130,6 +133,20 @@ public class SceneManager {
     private void initPrimaryStage() {
 //        showLogin();
         inicial();
+
+    }
+
+    private void teste() {
+        JPA.getFactory();
+        StaticLista.setListaGlobalAgenda(Controller.getAgendas());
+        StaticLista.setListaGlobalHistorico(Controller.getHistoricos());
+        StaticLista.setListaGlobalFeriado(Controller.getFeriados());
+        StaticLista.setListaGlobalEstado(Controller.getEstados());
+        StaticLista.setListaGlobalCidade(Controller.getCidades());
+        StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
+        StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
+        StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
+        StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
     }
 
     public void inicial() {
@@ -149,7 +166,7 @@ public class SceneManager {
         }
     }
 
-    public void showNewLogin() {
+    public void showNewLogin(boolean erro) {
         try {
             Stage rootStage = new Stage();
             FXMLLoader rootLoader = new FXMLLoader();
@@ -160,6 +177,11 @@ public class SceneManager {
             rootStage.initStyle(StageStyle.UNDECORATED);
             rootStage.setResizable(false);
             criarPadrao("Login", rootStage, parent);
+            if (erro) {
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar estabelecer comunicação com o Bando de dados!!\nO programa será encerrado.");
+                Platform.exit();
+                System.exit(0);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
@@ -251,12 +273,18 @@ public class SceneManager {
     }
 
     /**
-     * Construir o palco e a cena para a tela de tabela de empresa
+     * Construir o palco e a cena para a tela da tabela de empresa
      *
      * @param isEmpresa variavel boolena para verificar se esta sendo aberto
      * atraves da tela de cadastro de empresa
+     * @param isAgenda
+     * @param isTabelaAgenda
+     * @param isRelatorio
+     * @param isConsulta
+     * @param isFinanceiro
+     * @param isLaudo
      */
-    public void showTabelaEmpresa(boolean isEmpresa, boolean isAgenda, boolean isTabelaAgenda, boolean isRelatorio, boolean isConsulta, boolean isFinanceiro) {
+    public void showTabelaEmpresa(boolean isEmpresa, boolean isAgenda, boolean isTabelaAgenda, boolean isRelatorio, boolean isConsulta, boolean isFinanceiro, boolean isLaudo) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
@@ -264,7 +292,7 @@ public class SceneManager {
             BorderPane layout = (BorderPane) loader.load();
             tabelaEmpresaController = loader.getController();
             tabelaEmpresaController.setStage(stage);
-            tabelaEmpresaController.setBooleans(isEmpresa, isAgenda, isTabelaAgenda, isRelatorio, isConsulta, isFinanceiro);
+            tabelaEmpresaController.setBooleans(isEmpresa, isAgenda, isTabelaAgenda, isRelatorio, isConsulta, isFinanceiro, isLaudo);
             tabelaEmpresaController.setMainTbEmpresa(layout);
             criarPadraoModal("Tabela de empresa", stage, layout);
         } catch (Exception e) {

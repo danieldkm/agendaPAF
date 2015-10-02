@@ -15,7 +15,6 @@ public class EmpresasHomologadasService implements InterfaceCrud<EmpresasHomolog
 
     private EmpresasHomologadasDAO dao;
 
-
     public EmpresasHomologadasService() {
         dao = new EmpresasHomologadasDAO(JPA.em());
     }
@@ -61,6 +60,10 @@ public class EmpresasHomologadasService implements InterfaceCrud<EmpresasHomolog
 
     public ObservableList<EmpresasHomologadas> findAll() {
         return dao.findAll();
+    }
+
+    public EmpresasHomologadas findById(Long id) {
+        return dao.findById(id);
     }
 
     @Override

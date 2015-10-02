@@ -46,6 +46,17 @@ public class GenericDAO<PK, T> {
         }
         return null;
     }
+    
+    public T findById(Long id) {
+        try {
+            Query query = entityManager.createNamedQuery(getTypeClass().getSimpleName() + ".findByID");
+            query.setParameter("id", id);
+            return (T) query.getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     private Class<?> getTypeClass() {
         Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass()

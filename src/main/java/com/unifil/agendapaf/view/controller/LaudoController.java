@@ -3,6 +3,9 @@ package com.unifil.agendapaf.view.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unifil.agendapaf.SceneManager;
+import com.unifil.agendapaf.model.Empresa;
+import com.unifil.agendapaf.model.LaudoComplementar;
+import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.model.aux.ParametroDocx;
 import com.unifil.agendapaf.model.laudo.AplicacoesEspeciaisType;
 import com.unifil.agendapaf.model.laudo.AprovacaoRelatorioType;
@@ -46,12 +49,14 @@ import com.unifil.agendapaf.model.laudo.SistemasGestaoType;
 import com.unifil.agendapaf.model.laudo.SistemasPedNfeType;
 import com.unifil.agendapaf.model.laudo.SistemasPedType;
 import com.unifil.agendapaf.model.laudo.TratamentoInterrupcaoType;
+import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.GerarDocx;
 import com.unifil.agendapaf.util.Json;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilFile;
+import com.unifil.agendapaf.util.UtilTexto;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
@@ -62,6 +67,8 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URL;
 import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.HashMap;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -69,9 +76,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckBox;
@@ -79,6 +89,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Separator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -93,8 +105,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.Wizard.LinearFlow;
@@ -113,18 +128,25 @@ public class LaudoController {
      */
     @FXML
     public void initialize() {
-        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE);
+
         MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(oTxtIE);
+        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCPF);
         MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtTelefone);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCEP);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCEP);
         MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
+        MaskFieldUtil.numericField(dTxtNumero);
 
         enableEditAllTable();
+
+        txtNLaudo.setText(txtNumeroLaudo.textProperty().get());
+
+        cbResponsavelEnsaio.setItems(StaticLista.getListaGlobalUsuario());
 
         mensagem = new MensagemType();
         utilXml = new UtilFile();
@@ -500,6 +522,34 @@ public class LaudoController {
     @FXML
     private ToggleButton tBtnGerarDocs;
 
+    @FXML
+    private Text txtTopEmpresa;
+    @FXML
+    private Button btnBuscarEmpresa;
+    //Informações complementares
+    @FXML
+    private ComboBox<Usuario> cbResponsavelEnsaio;
+    @FXML
+    private TextField txtNomeFantasia;
+    @FXML
+    private TextField txtIm;
+    @FXML
+    private TextField txtCelular;
+    @FXML
+    private TextField txtFax;
+    @FXML
+    private TextField txtBytes;
+    @FXML
+    private TextField txtRg;
+    @FXML
+    private CheckBox ckbGerenciadorBD;
+    @FXML
+    private TextField txtRipmedPrincipal;
+    @FXML
+    private TextField txtRipmedRelacao;
+    @FXML
+    private Text txtNLaudo;
+
     private CheckComboBox<String> cb1 = new CheckComboBox();
     private CheckComboBox<String> cb2 = new CheckComboBox();
     private CheckBox cbSelecionarTodos = new CheckBox("Selecionar Todos");
@@ -509,6 +559,8 @@ public class LaudoController {
     private UtilFile utilXml;
     private MarcasModelosCompativeisType mct;
     private ObservableList<String> files;
+    private LaudoComplementar laudoComplementar;
+    private String diretorioDoc;
 
     private void carregarDiretorioXML() {
         utilXml.setEmpresas(FXCollections.observableArrayList());
@@ -577,439 +629,449 @@ public class LaudoController {
     void actionBtnSalvar(ActionEvent event) {
         try {
             System.out.println("- Iniciar metodo actionBtnSalvar");
-            mensagem.setNumero(txtNumeroLaudo.getText());
-            if (ckEmite1.isSelected()) {
-                mensagem.setEmiteNfe(true);
-            } else {
-                mensagem.setEmiteNfe(false);
-            }
+            if (!validarCampos()) {
+                main.setDisable(true);
+                mensagem.setNumero(txtNumeroLaudo.getText());
+                if (ckEmite1.isSelected()) {
+                    mensagem.setEmiteNfe(true);
+                } else {
+                    mensagem.setEmiteNfe(false);
+                }
 
-            //-----------------------Desenvolvedora---------------------------------
-            DesenvolvedoraType desenvolvedora = new DesenvolvedoraType();
-            desenvolvedora.setRazaoSocial(dTxtRazaoSocial.getText());
-            desenvolvedora.setCnpj(dTxtCNPJ.getText());
-            desenvolvedora.setIe(dTxtIE.getText());
-            EnderecoType endereco = new EnderecoType();
-            endereco.setLogradouro(dTxtLogradouro.getText());
-            endereco.setNumero(dTxtNumero.getText());
-            endereco.setComplemento(dTxtComplemento.getText());
-            endereco.setBairro(dTxtBairro.getText());
-            endereco.setMunicipio(dTxtCidade.getText());
-            endereco.setUf(dTxtUF.getText());
-            endereco.setCep(dTxtCEP.getText());
-            desenvolvedora.setEndereco(endereco);
-            ContatoType contato = new ContatoType();
-            contato.setNome(dTxtNome.getText());
-            contato.setCpf(dTxtCPF.getText());
-            contato.setTelefone(dTxtTelefone.getText());
-            contato.setEmail(dTxtEmail.getText());
-            desenvolvedora.setContato(contato);
-            desenvolvedora.setResponsavelAcompanhamentoTestes(dTxtResponsavelTestes.getText());
-            mensagem.setDesenvolvedora(desenvolvedora);
+                //-----------------------Desenvolvedora---------------------------------
+                DesenvolvedoraType desenvolvedora = new DesenvolvedoraType();
+                desenvolvedora.setRazaoSocial(dTxtRazaoSocial.getText());
+                desenvolvedora.setCnpj(dTxtCNPJ.getText());
+                desenvolvedora.setIe(dTxtIE.getText());
+                EnderecoType endereco = new EnderecoType();
+                endereco.setLogradouro(dTxtLogradouro.getText());
+                endereco.setNumero(dTxtNumero.getText());
+                endereco.setComplemento(dTxtComplemento.getText());
+                endereco.setBairro(dTxtBairro.getText());
+                endereco.setMunicipio(dTxtCidade.getText());
+                endereco.setUf(dTxtUF.getText());
+                endereco.setCep(dTxtCEP.getText());
+                desenvolvedora.setEndereco(endereco);
+                ContatoType contato = new ContatoType();
+                contato.setNome(dTxtNome.getText());
+                contato.setCpf(dTxtCPF.getText());
+                contato.setTelefone(dTxtTelefone.getText());
+                contato.setEmail(dTxtEmail.getText());
+                desenvolvedora.setContato(contato);
+                desenvolvedora.setResponsavelAcompanhamentoTestes(dTxtResponsavelTestes.getText());
+                mensagem.setDesenvolvedora(desenvolvedora);
 
-            //------------------------------OTC-------------------------------------
-            OtcType otc = new OtcType();
-            otc.setRazaoSocial(oTxtRazaoSocial.getText());
-            otc.setCnpj(oTxtCNPJ.getText());
-            otc.setIe(oTxtIE.getText());
-            endereco = new EnderecoType();
-            endereco.setLogradouro(oTxtLogradouro.getText());
-            endereco.setNumero(oTxtNumero.getText());
-            endereco.setComplemento(oTxtComplemento.getText());
-            endereco.setBairro(oTxtBairro.getText());
-            endereco.setMunicipio(oTxtCidade.getText());
-            endereco.setUf(oTxtUF.getText());
-            endereco.setCep(oTxtCEP.getText());
-            otc.setEndereco(endereco);
-            PeriodoAnaliseType peridoAnalise = new PeriodoAnaliseType();
-            peridoAnalise.setDataInicio(UtilConverter.convertDateForXMLGregorianCalendar(oDtInicio));
-            peridoAnalise.setDataFim(UtilConverter.convertDateForXMLGregorianCalendar(oDtFinal));
-            otc.setPeriodoAnalise(peridoAnalise);
-            otc.setVersaoEspecificacaoRequisitos(oTxtVersaoER.getText());
-            mensagem.setOtc(otc);
+                //------------------------------OTC-------------------------------------
+                OtcType otc = new OtcType();
+                otc.setRazaoSocial(oTxtRazaoSocial.getText());
+                otc.setCnpj(oTxtCNPJ.getText());
+                otc.setIe(oTxtIE.getText());
+                endereco = new EnderecoType();
+                endereco.setLogradouro(oTxtLogradouro.getText());
+                endereco.setNumero(oTxtNumero.getText());
+                endereco.setComplemento(oTxtComplemento.getText());
+                endereco.setBairro(oTxtBairro.getText());
+                endereco.setMunicipio(oTxtCidade.getText());
+                endereco.setUf(oTxtUF.getText());
+                endereco.setCep(oTxtCEP.getText());
+                otc.setEndereco(endereco);
+                PeriodoAnaliseType peridoAnalise = new PeriodoAnaliseType();
+                peridoAnalise.setDataInicio(UtilConverter.convertDateForXMLGregorianCalendar(oDtInicio));
+                peridoAnalise.setDataFim(UtilConverter.convertDateForXMLGregorianCalendar(oDtFinal));
+                otc.setPeriodoAnalise(peridoAnalise);
+                otc.setVersaoEspecificacaoRequisitos(oTxtVersaoER.getText());
+                mensagem.setOtc(otc);
 
-            //---------------------------Identificação------------------------------
-            IdentificacaoPafType identificacao = new IdentificacaoPafType();
-            identificacao.setNomeComercial(iTxtNomeComercial.getText());
-            identificacao.setVersao(iTxtVersao.getText());
-            ArquivoExecutavelPrincipalType arquivoExecutavelPrincipal = new ArquivoExecutavelPrincipalType();
-            arquivoExecutavelPrincipal.setNome(iTxtPrincipalExec.getText());
-            arquivoExecutavelPrincipal.setMd5(iTxtMD5Principal.getText());
-            identificacao.setArquivoExecutavelPrincipal(arquivoExecutavelPrincipal);
-            ArquivoRelacaoExecutaveisType arquivoRelacaoExecutaveis = new ArquivoRelacaoExecutaveisType();
-            arquivoRelacaoExecutaveis.setNome(iTxtRelacaoExec.getText());
-            arquivoRelacaoExecutaveis.setMd5(iTxtMD5Relacao.getText());
-            identificacao.setArquivoRelacaoExecutaveis(arquivoRelacaoExecutaveis);
-            ArquivosExecutaveisSemFuncaoType arquivosExecutaveisSemFuncao = new ArquivosExecutaveisSemFuncaoType();
-            arquivosExecutaveisSemFuncao.getArquivoExecutavel().addAll(iTvTabela.getItems());
-            identificacao.setArquivosExecutaveis(arquivosExecutaveisSemFuncao);
-            ArquivoOutroType ao = new ArquivoOutroType();
-            ao.setNome(iTxtOutroArq.getText());
-            ao.setMd5(iTxtMD5Outro.getText());
-            ArquivosOutrosType arquivosOutros = new ArquivosOutrosType();
-            arquivosOutros.getArquivoOutro().add(ao);
-            identificacao.setArquivosOutros(arquivosOutros);
-            EnvelopeSegurancaType est = new EnvelopeSegurancaType();
-            est.setMarca(iTxtMarca.getText());
-            est.setModelo(iTxtModelo.getText());
-            est.setNumero(iTxtNumero.getText());
-            identificacao.setEnvelopeSeguranca(est);
-            PerfisRequisitosType pqt = new PerfisRequisitosType();
-            if (iCkV.isSelected()) {
-                pqt.getPerfilRequisito().add("V");
-            }
-            if (iCkW.isSelected()) {
-                pqt.getPerfilRequisito().add("W");
-            }
-            if (iCkY.isSelected()) {
-                pqt.getPerfilRequisito().add("Y");
-            }
-            if (iCkZ.isSelected()) {
-                pqt.getPerfilRequisito().add("Z");
-            }
-            if (iCkA.isSelected()) {
-                pqt.getPerfilRequisito().add("A");
-            }
-            if (iCkB.isSelected()) {
-                pqt.getPerfilRequisito().add("B");
-            }
-            if (iCkC.isSelected()) {
-                pqt.getPerfilRequisito().add("C");
-            }
-            if (iCkD.isSelected()) {
-                pqt.getPerfilRequisito().add("D");
-            }
-            if (iCkE.isSelected()) {
-                pqt.getPerfilRequisito().add("E");
-            }
-            if (iCkF.isSelected()) {
-                pqt.getPerfilRequisito().add("F");
-            }
-            if (iCkG.isSelected()) {
-                pqt.getPerfilRequisito().add("G");
-            }
-            if (iCkH.isSelected()) {
-                pqt.getPerfilRequisito().add("H");
-            }
-            if (iCkI.isSelected()) {
-                pqt.getPerfilRequisito().add("I");
-            }
-            if (iCkJ.isSelected()) {
-                pqt.getPerfilRequisito().add("J");
-            }
-            if (iCkR.isSelected()) {
-                pqt.getPerfilRequisito().add("R");
-            }
-            if (iCkS.isSelected()) {
-                pqt.getPerfilRequisito().add("S");
-            }
-            if (iCkT.isSelected()) {
-                pqt.getPerfilRequisito().add("T");
-            }
-            if (iCkU.isSelected()) {
-                pqt.getPerfilRequisito().add("U");
-            }
-            if (iCkX.isSelected()) {
-                pqt.getPerfilRequisito().add("X");
-            }
+                //---------------------------Identificação------------------------------
+                IdentificacaoPafType identificacao = new IdentificacaoPafType();
+                identificacao.setNomeComercial(iTxtNomeComercial.getText());
+                identificacao.setVersao(iTxtVersao.getText());
+                ArquivoExecutavelPrincipalType arquivoExecutavelPrincipal = new ArquivoExecutavelPrincipalType();
+                arquivoExecutavelPrincipal.setNome(iTxtPrincipalExec.getText());
+                arquivoExecutavelPrincipal.setMd5(iTxtMD5Principal.getText());
+                identificacao.setArquivoExecutavelPrincipal(arquivoExecutavelPrincipal);
+                ArquivoRelacaoExecutaveisType arquivoRelacaoExecutaveis = new ArquivoRelacaoExecutaveisType();
+                arquivoRelacaoExecutaveis.setNome(iTxtRelacaoExec.getText());
+                arquivoRelacaoExecutaveis.setMd5(iTxtMD5Relacao.getText());
+                identificacao.setArquivoRelacaoExecutaveis(arquivoRelacaoExecutaveis);
+                ArquivosExecutaveisSemFuncaoType arquivosExecutaveisSemFuncao = new ArquivosExecutaveisSemFuncaoType();
+                arquivosExecutaveisSemFuncao.getArquivoExecutavel().addAll(iTvTabela.getItems());
+                identificacao.setArquivosExecutaveis(arquivosExecutaveisSemFuncao);
+                ArquivoOutroType ao = new ArquivoOutroType();
+                ao.setNome(iTxtOutroArq.getText());
+                ao.setMd5(iTxtMD5Outro.getText());
+                ArquivosOutrosType arquivosOutros = new ArquivosOutrosType();
+                arquivosOutros.getArquivoOutro().add(ao);
+                identificacao.setArquivosOutros(arquivosOutros);
+                EnvelopeSegurancaType est = new EnvelopeSegurancaType();
+                est.setMarca(iTxtMarca.getText());
+                est.setModelo(iTxtModelo.getText());
+                est.setNumero(iTxtNumero.getText());
+                identificacao.setEnvelopeSeguranca(est);
+                PerfisRequisitosType pqt = new PerfisRequisitosType();
+                if (iCkV.isSelected()) {
+                    pqt.getPerfilRequisito().add("V");
+                }
+                if (iCkW.isSelected()) {
+                    pqt.getPerfilRequisito().add("W");
+                }
+                if (iCkY.isSelected()) {
+                    pqt.getPerfilRequisito().add("Y");
+                }
+                if (iCkZ.isSelected()) {
+                    pqt.getPerfilRequisito().add("Z");
+                }
+                if (iCkA.isSelected()) {
+                    pqt.getPerfilRequisito().add("A");
+                }
+                if (iCkB.isSelected()) {
+                    pqt.getPerfilRequisito().add("B");
+                }
+                if (iCkC.isSelected()) {
+                    pqt.getPerfilRequisito().add("C");
+                }
+                if (iCkD.isSelected()) {
+                    pqt.getPerfilRequisito().add("D");
+                }
+                if (iCkE.isSelected()) {
+                    pqt.getPerfilRequisito().add("E");
+                }
+                if (iCkF.isSelected()) {
+                    pqt.getPerfilRequisito().add("F");
+                }
+                if (iCkG.isSelected()) {
+                    pqt.getPerfilRequisito().add("G");
+                }
+                if (iCkH.isSelected()) {
+                    pqt.getPerfilRequisito().add("H");
+                }
+                if (iCkI.isSelected()) {
+                    pqt.getPerfilRequisito().add("I");
+                }
+                if (iCkJ.isSelected()) {
+                    pqt.getPerfilRequisito().add("J");
+                }
+                if (iCkR.isSelected()) {
+                    pqt.getPerfilRequisito().add("R");
+                }
+                if (iCkS.isSelected()) {
+                    pqt.getPerfilRequisito().add("S");
+                }
+                if (iCkT.isSelected()) {
+                    pqt.getPerfilRequisito().add("T");
+                }
+                if (iCkU.isSelected()) {
+                    pqt.getPerfilRequisito().add("U");
+                }
+                if (iCkX.isSelected()) {
+                    pqt.getPerfilRequisito().add("X");
+                }
 
-            identificacao.setPerfisRequisitos(pqt);
-            mensagem.setIdentificacaoPaf(identificacao);
+                identificacao.setPerfisRequisitos(pqt);
+                mensagem.setIdentificacaoPaf(identificacao);
 
-            //---------------------------Caracteristica-----------------------------
-            CaracteristicasPafType caracteristicas = new CaracteristicasPafType();
-            MeioGeracaoArquivoSintegraEfdType maset = new MeioGeracaoArquivoSintegraEfdType();
-            if (ckGeracao1.isSelected()) {
-                maset.getModo().add(ckGeracao1.getText());
-            } else if (ckGeracao2.isSelected()) {
-                maset.getModo().add(ckGeracao2.getText());
-            } else if (ckGeracao3.isSelected()) {
-                maset.getModo().add(ckGeracao3.getText());
-            }
-            caracteristicas.setMeioGeracaoArquivoSintegraEfd(maset);
+                //---------------------------Caracteristica-----------------------------
+                CaracteristicasPafType caracteristicas = new CaracteristicasPafType();
+                MeioGeracaoArquivoSintegraEfdType maset = new MeioGeracaoArquivoSintegraEfdType();
+                if (ckGeracao1.isSelected()) {
+                    maset.getModo().add(ckGeracao1.getText());
+                } else if (ckGeracao2.isSelected()) {
+                    maset.getModo().add(ckGeracao2.getText());
+                } else if (ckGeracao3.isSelected()) {
+                    maset.getModo().add(ckGeracao3.getText());
+                }
+                caracteristicas.setMeioGeracaoArquivoSintegraEfd(maset);
 
-            TratamentoInterrupcaoType tit = new TratamentoInterrupcaoType();
-            if (ckInterrupcao1.isSelected()) {
-                tit.getModo().add(ckInterrupcao1.getText());
-            }
-            if (ckInterrupcao2.isSelected()) {
-                tit.getModo().add(ckInterrupcao2.getText());
-            }
-            if (ckInterrupcao3.isSelected()) {
-                tit.getModo().add(ckInterrupcao3.getText());
-            }
-            caracteristicas.setTratamentoInterrupcao(tit);
+                TratamentoInterrupcaoType tit = new TratamentoInterrupcaoType();
+                if (ckInterrupcao1.isSelected()) {
+                    tit.getModo().add(ckInterrupcao1.getText());
+                }
+                if (ckInterrupcao2.isSelected()) {
+                    tit.getModo().add(ckInterrupcao2.getText());
+                }
+                if (ckInterrupcao3.isSelected()) {
+                    tit.getModo().add(ckInterrupcao3.getText());
+                }
+                caracteristicas.setTratamentoInterrupcao(tit);
 
-            FormaImpressaoType fit = new FormaImpressaoType();
-            if (ckForma1.isSelected()) {
-                fit.getModo().add(ckForma1.getText());
-            }
-            if (ckForma2.isSelected()) {
-                fit.getModo().add(ckForma2.getText());
-            }
-            if (ckForma3.isSelected()) {
-                fit.getModo().add(ckForma3.getText());
-            }
-            if (ckForma4.isSelected()) {
-                fit.getModo().add(ckForma4.getText());
-            }
-            if (ckForma5.isSelected()) {
-                fit.getModo().add(ckForma5.getText());
-            }
-            if (ckForma6.isSelected()) {
-                fit.getModo().add(ckForma6.getText());
-            }
-            if (ckForma7.isSelected()) {
-                fit.getModo().add(ckForma7.getText());
-            }
-            caracteristicas.setFormaImpressao(fit);
+                FormaImpressaoType fit = new FormaImpressaoType();
+                if (ckForma1.isSelected()) {
+                    fit.getModo().add(ckForma1.getText());
+                }
+                if (ckForma2.isSelected()) {
+                    fit.getModo().add(ckForma2.getText());
+                }
+                if (ckForma3.isSelected()) {
+                    fit.getModo().add(ckForma3.getText());
+                }
+                if (ckForma4.isSelected()) {
+                    fit.getModo().add(ckForma4.getText());
+                }
+                if (ckForma5.isSelected()) {
+                    fit.getModo().add(ckForma5.getText());
+                }
+                if (ckForma6.isSelected()) {
+                    fit.getModo().add(ckForma6.getText());
+                }
+                if (ckForma7.isSelected()) {
+                    fit.getModo().add(ckForma7.getText());
+                }
+                caracteristicas.setFormaImpressao(fit);
 
-            if (ckIntegracao1.isSelected()) {
-                caracteristicas.setIntegracaoPaf(ckIntegracao1.getText());
-            } else if (ckIntegracao2.isSelected()) {
-                caracteristicas.setIntegracaoPaf(ckIntegracao2.getText());
-            } else if (ckIntegracao3.isSelected()) {
-                caracteristicas.setIntegracaoPaf(ckIntegracao3.getText());
-            } else if (ckIntegracao4.isSelected()) {
-                caracteristicas.setIntegracaoPaf(ckIntegracao4.getText());
-            }
+                if (ckIntegracao1.isSelected()) {
+                    caracteristicas.setIntegracaoPaf(ckIntegracao1.getText());
+                } else if (ckIntegracao2.isSelected()) {
+                    caracteristicas.setIntegracaoPaf(ckIntegracao2.getText());
+                } else if (ckIntegracao3.isSelected()) {
+                    caracteristicas.setIntegracaoPaf(ckIntegracao3.getText());
+                } else if (ckIntegracao4.isSelected()) {
+                    caracteristicas.setIntegracaoPaf(ckIntegracao4.getText());
+                }
 
-            AplicacoesEspeciaisType aet = new AplicacoesEspeciaisType();
-            if (ckEspeciais1.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais1.getText());
-            }
-            if (ckEspeciais2.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais2.getText());
-            }
-            if (ckEspeciais3.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais3.getText());
-            }
-            if (ckEspeciais4.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais4.getText());
-            }
-            if (ckEspeciais5.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais5.getText());
-            }
-            if (ckEspeciais6.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais6.getText());
-            }
-            if (ckEspeciais7.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais7.getText());
-            }
-            if (ckEspeciais8.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais8.getText());
-            }
-            if (ckEspeciais9.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais9.getText());
-            }
-            if (ckEspeciais10.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais10.getText());
-            }
-            if (ckEspeciais11.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais11.getText());
-            }
-            if (ckEspeciais12.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais12.getText());
-            }
-            if (ckEspeciais13.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais13.getText());
-            }
-            if (ckEspeciais14.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais14.getText());
-            }
-            if (ckEspeciais15.isSelected()) {
-                aet.getAplicacaoEspecial().add(ckEspeciais15.getText());
-            }
-            caracteristicas.setAplicacoesEspeciais(aet);
+                AplicacoesEspeciaisType aet = new AplicacoesEspeciaisType();
+                if (ckEspeciais1.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais1.getText());
+                }
+                if (ckEspeciais2.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais2.getText());
+                }
+                if (ckEspeciais3.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais3.getText());
+                }
+                if (ckEspeciais4.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais4.getText());
+                }
+                if (ckEspeciais5.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais5.getText());
+                }
+                if (ckEspeciais6.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais6.getText());
+                }
+                if (ckEspeciais7.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais7.getText());
+                }
+                if (ckEspeciais8.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais8.getText());
+                }
+                if (ckEspeciais9.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais9.getText());
+                }
+                if (ckEspeciais10.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais10.getText());
+                }
+                if (ckEspeciais11.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais11.getText());
+                }
+                if (ckEspeciais12.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais12.getText());
+                }
+                if (ckEspeciais13.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais13.getText());
+                }
+                if (ckEspeciais14.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais14.getText());
+                }
+                if (ckEspeciais15.isSelected()) {
+                    aet.getAplicacaoEspecial().add(ckEspeciais15.getText());
+                }
+                caracteristicas.setAplicacoesEspeciais(aet);
 
-            caracteristicas.setLinguagemProgramacao(cbLinguagem.getSelectionModel().getSelectedItem().toString());
-            caracteristicas.setSistemaOperacional(cbSO.getSelectionModel().getSelectedItem().toString());
-            caracteristicas.getGerenciadorBancoDados().add(cbBD.getSelectionModel().getSelectedItem().toString());
-            if (ckComercializavel.isSelected()) {
-                caracteristicas.setTipoDesenvolvimento(ckComercializavel.getText());
-            } else if (ckProprio.isSelected()) {
-                caracteristicas.setTipoDesenvolvimento(ckProprio.getText());
-            } else if (ckTerceirizado.isSelected()) {
-                caracteristicas.setTipoDesenvolvimento(ckTerceirizado.getText());
-            }
-            if (ckTipo1.isSelected()) {
-                caracteristicas.setTipoFuncionamento(ckTipo1.getText());
-            } else if (ckTipo2.isSelected()) {
-                caracteristicas.setTipoFuncionamento(ckTipo2.getText());
-            } else if (ckTipo3.isSelected()) {
-                caracteristicas.setTipoFuncionamento(ckTipo3.getText());
-            }
+                caracteristicas.setLinguagemProgramacao(cbLinguagem.getSelectionModel().getSelectedItem().toString());
+                caracteristicas.setSistemaOperacional(cbSO.getSelectionModel().getSelectedItem().toString());
+                caracteristicas.getGerenciadorBancoDados().add(cbBD.getSelectionModel().getSelectedItem().toString());
+                if (ckComercializavel.isSelected()) {
+                    caracteristicas.setTipoDesenvolvimento(ckComercializavel.getText());
+                } else if (ckProprio.isSelected()) {
+                    caracteristicas.setTipoDesenvolvimento(ckProprio.getText());
+                } else if (ckTerceirizado.isSelected()) {
+                    caracteristicas.setTipoDesenvolvimento(ckTerceirizado.getText());
+                }
+                if (ckTipo1.isSelected()) {
+                    caracteristicas.setTipoFuncionamento(ckTipo1.getText());
+                } else if (ckTipo2.isSelected()) {
+                    caracteristicas.setTipoFuncionamento(ckTipo2.getText());
+                } else if (ckTipo3.isSelected()) {
+                    caracteristicas.setTipoFuncionamento(ckTipo3.getText());
+                }
 
-            caracteristicas.setMeioGeracaoArquivoSintegraEfd(maset);
-            mensagem.setCaracteristicasPaf(caracteristicas);
+                caracteristicas.setMeioGeracaoArquivoSintegraEfd(maset);
+                mensagem.setCaracteristicasPaf(caracteristicas);
 
-            //---------------------------Sistema Gestao-----------------------------
-            SistemaGestaoType sgt = new SistemaGestaoType();
-            if (sgTxtNomeSistema.getText().equals("")) {
-                sgTxtNomeSistema.setText("-");
-            }
-            sgt.setNome(sgTxtNomeSistema.getText());
-            EmpresaDesenvolvedoraType edt = new EmpresaDesenvolvedoraType();
-            if (sgTxtCNPJ.getText().equals("")) {
-                sgTxtCNPJ.setText("00000000000000");
-            }
-            edt.setCnpj(sgTxtCNPJ.getText());
-            if (sgTxtRazaoSocial.getText().equals("")) {
-                sgTxtRazaoSocial.setText("-");
-            }
-            edt.setRazaoSocial(sgTxtRazaoSocial.getText());
-            sgt.setEmpresaDesenvolvedora(edt);
+                //---------------------------Sistema Gestao-----------------------------
+                SistemaGestaoType sgt = new SistemaGestaoType();
+                if (sgTxtNomeSistema.getText().equals("")) {
+                    sgTxtNomeSistema.setText("-");
+                }
+                sgt.setNome(sgTxtNomeSistema.getText());
+                EmpresaDesenvolvedoraType edt = new EmpresaDesenvolvedoraType();
+                if (sgTxtCNPJ.getText().equals("")) {
+                    sgTxtCNPJ.setText("00000000000000");
+                }
+                edt.setCnpj(sgTxtCNPJ.getText());
+                if (sgTxtRazaoSocial.getText().equals("")) {
+                    sgTxtRazaoSocial.setText("-");
+                }
+                edt.setRazaoSocial(sgTxtRazaoSocial.getText());
+                sgt.setEmpresaDesenvolvedora(edt);
 
-            ArquivosExecutaveisType aet2 = new ArquivosExecutaveisType();
-            if (sgTvTabela.getItems().size() == 0) {
-                ArquivoExecutavelType a = new ArquivoExecutavelType();
-                a.setMd5("00000000000000000000000000000000");
-                a.setNome("-");
-                RequisitosExecutadosType r = new RequisitosExecutadosType();
-                r.getRequisitoExecutado().add("-");
-                a.setRequisitosExecutados(r);
-                sgTvTabela.getItems().add(a);
-            }
-            aet2.getArquivoExecutavel().addAll(sgTvTabela.getItems());
-            sgt.setArquivosExecutaveis(aet2);
-            SistemasGestaoType sgts = new SistemasGestaoType();
-            sgts.getSistemaGestao().add(sgt);
-            mensagem.setSistemasGestao(sgts);
+                ArquivosExecutaveisType aet2 = new ArquivosExecutaveisType();
+                if (sgTvTabela.getItems().size() == 0) {
+                    ArquivoExecutavelType a = new ArquivoExecutavelType();
+                    a.setMd5("00000000000000000000000000000000");
+                    a.setNome("-");
+                    RequisitosExecutadosType r = new RequisitosExecutadosType();
+                    r.getRequisitoExecutado().add("-");
+                    a.setRequisitosExecutados(r);
+                    sgTvTabela.getItems().add(a);
+                }
+                aet2.getArquivoExecutavel().addAll(sgTvTabela.getItems());
+                sgt.setArquivosExecutaveis(aet2);
+                SistemasGestaoType sgts = new SistemasGestaoType();
+                sgts.getSistemaGestao().add(sgt);
+                mensagem.setSistemasGestao(sgts);
 
-            //---------------------------Sistema PED--------------------------------
-            SistemaPedType spt = new SistemaPedType();
-            if (spTxtNomeSistema.getText().equals("")) {
-                spTxtNomeSistema.setText("-");
-            }
-            spt.setNome(spTxtNomeSistema.getText());
-            EmpresaDesenvolvedoraType edt2 = new EmpresaDesenvolvedoraType();
-            if (spTxtEmpresaDesenvolvedora.getText().equals("")) {
-                spTxtEmpresaDesenvolvedora.setText("-");
-            }
-            edt2.setRazaoSocial(spTxtEmpresaDesenvolvedora.getText());
-            if (spTxtCNPJ.getText().equals("")) {
-                spTxtCNPJ.setText("00000000000000");
-            }
-            edt2.setCnpj(spTxtCNPJ.getText());
-            spt.setEmpresaDesenvolvedora(edt2);
+                //---------------------------Sistema PED--------------------------------
+                SistemaPedType spt = new SistemaPedType();
+                if (spTxtNomeSistema.getText().equals("")) {
+                    spTxtNomeSistema.setText("-");
+                }
+                spt.setNome(spTxtNomeSistema.getText());
+                EmpresaDesenvolvedoraType edt2 = new EmpresaDesenvolvedoraType();
+                if (spTxtEmpresaDesenvolvedora.getText().equals("")) {
+                    spTxtEmpresaDesenvolvedora.setText("-");
+                }
+                edt2.setRazaoSocial(spTxtEmpresaDesenvolvedora.getText());
+                if (spTxtCNPJ.getText().equals("")) {
+                    spTxtCNPJ.setText("00000000000000");
+                }
+                edt2.setCnpj(spTxtCNPJ.getText());
+                spt.setEmpresaDesenvolvedora(edt2);
 
-            ArquivosExecutaveisComFuncaoType aesft = new ArquivosExecutaveisComFuncaoType();
-            if (spTvTabela.getItems().size() == 0) {
-                ArquivoExecutavelComFuncaoType a = new ArquivoExecutavelComFuncaoType();
-                a.setFuncao("-");
-                a.setMd5("00000000000000000000000000000000");
-                a.setNome("-");
-                spTvTabela.getItems().add(a);
-            }
-            aesft.getArquivoExecutavel().addAll(spTvTabela.getItems());
-            spt.setArquivosExecutaveis(aesft);
-            SistemasPedType spts = new SistemasPedType();
-            spts.getSistemaPed().add(spt);
-            mensagem.setSistemasPed(spts);
+                ArquivosExecutaveisComFuncaoType aesft = new ArquivosExecutaveisComFuncaoType();
+                if (spTvTabela.getItems().size() == 0) {
+                    ArquivoExecutavelComFuncaoType a = new ArquivoExecutavelComFuncaoType();
+                    a.setFuncao("-");
+                    a.setMd5("00000000000000000000000000000000");
+                    a.setNome("-");
+                    spTvTabela.getItems().add(a);
+                }
+                aesft.getArquivoExecutavel().addAll(spTvTabela.getItems());
+                spt.setArquivosExecutaveis(aesft);
+                SistemasPedType spts = new SistemasPedType();
+                spts.getSistemaPed().add(spt);
+                mensagem.setSistemasPed(spts);
 
-            //------------------------Sistema PED NF-e------------------------------
-            SistemaPedNfeType spft = new SistemaPedNfeType();
-            if (speTxtNomeSistema.getText().equals("")) {
-                speTxtNomeSistema.setText("-");
-            }
-            spft.setNome(speTxtNomeSistema.getText());
-            EmpresaDesenvolvedoraType edt3 = new EmpresaDesenvolvedoraType();
-            if (speTxtCNPJ.getText().equals("")) {
-                speTxtCNPJ.setText("00000000000000");
-            }
-            edt3.setCnpj(speTxtCNPJ.getText());
-            if (speTxtEmpresaDesenvolvedora.getText().equals("")) {
-                speTxtEmpresaDesenvolvedora.setText("-");
-            }
-            edt3.setRazaoSocial(speTxtEmpresaDesenvolvedora.getText());
-            spft.setEmpresaDesenvolvedora(edt3);
+                //------------------------Sistema PED NF-e------------------------------
+                SistemaPedNfeType spft = new SistemaPedNfeType();
+                if (speTxtNomeSistema.getText().equals("")) {
+                    speTxtNomeSistema.setText("-");
+                }
+                spft.setNome(speTxtNomeSistema.getText());
+                EmpresaDesenvolvedoraType edt3 = new EmpresaDesenvolvedoraType();
+                if (speTxtCNPJ.getText().equals("")) {
+                    speTxtCNPJ.setText("00000000000000");
+                }
+                edt3.setCnpj(speTxtCNPJ.getText());
+                if (speTxtEmpresaDesenvolvedora.getText().equals("")) {
+                    speTxtEmpresaDesenvolvedora.setText("-");
+                }
+                edt3.setRazaoSocial(speTxtEmpresaDesenvolvedora.getText());
+                spft.setEmpresaDesenvolvedora(edt3);
 
-            ArquivosExecutaveisComFuncaoType aesft2 = new ArquivosExecutaveisComFuncaoType();
-            if (speTvTabela.getItems().size() == 0) {
-                ArquivoExecutavelComFuncaoType a = new ArquivoExecutavelComFuncaoType();
-                a.setFuncao("-");
-                a.setMd5("00000000000000000000000000000000");
-                a.setNome("-");
-                speTvTabela.getItems().add(a);
-            }
-            aesft2.getArquivoExecutavel().addAll(speTvTabela.getItems());
-            spft.setArquivosExecutaveis(aesft2);
-            SistemasPedNfeType spnts = new SistemasPedNfeType();
-            spnts.getSistemaPedNfe().add(spft);
-            mensagem.setSistemasPedNfe(spnts);
+                ArquivosExecutaveisComFuncaoType aesft2 = new ArquivosExecutaveisComFuncaoType();
+                if (speTvTabela.getItems().size() == 0) {
+                    ArquivoExecutavelComFuncaoType a = new ArquivoExecutavelComFuncaoType();
+                    a.setFuncao("-");
+                    a.setMd5("00000000000000000000000000000000");
+                    a.setNome("-");
+                    speTvTabela.getItems().add(a);
+                }
+                aesft2.getArquivoExecutavel().addAll(speTvTabela.getItems());
+                spft.setArquivosExecutaveis(aesft2);
+                SistemasPedNfeType spnts = new SistemasPedNfeType();
+                spnts.getSistemaPedNfe().add(spft);
+                mensagem.setSistemasPedNfe(spnts);
 
-            //8. Identifica��o dos Equipamentos ECF Utilizados para a An�lise Funcional :
-            EcfAnaliseFuncionalType eaft = new EcfAnaliseFuncionalType();
-            eaft.getMarcaModelo().addAll(eTvTabela.getItems());
-            mensagem.setEcfAnaliseFuncional(eaft);
+                //8. Identifica��o dos Equipamentos ECF Utilizados para a An�lise Funcional :
+                EcfAnaliseFuncionalType eaft = new EcfAnaliseFuncionalType();
+                eaft.getMarcaModelo().addAll(eTvTabela.getItems());
+                mensagem.setEcfAnaliseFuncional(eaft);
 
-            //9. Rela��o de marcas e modelos de equipamentos ECF compat�veis com o PAF-ECF:
-            MarcasModelosCompativeisType mmct = new MarcasModelosCompativeisType();
-            mmct.getMarcaModelo().addAll(tTvTabela.getItems());
-            mensagem.setMarcasModelosCompativeis(mmct);
+                //9. Rela��o de marcas e modelos de equipamentos ECF compat�veis com o PAF-ECF:
+                MarcasModelosCompativeisType mmct = new MarcasModelosCompativeisType();
+                mmct.getMarcaModelo().addAll(tTvTabela.getItems());
+                mensagem.setMarcasModelosCompativeis(mmct);
 //-------------------------------------------------------------------------------
-            mensagem.setVersaoErPaf(vTxtVersaoER.getText());
-            RoteiroAnaliseType rat = new RoteiroAnaliseType();
-            rat.setAno(vTxtAno.getText());
-            rat.setMes(vTxtMes.getText());
-            rat.setVersaoRoteiro(vTxtVersaoRoteiro.getText());
-            mensagem.setRoteiroAnalise(rat);
+                mensagem.setVersaoErPaf(vTxtVersaoER.getText());
+                RoteiroAnaliseType rat = new RoteiroAnaliseType();
+                rat.setAno(vTxtAno.getText());
+                rat.setMes(vTxtMes.getText());
+                rat.setVersaoRoteiro(vTxtVersaoRoteiro.getText());
+                mensagem.setRoteiroAnalise(rat);
 
-            NaoConformidadesType nct = new NaoConformidadesType();
-            nct.getNaoConformidade().addAll(nTvTabela.getItems());
-            mensagem.setNaoConformidades(nct);
+                NaoConformidadesType nct = new NaoConformidadesType();
+                nct.getNaoConformidade().addAll(nTvTabela.getItems());
+                mensagem.setNaoConformidades(nct);
 
-            mensagem.setComentarioOtc(fTxtArea.getText());
-            mensagem.setDeclaracao(fCkDeclaracao.isSelected());
+                mensagem.setComentarioOtc(fTxtArea.getText());
+                mensagem.setDeclaracao(fCkDeclaracao.isSelected());
 
-            EmissaoType et = new EmissaoType();
-            et.setData(UtilConverter.convertDateForXMLGregorianCalendar(fDt));
-            et.setLocal(fTxtLocal.getText());
-            mensagem.setEmissao(et);
+                EmissaoType et = new EmissaoType();
+                et.setData(UtilConverter.convertDateForXMLGregorianCalendar(fDt));
+                et.setLocal(fTxtLocal.getText());
+                mensagem.setEmissao(et);
 
-            ExecucaoTestesType ett = new ExecucaoTestesType();
-            ett.setNome(feTxtNome.getText());
-            ett.setCargo(feTxtCargo.getText());
-            ett.setCpf(feTxtCPF.getText());
-            mensagem.setExecucaoTestes(ett);
+                ExecucaoTestesType ett = new ExecucaoTestesType();
+                ett.setNome(feTxtNome.getText());
+                ett.setCargo(feTxtCargo.getText());
+                ett.setCpf(feTxtCPF.getText());
+                mensagem.setExecucaoTestes(ett);
 
-            AprovacaoRelatorioType art = new AprovacaoRelatorioType();
-            art.setNome(feTxtNome2.getText());
-            art.setCargo(feTxtCargo2.getText());
-            art.setCpf(feTxtCPF2.getText());
-            mensagem.setAprovacaoRelatorio(art);
-            LaudoType lt = new LaudoType();
-            lt.setMensagem(mensagem);
-            lt.setVersao("1.0");
-            String diretorioDoc = utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
-            addDocx(diretorioDoc);
-            File criarArquivo = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + ".xml");
-            if (criarArquivo.exists()) {
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
-                if (result.get() == ButtonType.OK) {
+                AprovacaoRelatorioType art = new AprovacaoRelatorioType();
+                art.setNome(feTxtNome2.getText());
+                art.setCargo(feTxtCargo2.getText());
+                art.setCpf(feTxtCPF2.getText());
+                mensagem.setAprovacaoRelatorio(art);
+                LaudoType lt = new LaudoType();
+                lt.setMensagem(mensagem);
+                lt.setVersao("1.0");
+                diretorioDoc = utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
+                addDocx();
+                File criarArquivo = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + ".xml");
+                if (criarArquivo.exists()) {
+                    Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
+                    if (result.get() == ButtonType.OK) {
+                        finalizarAoSalvar(criarArquivo, lt);
+                    }
+                } else {
                     finalizarAoSalvar(criarArquivo, lt);
                 }
-            } else {
-                finalizarAoSalvar(criarArquivo, lt);
             }
+            main.setDisable(false);
             System.out.println("- Finalizar metodo actionBtnSalvar");
         } catch (Exception e) {
             e.printStackTrace();
+            main.setDisable(false);
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e, "Obs:");
         }
     }
 
-    private void addDocx(String diretorioDoc) {
+    private void addDocx() {
         if (tBtnGerarDocs.isSelected()) {
             Json json = new Json();
             Gson gson = new Gson();
             Type type = new TypeToken<HashMap<String, String>>() {
             }.getType();
             GerarDocx gerarDoc = new GerarDocx();
-            for (ParametroDocx pr : json.lerArquivoJSON("xml/modelo_docxs/Documentos.json")) {
+            System.out.println("DOCUMENTOS JSON CONVERT " + json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho()));
+            for (ParametroDocx pr : json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho())) {
                 pr.setParametros(setHashMap(pr.getDocumento(), gson.fromJson(pr.getParametros(), type)));
                 System.out.println("NEW PARAMETRO " + pr.getParametros());
-                gerarDoc.gerarDocx(diretorioDoc, pr);
+                if (pr.getDocumento().equals("ANEXO BANCO DE DADOS MODELO") || pr.getDocumento().equals("LAUDO PAF-ECF-F MODELO 2015")) {
+                    gerarDoc.gerarDocx(diretorioDoc, pr, true);
+                } else {
+                    gerarDoc.gerarDocx(diretorioDoc, pr, false);
+                }
             }
 
         }
@@ -1017,52 +1079,487 @@ public class LaudoController {
 
     public String setHashMap(String documento, HashMap<String, String> hmap) {
         Gson gson = new Gson();
+        Optional<ButtonType> resp;
         for (String key : hmap.keySet()) {
             switch (key) {
-                case "txtData":
-                    hmap.replace(key, DateFormat.getDateInstance(DateFormat.MEDIUM).format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
+                case "txtNomeFantasia":
+                    hmap.replace(key, txtNomeFantasia.getText());
                     break;
-                case "txtNomeAplicativo":
-                    hmap.replace(key, sgTxtNomeSistema.getText());
+                case "txtFax":
+                    hmap.replace(key, txtFax.getText());
                     break;
-                case "txtVersao":
-                    hmap.replace(key, iTxtVersao.getText());
+                case "txtCelular":
+                    hmap.replace(key, txtCelular.getText());
                     break;
-                case "txtNome":
-                    hmap.replace(key, dTxtNome.getText());
+                case "txtIm":
+                    hmap.replace(key, txtIm.getText());
                     break;
-                case "txtMd5Principal":
-                    hmap.replace(key, iTxtMD5Principal.getText());
-                    break;
-                case "txtCpf":
-                    hmap.replace(key, dTxtCPF.getText());
-                    break;
-                case "txtCnpj":
-                    hmap.replace(key, dTxtCNPJ.getText());
-                    break;
-                case "txtPrincipalExec":
-                    hmap.replace(key, iTxtPrincipalExec.getText());
-                    break;
-                case "txttxtDataGeracao":
-                    hmap.replace(key, DateFormat.getDateInstance().format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
+                case "txtRg":
+                    hmap.replace(key, txtRg.getText());
                     break;
                 case "txtTamanhoBytes":
-                    hmap.replace(key, "ainda nao disponivel");
+                    hmap.replace(key, txtBytes.getText());
                     break;
-                case "txtNlaudo":
+                case "txtRipmedRelacao":
+                    hmap.replace(key, txtRipmedRelacao.getText());
+                    break;
+                case "txtRipmedEmpresa":
+                    hmap.replace(key, txtRipmedPrincipal.getText());
+                    break;
+                case "laudo":
                     hmap.replace(key, txtNumeroLaudo.getText());
                     break;
                 case "txtRazaoSocial":
                     hmap.replace(key, dTxtRazaoSocial.getText());
                     break;
-                case "txtRg":
-                    hmap.replace(key, "ainda nao disponivel");
+                case "txtEndereco":
+                    hmap.replace(key, dTxtLogradouro.getText() + ", " + dTxtNumero.getText());
                     break;
-                case "txtckbGerenciadorBD":
-                    hmap.replace(key, "");
+                case "txtBairro":
+                    hmap.replace(key, dTxtBairro.getText());
+                    break;
+                case "txtCidade":
+                    hmap.replace(key, dTxtCidade.getText());
+                    break;
+                case "txtUf":
+                    hmap.replace(key, dTxtUF.getText());
+                    break;
+                case "txtCep":
+                    hmap.replace(key, UtilTexto.formatarMascaraCep(dTxtCEP.getText()));
+                    break;
+                case "txtTelefone":
+                    hmap.replace(key, UtilTexto.formatarMascaraTelefone(dTxtTelefone.getText()));
+                    break;
+                case "txtCnpj":
+                    hmap.replace(key, UtilTexto.formatarMascaraCnpj(dTxtCNPJ.getText()));
+                    break;
+                case "txtIe":
+                    hmap.replace(key, dTxtIE.getText());
+                    break;
+                case "txtContato":
+                    hmap.replace(key, dTxtNome.getText());
+                    break;
+                case "txtCpfContato":
+                    hmap.replace(key, UtilTexto.formatarMascaraCpf(dTxtCPF.getText()));
+                    break;
+                case "txtEmail":
+                    hmap.replace(key, dTxtEmail.getText());
+                    break;
+                case "txtResponsavel":
+                    hmap.replace(key, dTxtResponsavelTestes.getText());
+                    break;
+                case "txtNomeHomologador":
+                    hmap.replace(key, cbResponsavelEnsaio.getValue().getNome());
+                    break;
+                case "txtDataInicio":
+                    hmap.replace(key, oDtInicio.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+                    break;
+                case "txtDataFinal":
+                    hmap.replace(key, oDtFinal.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+                    break;
+                case "txtNomeComercial":
+                    hmap.replace(key, iTxtNomeComercial.getText());
+                    break;
+                case "txtVersao":
+                    hmap.replace(key, iTxtVersao.getText());
+                    break;
+                case "txtDataVersao":
+                    hmap.replace(key, oDtFinal.getValue().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
+                    break;
+                case "txtPrincipalExec":
+                    hmap.replace(key, iTxtPrincipalExec.getText());
+                    break;
+                case "txtMd5Principal":
+                    hmap.replace(key, iTxtMD5Principal.getText());
+                    break;
+                case "txtMd5NomeArquivoEmpresa":
+                    hmap.replace(key, iTxtMD5Relacao.getText() + " *" + iTxtRelacaoExec.getText());
+                    break;
+                case "txtRelacaoMd5Executaveis":
+                    iTvTabela.getItems();
+                    String relacao = "";
+                    int qtdEspaco = 40;
+                    String espaco = "";
+                    for (ArquivoExecutavelSemFuncaoType item : iTvTabela.getItems()) {
+                        if (item.getNome().length() < qtdEspaco) {
+                            for (int i = 0; i <= qtdEspaco; i++) {
+                                espaco += " ";
+                            }
+                        }
+                        relacao += item.getNome() + espaco + item.getMd5() + ",";
+                        espaco = "";
+                    }
+                    hmap.replace(key, relacao);
+                    break;
+                case "txtMd5NomeRelacao":
+                    hmap.replace(key, iTxtMD5Outro.getText() + " *" + iTxtOutroArq.getText());
+                    break;
+                case "perfila":
+                    hmap.replace(key, iCkA.isSelected() + "");
+                    break;
+                case "perfilb":
+                    hmap.replace(key, iCkB.isSelected() + "");
+                    break;
+                case "perfilc":
+                    hmap.replace(key, iCkC.isSelected() + "");
+                    break;
+                case "perfild":
+                    hmap.replace(key, iCkD.isSelected() + "");
+                    break;
+                case "perfile":
+                    hmap.replace(key, iCkE.isSelected() + "");
+                    break;
+                case "perfilf":
+                    hmap.replace(key, iCkF.isSelected() + "");
+                    break;
+                case "perfilg":
+                    hmap.replace(key, iCkG.isSelected() + "");
+                    break;
+                case "perfilh":
+                    hmap.replace(key, iCkH.isSelected() + "");
+                    break;
+                case "perfili":
+                    hmap.replace(key, iCkI.isSelected() + "");
+                    break;
+                case "perfilj":
+                    hmap.replace(key, iCkJ.isSelected() + "");
+                    break;
+                case "perfilr":
+                    hmap.replace(key, iCkR.isSelected() + "");
+                    break;
+                case "perfils":
+                    hmap.replace(key, iCkS.isSelected() + "");
+                    break;
+                case "perfilt":
+                    hmap.replace(key, iCkT.isSelected() + "");
+                    break;
+                case "perfilu":
+                    hmap.replace(key, iCkU.isSelected() + "");
+                    break;
+                case "perfilv":
+                    hmap.replace(key, iCkV.isSelected() + "");
+                    break;
+                case "perfilw":
+                    hmap.replace(key, iCkW.isSelected() + "");
+                    break;
+                case "perfilx":
+                    hmap.replace(key, iCkX.isSelected() + "");
+                    break;
+                case "perfily":
+                    hmap.replace(key, iCkY.isSelected() + "");
+                    break;
+                case "perfilz":
+                    hmap.replace(key, iCkZ.isSelected() + "");
+                    break;
+                case "txtEnvelope":
+                    hmap.replace(key, iTxtNumero.getText());
+                    break;
+                case "txtLinguagemProgramacao":
+                    hmap.replace(key, cbLinguagem.getValue());
+                    break;
+                case "txtSo":
+                    hmap.replace(key, cbSO.getValue());
+                    break;
+                case "txtBd":
+                    hmap.replace(key, cbBD.getValue());
+                    break;
+
+                case "ckbComercializavel":
+                    hmap.replace(key, ckComercializavel.isSelected() + "");
+                    break;
+                case "ckbExclusivoProprio":
+                    hmap.replace(key, ckProprio.isSelected() + "");
+                    break;
+                case "ckbExclusivoTerce":
+                    hmap.replace(key, ckTerceirizado.isSelected() + "");
+                    break;
+                case "ckbConcomitante":
+                    hmap.replace(key, ckForma1.isSelected() + "");
+                    break;
+                case "ckbNaoConcomitanteDV":
+                    hmap.replace(key, ckForma2.isSelected() + "");
+                    break;
+                case "ckbNaoConcomitantePr":
+                    hmap.replace(key, ckForma3.isSelected() + "");
+                    break;
+                case "ckbNaoConcomitanteCC":
+                    hmap.replace(key, ckForma4.isSelected() + "");
+                    break;
+                case "ckbDavSemImp":
+                    hmap.replace(key, ckForma5.isSelected() + "");
+                    break;
+                case "ckbDavImpNaoFiscal":
+                    hmap.replace(key, ckForma6.isSelected() + "");
+                    break;
+                case "ckbDavEcf":
+                    hmap.replace(key, ckForma7.isSelected() + "");
+                    break;
+                case "ckbStandAlone":
+                    hmap.replace(key, ckTipo1.isSelected() + "");
+                    break;
+                case "ckbEmRede":
+                    hmap.replace(key, ckTipo2.isSelected() + "");
+                    break;
+                case "ckbParametrizavel":
+                    hmap.replace(key, ckTipo3.isSelected() + "");
+                    break;
+                case "ckbPeloPaf":
+                    hmap.replace(key, ckGeracao1.isSelected() + "");
+                    break;
+                case "ckbPeloRetaguarda":
+                    hmap.replace(key, ckGeracao2.isSelected() + "");
+                    break;
+                case "ckbPeloSisPed":
+                    hmap.replace(key, ckGeracao3.isSelected() + "");
+                    break;
+                case "ckbNfeSim":
+                    if (ckEmite1.isSelected()) {
+                        hmap.replace(key, "true");
+                    } else {
+                        hmap.replace(key, "false");
+                    }
+                    break;
+                case "ckbNfeNao":
+                    if (ckEmite1.isSelected()) {
+                        hmap.replace(key, "false");
+                    } else {
+                        hmap.replace(key, "true");
+                    }
+                    break;
+                case "ckbNfceSim":
+                    if (ckEmite2.isSelected()) {
+                        hmap.replace(key, "true");
+                    } else {
+                        hmap.replace(key, "false");
+                    }
+                    break;
+                case "ckbNfceNao":
+                    if (ckEmite2.isSelected()) {
+                        hmap.replace(key, "true");
+                    } else {
+                        hmap.replace(key, "false");
+                    }
+                    break;
+                case "ckbRecuDados":
+                    hmap.replace(key, ckInterrupcao1.isSelected() + "");
+                    break;
+                case "ckbCancelAutoma":
+                    hmap.replace(key, ckInterrupcao2.isSelected() + "");
+                    break;
+                case "ckbBloqueFunc":
+                    hmap.replace(key, ckInterrupcao3.isSelected() + "");
+                    break;
+                case "ckbComRetaguarda":
+                    hmap.replace(key, ckIntegracao1.isSelected() + "");
+                    break;
+                case "ckbComSisPed":
+                    hmap.replace(key, ckIntegracao2.isSelected() + "");
+                    break;
+                case "ckbComAmbos":
+                    hmap.replace(key, ckIntegracao3.isSelected() + "");
+                    break;
+                case "ckbNaoIntegrado":
+                    hmap.replace(key, ckIntegracao4.isSelected() + "");
+                    break;
+                case "ckbPostoComBomb":
+                    hmap.replace(key, ckEspeciais1.isSelected() + "");
+                    break;
+                case "ckbPostoSemBomb":
+                    hmap.replace(key, ckEspeciais2.isSelected() + "");
+                    break;
+                case "ckbOficinaComDavOs":
+                    hmap.replace(key, ckEspeciais3.isSelected() + "");
+                    break;
+                case "ckbOficinaComCC":
+                    hmap.replace(key, ckEspeciais4.isSelected() + "");
+                    break;
+                case "ckbRestaEcfRestaCom":
+                    hmap.replace(key, ckEspeciais5.isSelected() + "");
+                    break;
+                case "ckbRestaEcfRestaSem":
+                    hmap.replace(key, ckEspeciais7.isSelected() + "");
+                    break;
+                case "ckbRestaEcfNormalCom":
+                    hmap.replace(key, ckEspeciais6.isSelected() + "");
+                    break;
+                case "ckbRestaEcfNormalSem":
+                    hmap.replace(key, ckEspeciais8.isSelected() + "");
+                    break;
+                case "ckbFarmacia":
+                    hmap.replace(key, ckEspeciais9.isSelected() + "");
+                    break;
+                case "ckbTransporte":
+                    hmap.replace(key, ckEspeciais10.isSelected() + "");
+                    break;
+                case "ckbPedagio":
+                    hmap.replace(key, ckEspeciais11.isSelected() + "");
+                    break;
+                case "ckbEstacionamento":
+                    hmap.replace(key, ckEspeciais12.isSelected() + "");
+                    break;
+                case "ckbCinema":
+                    hmap.replace(key, ckEspeciais13.isSelected() + "");
+                    break;
+                case "ckbDemaisAtividades":
+                    hmap.replace(key, ckEspeciais14.isSelected() + "");
+                    break;
+                case "ckbSimplesNacional":
+                    hmap.replace(key, ckEspeciais15.isSelected() + "");
+                    break;
+
+                case "txtSGRazaoSocialCnpj":
+                    String contem = sgTxtRazaoSocial.getText() + ", CNPJ: " + UtilTexto.formatarMascaraCnpj(sgTxtCNPJ.getText());
+                    hmap.replace(key, contem);
+                    break;
+                case "txtSGNomeSistema":
+                    hmap.replace(key, sgTxtNomeSistema.getText());
+                    break;
+                case "txtSGRequisitoExecutado":
+                    String execs = "";
+                    for (ArquivoExecutavelType item : sgTvTabela.getItems()) {
+                        execs += item.getRequisitosExecutados();
+                    }
+                    hmap.replace(key, execs);
+                    break;
+                case "txtSGNomeArquivoMd5":
+                    String temp = "";
+                    for (ArquivoExecutavelType item : sgTvTabela.getItems()) {
+                        temp += item.getNome() + "                              " + item.getMd5() + "\n";
+                    }
+                    hmap.replace(key, temp);
+                    break;
+
+                case "txtSPRazaoSocialCnpj":
+                    String contem2 = spTxtEmpresaDesenvolvedora.getText() + ", CNPJ: " + UtilTexto.formatarMascaraCnpj(spTxtCNPJ.getText());
+                    hmap.replace(key, contem2);
+                    break;
+                case "txtSPNomeSistema":
+                    hmap.replace(key, spTxtNomeSistema.getText());
+                    break;
+                case "txtSPNomeArquivoMd5":
+                    String sp = "";
+                    for (ArquivoExecutavelComFuncaoType item : spTvTabela.getItems()) {
+                        sp += item.getNome() + "                              " + item.getMd5();
+                    }
+                    hmap.replace(key, sp);
+                    break;
+                case "txtSPFuncao":
+                    String spF = "";
+                    for (ArquivoExecutavelComFuncaoType item : spTvTabela.getItems()) {
+                        spF += item.getFuncao();
+                    }
+                    hmap.replace(key, spF);
+                    break;
+
+                case "txtSNRazaoSocialCnpj":
+                    String contem3 = speTxtEmpresaDesenvolvedora.getText() + ", CNPJ: " + UtilTexto.formatarMascaraCnpj(speTxtCNPJ.getText());
+                    hmap.replace(key, contem3);
+                    break;
+                case "txtSNNomeSistema":
+                    hmap.replace(key, speTxtNomeSistema.getText());
+                    break;
+                case "txtSNNomeArquivoMd5":
+                    String sn = "";
+                    for (ArquivoExecutavelComFuncaoType item : speTvTabela.getItems()) {
+                        sn += item.getNome() + "                              " + item.getMd5();
+                    }
+                    hmap.replace(key, sn);
+                    break;
+
+                case "txtNaoConformidadeRequisito":
+                    String naoConformidade = "";
+                    for (NaoConformidadeType item : nTvTabela.getItems()) {
+                        naoConformidade += "Requisito " + item.getRequisito() + " item " + item.getItem() + "," + item.getDescricao() + ",";
+                    }
+                    hmap.replace(key, naoConformidade);
+                    break;
+
+                case "txtEcfMarca":
+                    String ecfMarca = "";
+                    for (MarcaModeloType item : eTvTabela.getItems()) {
+                        ecfMarca += item.getMarca() + " ";
+                    }
+                    hmap.replace(key, ecfMarca);
+                    break;
+                case "txtEcfModelo":
+                    String ecfModelo = "";
+                    for (MarcaModeloType item : eTvTabela.getItems()) {
+                        ecfModelo += item.getModelo() + " ";
+                    }
+                    hmap.replace(key, ecfModelo);
+                    break;
+
+                case "txtRelacaoEcf":
+                    String relacaoEcf = "";
+                    for (MarcaModeloType item : tTvTabela.getItems()) {
+                        relacaoEcf += item.getMarca() + "," + item.getModelo() + ",";
+                    }
+                    hmap.replace(key, relacaoEcf);
+                    break;
+
+                case "ckbConstatada":
+                    if (nTvTabela.getItems().size() > 1) {
+                        hmap.replace(key, "true");
+                    } else {
+                        hmap.replace(key, "false");
+                    }
+                    break;
+                case "ckbNaoConstatada":
+                    if (nTvTabela.getItems().size() > 1) {
+                        hmap.replace(key, "false");
+                    } else {
+                        hmap.replace(key, "true");
+                    }
+                    break;
+
+                case "txtObservacaoOTC":
+                    hmap.replace(key, fTxtArea.getText());
+                    break;
+
+                case "txtNomeAplicativo":
+                    hmap.replace(key, sgTxtNomeSistema.getText());
+                    break;
+                case "txtDataGeracao":
+                    hmap.replace(key, DateFormat.getDateInstance(DateFormat.MEDIUM).format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
+                    break;
+                case "txtMd5Relacao":
+                    hmap.replace(key, iTxtMD5Outro.getText());
+                    break;
+                case "txtNomeArquivoEmpresa":
+                    hmap.replace(key, iTxtRelacaoExec.getText());
+                    break;
+                case "txtMd5Empresa":
+                    hmap.replace(key, iTxtMD5Relacao.getText());
+                    break;
+                case "txtNome":
+                    hmap.replace(key, dTxtNome.getText());
+                    break;
+                case "txtCpf":
+                    hmap.replace(key, UtilTexto.formatarMascaraCpf(dTxtCPF.getText()));
+                    break;
+                case "txtData":
+                    hmap.replace(key, DateFormat.getDateInstance(DateFormat.LONG).format(UtilConverter.converterLocalDateToUtilDate(fDt.getValue())));
                     break;
                 case "ckbComRegras":
-                    hmap.replace(key, "");
+                    if (ckbGerenciadorBD.isSelected()) {
+                        hmap.replace(key, "true");
+                        hmap.replace("ckbGerenciadorBD", "false");
+                    } else {
+                        hmap.replace(key, "false");
+                        hmap.replace("ckbGerenciadorBD", "true");
+                    }
+                    break;
+                case "txtCargoTecnico":
+                    hmap.replace(key, feTxtCargo.getText());
+                    break;
+                case "txtTecnicoCpf":
+                    hmap.replace(key, feTxtNome.getText() + " CPF: " + UtilTexto.formatarMascaraCpf(feTxtCPF.getText()));
+                    break;
+                case "txtCargoCoordenador":
+                    hmap.replace(key, feTxtCargo2.getText());
+                    break;
+                case "txtCoordenadorCpf":
+                    hmap.replace(key, feTxtNome2.getText() + " CPF: " + UtilTexto.formatarMascaraCpf(feTxtCPF2.getText()));
                     break;
             }
         }
@@ -1075,7 +1572,36 @@ public class LaudoController {
         if (utilXml.validarXMLSchema("xml/laudo.xsd", criarArquivo, true)) {
             UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
             carregarDiretorioXML();
-            System.out.println(utilXml.marshal(lt));
+//            System.out.println(utilXml.marshal(lt));
+            System.out.println("cbResponsavelEnsaio.getValue() " + cbResponsavelEnsaio.getValue());
+            laudoComplementar.setBairro(dTxtBairro.getText());
+            laudoComplementar.setCelular(txtCelular.getText());
+            laudoComplementar.setCep(dTxtCEP.getText());
+            laudoComplementar.setCidade(dTxtCidade.getText());
+            laudoComplementar.setCnpj(dTxtCNPJ.getText());
+            laudoComplementar.setComplemento(dTxtComplemento.getText());
+            laudoComplementar.setCpf(dTxtCPF.getText());
+            laudoComplementar.setEmail(dTxtEmail.getText());
+            laudoComplementar.setFax(txtFax.getText());
+            laudoComplementar.setIe(dTxtIE.getText());
+            laudoComplementar.setIm(txtIm.getText());
+            laudoComplementar.setLogradouro(dTxtLogradouro.getText());
+            laudoComplementar.setNomeContato(dTxtNome.getText());
+            laudoComplementar.setNomeFantasia(txtNomeFantasia.getText());
+            laudoComplementar.setNumero(dTxtNumero.getText());
+            laudoComplementar.setRazaoSocial(dTxtRazaoSocial.getText());
+            laudoComplementar.setResponsavelEnsaio(cbResponsavelEnsaio.getValue().getNome());
+            laudoComplementar.setResponsavelTeste(dTxtResponsavelTestes.getText());
+            laudoComplementar.setTelefone(dTxtTelefone.getText());
+            laudoComplementar.setRg(txtRg.getText());
+            laudoComplementar.setUf(dTxtUF.getText());
+            laudoComplementar.setPossuiSGDB(ckbGerenciadorBD.isSelected());
+            laudoComplementar.setBytesExePrincipal(txtBytes.getText());
+            laudoComplementar.setRipmedExePrincipal(txtRipmedPrincipal.getText());
+            laudoComplementar.setRipmedTxtRelacao(txtRipmedRelacao.getText());
+            File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + "_complementar.xml");
+            System.out.println("utilXml.marshal(laudoComplementar " + utilXml.marshal(laudoComplementar));
+            utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
             actionBtnLimpar(null);
         } else {
             System.out.println("Deletou a pasta???!!!! " + utilXml.deletarDiretorio(mensagem.getDesenvolvedora().getRazaoSocial()));
@@ -1085,28 +1611,17 @@ public class LaudoController {
     @FXML
     private void actionBtnLimpar(ActionEvent event) {
         System.out.println("- Iniciar metodo de actionBtnLimpar");
+        txtTopEmpresa.setText("Empresa?");
         mensagem = new MensagemType();
 
-        feTxtNome.setText("Sandro Teixeira Pinto");
-        feTxtCPF.setText("64555011953");
-        feTxtCargo.setText("Técnico Responsável");
-
-        feTxtNome2.setText("Sergio Akio Tanaka");
-        feTxtCPF2.setText("73183920930");
-        feTxtCargo2.setText("Coordenador");
-
-        oTxtNumero.setText("1626");
-        oTxtIE.setText("Isento");
-        oTxtComplemento.setText("");
-        oTxtVersaoER.setText("02.02");
-        oTxtLogradouro.setText("Av. Juscelino Kubischeck");
-        oTxtCidade.setText("Londrina");
-        oTxtBairro.setText("Centro");
-        oTxtUF.setText("PR");
-        oTxtRazaoSocial.setText("IFL - Instituto Filadélfia de Londrina");
-        oTxtCNPJ.setText("78624202000100");
-        oTxtCEP.setText("10900000");
-
+//        oTxtVersaoER.setText("02.02");
+//        oTxtLogradouro.setText("Av. Juscelino Kubischeck");
+//        oTxtCidade.setText("Londrina");
+//        oTxtBairro.setText("Centro");
+//        oTxtUF.setText("PR");
+//        oTxtRazaoSocial.setText("IFL - Instituto Filadélfia de Londrina");
+//        oTxtCNPJ.setText("78624202000100");
+//        oTxtCEP.setText("10900000");
         txtNumeroLaudo.setText("");
         vTxtVersaoER.setText("");
         vTxtMes.setText("");
@@ -1233,10 +1748,21 @@ public class LaudoController {
         iCkW.setSelected(false);
         iCkY.setSelected(false);
         iCkZ.setSelected(false);
+
+        cbResponsavelEnsaio.getSelectionModel().clearSelection();
+        txtNomeFantasia.setText("");
+        txtIm.setText("");
+        txtRg.setText("");
+        txtCelular.setText("");
+        txtFax.setText("");
+        ckbGerenciadorBD.setSelected(false);
+        txtBytes.setText("");
+        txtRipmedPrincipal.setText("");
+        txtRipmedRelacao.setText("");
         System.out.println("- Finalizar metodo de actionBtnLimpar");
     }
 
-    private void preenchimento(LaudoType laudo) {
+    private void preenchimento(LaudoType laudo, LaudoComplementar laudoComplementar) {
         System.out.println("- Iniciar metodo de preenchimento");
         actionBtnLimpar(null);
         MensagemType m = laudo.getMensagem();
@@ -1567,6 +2093,26 @@ public class LaudoController {
         feTxtNome2.setText(m.getAprovacaoRelatorio().getNome());
         feTxtCPF2.setText(m.getAprovacaoRelatorio().getCpf());
         feTxtCargo2.setText(m.getAprovacaoRelatorio().getCargo());
+
+        if (laudoComplementar != null) {
+
+            for (Usuario item : cbResponsavelEnsaio.getItems()) {
+                if (item.getNome().equals(laudoComplementar.getResponsavelEnsaio())) {
+                    cbResponsavelEnsaio.getSelectionModel().select(item);
+                    break;
+                }
+            }
+            txtNomeFantasia.setText(laudoComplementar.getNomeFantasia());
+            txtRg.setText(laudoComplementar.getRg());
+            txtCelular.setText(laudoComplementar.getCelular());
+            txtFax.setText(laudoComplementar.getFax());
+            ckbGerenciadorBD.setSelected(laudoComplementar.getPossuiSGDB());
+            txtBytes.setText(laudoComplementar.getBytesExePrincipal());
+            txtRipmedPrincipal.setText(laudoComplementar.getRipmedExePrincipal());
+            txtRipmedRelacao.setText(laudoComplementar.getRipmedTxtRelacao());
+            txtIm.setText(laudoComplementar.getIm());
+        }
+
         System.out.println("- Finalizar metodo de preenchimento");
     }
 
@@ -1624,12 +2170,15 @@ public class LaudoController {
                     }
                     if (buscouArquivo == false) {
                         UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoWarningArquivoInvalido.getMensagem());
+
                     }
 
                 } catch (FileNotFoundException ex) {
-                    Logger.getLogger(LaudoController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LaudoController.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
-                    Logger.getLogger(LaudoController.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(LaudoController.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -2036,16 +2585,31 @@ public class LaudoController {
     @FXML
     private void actionBtnCarregar() {
         System.out.println("- Iniciar metodo actionBtnCarregar");
+
         if (lvLaudo.getSelectionModel().getSelectedItem() != null) {
             LaudoType l = (LaudoType) utilXml.unmarshalFromFile(LaudoType.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString());
-            System.out.println("Laudo a ser carregado " + l);
-            preenchimento(l);
-            tpPrincipal.getSelectionModel().select(tabDesenvolvedora);
+            String comp = lvLaudo.getSelectionModel().getSelectedItem().toString().substring(0, lvLaudo.getSelectionModel().getSelectedItem().toString().indexOf("."));
+            comp += "_complementar.xml";
+            laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
+            System.out.println(
+                    "Laudo a ser carregado " + l);
+            preenchimento(l, laudoComplementar);
+
+            tpPrincipal.getSelectionModel()
+                    .select(tabDesenvolvedora);
+            txtTopEmpresa.setText(dTxtRazaoSocial.getText());
         } else if (lvLaudo.getSelectionModel().getSelectedItems().size() == 1) {
             LaudoType l = (LaudoType) utilXml.unmarshalFromFile(LaudoType.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItems().get(0));
-            System.out.println("Laudo a ser carregado " + l);
-            preenchimento(l);
-            tpPrincipal.getSelectionModel().select(tabDesenvolvedora);
+            String comp = lvLaudo.getSelectionModel().getSelectedItem().toString().substring(0, lvLaudo.getSelectionModel().getSelectedItem().toString().indexOf("."));
+            comp += "_complementar.xml";
+            laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
+            System.out.println(
+                    "Laudo a ser carregado " + l);
+            preenchimento(l, laudoComplementar);
+
+            tpPrincipal.getSelectionModel()
+                    .select(tabDesenvolvedora);
+            txtTopEmpresa.setText(dTxtRazaoSocial.getText());
         }
         System.out.println("- Finalizar metodo actionBtnCarregar");
     }
@@ -2055,8 +2619,10 @@ public class LaudoController {
         String fi = utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString();
         try {
             java.awt.Desktop.getDesktop().open(new File(fi));
+
         } catch (IOException ex) {
-            Logger.getLogger(LaudoController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(LaudoController.class
+                    .getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -2224,6 +2790,39 @@ public class LaudoController {
         }
     }
 
+    @FXML
+    private void actionBtnBuscarEmpresa() {
+        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Campos relacionado a empresa será substituido ao identificar");
+        SceneManager.getInstance().showTabelaEmpresa(false, false, false, false, false, false, true);
+    }
+
+    public void preencherComEmpresaIdentificada(Empresa empresa) {
+        laudoComplementar = new LaudoComplementar();
+        laudoComplementar.setIdEmpresa(empresa.getId());
+        txtNomeFantasia.setText(empresa.getNomeFantasia());
+        txtIm.setText(empresa.getInscricaoMunicipal());
+        txtCelular.setText(empresa.getIdTelefone().getCelular());
+        txtFax.setText(empresa.getIdTelefone().getFax());
+        dTxtRazaoSocial.setText(empresa.getDescricao());
+        dTxtCNPJ.setText(empresa.getCnpj());
+        dTxtIE.setText(empresa.getInscricaoEstadual());
+
+        dTxtLogradouro.setText(empresa.getIdEndereco().getLogradouro());
+        dTxtNumero.setText(empresa.getIdEndereco().getNumero());
+        dTxtComplemento.setText(empresa.getIdEndereco().getComplemento());
+        dTxtBairro.setText(empresa.getIdEndereco().getBairro());
+        dTxtCEP.setText(empresa.getIdEndereco().getCep());
+        dTxtUF.setText(empresa.getIdEndereco().getIdCidade().getIdEstado().getUf());
+        dTxtCidade.setText(empresa.getIdEndereco().getIdCidade().getNome());
+
+        dTxtResponsavelTestes.setText(empresa.getIdContato().getResponsavelTeste());
+        dTxtNome.setText(empresa.getIdContato().getNome());
+        dTxtCPF.setText(empresa.getIdContato().getCpf());
+        dTxtEmail.setText(empresa.getIdContato().getEmail());
+        txtRg.setText(empresa.getIdContato().getRg());
+        dTxtTelefone.setText(empresa.getIdTelefone().getFixo());
+    }
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -2234,6 +2833,86 @@ public class LaudoController {
 
     public void setFiles(ObservableList<String> files) {
         this.files = files;
+    }
+
+    private boolean validarCampos() {
+        String preencher = "";
+        boolean erro = false;
+        if (cbResponsavelEnsaio.getValue() == null) {
+            preencher += "Selecionar Usuário\n";
+            erro = true;
+        }
+        if (txtNomeFantasia.getText().equals("")) {
+            preencher += "Preencher nome fantasia\n";
+            erro = true;
+        }
+        if (txtIm.getText().equals("")) {
+            preencher += "Preencher Inscrição minucipal\n";
+            erro = true;
+        }
+        if (txtBytes.getText().equals("")) {
+            preencher += "Preencher tamanho em bytes do exe principal da empresa\n";
+            erro = true;
+        }
+
+        if (txtRipmedPrincipal.getText().equals("")) {
+            preencher += "Preencher o RIPMED do exec principal\n";
+            erro = true;
+        }
+
+        if (txtRipmedRelacao.getText().equals("")) {
+            preencher += "Preencher o RIPMED do txt relação\n";
+            erro = true;
+        }
+        if (laudoComplementar == null) {
+            preencher += "Identificar empresa\n";
+            erro = true;
+        }
+
+        if (!preencher.equals("")) {
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), preencher, "");
+        }
+        return erro;
+
+    }
+
+    public static class ProgressForm {
+
+        private final Stage dialogStage;
+        private final ProgressBar pb = new ProgressBar();
+        private final ProgressIndicator pin = new ProgressIndicator();
+
+        public ProgressForm() {
+            dialogStage = new Stage();
+            dialogStage.initStyle(StageStyle.UTILITY);
+            dialogStage.setResizable(false);
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+
+            // PROGRESS BAR
+            final Label label = new Label();
+            label.setText("alerto");
+
+            pb.setProgress(-1F);
+            pin.setProgress(-1F);
+
+            final HBox hb = new HBox();
+            hb.setSpacing(5);
+            hb.setAlignment(Pos.CENTER);
+            hb.getChildren().addAll(pb, pin);
+
+            Scene scene = new Scene(hb);
+            dialogStage.setScene(scene);
+        }
+
+        public void activateProgressBar(final Task<?> task) {
+            pb.progressProperty().bind(task.progressProperty());
+            pin.progressProperty().bind(task.progressProperty());
+            dialogStage.show();
+        }
+
+        public Stage getDialogStage() {
+            return dialogStage;
+        }
     }
 
 }

@@ -26,10 +26,6 @@ import static javafx.scene.input.KeyCode.F8;
 import static javafx.scene.input.KeyCode.F9;
 import javafx.scene.input.KeyEvent;
 
-/**
- *
- * @author erick
- */
 public abstract class MaskFieldUtil {
 
     private static List<KeyCode> ignoreKeyCodes;
@@ -142,6 +138,7 @@ public abstract class MaskFieldUtil {
      *
      * @param textField TextField
      */
+    @Deprecated
     public static void cpfCnpjField(final TextField textField) {
 
         textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
@@ -178,7 +175,6 @@ public abstract class MaskFieldUtil {
      */
     public static void cnpjField(final TextField textField) {
         maxField(textField, 18);
-
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
@@ -192,7 +188,30 @@ public abstract class MaskFieldUtil {
                 positionCaret(textField);
             }
         });
+    }
 
+    /**
+     * Monta a mascara para os campos CPF.
+     *
+     * @param textField TextField
+     */
+    public static void cpfField(final TextField textField) {
+        maxField(textField, 14);
+
+        textField.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+//                06.028.222/0001-07
+//                999.999.999-99
+                String value = textField.getText();
+                value = value.replaceAll("[^0-9]", "");
+                value = value.replaceFirst("(\\d{3})(\\d)", "$1.$2");
+                value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2.$3");
+                value = value.replaceFirst("\\.(\\d{3})(\\d)", ".$1-$2");
+                textField.setText(value);
+                positionCaret(textField);
+            }
+        });
     }
 
     /**
@@ -238,9 +257,57 @@ public abstract class MaskFieldUtil {
                 positionCaret(textField);
             }
         });
-
     }
 
+    /**
+     * Monta a mascara para os campos RG.
+     *
+     * @param textField TextField
+     */
+    public static void rgField(final TextField textField) {
+        maxField(textField, 12);
+        textField.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                //88.888.888-8
+                String value = textField.getText();
+                value = value.replaceAll("[^0-9]", "");
+                value = value.replaceFirst("(\\d{2})(\\d)", "$1.$2");
+                value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2.$3");
+                value = value.replaceFirst("\\.(\\d{3})(\\d)", ".$1-$2");
+                textField.setText(value);
+                positionCaret(textField);
+            }
+        });
+    }
+
+    /**
+     * Monta a mascara para os campos CEP.
+     *
+     * @param textField TextField
+     */
+    public static void cepField(final TextField textField) {
+        maxField(textField, 10);
+        textField.lengthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
+                //99.999-999
+                String value = textField.getText();
+                value = value.replaceAll("[^0-9]", "");
+                value = value.replaceFirst("(\\d{2})(\\d)", "$1.$2");
+                value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2-$3");
+                textField.setText(value);
+                positionCaret(textField);
+            }
+        });
+    }
+
+//                  06.028.222/0001-07
+//         value = value.replaceAll("[^0-9]", "");
+//                value = value.replaceFirst("(\\d{2})(\\d)", "$1.$2");
+//                value = value.replaceFirst("(\\d{2})\\.(\\d{3})(\\d)", "$1.$2.$3");
+//                value = value.replaceFirst("\\.(\\d{3})(\\d)", ".$1/$2");
+//                value = value.replaceFirst("(\\d{4})(\\d)", "$1-$2");
     /**
      * Monta a mascara para os campos Email.
      *
@@ -335,7 +402,6 @@ public abstract class MaskFieldUtil {
                 if (!fieldChange) {
                     Pattern p = Pattern.compile("[a-zA-Zà-úÀ-Ú0-9]+");
                     Matcher m = p.matcher(value);
-
                     while (m.find()) {
                         newValue += m.group();
                     }
@@ -370,8 +436,10 @@ public abstract class MaskFieldUtil {
         textField.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observableValue, String oldValue, String newValue) {
-                if (newValue.length() > length) {
-                    textField.setText(oldValue);
+                if (newValue != null && oldValue != null) {
+                    if (newValue.length() > length) {
+                        textField.setText(oldValue);
+                    }
                 }
             }
         });

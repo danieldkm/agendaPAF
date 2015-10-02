@@ -2,11 +2,15 @@ package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
-import com.unifil.agendapaf.model.Cidade;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
+import com.unifil.agendapaf.model.Endereco;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.statics.StaticLista;
+import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,12 +31,84 @@ public class TabelaEmpresaController {
     public void initialize() {
         try {
             sceneManager = SceneManager.getInstance();
-            tcCidade.setCellFactory(new Callback<TableColumn<Empresa, Cidade>, TableCell<Empresa, Cidade>>() {
+            tcCidade.setCellFactory(new Callback<TableColumn<Empresa, Endereco>, TableCell<Empresa, Endereco>>() {
                 @Override
-                public TableCell<Empresa, Cidade> call(TableColumn<Empresa, Cidade> param) {
-                    final TableCell<Empresa, Cidade> cell = new TableCell<Empresa, Cidade>() {
+                public TableCell<Empresa, Endereco> call(TableColumn<Empresa, Endereco> param) {
+                    final TableCell<Empresa, Endereco> cell = new TableCell<Empresa, Endereco>() {
                         @Override
-                        public void updateItem(final Cidade item, boolean empty) {
+                        public void updateItem(final Endereco item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getIdCidade().getNome());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+
+            });
+            tcEstado.setCellFactory(new Callback<TableColumn<Empresa, Endereco>, TableCell<Empresa, Endereco>>() {
+                @Override
+                public TableCell<Empresa, Endereco> call(TableColumn<Empresa, Endereco> param) {
+                    final TableCell<Empresa, Endereco> cell = new TableCell<Empresa, Endereco>() {
+                        @Override
+                        public void updateItem(final Endereco item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getIdCidade().getIdEstado().getNome());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+
+            });
+
+            tcTelefone.setCellFactory(new Callback<TableColumn<Empresa, Telefone>, TableCell<Empresa, Telefone>>() {
+                @Override
+                public TableCell<Empresa, Telefone> call(TableColumn<Empresa, Telefone> param) {
+                    final TableCell<Empresa, Telefone> cell = new TableCell<Empresa, Telefone>() {
+                        @Override
+                        public void updateItem(final Telefone item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getFixo());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+
+            });
+
+            tcDataCadastro.setCellFactory(column -> {
+                return new TableCell<Empresa, LocalDate>() {
+                    @Override
+                    protected void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item == null || empty) {
+                            setText(null);
+                            setStyle("");
+                        } else {
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
+                        }
+                    }
+                };
+            });
+
+            tcContato.setCellFactory(new Callback<TableColumn<Empresa, Contato>, TableCell<Empresa, Contato>>() {
+                @Override
+                public TableCell<Empresa, Contato> call(TableColumn<Empresa, Contato> param) {
+                    final TableCell<Empresa, Contato> cell = new TableCell<Empresa, Contato>() {
+                        @Override
+                        public void updateItem(final Contato item, boolean empty) {
                             super.updateItem(item, empty);
                             if (empty) {
                                 this.setText("");
@@ -45,17 +121,18 @@ public class TabelaEmpresaController {
                 }
 
             });
-            tcEstado.setCellFactory(new Callback<TableColumn<Empresa, Cidade>, TableCell<Empresa, Cidade>>() {
+
+            tcEmail.setCellFactory(new Callback<TableColumn<Empresa, Contato>, TableCell<Empresa, Contato>>() {
                 @Override
-                public TableCell<Empresa, Cidade> call(TableColumn<Empresa, Cidade> param) {
-                    final TableCell<Empresa, Cidade> cell = new TableCell<Empresa, Cidade>() {
+                public TableCell<Empresa, Contato> call(TableColumn<Empresa, Contato> param) {
+                    final TableCell<Empresa, Contato> cell = new TableCell<Empresa, Contato>() {
                         @Override
-                        public void updateItem(final Cidade item, boolean empty) {
+                        public void updateItem(final Contato item, boolean empty) {
                             super.updateItem(item, empty);
                             if (empty) {
                                 this.setText("");
                             } else {
-                                this.setText(item.getIdEstado().getNome());
+                                this.setText(item.getEmail());
                             }
                         }
                     };
@@ -87,6 +164,14 @@ public class TabelaEmpresaController {
     @FXML
     private TableColumn tcCidade;
     @FXML
+    private TableColumn tcTelefone;
+    @FXML
+    private TableColumn tcDataCadastro;
+    @FXML
+    private TableColumn tcContato;
+    @FXML
+    private TableColumn tcEmail;
+    @FXML
     private BorderPane mainTbEmpresa;
     @FXML
     private TextField txtBuscar;
@@ -95,6 +180,7 @@ public class TabelaEmpresaController {
 
     private Stage stage;
     private boolean isFinanceiro = false;
+    private boolean isLaudo = false;
     private boolean isEmpresa = false;
     private boolean isAgenda = false;
     private boolean isTabelaHistorico = false;
@@ -156,21 +242,19 @@ public class TabelaEmpresaController {
                     stage.close();
                 } else {
                     if (!isConsulta) {
+                        sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                         if (isEmpresa) {
-                            sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                             sceneManager.showEmpresa(false);
                         } else if (isAgenda) {
-                            sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                             sceneManager.showAgenda(null);
                         } else if (isTabelaAgenda) {
-                            sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                             sceneManager.showTabelaAgenda();
                         } else if (isTabelaHistorico) {
-                            sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                             sceneManager.showTabelaHistorico();
                         } else if (isRelatorio) {
-                            sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
                             sceneManager.getRelatorioController().setCampos(stage);
+                        } else if (isLaudo) {
+                            sceneManager.getLaudoController().preencherComEmpresaIdentificada(tvEmpresa.getSelectionModel().getSelectedItem());
                         }
                         stage.close();
                     } else {
@@ -197,14 +281,14 @@ public class TabelaEmpresaController {
         this.mainTbEmpresa = mainTbEmpresa;
     }
 
-    public void setBooleans(boolean isEmpresa, boolean isAgenda, boolean isTabelaAgenda, boolean isRelatorio, boolean isConsulta, boolean isFinanceiro) {
+    public void setBooleans(boolean isEmpresa, boolean isAgenda, boolean isTabelaAgenda, boolean isRelatorio, boolean isConsulta, boolean isFinanceiro, boolean isLaudo) {
         this.isEmpresa = isEmpresa;
         this.isAgenda = isAgenda;
         this.isTabelaAgenda = isTabelaAgenda;
         this.isRelatorio = isRelatorio;
         this.isConsulta = isConsulta;
         this.isFinanceiro = isFinanceiro;
-
+        this.isLaudo = isLaudo;
     }
 
 }

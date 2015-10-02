@@ -55,12 +55,13 @@ public class InicialController {
 
     }
 
+    private boolean erro = false;
+
     private void initTask() {
         Task<String> tarefaCargaPg = new Task<String>() {
 
             @Override
             protected String call() throws Exception {
-                boolean erro = false;
                 try {
                     JPA.getFactory();
                     StaticLista.setListaGlobalAgenda(Controller.getAgendas());
@@ -84,6 +85,10 @@ public class InicialController {
 
             @Override
             protected void succeeded() {
+                System.out.println("SUCCEEDED " + erro);
+                if (erro) {
+//                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar estabelecer comunicação com o Bando de dados!!\nO programa será encerrado.");
+                }
 //                if (getValue().equals("OK")) {
 //                    SceneManager.getInstance().showNewLogin();
 //                }
@@ -100,7 +105,8 @@ public class InicialController {
         });
 
         tarefaCargaPg.setOnSucceeded((WorkerStateEvent event) -> {
-            SceneManager.getInstance().showNewLogin();
+            System.out.println("Event " +erro);
+            SceneManager.getInstance().showNewLogin(erro);
             stage.close();
         });
     }

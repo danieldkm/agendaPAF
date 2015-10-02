@@ -61,8 +61,12 @@ public class FeriadoService implements InterfaceCrud<Feriado> {
     public ObservableList<Feriado> findAll() {
         return dao.findAll();
     }
-    
-    public EntityManager getEm(){
+
+    public Feriado findById(Long id) {
+        return dao.findById(id);
+    }
+
+    public EntityManager getEm() {
         return dao.getEntityManager();
     }
 

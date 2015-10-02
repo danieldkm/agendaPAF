@@ -5,7 +5,6 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import java.sql.Date;
 import java.time.LocalDate;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -23,7 +22,17 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlRootElement(name = "Usuario")
+@XmlAccessorType(XmlAccessType.FIELD)
+@XmlType(name = "Usuario", propOrder = {
+    "id", "nome", "nomeLogin", "senha", "dataCadastro", "tipo", "email"
+})
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "usuario")
@@ -33,6 +42,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Usuario.Login", query = "SELECT u FROM Usuario u where u.nomeLogin = :login and u.senha = :senha")})
 public class Usuario implements Externalizable {
 
+    @XmlElement(name = "Id")
     private LongProperty id = new SimpleLongProperty(this, "id");
 
     @Id
@@ -49,6 +59,7 @@ public class Usuario implements Externalizable {
         return id;
     }
 
+    @XmlElement(name = "Nome")
     private StringProperty nome = new SimpleStringProperty(this, "nome");
 
     public String getNome() {
@@ -63,6 +74,7 @@ public class Usuario implements Externalizable {
         return nome;
     }
 
+    @XmlElement(name = "NomeLogin")
     private StringProperty nomeLogin = new SimpleStringProperty(this, "nomeLogin");
 
     public String getNomeLogin() {
@@ -77,6 +89,7 @@ public class Usuario implements Externalizable {
         return nomeLogin;
     }
 
+    @XmlElement(name = "Senha")
     private StringProperty senha = new SimpleStringProperty(this, "senha");
 
     public String getSenha() {
@@ -92,6 +105,7 @@ public class Usuario implements Externalizable {
     }
 
     @Convert(converter = ConverterLocalDate.class)
+    @XmlElement(name = "DataCadastro")
     private ObjectProperty<LocalDate> dataCadastro = new SimpleObjectProperty<>();
 
     public LocalDate getDataCadastro() {
@@ -106,6 +120,7 @@ public class Usuario implements Externalizable {
         return dataCadastro;
     }
 
+    @XmlElement(name = "Tipo")
     private StringProperty tipo = new SimpleStringProperty(this, "tipo");
 
     public String getTipo() {
@@ -120,6 +135,7 @@ public class Usuario implements Externalizable {
         return tipo;
     }
 
+    @XmlElement(name = "Email")
     private StringProperty email = new SimpleStringProperty(this, "email");
 
     public String getEmail() {
@@ -161,5 +177,10 @@ public class Usuario implements Externalizable {
 //        if (idEmpresa.get() == null) {
 //            throw new IllegalArgumentException("IdEmpresa cannot be null");
 //        }
+    }
+
+    @Override
+    public String toString() {
+        return nome.get();
     }
 }

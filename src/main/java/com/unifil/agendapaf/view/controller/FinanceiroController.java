@@ -89,7 +89,7 @@ public class FinanceiroController {
     @FXML
     private void actionBuscarEmpresa() {
         stage.close();
-        sceneManager.showTabelaEmpresa(false, false, false, false, false, true);
+        sceneManager.showTabelaEmpresa(false, false, false, false, false, true, false);
     }
 
     @FXML

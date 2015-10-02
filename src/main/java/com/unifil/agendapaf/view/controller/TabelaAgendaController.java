@@ -296,7 +296,7 @@ public class TabelaAgendaController {
     @FXML
     private void actionBtnBuscarEmpresa() {
         stage.close();
-        sceneManager.showTabelaEmpresa(false, false, true, false, false, false);
+        sceneManager.showTabelaEmpresa(false, false, true, false, false, false, false);
     }
 
     public void setCampos() {

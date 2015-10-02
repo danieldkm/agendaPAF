@@ -50,22 +50,23 @@ public class VariableReplace {
         org.docx4j.wml.ObjectFactory foo = Context.getWmlObjectFactory();
 
         // Input docx has variables in it: ${colour}, ${icecream}
-//        String inputfilepath = System.getProperty("user.dir") + "/docx/b.docx";
-        String inputfilepath = System.getProperty("user.dir") + "/xml/modelo_docxs/ANEXO BANCO DE DADOS MODELO.docx";
+        String inputfilepath = System.getProperty("user.dir") + "/docx/b.docx";
+//        String inputfilepath = System.getProperty("user.dir") + "/xml/modelo_docxs/ANEXO BANCO DE DADOS MODELO.docx";
 
         boolean save = true;
         String outputfilepath = System.getProperty("user.dir")
-                + "/xml/ANEXO BANCO DE DADOS MODELO_Replace.docx";
+                + "/docx/OUT_VariableReplace.docx";
 
         WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage
                 .load(new java.io.File(inputfilepath));
         MainDocumentPart documentPart = wordMLPackage.getMainDocumentPart();
 
         HashMap<String, String> mappings = new HashMap<String, String>();
-//        mappings.put("colour", "green");
-//        mappings.put("icecream", "chocolate");
-        mappings.put("txtRazaoSocial", "Oloco bixo");
-        mappings.put("txtCnpj", "adkawl");
+        mappings.put("colour", "green");
+        mappings.put("icecream", "chocolate");
+//        mappings.put("txtRazaoSocial", "Oloco bixo");
+//        mappings.put("txtCnpj", "adkawl");
+        mappings.put("teste", "toq aw213232");
 //        txtRazaoSocial
 //                txtCnpj
 

@@ -62,6 +62,10 @@ public class FinanceiroService implements InterfaceCrud<Financeiro> {
         return dao.findAll();
     }
 
+    public Financeiro findById(Long id) {
+        return dao.findById(id);
+    }
+
     @Override
     public EntityManager getEm() {
         return dao.getEntityManager();

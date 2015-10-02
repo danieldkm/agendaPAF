@@ -4,6 +4,7 @@ import com.unifil.agendapaf.interfaces.InterfaceCrud;
 import com.unifil.agendapaf.dao.AgendaDAO;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
+import com.unifil.agendapaf.model.Contato;
 import java.time.LocalDate;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
@@ -74,6 +75,10 @@ public class AgendaService implements InterfaceCrud<Agenda> {
     public ObservableList<Agenda> findOrderBy(String order) {
         ObservableList<Agenda> r = dao.findOrderBy(order);
         return r;
+    }
+
+    public Agenda findById(Long id) {
+        return dao.findById(id);
     }
 
     public Agenda findLast() {

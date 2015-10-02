@@ -229,7 +229,7 @@ public class RelatorioController {
     }
 
     private void actionBtnBuscar(ActionEvent t) {
-        sceneManager.showTabelaEmpresa(false, false, false, true, false, false);
+        sceneManager.showTabelaEmpresa(false, false, false, true, false, false, false);
     }
 
     public void setCampos(Stage stage) {

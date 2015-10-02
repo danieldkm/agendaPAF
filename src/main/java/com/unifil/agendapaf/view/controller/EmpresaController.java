@@ -4,11 +4,18 @@ import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Cidade;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
+import com.unifil.agendapaf.model.Endereco;
 import com.unifil.agendapaf.model.Estado;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.aux.Categoria;
+import com.unifil.agendapaf.service.ContatoService;
 import com.unifil.agendapaf.service.EmpresaService;
+import com.unifil.agendapaf.service.EnderecoService;
+import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
+import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
@@ -36,6 +43,15 @@ public class EmpresaController {
     @FXML
     public void initialize() {
         try {
+            MaskFieldUtil.cnpjField(txtCnpj);
+            MaskFieldUtil.cpfField(txtCpf);
+            MaskFieldUtil.telefoneField(txtTelefone);
+            MaskFieldUtil.telefoneField(txtFax);
+            MaskFieldUtil.telefoneField(txtCelular);
+            MaskFieldUtil.rgField(txtRg);
+            MaskFieldUtil.cepField(txtCep);
+            MaskFieldUtil.numericField(txtNumero);
+
             sceneManager = SceneManager.getInstance();
             ObservableList<Categoria> listaCategoria = Controller.getCategorias();
             cbCategoria.setItems(listaCategoria);
@@ -136,6 +152,12 @@ public class EmpresaController {
     private TextField txtCpf;
     @FXML
     private TextField txtResponsavel;
+    @FXML
+    private TextField txtRg;
+    @FXML
+    private TextField txtNumero;
+    @FXML
+    private TextField txtComplemento;
 
     private Empresa empresaEncontrada;
     private SceneManager sceneManager;
@@ -150,12 +172,12 @@ public class EmpresaController {
 
     @FXML
     private void actionBtnDeletar() {
+        mainEmpresa.setDisable(true);
         try {
             if (empresaEncontrada != null) {
                 Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     try {
-
                         EmpresaService es = new EmpresaService();
                         es.deletar(empresaEncontrada);
                         JPA.em(false).close();
@@ -176,10 +198,12 @@ public class EmpresaController {
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTentarDeletar.getMensagem() + empresaEncontrada.getId(), e, "Exception");
             e.printStackTrace();
         }
+        mainEmpresa.setDisable(false);
     }
 
     @FXML
     private void actionBtnSalvar() throws Exception {
+        mainEmpresa.setDisable(true);
         if (isUpdate) {
             actionBtnAlterar();
         } else {
@@ -187,33 +211,54 @@ public class EmpresaController {
                 if (validarCampos()) {
                     e = new Empresa();
                     e.setDescricao(txtEmpresa.getText());
-                    e.setNomeContato(txtContato.getText());
+
+                    ContatoService cs = new ContatoService();
+                    Contato contato = new Contato();
+                    contato.setCpf(txtCpf.getText());
+                    contato.setEmail(txtEmail.getText());
+                    contato.setNome(txtContato.getText());
+                    contato.setResponsavelTeste(txtResponsavel.getText());
+                    contato.setRg(txtRg.getText());
+                    cs.salvar(contato);
+                    e.setIdContato(cs.findLast());
+
                     if (txtaObs.getText().equals("")) {
                         e.setObservacao("");
 //                    e.setTelefone(txtaObs.getText());
                     } else {
                         e.setObservacao(txtaObs.getText());
                     }
-                    e.setTelefone(txtTelefone.getText());
                     e.setDataCadastro(LocalDate.now());
-                    e.setEmail(txtEmail.getText());
+
+                    TelefoneService ts = new TelefoneService();
+                    Telefone tel = new Telefone();
+                    tel.setFixo(txtTelefone.getText());
+                    tel.setCelular(txtCelular.getText());
+                    tel.setFax(txtFax.getText());
+                    ts.salvar(tel);
+                    e.setIdTelefone(ts.findLast());
+
+                    EnderecoService enS = new EnderecoService();
+                    Endereco endereco = new Endereco();
+                    endereco.setLogradouro(txtEndereco.getText());
+                    endereco.setBairro(txtBairro.getText());
+                    endereco.setCep(txtCep.getText());
+                    endereco.setComplemento(txtComplemento.getText());
+                    endereco.setNumero(txtNumero.getText());
+                    enS.salvar(endereco);
+
+                    e.setIdEndereco(enS.findLast());
 
                     if (cbEstado.getValue() == null || cbEstado.getValue().equals("")) {
-                        e.setIdCidade(null);
+                        endereco.setIdCidade(null);
+//                        e.setIdCidade(null);
                     } else {
-                        e.setIdCidade(cbCidade.getValue());
+                        endereco.setIdCidade(cbCidade.getValue());
                     }
                     e.setNomeFantasia(txtNomeFantasia.getText());
-                    e.setEndereco(txtEndereco.getText());
-                    e.setBairro(txtBairro.getText());
-                    e.setCep(txtCep.getText());
-                    e.setFax(txtFax.getText());
-                    e.setCelular(txtCelular.getText());
                     e.setCnpj(txtCnpj.getText());
                     e.setInscricaoEstadual(txtIE.getText());
                     e.setInscricaoMunicipal(txtIM.getText());
-                    e.setCpf(txtCpf.getText());
-                    e.setResponsavelTeste(txtResponsavel.getText());
                     e.setCategoria(((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome());
                     EmpresaService es = new EmpresaService();
                     es.salvar(e);
@@ -231,6 +276,7 @@ public class EmpresaController {
                 e.printStackTrace();
             }
         }
+        mainEmpresa.setDisable(false);
     }
 
     @FXML
@@ -241,7 +287,7 @@ public class EmpresaController {
     @FXML
     protected void iniciarTabelaEmpresa() {
         stage.close();
-        sceneManager.showTabelaEmpresa(true, false, false, false, false, false);
+        sceneManager.showTabelaEmpresa(true, false, false, false, false, false, false);
 //        StaticBoolean.setEmpresa(true);
     }
 
@@ -251,30 +297,53 @@ public class EmpresaController {
                 e = new Empresa();
                 e.setId(empresaEncontrada.getId());
                 e.setDescricao(txtEmpresa.getText());
-                e.setNomeContato(txtContato.getText());
-                e.setObservacao(txtaObs.getText());
-                e.setTelefone(txtTelefone.getText());
-                e.setEmail(txtEmail.getText());
                 e.setNomeFantasia(txtNomeFantasia.getText());
-                e.setEndereco(txtEndereco.getText());
-                e.setBairro(txtBairro.getText());
-                e.setCep(txtCep.getText());
-                e.setFax(txtFax.getText());
-                e.setCelular(txtCelular.getText());
+                e.setObservacao(txtaObs.getText());
+
+                ContatoService cs = new ContatoService();
+                Contato contato = empresaEncontrada.getIdContato();
+                contato.setCpf(txtCpf.getText());
+                contato.setEmail(txtEmail.getText());
+                contato.setNome(txtContato.getText());
+                contato.setResponsavelTeste(txtResponsavel.getText());
+                contato.setRg(txtRg.getText());
+                cs.editar(contato);
+                e.setIdContato(cs.findById(contato.getId()));
+                JPA.em(false).close();
+
+                TelefoneService ts = new TelefoneService();
+                Telefone tel = empresaEncontrada.getIdTelefone();
+                tel.setFixo(txtTelefone.getText());
+                tel.setCelular(txtCelular.getText());
+                tel.setFax(txtFax.getText());
+                ts.editar(tel);
+                e.setIdTelefone(ts.findById(tel.getId()));
+                JPA.em(false).close();
+
+                EnderecoService enS = new EnderecoService();
+                Endereco endereco = empresaEncontrada.getIdEndereco();
+                endereco.setLogradouro(txtEndereco.getText());
+                endereco.setBairro(txtBairro.getText());
+                endereco.setCep(txtCep.getText());
+                endereco.setComplemento(txtComplemento.getText());
+                endereco.setNumero(txtNumero.getText());
+                enS.editar(endereco);
+                e.setIdEndereco(enS.findById(endereco.getId()));
+                JPA.em(false).close();
+
                 e.setCnpj(txtCnpj.getText());
                 e.setInscricaoEstadual(txtIE.getText());
                 e.setInscricaoMunicipal(txtIM.getText());
-                e.setCpf(txtCpf.getText());
-                e.setResponsavelTeste(txtResponsavel.getText());
                 if (cbEstado.getValue() == null || cbEstado.getValue().equals("")) {
-                    e.setIdCidade(null);
+                    endereco.setIdCidade(null);
                 } else {
-                    e.setIdCidade(cbCidade.getValue());
+                    endereco.setIdCidade(cbCidade.getValue());
                 }
                 e.setDataCadastro(empresaEncontrada.getDataCadastro());
                 e.setCategoria(((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome());
                 EmpresaService es = new EmpresaService();
                 es.editar(e);
+
                 JPA.em(false).close();
                 resetarCampos();
                 StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
@@ -302,10 +371,8 @@ public class EmpresaController {
                 && ke.getCode() != KeyCode.TAB && ke.getCode() != KeyCode.BACK_SPACE
                 && ke.getCode() != KeyCode.DELETE) {
             filtraEstados = FXCollections.observableArrayList();
-            cbEstado.getItems().stream().filter((e)
-                    -> e.getNome().toLowerCase().startsWith(
-                            txtEstado)).forEach((e)
-                            -> filtraEstados.add(e));
+            cbEstado.getItems().stream().filter(es -> es.getNome().toLowerCase().startsWith(txtEstado.toLowerCase()))
+                    .forEach(c -> filtraEstados.add(c));
             cbEstado.setItems(filtraEstados);
         } else if (ke.getCode() == KeyCode.DOWN) {
             if (!cbEstado.isShowing()) {
@@ -314,6 +381,7 @@ public class EmpresaController {
             }
         } else if (ke.getCode() == KeyCode.TAB || ke.getCode() == KeyCode.BACK_SPACE || ke.getCode() == KeyCode.DELETE) {
             txtEstado = "";
+            System.out.println("ADD ESTADO");
             addEstado();
         }
     }
@@ -357,7 +425,14 @@ public class EmpresaController {
 
     private void addEstado() {
         cbEstado.getItems().clear();
-        cbEstado.setItems(StaticLista.getListaGlobalEstado());
+        if (filtraEstados == null) {
+            filtraEstados = FXCollections.observableArrayList();
+        }
+        filtraEstados.clear();
+        for (Estado estado : StaticLista.getListaGlobalEstado()) {
+            filtraEstados.add(estado);
+        }
+        cbEstado.setItems(filtraEstados);
     }
 
     private void addCidade(String uf) {
@@ -381,7 +456,6 @@ public class EmpresaController {
             validationSupport.registerValidator(txtEmpresa, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
             ok = false;
         }
-
         if (txtContato.getText().equals("")) {
             txtContato.requestFocus();
             preencher += "Preencher Contato\n";
@@ -458,6 +532,8 @@ public class EmpresaController {
         txtNomeFantasia.setText("");
         txtResponsavel.setText("");
         txtEndereco.setText("");
+        txtComplemento.setText("");
+        txtNumero.setText("");
 
         cbEstado.getSelectionModel().selectFirst();
         cbCidade.getSelectionModel().selectFirst();
@@ -467,26 +543,29 @@ public class EmpresaController {
     }
 
     public void setCampos() {
-        txtContato.setText(empresaEncontrada.getNomeContato());
+        txtComplemento.setText(empresaEncontrada.getIdEndereco().getComplemento());
+        txtNumero.setText(empresaEncontrada.getIdEndereco().getNumero());
+        txtContato.setText(empresaEncontrada.getIdContato().getNome());
+        txtEmail.setText(empresaEncontrada.getIdContato().getEmail());
+        txtCpf.setText(empresaEncontrada.getIdContato().getCpf());
+        txtResponsavel.setText(empresaEncontrada.getIdContato().getResponsavelTeste());
+        txtRg.setText(empresaEncontrada.getIdContato().getRg());
         txtEmpresa.setText(empresaEncontrada.getDescricao());
-        txtTelefone.setText(empresaEncontrada.getTelefone());
+        txtTelefone.setText(empresaEncontrada.getIdTelefone().getFixo());
+        txtFax.setText(empresaEncontrada.getIdTelefone().getFax());
+        txtCelular.setText(empresaEncontrada.getIdTelefone().getCelular());
         txtaObs.setText(empresaEncontrada.getObservacao());
-        txtEmail.setText(empresaEncontrada.getEmail());
         txtNomeFantasia.setText(empresaEncontrada.getNomeFantasia());
-        txtEndereco.setText(empresaEncontrada.getEndereco());
-        txtBairro.setText(empresaEncontrada.getBairro());
-        txtCep.setText(empresaEncontrada.getCep());
-        txtFax.setText(empresaEncontrada.getFax());
-        txtCelular.setText(empresaEncontrada.getCelular());
+        txtEndereco.setText(empresaEncontrada.getIdEndereco().getLogradouro());
+        txtBairro.setText(empresaEncontrada.getIdEndereco().getBairro());
+        txtCep.setText(empresaEncontrada.getIdEndereco().getCep());
         txtCnpj.setText(empresaEncontrada.getCnpj());
         txtIE.setText(empresaEncontrada.getInscricaoEstadual());
         txtIM.setText(empresaEncontrada.getInscricaoMunicipal());
-        txtCpf.setText(empresaEncontrada.getCpf());
-        txtResponsavel.setText(empresaEncontrada.getResponsavelTeste());
         addEstado();
-        cbEstado.getSelectionModel().select(empresaEncontrada.getIdCidade().getIdEstado());
+        cbEstado.getSelectionModel().select(empresaEncontrada.getIdEndereco().getIdCidade().getIdEstado());
         addCidade(cbEstado.getValue().toString());
-        cbCidade.getSelectionModel().select(empresaEncontrada.getIdCidade());
+        cbCidade.getSelectionModel().select(empresaEncontrada.getIdEndereco().getIdCidade());
         cbCategoria.getSelectionModel().selectFirst();
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {
             if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(empresaEncontrada.getCategoria())) {

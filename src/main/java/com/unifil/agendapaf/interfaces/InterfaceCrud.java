@@ -16,7 +16,9 @@ public interface InterfaceCrud<T> {
     void editar(T t);
 
     public ObservableList<T> findAll();
-    
+
+    public T findById(Long id);
+
     public EntityManager getEm();
 
 }

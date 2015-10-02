@@ -96,8 +96,8 @@ public class UtilFile {
     public void listarDireitorio(File directory) {
         if (directory.isDirectory()) {
             if (!directory.getPath().equals("xml")) {
-                System.out.println("Diretorio => " + directory.getName());
-                if (!directory.getName().equals("modelo_docxs") || !directory.getName().equals("OLD_XSD")) {
+//                System.out.println("Diretorio => " + directory.getName());
+                if (!directory.getName().equals("modelo_docxs") && !directory.getName().equals("OLD_XSD")) {
                     empresas.add(directory.getName());
                 }
             }
@@ -120,7 +120,7 @@ public class UtilFile {
         String extensao = "";
         for (int i = 0; i < directory.listFiles().length; i++) {
             extensao = directory.listFiles()[i].getName();
-            if (extensao.toLowerCase().endsWith("xml")) {
+            if (extensao.toLowerCase().endsWith("xml") && !extensao.toLowerCase().contains("complementar")) {
                 laudos.add(directory.listFiles()[i].getName() + "");
             } else if (extensao.toLowerCase().endsWith("docx")) {
                 docs.add(directory.listFiles()[i].getName() + "");

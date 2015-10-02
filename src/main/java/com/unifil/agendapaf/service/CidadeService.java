@@ -4,6 +4,7 @@ import com.unifil.agendapaf.interfaces.InterfaceCrud;
 import com.unifil.agendapaf.dao.CidadeDAO;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Cidade;
+import com.unifil.agendapaf.model.Contato;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 
@@ -60,6 +61,10 @@ public class CidadeService implements InterfaceCrud<Cidade> {
 
     public ObservableList<Cidade> findAll() {
         return dao.findAll();
+    }
+
+    public Cidade findById(Long id) {
+        return dao.findById(id);
     }
 
     @Override

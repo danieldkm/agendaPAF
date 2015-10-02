@@ -62,6 +62,10 @@ public class EmpresaService implements InterfaceCrud<Empresa> {
         return dao.findAll();
     }
 
+    public Empresa findById(Long id) {
+        return dao.findById(id);
+    }
+
     @Override
     public EntityManager getEm() {
         return dao.getEntityManager();

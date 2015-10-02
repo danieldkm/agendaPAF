@@ -62,6 +62,10 @@ public class EstadoService implements InterfaceCrud<Estado> {
         return dao.findAll();
     }
 
+    public Estado findById(Long id) {
+        return dao.findById(id);
+    }
+
     @Override
     public EntityManager getEm() {
         return dao.getEntityManager();

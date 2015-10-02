@@ -62,6 +62,10 @@ public class UsuarioService implements InterfaceCrud<Usuario> {
         return dao.findAll();
     }
 
+    public Usuario findById(Long id) {
+        return dao.findById(id);
+    }
+
     public Usuario login(String login, String senha) {
         return dao.login(login, senha);
     }

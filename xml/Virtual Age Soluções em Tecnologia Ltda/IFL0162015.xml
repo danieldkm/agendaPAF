@@ -10,7 +10,7 @@
             <Endereco>
                 <Logradouro>Av. Brasil</Logradouro>
                 <Numero>2185</Numero>
-                <Complemento></Complemento>
+                <Complemento>complemento</Complemento>
                 <Bairro>Centro</Bairro>
                 <Municipio>Cianorte</Municipio>
                 <Uf>PR</Uf>

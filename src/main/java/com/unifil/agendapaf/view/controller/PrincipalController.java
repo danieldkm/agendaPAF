@@ -72,7 +72,7 @@ public class PrincipalController {
         System.out.println("logout");
 //        isLogout = true;
         stage.close();
-        sceneManager.showNewLogin();
+        sceneManager.showNewLogin(false);
     }
 
     @FXML
@@ -183,7 +183,7 @@ public class PrincipalController {
 
     @FXML
     protected void iniciarConsultaEmpresa() {
-        sceneManager.showTabelaEmpresa(false, false, false, false, true, false);
+        sceneManager.showTabelaEmpresa(false, false, false, false, true, false, false);
     }
 
     @FXML
@@ -236,9 +236,9 @@ public class PrincipalController {
                         for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
                                 sceneManager.getAlertaController().setTxtaTexto("\nEmpresa: " + eh.getIdEmpresa().getDescricao()
-                                        + "\nContato: " + empresa.getNomeContato()
+                                        + "\nContato: " + empresa.getIdContato().getNome()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel: " + empresa.getTelefone()
+                                        + "\nTel: " + empresa.getIdTelefone().getFixo()
                                         + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
                                 );
                                 break;
@@ -251,9 +251,9 @@ public class PrincipalController {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
                                 sceneManager.getAlertaController().setTxtaTexto("\n------------------------------------------"
                                         + "\nEmpresa: " + eh.getIdEmpresa().getDescricao()
-                                        + "\nContato: " + empresa.getNomeContato()
+                                        + "\nContato: " + empresa.getIdContato().getNome()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel: " + empresa.getTelefone()
+                                        + "\nTel: " + empresa.getIdTelefone().getFixo()
                                         + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
                                 );
                                 break;
