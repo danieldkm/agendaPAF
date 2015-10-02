@@ -5,6 +5,7 @@ import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
 import com.unifil.agendapaf.model.Feriado;
@@ -27,6 +28,7 @@ import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -86,7 +88,14 @@ public class AgendarController {
                 empresaEncontrada = sceneManager.getEmpresaEncontrada();
                 sceneManager.setEmpresaEncontrada(null);
                 txtEmpresa.setText(empresaEncontrada.getDescricao());
-                txtResponsavel.setText(empresaEncontrada.getIdContato().getResponsavelTeste());
+                Contato tempContato = null;
+                for (Contato c : StaticLista.getListaGlobalContato()) {
+                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.getSelecionado()) {
+                        tempContato = c;
+                        break;
+                    }
+                }
+                txtResponsavel.setText(tempContato.getResponsavelTeste());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,7 +303,14 @@ public class AgendarController {
                         10);
                 eh.setDataAviso(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
                 dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
-                eh.setEmail(empresaEncontrada.getIdContato().getEmail());
+                Contato tempContato = null;
+                for (Contato c : StaticLista.getListaGlobalContato()) {
+                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.getSelecionado()) {
+                        tempContato = c;
+                        break;
+                    }
+                }
+                eh.setEmail(tempContato.getEmail());
                 eh.setVisualizado(
                         "NAO");
                 EmpresasHomologadasService ehs = new EmpresasHomologadasService();

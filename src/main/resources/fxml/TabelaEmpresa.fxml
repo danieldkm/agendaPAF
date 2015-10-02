@@ -18,47 +18,47 @@
             <columns>
                 <TableColumn fx:id="tcEmpresa" editable="true" maxWidth="5000.0" minWidth="10.0" prefWidth="250.0" resizable="true" sortable="true" text="Empresa">
                     <cellValueFactory>
-                        <PropertyValueFactory property="descricao" />
+                        <PropertyValueFactory property="empresa" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcContato" maxWidth="5000.0" minWidth="10.0" prefWidth="130.0" text="Contato">
                     <cellValueFactory>
-                        <PropertyValueFactory property="idContato" />
+                        <PropertyValueFactory property="contato" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcEmail" maxWidth="5000.0" minWidth="10.0" prefWidth="114.0" text="E-mail">
                     <cellValueFactory>
-                        <PropertyValueFactory property="idContato" />
+                        <PropertyValueFactory property="contato" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcTelefone" maxWidth="5000.0" minWidth="10.0" prefWidth="100.0" text="Telefone">
                     <cellValueFactory>
-                        <PropertyValueFactory property="idTelefone" />
+                        <PropertyValueFactory property="telefone" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcObs" maxWidth="5000.0" minWidth="10.0" prefWidth="218.0" text="OBS">
                     <cellValueFactory>
-                        <PropertyValueFactory property="observacao" />
+                        <PropertyValueFactory property="empresa" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcDataCadastro" prefWidth="75.0" text="Data de Cadastro">
                     <cellValueFactory>
-                        <PropertyValueFactory property="dataCadastro" />
+                        <PropertyValueFactory property="empresa" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcEstado" prefWidth="75.0" text="Estado">
                     <cellValueFactory>
-                        <PropertyValueFactory property="idEndereco" />
+                        <PropertyValueFactory property="endereco" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcCidade" prefWidth="75.0" text="Cidade">
                     <cellValueFactory>
-                        <PropertyValueFactory property="idEndereco" />
+                        <PropertyValueFactory property="endereco" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tcCategoria" prefWidth="75.0" text="Categoria">
                     <cellValueFactory>
-                        <PropertyValueFactory property="categoria" />
+                        <PropertyValueFactory property="empresa" />
                     </cellValueFactory>
                 </TableColumn>
             </columns>

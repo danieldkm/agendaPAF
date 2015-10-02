@@ -73,6 +73,9 @@ public class InicialController {
                     StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
                     StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
                     StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
+                    StaticLista.setListaGlobalContato(Controller.getContatos());
+                    StaticLista.setListaGlobalEndereco(Controller.getEnderecos());
+                    StaticLista.setListaGlobalTelefone(Controller.getTelefones());
                 } catch (Exception e) {
                     e.printStackTrace();
                     erro = true;
@@ -105,7 +108,7 @@ public class InicialController {
         });
 
         tarefaCargaPg.setOnSucceeded((WorkerStateEvent event) -> {
-            System.out.println("Event " +erro);
+            System.out.println("Event " + erro);
             SceneManager.getInstance().showNewLogin(erro);
             stage.close();
         });

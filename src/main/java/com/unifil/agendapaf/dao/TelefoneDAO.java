@@ -1,7 +1,9 @@
 package com.unifil.agendapaf.dao;
 
-import com.unifil.agendapaf.model.Endereco;
+import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Telefone;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
@@ -22,6 +24,17 @@ public class TelefoneDAO extends GenericDAO<Long, Telefone> {
         try {
             Query query = entityManager.createNamedQuery("Telefone.findLast");
             return (Telefone) query.setMaxResults(1).getResultList().get(0);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<Telefone> findByIdEmpresa(Empresa idEmpresa) {
+        try {
+            Query query = entityManager.createNamedQuery("Telefone.findByIDEmpresa");
+            query.setParameter("idEmpresa", idEmpresa);
+            return (ObservableList<Telefone>) FXCollections.observableArrayList(query.getResultList());
         } catch (Exception e) {
             e.printStackTrace();
         }

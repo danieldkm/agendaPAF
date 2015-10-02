@@ -242,16 +242,22 @@ public abstract class MaskFieldUtil {
      * @param textField TextField
      */
     public static void telefoneField(final TextField textField) {
-        maxField(textField, 13);
+        maxField(textField, 14);
 
         textField.lengthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-
+                //(99)9999-9999
+                //(99)99999-9999
                 String value = textField.getText();
                 value = value.replaceAll("[^0-9]", "");
-                value = value.replaceFirst("(\\d{2})(\\d)", "($1)$2");
-                value = value.replaceFirst("(\\d{4})(\\d)", "$1-$2");
+                if (value.length() > 10) {
+                    value = value.replaceFirst("(\\d{2})(\\d)", "($1)$2");
+                    value = value.replaceFirst("(\\d{5})(\\d)", "$1-$2");
+                } else {
+                    value = value.replaceFirst("(\\d{2})(\\d)", "($1)$2");
+                    value = value.replaceFirst("(\\d{4})(\\d)", "$1-$2");
+                }
 
                 textField.setText(value);
                 positionCaret(textField);

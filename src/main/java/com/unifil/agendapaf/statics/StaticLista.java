@@ -2,12 +2,15 @@ package com.unifil.agendapaf.statics;
 
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Cidade;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
+import com.unifil.agendapaf.model.Endereco;
 import com.unifil.agendapaf.model.Estado;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Historico;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.Usuario;
 import javafx.collections.ObservableList;
 
@@ -26,6 +29,9 @@ public class StaticLista {
     private static ObservableList<Financeiro> listaGlobalFinanceiro;
     private static ObservableList<Empresa> listaGlobalEmpresa;
     private static ObservableList<EmpresasHomologadas> listaGlobalEmpresasHomologadas;
+    private static ObservableList<Contato> listaGlobalContato;
+    private static ObservableList<Endereco> listaGlobalEndereco;
+    private static ObservableList<Telefone> listaGlobalTelefone;
 
     public static ObservableList<Agenda> getListaGlobalAgenda() {
         return listaGlobalAgenda;
@@ -97,6 +103,30 @@ public class StaticLista {
 
     public static void setListaGlobalEmpresasHomologadas(ObservableList<EmpresasHomologadas> listaGlobalEmpresasHomologadas) {
         StaticLista.listaGlobalEmpresasHomologadas = listaGlobalEmpresasHomologadas;
+    }
+
+    public static ObservableList<Contato> getListaGlobalContato() {
+        return listaGlobalContato;
+    }
+
+    public static void setListaGlobalContato(ObservableList<Contato> listaGlobalContato) {
+        StaticLista.listaGlobalContato = listaGlobalContato;
+    }
+
+    public static ObservableList<Endereco> getListaGlobalEndereco() {
+        return listaGlobalEndereco;
+    }
+
+    public static void setListaGlobalEndereco(ObservableList<Endereco> listaGlobalEndereco) {
+        StaticLista.listaGlobalEndereco = listaGlobalEndereco;
+    }
+
+    public static ObservableList<Telefone> getListaGlobalTelefone() {
+        return listaGlobalTelefone;
+    }
+
+    public static void setListaGlobalTelefone(ObservableList<Telefone> listaGlobalTelefone) {
+        StaticLista.listaGlobalTelefone = listaGlobalTelefone;
     }
 
 }

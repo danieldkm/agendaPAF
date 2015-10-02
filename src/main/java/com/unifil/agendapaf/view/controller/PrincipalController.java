@@ -4,10 +4,15 @@ import com.unifil.agendapaf.DateChooser;
 import com.unifil.agendapaf.DateChooserSkin;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
+import com.unifil.agendapaf.dao.JPA;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.notificador.Agendador;
+import com.unifil.agendapaf.service.ContatoService;
+import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilConverter;
@@ -235,10 +240,28 @@ public class PrincipalController {
                         sceneManager.showAlerta();
                         for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
+                                ContatoService cs = new ContatoService();
+                                Contato contato = null;
+                                for (Contato c : cs.findByIdEmpresa(empresa)) {
+                                    if (c.getSelecionado()) {
+                                        contato = c;
+                                        break;
+                                    }
+                                }
+                                JPA.em(false).close();
+                                TelefoneService ts = new TelefoneService();
+                                Telefone tel = null;
+                                for (Telefone t : ts.findByIdEmpresa(empresa)) {
+                                    if (t.getSelecionado()) {
+                                        tel = t;
+                                        break;
+                                    }
+                                }
+                                JPA.em(false).close();
                                 sceneManager.getAlertaController().setTxtaTexto("\nEmpresa: " + eh.getIdEmpresa().getDescricao()
-                                        + "\nContato: " + empresa.getIdContato().getNome()
+                                        + "\nContato: " + contato.getNome()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel: " + empresa.getIdTelefone().getFixo()
+                                        + "\nTel: " + tel.getFixo()
                                         + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
                                 );
                                 break;
@@ -249,11 +272,29 @@ public class PrincipalController {
                     if (eh.getVisualizado().equals("NAO")) {
                         for (Empresa empresa : Controller.getEmpresas()) {
                             if (empresa.getId().equals(eh.getIdEmpresa().getId())) {
+                                ContatoService cs = new ContatoService();
+                                Contato contato = null;
+                                for (Contato c : cs.findByIdEmpresa(empresa)) {
+                                    if (c.getSelecionado()) {
+                                        contato = c;
+                                        break;
+                                    }
+                                }
+                                JPA.em(false).close();
+                                TelefoneService ts = new TelefoneService();
+                                Telefone tel = null;
+                                for (Telefone t : ts.findByIdEmpresa(empresa)) {
+                                    if (t.getSelecionado()) {
+                                        tel = t;
+                                        break;
+                                    }
+                                }
+                                JPA.em(false).close();
                                 sceneManager.getAlertaController().setTxtaTexto("\n------------------------------------------"
                                         + "\nEmpresa: " + eh.getIdEmpresa().getDescricao()
-                                        + "\nContato: " + empresa.getIdContato().getNome()
+                                        + "\nContato: " + contato.getNome()
                                         + "\nE-mail: " + eh.getEmail()
-                                        + "\nTel: " + empresa.getIdTelefone().getFixo()
+                                        + "\nTel: " + tel.getFixo()
                                         + "\nData homologada: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(eh.getDataHomologada()), "dd/MM/yyyy")
                                 );
                                 break;

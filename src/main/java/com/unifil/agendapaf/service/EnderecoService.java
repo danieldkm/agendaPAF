@@ -3,6 +3,7 @@ package com.unifil.agendapaf.service;
 import com.unifil.agendapaf.dao.EnderecoDAO;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.interfaces.InterfaceCrud;
+import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Endereco;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
@@ -62,10 +63,14 @@ public class EnderecoService implements InterfaceCrud<Endereco> {
     public Endereco findById(Long id) {
         return dao.findById(id);
     }
-    
+
     public Endereco findLast() {
         Endereco r = dao.findLast();
         return r;
+    }
+
+    public ObservableList<Endereco> findByIdEmpresa(Empresa idEmpresa) {
+        return dao.findByIdEmpresa(idEmpresa);
     }
 
     @Override

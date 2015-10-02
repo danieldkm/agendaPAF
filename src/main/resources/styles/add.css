@@ -1,0 +1,5 @@
+#tabADD {
+-fx-background-color: transparent;//-fx-mark-color;
+-fx-shape:null;
+-fx-background-image: url("/image/progress_rem.gif");
+}

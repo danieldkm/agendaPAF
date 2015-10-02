@@ -15,43 +15,28 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 //id, descricao, nomeContato, telefone, observacao, dataCadastro, email, 
 //estado, cidade, nomeFantasia, endereco, bairro, cep, fax, celular, cnpj, 
 //IE, IM, cpf, Respo Teste, codInterno, categoria
 
-@XmlRootElement(name = "Empresa")
-@XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Empresa", propOrder = {
-    "id",
-    "descricao",
-    "idContato",
-    "idTelefone", "observacao", "dataCadastro", "nomeFantasia", "idEndereco",
-    "cnpj", "inscricaoEstadual", "inscricaoMunicipal", "categoria"
-})
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "empresa")
 @NamedQueries({
     @NamedQuery(name = "Empresa.findAll", query = "SELECT e FROM Empresa e"),
-    @NamedQuery(name = "Empresa.findByID", query = "SELECT e FROM Empresa e where e.id = :id")})
+    @NamedQuery(name = "Empresa.findByID", query = "SELECT e FROM Empresa e where e.id = :id"),
+    @NamedQuery(name = "Empresa.findLast", query = "SELECT e FROM Empresa e ORDER BY e.id DESC")})
 public class Empresa implements Externalizable {
 
-    @XmlElement(name = "Id")
     private LongProperty id = new SimpleLongProperty(this, "id");
 
     @Id
@@ -68,7 +53,6 @@ public class Empresa implements Externalizable {
         return id;
     }
 
-    @XmlElement(name = "Descricao")
     private StringProperty descricao = new SimpleStringProperty(this, "descricao");
 
     public String getDescricao() {
@@ -83,41 +67,6 @@ public class Empresa implements Externalizable {
         return descricao;
     }
 
-    @XmlElement(name = "IdContato")
-    private ObjectProperty<Contato> idContato = new SimpleObjectProperty<Contato>(this, "id");
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idContato", referencedColumnName = "id")
-    public Contato getIdContato() {
-        return idContato.get();
-    }
-
-    public void setIdContato(Contato contato) {
-        this.idContato.set(contato);
-    }
-
-    public ObjectProperty<Contato> idContatoProperty() {
-        return idContato;
-    }
-
-    @XmlElement(name = "IdTelefone")
-    private ObjectProperty<Telefone> idTelefone = new SimpleObjectProperty<Telefone>(this, "id");
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idTelefone", referencedColumnName = "id")
-    public Telefone getIdTelefone() {
-        return idTelefone.get();
-    }
-
-    public void setIdTelefone(Telefone telefone) {
-        this.idTelefone.set(telefone);
-    }
-
-    public ObjectProperty<Telefone> idTelefoneProperty() {
-        return idTelefone;
-    }
-
-    @XmlElement(name = "Observacao")
     private StringProperty observacao = new SimpleStringProperty(this, "observacao");
 
     public String getObservacao() {
@@ -132,7 +81,6 @@ public class Empresa implements Externalizable {
         return observacao;
     }
 
-    @XmlElement(name = "DataCadastro")
     @Convert(converter = ConverterLocalDate.class)
     private ObjectProperty<LocalDate> dataCadastro = new SimpleObjectProperty<>();
 
@@ -148,7 +96,6 @@ public class Empresa implements Externalizable {
         return dataCadastro;
     }
 
-    @XmlElement(name = "NomeFantasia")
     private StringProperty nomeFantasia = new SimpleStringProperty(this, "nomeFantasia");
 
     public String getNomeFantasia() {
@@ -163,25 +110,9 @@ public class Empresa implements Externalizable {
         return nomeFantasia;
     }
 
-    @XmlElement(name = "IdEndereco")
-    private ObjectProperty<Endereco> idEndereco = new SimpleObjectProperty<Endereco>(this, "id");
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "idEndereco", referencedColumnName = "id")
-    public Endereco getIdEndereco() {
-        return idEndereco.get();
-    }
-
-    public void setIdEndereco(Endereco endereco) {
-        this.idEndereco.set(endereco);
-    }
-
-    public ObjectProperty<Endereco> idEnderecoProperty() {
-        return idEndereco;
-    }
-    @XmlElement(name = "Cnpj")
     private StringProperty cnpj = new SimpleStringProperty(this, "cnpj");
 
+    @Column(length = 18, nullable = false)
     public String getCnpj() {
         return cnpj.get();
     }
@@ -194,7 +125,6 @@ public class Empresa implements Externalizable {
         return cnpj;
     }
 
-    @XmlElement(name = "InscricaoEstadual")
     private StringProperty inscricaoEstadual = new SimpleStringProperty(this, "inscricaoEstadual");
 
     public String getInscricaoEstadual() {
@@ -209,7 +139,6 @@ public class Empresa implements Externalizable {
         return inscricaoEstadual;
     }
 
-    @XmlElement(name = "InscricaoMunicipal")
     private StringProperty inscricaoMunicipal = new SimpleStringProperty(this, "inscricaoMunicipal");
 
     public String getInscricaoMunicipal() {
@@ -224,7 +153,6 @@ public class Empresa implements Externalizable {
         return inscricaoMunicipal;
     }
 
-    @XmlElement(name = "Categoria")
     private StringProperty categoria = new SimpleStringProperty(this, "categoria");
 
     public String getCategoria() {
@@ -246,7 +174,6 @@ public class Empresa implements Externalizable {
         out.writeObject(getObservacao());
         out.writeObject(getDataCadastro());
         out.writeObject(getNomeFantasia());
-        out.writeObject(getIdEndereco());
         out.writeObject(getCnpj());
         out.writeObject(getInscricaoEstadual());
         out.writeObject(getInscricaoMunicipal());
@@ -260,7 +187,6 @@ public class Empresa implements Externalizable {
         setObservacao((String) in.readObject());
         setDataCadastro((LocalDate) in.readObject());
         setNomeFantasia((String) in.readObject());
-        setIdEndereco((Endereco) in.readObject());
         setCnpj((String) in.readObject());
         setInscricaoEstadual((String) in.readObject());
         setInscricaoMunicipal((String) in.readObject());
@@ -278,17 +204,29 @@ public class Empresa implements Externalizable {
         return descricao.get();
     }
 
+//    idEndereco.get().getIdCidade().getNome() + " "
+//    idEndereco.get().getIdCidade().getUf() + " "
+//    + idContato.get() + " "
+//    idTelefone.get().getFixo() + " " + 
+//    + idContato.get().getEmail() + " " 
+//    + getIdEndereco().getLogradouro() + " " 
+//    + getIdEndereco().getBairro() + " "
+//    + getIdEndereco().getCep() + " " 
+//    + idTelefone.get().getFax() + " "
+//    + idTelefone.get().getCelular() + " " 
+//    + idContato.get().getCpf() + " " 
+//    + idContato.get().getResponsavelTeste() + " "
+//     + " " + idContato.get().getRg()
+   //TODO
     public String toString2() {
-        return id.get() + " " + idEndereco.get().getIdCidade().getNome() + " "
-                + idEndereco.get().getIdCidade().getUf() + " " + descricao.get() + " "
-                + idContato.get() + " " + idTelefone.get().getFixo() + " " + observacao.get() + " "
+        return id.get() + " "
+                + descricao.get() + " "
+                + observacao.get() + " "
                 + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(dataCadastro.get()), "dd-MM-yyyy") + " "
-                + idContato.get().getEmail() + " " + nomeFantasia.get() + " "
-                + getIdEndereco().getLogradouro() + " " + getIdEndereco().getBairro() + " "
-                + getIdEndereco().getCep() + " " + idTelefone.get().getFax() + " "
-                + idTelefone.get().getCelular() + " " + cnpj.get() + " " + inscricaoEstadual.get() + " "
-                + inscricaoMunicipal.get() + " " + idContato.get().getCpf() + " " + idContato.get().getResponsavelTeste() + " "
-                + categoria.get() + " " + idContato.get().getRg();
+                + nomeFantasia.get() + " "
+                + cnpj.get() + " " + inscricaoEstadual.get() + " "
+                + inscricaoMunicipal.get() + " "
+                + categoria.get();
     }
 
     @Override

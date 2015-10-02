@@ -5,12 +5,12 @@ import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Endereco;
+import com.unifil.agendapaf.model.TabelaEmpresa;
 import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,10 +31,65 @@ public class TabelaEmpresaController {
     public void initialize() {
         try {
             sceneManager = SceneManager.getInstance();
-            tcCidade.setCellFactory(new Callback<TableColumn<Empresa, Endereco>, TableCell<Empresa, Endereco>>() {
+            popularTabela();
+
+            tcEmpresa.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Empresa>, TableCell<TabelaEmpresa, Empresa>>() {
                 @Override
-                public TableCell<Empresa, Endereco> call(TableColumn<Empresa, Endereco> param) {
-                    final TableCell<Empresa, Endereco> cell = new TableCell<Empresa, Endereco>() {
+                public TableCell<TabelaEmpresa, Empresa> call(TableColumn<TabelaEmpresa, Empresa> param) {
+                    final TableCell<TabelaEmpresa, Empresa> cell = new TableCell<TabelaEmpresa, Empresa>() {
+                        @Override
+                        public void updateItem(final Empresa item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getDescricao());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            });
+
+            tcObs.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Empresa>, TableCell<TabelaEmpresa, Empresa>>() {
+                @Override
+                public TableCell<TabelaEmpresa, Empresa> call(TableColumn<TabelaEmpresa, Empresa> param) {
+                    final TableCell<TabelaEmpresa, Empresa> cell = new TableCell<TabelaEmpresa, Empresa>() {
+                        @Override
+                        public void updateItem(final Empresa item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getObservacao());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            });
+            tcCategoria.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Empresa>, TableCell<TabelaEmpresa, Empresa>>() {
+                @Override
+                public TableCell<TabelaEmpresa, Empresa> call(TableColumn<TabelaEmpresa, Empresa> param) {
+                    final TableCell<TabelaEmpresa, Empresa> cell = new TableCell<TabelaEmpresa, Empresa>() {
+                        @Override
+                        public void updateItem(final Empresa item, boolean empty) {
+                            super.updateItem(item, empty);
+                            if (empty) {
+                                this.setText("");
+                            } else {
+                                this.setText(item.getCategoria());
+                            }
+                        }
+                    };
+                    return cell;
+                }
+            });
+
+            tcCidade.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
+                @Override
+                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
+                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
                         @Override
                         public void updateItem(final Endereco item, boolean empty) {
                             super.updateItem(item, empty);
@@ -49,10 +104,10 @@ public class TabelaEmpresaController {
                 }
 
             });
-            tcEstado.setCellFactory(new Callback<TableColumn<Empresa, Endereco>, TableCell<Empresa, Endereco>>() {
+            tcEstado.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
                 @Override
-                public TableCell<Empresa, Endereco> call(TableColumn<Empresa, Endereco> param) {
-                    final TableCell<Empresa, Endereco> cell = new TableCell<Empresa, Endereco>() {
+                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
+                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
                         @Override
                         public void updateItem(final Endereco item, boolean empty) {
                             super.updateItem(item, empty);
@@ -68,10 +123,10 @@ public class TabelaEmpresaController {
 
             });
 
-            tcTelefone.setCellFactory(new Callback<TableColumn<Empresa, Telefone>, TableCell<Empresa, Telefone>>() {
+            tcTelefone.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Telefone>, TableCell<TabelaEmpresa, Telefone>>() {
                 @Override
-                public TableCell<Empresa, Telefone> call(TableColumn<Empresa, Telefone> param) {
-                    final TableCell<Empresa, Telefone> cell = new TableCell<Empresa, Telefone>() {
+                public TableCell<TabelaEmpresa, Telefone> call(TableColumn<TabelaEmpresa, Telefone> param) {
+                    final TableCell<TabelaEmpresa, Telefone> cell = new TableCell<TabelaEmpresa, Telefone>() {
                         @Override
                         public void updateItem(final Telefone item, boolean empty) {
                             super.updateItem(item, empty);
@@ -88,25 +143,24 @@ public class TabelaEmpresaController {
             });
 
             tcDataCadastro.setCellFactory(column -> {
-                return new TableCell<Empresa, LocalDate>() {
+                return new TableCell<TabelaEmpresa, Empresa>() {
                     @Override
-                    protected void updateItem(LocalDate item, boolean empty) {
+                    protected void updateItem(Empresa item, boolean empty) {
                         super.updateItem(item, empty);
-
                         if (item == null || empty) {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item.getDataCadastro()), "dd/MM/yyyy"));
                         }
                     }
                 };
             });
 
-            tcContato.setCellFactory(new Callback<TableColumn<Empresa, Contato>, TableCell<Empresa, Contato>>() {
+            tcContato.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
                 @Override
-                public TableCell<Empresa, Contato> call(TableColumn<Empresa, Contato> param) {
-                    final TableCell<Empresa, Contato> cell = new TableCell<Empresa, Contato>() {
+                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
+                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
                         @Override
                         public void updateItem(final Contato item, boolean empty) {
                             super.updateItem(item, empty);
@@ -122,10 +176,10 @@ public class TabelaEmpresaController {
 
             });
 
-            tcEmail.setCellFactory(new Callback<TableColumn<Empresa, Contato>, TableCell<Empresa, Contato>>() {
+            tcEmail.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
                 @Override
-                public TableCell<Empresa, Contato> call(TableColumn<Empresa, Contato> param) {
-                    final TableCell<Empresa, Contato> cell = new TableCell<Empresa, Contato>() {
+                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
+                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
                         @Override
                         public void updateItem(final Contato item, boolean empty) {
                             super.updateItem(item, empty);
@@ -149,7 +203,6 @@ public class TabelaEmpresaController {
 //        tcDataCadastro.setCellValueFactory(new PropertyValueFactory<Empresa, Date>("dataCadastro"));
 //        tcEmail.setCellValueFactory(new PropertyValueFactory<Empresa, String>("email"));
 //        tcCidade.setCellValueFactory(new PropertyValueFactory<Empresa, String>("cidade"));
-            popularTabela();
             txtBuscar.requestFocus();
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,9 +211,15 @@ public class TabelaEmpresaController {
     }
 
     @FXML
-    private TableView<Empresa> tvEmpresa;
+    private TableView<TabelaEmpresa> tvEmpresa;
+    @FXML
+    private TableColumn tcEmpresa;
     @FXML
     private TableColumn tcEstado;
+    @FXML
+    private TableColumn tcObs;
+    @FXML
+    private TableColumn tcCategoria;
     @FXML
     private TableColumn tcCidade;
     @FXML
@@ -187,23 +246,79 @@ public class TabelaEmpresaController {
     private boolean isTabelaAgenda = false;
     private boolean isRelatorio = false;
     private boolean isConsulta = false;
-    private ObservableList<Empresa> listaTbECF = FXCollections.observableArrayList();
+    private ObservableList<TabelaEmpresa> listaTbECF = FXCollections.observableArrayList();
     private String contatTextBusca = "";
     private SceneManager sceneManager;
 
     @FXML
     private void onKeyPressdTxtBuscar(KeyEvent e) {
         listaTbECF.clear();
+        ObservableList<TabelaEmpresa> tes = FXCollections.observableArrayList();
+        TabelaEmpresa te = null;
         for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
-            if (empresa.toString2().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase())) {
-                listaTbECF.add(empresa);
+            te = new TabelaEmpresa();
+            te.setEmpresa(empresa);
+            for (Contato contato : StaticLista.getListaGlobalContato()) {
+                if (contato.getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                    te.setContato(contato);
+                    break;
+                }
+            }
+
+            for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
+                if (endereco.getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                    te.setEndereco(endereco);
+                    break;
+                }
+            }
+
+            for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
+                if (telefone.getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                    te.setTelefone(telefone);
+                    break;
+                }
+            }
+            tes.add(te);
+        }
+
+        for (TabelaEmpresa te1 : tes) {
+            if (te1.getEmpresa().toString2().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getContato().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getEndereco().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getTelefone().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase())) {
+                listaTbECF.add(te1);
             }
         }
         tvEmpresa.setItems(listaTbECF);
     }
 
     private void popularTabela() {
-        tvEmpresa.setItems(StaticLista.getListaGlobalEmpresa());
+        ObservableList<TabelaEmpresa> tes = FXCollections.observableArrayList();
+        TabelaEmpresa te = null;
+        for (Empresa empresa : StaticLista.getListaGlobalEmpresa()) {
+            te = new TabelaEmpresa();
+            te.setEmpresa(empresa);
+            for (Contato contato : StaticLista.getListaGlobalContato()) {
+                if (contato.getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                    te.setContato(contato);
+                    break;
+                }
+            }
+
+            for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
+                if (endereco.getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                    te.setEndereco(endereco);
+                    break;
+                }
+            }
+
+            for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
+                if (telefone.getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                    te.setTelefone(telefone);
+                    break;
+                }
+            }
+            tes.add(te);
+        }
+        System.out.println("TABELA EMPRESA VALUES " + te);
+        tvEmpresa.setItems(tes);
     }
 
     @FXML
@@ -215,10 +330,10 @@ public class TabelaEmpresaController {
                 }
             }
             if (tvEmpresa.getSelectionModel().getSelectedItem() != null) {
-                String txt = tvEmpresa.getSelectionModel().getSelectedItem().getObservacao();
+                String txt = tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa().getObservacao();
                 txt += "";
                 if (!txt.equals("")) {
-                    sceneManager.showVisualizadorMotivo(tvEmpresa.getSelectionModel().getSelectedItem().getObservacao());
+                    sceneManager.showVisualizadorMotivo(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa().getObservacao());
                     sceneManager.getVisulizadorMotivoController().getStage().setTitle("Observação!!!");
                 } else {
                     sceneManager.getVisulizadorMotivoController().getStage().close();
@@ -232,7 +347,7 @@ public class TabelaEmpresaController {
                 if (isFinanceiro) {
                     Empresa emp = null;
                     for (Empresa e : Controller.getEmpresas()) {
-                        if (e.getId().equals(tvEmpresa.getSelectionModel().getSelectedItem().getId())) {
+                        if (e.getId().equals(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa().getId())) {
                             emp = e;
                             System.out.println("Selecionando empresa");
                             break;
@@ -242,7 +357,7 @@ public class TabelaEmpresaController {
                     stage.close();
                 } else {
                     if (!isConsulta) {
-                        sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem());
+                        sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa());
                         if (isEmpresa) {
                             sceneManager.showEmpresa(false);
                         } else if (isAgenda) {
@@ -254,7 +369,7 @@ public class TabelaEmpresaController {
                         } else if (isRelatorio) {
                             sceneManager.getRelatorioController().setCampos(stage);
                         } else if (isLaudo) {
-                            sceneManager.getLaudoController().preencherComEmpresaIdentificada(tvEmpresa.getSelectionModel().getSelectedItem());
+                            sceneManager.getLaudoController().preencherComEmpresaIdentificada(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa());
                         }
                         stage.close();
                     } else {

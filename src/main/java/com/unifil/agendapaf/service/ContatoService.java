@@ -4,6 +4,7 @@ import com.unifil.agendapaf.dao.ContatoDAO;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.interfaces.InterfaceCrud;
 import com.unifil.agendapaf.model.Contato;
+import com.unifil.agendapaf.model.Empresa;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 
@@ -66,6 +67,10 @@ public class ContatoService implements InterfaceCrud<Contato> {
     public Contato findLast() {
         Contato r = dao.findLast();
         return r;
+    }
+    
+    public ObservableList<Contato> findByIdEmpresa(Empresa idEmpresa) {
+        return dao.findByIdEmpresa(idEmpresa);
     }
 
     @Override

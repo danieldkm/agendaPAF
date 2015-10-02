@@ -5,23 +5,29 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Cidade;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
+import com.unifil.agendapaf.model.Endereco;
 import com.unifil.agendapaf.model.Estado;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Historico;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.model.aux.Categoria;
 import com.unifil.agendapaf.model.aux.Servico;
 import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.service.CidadeService;
+import com.unifil.agendapaf.service.ContatoService;
 import com.unifil.agendapaf.service.EmpresaService;
 import com.unifil.agendapaf.service.EmpresasHomologadasService;
+import com.unifil.agendapaf.service.EnderecoService;
 import com.unifil.agendapaf.service.EstadoService;
 import com.unifil.agendapaf.service.FeriadoService;
 import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.service.HistoricoService;
+import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.service.UsuarioService;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -131,6 +137,42 @@ public class Controller {
         try {
             UsuarioService dao = new UsuarioService();
             ObservableList<Usuario> r = dao.findAll();
+            JPA.em(false).close();
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ObservableList<Contato> getContatos() {
+        try {
+            ContatoService dao = new ContatoService();
+            ObservableList<Contato> r = dao.findAll();
+            JPA.em(false).close();
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ObservableList<Endereco> getEnderecos() {
+        try {
+            EnderecoService dao = new EnderecoService();
+            ObservableList<Endereco> r = dao.findAll();
+            JPA.em(false).close();
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static ObservableList<Telefone> getTelefones() {
+        try {
+            TelefoneService dao = new TelefoneService();
+            ObservableList<Telefone> r = dao.findAll();
             JPA.em(false).close();
             return r;
         } catch (Exception e) {

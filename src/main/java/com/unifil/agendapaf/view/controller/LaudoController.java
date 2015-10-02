@@ -3,8 +3,12 @@ package com.unifil.agendapaf.view.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.unifil.agendapaf.SceneManager;
+import com.unifil.agendapaf.dao.JPA;
+import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
+import com.unifil.agendapaf.model.Endereco;
 import com.unifil.agendapaf.model.LaudoComplementar;
+import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.model.aux.ParametroDocx;
 import com.unifil.agendapaf.model.laudo.AplicacoesEspeciaisType;
@@ -49,6 +53,9 @@ import com.unifil.agendapaf.model.laudo.SistemasGestaoType;
 import com.unifil.agendapaf.model.laudo.SistemasPedNfeType;
 import com.unifil.agendapaf.model.laudo.SistemasPedType;
 import com.unifil.agendapaf.model.laudo.TratamentoInterrupcaoType;
+import com.unifil.agendapaf.service.ContatoService;
+import com.unifil.agendapaf.service.EnderecoService;
+import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.GerarDocx;
 import com.unifil.agendapaf.util.Json;
@@ -2797,30 +2804,59 @@ public class LaudoController {
     }
 
     public void preencherComEmpresaIdentificada(Empresa empresa) {
+        EnderecoService es = new EnderecoService();
+        Endereco endereco = null;
+        for (Endereco e : es.findByIdEmpresa(empresa)) {
+            if (e.getSelecionado()) {
+                endereco = e;
+                break;
+            }
+        }
+        JPA.em(false).close();
+        ContatoService cs = new ContatoService();
+        Contato contato = null;
+        for (Contato c : cs.findByIdEmpresa(empresa)) {
+            if (c.getSelecionado()) {
+                contato = c;
+                break;
+            }
+        }
+        JPA.em(false).close();
+        TelefoneService ts = new TelefoneService();
+        Telefone tel = null;
+        for (Telefone t : ts.findByIdEmpresa(empresa)) {
+            if (t.getSelecionado()) {
+                tel = t;
+                break;
+            }
+        }
+        JPA.em(false).close();
+
         laudoComplementar = new LaudoComplementar();
         laudoComplementar.setIdEmpresa(empresa.getId());
         txtNomeFantasia.setText(empresa.getNomeFantasia());
         txtIm.setText(empresa.getInscricaoMunicipal());
-        txtCelular.setText(empresa.getIdTelefone().getCelular());
-        txtFax.setText(empresa.getIdTelefone().getFax());
         dTxtRazaoSocial.setText(empresa.getDescricao());
         dTxtCNPJ.setText(empresa.getCnpj());
         dTxtIE.setText(empresa.getInscricaoEstadual());
 
-        dTxtLogradouro.setText(empresa.getIdEndereco().getLogradouro());
-        dTxtNumero.setText(empresa.getIdEndereco().getNumero());
-        dTxtComplemento.setText(empresa.getIdEndereco().getComplemento());
-        dTxtBairro.setText(empresa.getIdEndereco().getBairro());
-        dTxtCEP.setText(empresa.getIdEndereco().getCep());
-        dTxtUF.setText(empresa.getIdEndereco().getIdCidade().getIdEstado().getUf());
-        dTxtCidade.setText(empresa.getIdEndereco().getIdCidade().getNome());
+        txtCelular.setText(tel.getCelular());
+        txtFax.setText(tel.getFax());
+        dTxtTelefone.setText(tel.getFixo());
 
-        dTxtResponsavelTestes.setText(empresa.getIdContato().getResponsavelTeste());
-        dTxtNome.setText(empresa.getIdContato().getNome());
-        dTxtCPF.setText(empresa.getIdContato().getCpf());
-        dTxtEmail.setText(empresa.getIdContato().getEmail());
-        txtRg.setText(empresa.getIdContato().getRg());
-        dTxtTelefone.setText(empresa.getIdTelefone().getFixo());
+        dTxtLogradouro.setText(endereco.getLogradouro());
+        dTxtNumero.setText(endereco.getNumero());
+        dTxtComplemento.setText(endereco.getComplemento());
+        dTxtBairro.setText(endereco.getBairro());
+        dTxtCEP.setText(endereco.getCep());
+        dTxtUF.setText(endereco.getIdCidade().getIdEstado().getUf());
+        dTxtCidade.setText(endereco.getIdCidade().getNome());
+
+        dTxtResponsavelTestes.setText(contato.getResponsavelTeste());
+        dTxtNome.setText(contato.getNome());
+        dTxtCPF.setText(contato.getCpf());
+        dTxtEmail.setText(contato.getEmail());
+        txtRg.setText(contato.getRg());
     }
 
     public void setStage(Stage stage) {

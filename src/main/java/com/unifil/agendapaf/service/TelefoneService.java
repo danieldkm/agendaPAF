@@ -3,6 +3,7 @@ package com.unifil.agendapaf.service;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.dao.TelefoneDAO;
 import com.unifil.agendapaf.interfaces.InterfaceCrud;
+import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Telefone;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
@@ -66,6 +67,10 @@ public class TelefoneService implements InterfaceCrud<Telefone> {
     public Telefone findLast() {
         Telefone r = dao.findLast();
         return r;
+    }
+
+    public ObservableList<Telefone> findByIdEmpresa(Empresa idEmpresa) {
+        return dao.findByIdEmpresa(idEmpresa);
     }
 
     @Override

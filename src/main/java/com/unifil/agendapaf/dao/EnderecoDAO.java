@@ -1,8 +1,12 @@
 package com.unifil.agendapaf.dao;
 
+import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Endereco;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import org.apache.avalon.framework.parameters.ParameterException;
 
 /**
  *
@@ -27,7 +31,7 @@ public class EnderecoDAO extends GenericDAO<Long, Endereco> {
         }
         return null;
     }
-    
+
     public Endereco findLast() {
         try {
             Query query = entityManager.createNamedQuery("Endereco.findLast");
@@ -38,5 +42,15 @@ public class EnderecoDAO extends GenericDAO<Long, Endereco> {
         return null;
     }
 
+    public ObservableList<Endereco> findByIdEmpresa(Empresa idEmpresa) {
+        try {
+            Query query = entityManager.createNamedQuery("Endereco.findByIDEmpresa");
+            query.setParameter("idEmpresa", idEmpresa);
+            return (ObservableList<Endereco>) FXCollections.observableArrayList(query.getResultList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
