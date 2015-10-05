@@ -7,9 +7,11 @@ package com.unifil.agendapaf.model;
 public class TabelaEmpresa {
 
     private Empresa empresa;
-    private Contato contato;
-    private Telefone telefone;
-    private Endereco endereco;
+    private String nomeContato;
+    private String email;
+    private String telefone;
+    private String estado;
+    private String cidade;
 
     public Empresa getEmpresa() {
         return empresa;
@@ -19,33 +21,49 @@ public class TabelaEmpresa {
         this.empresa = empresa;
     }
 
-    public Contato getContato() {
-        return contato;
+    public String getNomeContato() {
+        return nomeContato;
     }
 
-    public void setContato(Contato contato) {
-        this.contato = contato;
+    public void setNomeContato(String nomeContato) {
+        this.nomeContato = nomeContato;
     }
 
-    public Telefone getTelefone() {
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(Telefone telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
     }
 
     @Override
     public String toString() {
-        return "TabelaEmpresa{" + "empresa=" + empresa + ", contato=" + contato + ", telefone=" + telefone + ", endereco=" + endereco + '}';
+        return empresa + " " + nomeContato + " " + email + " " + telefone + " " + estado + " " + cidade;
     }
 
 }

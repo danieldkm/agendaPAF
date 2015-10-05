@@ -160,7 +160,7 @@ public class Controller {
     public static ObservableList<Endereco> getEnderecos() {
         try {
             EnderecoService dao = new EnderecoService();
-            ObservableList<Endereco> r = dao.findAll();
+            ObservableList<Endereco> r = dao.findAllSelecionarTrue();
             JPA.em(false).close();
             return r;
         } catch (Exception e) {

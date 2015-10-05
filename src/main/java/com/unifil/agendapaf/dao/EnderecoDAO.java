@@ -6,7 +6,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import org.apache.avalon.framework.parameters.ParameterException;
 
 /**
  *
@@ -41,11 +40,22 @@ public class EnderecoDAO extends GenericDAO<Long, Endereco> {
         }
         return null;
     }
+//Endereco.findAllSelecionarTrue
 
     public ObservableList<Endereco> findByIdEmpresa(Empresa idEmpresa) {
         try {
             Query query = entityManager.createNamedQuery("Endereco.findByIDEmpresa");
             query.setParameter("idEmpresa", idEmpresa);
+            return (ObservableList<Endereco>) FXCollections.observableArrayList(query.getResultList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ObservableList<Endereco> findAllSelecionarTrue() {
+        try {
+            Query query = entityManager.createNamedQuery("Endereco.findAllSelecionarTrue");
             return (ObservableList<Endereco>) FXCollections.observableArrayList(query.getResultList());
         } catch (Exception e) {
             e.printStackTrace();

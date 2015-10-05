@@ -217,7 +217,6 @@ public class Empresa implements Externalizable {
 //    + idContato.get().getCpf() + " " 
 //    + idContato.get().getResponsavelTeste() + " "
 //     + " " + idContato.get().getRg()
-   //TODO
     public String toString2() {
         return id.get() + " "
                 + descricao.get() + " "

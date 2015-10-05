@@ -34,6 +34,7 @@ import javax.persistence.Table;
 @Table(name = "endereco")
 @NamedQueries({
     @NamedQuery(name = "Endereco.findAll", query = "SELECT e FROM Endereco e"),
+    @NamedQuery(name = "Endereco.findAllSelecionarTrue", query = "SELECT e FROM Endereco e where e.selecionado = 1"),
     @NamedQuery(name = "Endereco.findByID", query = "SELECT e FROM Endereco e where e.id = :id"),
     @NamedQuery(name = "Endereco.findByIDEmpresa", query = "SELECT e FROM Endereco e WHERE e.idEmpresa = :idEmpresa"),
     @NamedQuery(name = "Endereco.findLast", query = "SELECT e FROM Endereco e ORDER BY e.id DESC")})

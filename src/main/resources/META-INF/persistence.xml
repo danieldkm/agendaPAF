@@ -12,6 +12,7 @@
     <class>com.unifil.agendapaf.model.Financeiro</class>
     <class>com.unifil.agendapaf.model.Historico</class>
     <class>com.unifil.agendapaf.model.Usuario</class>
+    <class>com.unifil.agendapaf.model.Contato</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/agendapaf?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

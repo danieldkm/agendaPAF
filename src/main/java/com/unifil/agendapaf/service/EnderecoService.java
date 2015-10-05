@@ -73,6 +73,10 @@ public class EnderecoService implements InterfaceCrud<Endereco> {
         return dao.findByIdEmpresa(idEmpresa);
     }
 
+    public ObservableList<Endereco> findAllSelecionarTrue() {
+        return dao.findAllSelecionarTrue();
+    }
+
     @Override
     public EntityManager getEm() {
         return dao.getEntityManager();

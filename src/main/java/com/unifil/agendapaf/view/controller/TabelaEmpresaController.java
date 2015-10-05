@@ -86,62 +86,6 @@ public class TabelaEmpresaController {
                 }
             });
 
-            tcCidade.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
-                @Override
-                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
-                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
-                        @Override
-                        public void updateItem(final Endereco item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                this.setText("");
-                            } else {
-                                this.setText(item.getIdCidade().getNome());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-
-            });
-            tcEstado.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
-                @Override
-                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
-                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
-                        @Override
-                        public void updateItem(final Endereco item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                this.setText("");
-                            } else {
-                                this.setText(item.getIdCidade().getIdEstado().getNome());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-
-            });
-
-            tcTelefone.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Telefone>, TableCell<TabelaEmpresa, Telefone>>() {
-                @Override
-                public TableCell<TabelaEmpresa, Telefone> call(TableColumn<TabelaEmpresa, Telefone> param) {
-                    final TableCell<TabelaEmpresa, Telefone> cell = new TableCell<TabelaEmpresa, Telefone>() {
-                        @Override
-                        public void updateItem(final Telefone item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                this.setText("");
-                            } else {
-                                this.setText(item.getFixo());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-
-            });
-
             tcDataCadastro.setCellFactory(column -> {
                 return new TableCell<TabelaEmpresa, Empresa>() {
                     @Override
@@ -157,44 +101,99 @@ public class TabelaEmpresaController {
                 };
             });
 
-            tcContato.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
-                @Override
-                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
-                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
-                        @Override
-                        public void updateItem(final Contato item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                this.setText("");
-                            } else {
-                                this.setText(item.getNome());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-
-            });
-
-            tcEmail.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
-                @Override
-                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
-                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
-                        @Override
-                        public void updateItem(final Contato item, boolean empty) {
-                            super.updateItem(item, empty);
-                            if (empty) {
-                                this.setText("");
-                            } else {
-                                this.setText(item.getEmail());
-                            }
-                        }
-                    };
-                    return cell;
-                }
-
-            });
-
+//            tcCidade.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
+//                @Override
+//                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
+//                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
+//                        @Override
+//                        public void updateItem(final Endereco item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (empty) {
+//                                this.setText("");
+//                            } else {
+//                                this.setText(item.getIdCidade().getNome());
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//
+//            });
+//            tcEstado.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
+//                @Override
+//                public TableCell<TabelaEmpresa, Endereco> call(TableColumn<TabelaEmpresa, Endereco> param) {
+//                    final TableCell<TabelaEmpresa, Endereco> cell = new TableCell<TabelaEmpresa, Endereco>() {
+//                        @Override
+//                        public void updateItem(final Endereco item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (empty) {
+//                                this.setText("");
+//                            } else {
+//                                if (item.getSelecionado()) {
+//                                    this.setText(item.getIdCidade().getIdEstado().getNome());
+//                                }
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//
+//            });
+//            tcTelefone.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Telefone>, TableCell<TabelaEmpresa, Telefone>>() {
+//                @Override
+//                public TableCell<TabelaEmpresa, Telefone> call(TableColumn<TabelaEmpresa, Telefone> param) {
+//                    final TableCell<TabelaEmpresa, Telefone> cell = new TableCell<TabelaEmpresa, Telefone>() {
+//                        @Override
+//                        public void updateItem(final Telefone item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (empty) {
+//                                this.setText("");
+//                            } else {
+//                                this.setText(item.getFixo());
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//
+//            });
+//            tcContato.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
+//                @Override
+//                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
+//                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
+//                        @Override
+//                        public void updateItem(final Contato item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (empty) {
+//                                this.setText("");
+//                            } else {
+//                                this.setText(item.getNome());
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//
+//            });
+//
+//            tcEmail.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Contato>, TableCell<TabelaEmpresa, Contato>>() {
+//                @Override
+//                public TableCell<TabelaEmpresa, Contato> call(TableColumn<TabelaEmpresa, Contato> param) {
+//                    final TableCell<TabelaEmpresa, Contato> cell = new TableCell<TabelaEmpresa, Contato>() {
+//                        @Override
+//                        public void updateItem(final Contato item, boolean empty) {
+//                            super.updateItem(item, empty);
+//                            if (empty) {
+//                                this.setText("");
+//                            } else {
+//                                this.setText(item.getEmail());
+//                            }
+//                        }
+//                    };
+//                    return cell;
+//                }
+//
+//            });
 //        tcCodEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, Integer>("codEmpresa"));
 //        tcEmpresa.setCellValueFactory(new PropertyValueFactory<Empresa, String>("descricaoEmpresa"));
 //        tcContato.setCellValueFactory(new PropertyValueFactory<Empresa, String>("nomeContato"));
@@ -259,30 +258,32 @@ public class TabelaEmpresaController {
             te = new TabelaEmpresa();
             te.setEmpresa(empresa);
             for (Contato contato : StaticLista.getListaGlobalContato()) {
-                if (contato.getId().equals(empresa.getId()) && contato.getSelecionado()) {
-                    te.setContato(contato);
+                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                    te.setNomeContato(contato.getNome());
+                    te.setEmail(contato.getEmail());
                     break;
                 }
             }
 
             for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
-                if (endereco.getId().equals(empresa.getId()) && endereco.getSelecionado()) {
-                    te.setEndereco(endereco);
+                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                    te.setCidade(endereco.getIdCidade().getNome());
+                    te.setEstado(endereco.getIdCidade().getUf());
                     break;
                 }
             }
 
             for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
-                if (telefone.getId().equals(empresa.getId()) && telefone.getSelecionado()) {
-                    te.setTelefone(telefone);
+                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                    te.setTelefone(telefone.getFixo());
                     break;
                 }
             }
             tes.add(te);
         }
-
         for (TabelaEmpresa te1 : tes) {
-            if (te1.getEmpresa().toString2().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getContato().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getEndereco().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase()) || te1.getTelefone().toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase())) {
+
+            if (te1.toString().toLowerCase().contains(txtBuscar.getText().toLowerCase() + e.getText().toLowerCase())) {
                 listaTbECF.add(te1);
             }
         }
@@ -296,22 +297,24 @@ public class TabelaEmpresaController {
             te = new TabelaEmpresa();
             te.setEmpresa(empresa);
             for (Contato contato : StaticLista.getListaGlobalContato()) {
-                if (contato.getId().equals(empresa.getId()) && contato.getSelecionado()) {
-                    te.setContato(contato);
+                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                    te.setNomeContato(contato.getNome());
+                    te.setEmail(contato.getEmail());
                     break;
                 }
             }
 
             for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
-                if (endereco.getId().equals(empresa.getId()) && endereco.getSelecionado()) {
-                    te.setEndereco(endereco);
+                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                    te.setCidade(endereco.getIdCidade().getNome());
+                    te.setEstado(endereco.getIdCidade().getUf());
                     break;
                 }
             }
 
             for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
-                if (telefone.getId().equals(empresa.getId()) && telefone.getSelecionado()) {
-                    te.setTelefone(telefone);
+                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                    te.setTelefone(telefone.getFixo());
                     break;
                 }
             }
