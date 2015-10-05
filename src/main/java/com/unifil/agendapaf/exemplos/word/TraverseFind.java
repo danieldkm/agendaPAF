@@ -28,6 +28,8 @@ public class TraverseFind {
      * opposed to XPath)
      * http://stackoverflow.com/questions/15763778/docx4j-checking-checkboxes
      * https://github.com/plutext/docx4j/blob/master/src/samples/docx4j/org/docx4j/samples/TraverseFind.java
+     * @param args argumentos
+     * @throws Exception qualquer excecao
      */
     public static void main(String[] args) throws Exception {
 

@@ -277,12 +277,12 @@ public class SceneManager {
      *
      * @param isEmpresa variavel boolena para verificar se esta sendo aberto
      * atraves da tela de cadastro de empresa
-     * @param isAgenda
-     * @param isTabelaAgenda
-     * @param isRelatorio
-     * @param isConsulta
-     * @param isFinanceiro
-     * @param isLaudo
+     * @param isAgenda veem da tela de agenda
+     * @param isTabelaAgenda veem da tabela de agenda
+     * @param isRelatorio veem da tela de relatorio
+     * @param isConsulta veem da tela de consulta
+     * @param isFinanceiro veem da tela de financeiro
+     * @param isLaudo veem da tela de laudo
      */
     public void showTabelaEmpresa(boolean isEmpresa, boolean isAgenda, boolean isTabelaAgenda, boolean isRelatorio, boolean isConsulta, boolean isFinanceiro, boolean isLaudo) {
         try {

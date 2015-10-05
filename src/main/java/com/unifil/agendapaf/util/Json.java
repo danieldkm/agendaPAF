@@ -24,12 +24,11 @@ import org.json.JSONObject;
 public class Json {
 
     /**
-     * Salvar em formato json
+     * Salvar em formato json novo arquivo
      *
-     * @param parametro objeto a ser salvo
+     * @param parametros objeto a ser salvo
      * @param fileName arquivo a ser substituido ou nao
      * @param addArquivo caso true adicionar o objeto no arquivo se nao cria um
-     * novo arquivo
      */
     public void salvarParametroDocxJSON(ArrayList<ParametroDocx> parametros, String fileName, boolean addArquivo) {
         Gson gson = new Gson();
@@ -47,6 +46,13 @@ public class Json {
         }
     }
 
+    /**
+     * Ler arquivo json
+     *
+     * @param nomeWrapper nomeWrapper
+     * @param fileName arquivo a ser substituido ou nao
+     * @return JSONArray conteudo lido
+     */
     private JSONArray readJSON(String nomeWrapper, String fileName) throws Exception {
         BufferedReader buf = new BufferedReader(new FileReader(fileName));
         String s = "";
@@ -65,6 +71,12 @@ public class Json {
         return abc;
     }
 
+    /**
+     * Ler arquivo json
+     *
+     * @param fileName arquivo a ser substituido ou nao
+     * @return retornar lista de ParametroDocx
+     */
     public ObservableList<ParametroDocx> lerArquivoJSON(String fileName) {
         Gson gson = new Gson();
         ObservableList<ParametroDocx> retornar = FXCollections.observableArrayList();

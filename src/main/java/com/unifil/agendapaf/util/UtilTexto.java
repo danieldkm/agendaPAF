@@ -13,6 +13,8 @@ public class UtilTexto {
     /**
      * Le o conteudo (texto) de um arquivo pdf
      *
+     * @param caminho caminho do arquivo pdf
+     * @return string do conteudo extraido
      */
     public static String extraiTextoDoPDF(String caminho) {
         PDDocument pdfDocument = null;
@@ -51,7 +53,7 @@ public class UtilTexto {
         telefone = telefone.replaceFirst("([0-9]{2})([0-9]{4})([0-9]{4})$", "($1) $2 - $3");
         return telefone;
     }
-    
+
     public static String formatarMascaraCep(String cep) {
         cep = cep.replaceAll("[^0-9]", "");
         cep = cep.replaceFirst("([0-9]{5})([0-9]{3})$", "$1-$2");
@@ -62,6 +64,7 @@ public class UtilTexto {
      *
      * Extrai o conteudo do arquivo indicado
      *
+     * @param args argumentos
      */
     public static void main(String[] args) {
         String caminho = "modelo/TERMO DE AUTENTICAÇÃO MODELO.pdf";

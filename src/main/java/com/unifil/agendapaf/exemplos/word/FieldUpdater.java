@@ -51,12 +51,19 @@ public class FieldUpdater {
 
     StringBuilder report = null;
 
+    /**
+     * @param wordMLPackage - documento que contem o objeto principal
+     */
     public FieldUpdater(WordprocessingMLPackage wordMLPackage) {
         this.wordMLPackage = wordMLPackage;
 //		docPropsCustomPart = wordMLPackage.getDocPropsCustomPart();
         docPropertyResolver = new DocPropertyResolver(wordMLPackage);
     }
 
+    /**
+     * @param processHeadersAndFooters - true caso cabecalho e/ou rodape
+     * @throws Docx4JException erro da biblioteca Docx4j
+     */
     public void update(boolean processHeadersAndFooters) throws Docx4JException {
 
         report = new StringBuilder();
@@ -87,12 +94,19 @@ public class FieldUpdater {
         log.info(report.toString());
     }
 
+    /**
+     * @param part - atualizar xml
+     * @throws Docx4JException erro da biblioteca Docx4j
+     */
     public void updatePart(JaxbXmlPart part) throws Docx4JException {
-
         updateSimple(part);
         updateComplex(part);
     }
 
+    /**
+     * @param part - atualizar xml
+     * @throws Docx4JException erro da biblioteca Docx4j
+     */
     public void updateSimple(JaxbXmlPart part) throws Docx4JException {
 
         FldSimpleModel fsm = new FldSimpleModel(); //gets reused
@@ -109,7 +123,7 @@ public class FieldUpdater {
 
         for (CTSimpleField simpleField : fl.simpleFields) {
 
-			//System.out.println(XmlUtils.marshaltoString(simpleField, true, true));
+            //System.out.println(XmlUtils.marshaltoString(simpleField, true, true));
 //			System.out.println(simpleField.getInstr());
             if ("DOCPROPERTY".equals(FormattingSwitchHelper.getFldSimpleName(simpleField.getInstr()))) {
                 //only parse those fields that get processed
@@ -136,7 +150,7 @@ public class FieldUpdater {
                     report.append(key + " -> NOT FOUND! \n");
 
                 } else {
-							//docPropsCustomPart.getProperty(key);
+                    //docPropsCustomPart.getProperty(key);
                     //				System.out.println(val);
                     val = FormattingSwitchHelper.applyFormattingSwitch(wmlPackage, fsm, val);
                     //				System.out.println("--> " + val);
@@ -172,6 +186,10 @@ public class FieldUpdater {
 
     }
 
+    /**
+     * @param content - lista de objetos que compoem o R
+     * @return r com os contets
+     */
     private R getFirstRun(List<Object> content) {
 
         for (Object o : content) {
@@ -182,6 +200,9 @@ public class FieldUpdater {
         return null;
     }
 
+    /**
+     * @param part - atualizacao com mais coisas =p
+     */
     public void updateComplex(JaxbXmlPart part) throws Docx4JException {
 
         FldSimpleModel fsm = new FldSimpleModel(); //gets reused
@@ -253,7 +274,7 @@ public class FieldUpdater {
 
                     fr.setResult(val);
 
-	//				// If doing an actual mail merge, the begin-separate run is removed, as is the end run
+                    //				// If doing an actual mail merge, the begin-separate run is removed, as is the end run
                     //				fr.getParent().getContent().remove(fr.getBeginRun());
                     //				fr.getParent().getContent().remove(fr.getEndRun());
 //					System.out.println(XmlUtils.marshaltoString(
@@ -265,8 +286,12 @@ public class FieldUpdater {
         }
     }
 
+    /**
+     * @param instructions - lista de objetos
+     * @return String seila
+     */
     private String extractInstr(List<Object> instructions) {
-		// For DOCPROPERTY, expect the list to contain a simple string
+        // For DOCPROPERTY, expect the list to contain a simple string
 
         if (instructions.size() != 1) {
             log.error("TODO DOCPROPERTY field contained complex instruction");
@@ -285,7 +310,7 @@ public class FieldUpdater {
 
     /**
      * @param args
-     * @throws Docx4JException
+     * @throws Docx4JException erro da biblioteca Docx4j
      */
     public static void main(String[] args) throws Docx4JException {
 

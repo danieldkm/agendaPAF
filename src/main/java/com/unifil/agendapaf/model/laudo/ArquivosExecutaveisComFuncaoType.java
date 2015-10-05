@@ -37,7 +37,7 @@ public class ArquivosExecutaveisComFuncaoType {
      * Objects of the following type(s) are allowed in the list
      * {@link ArquivoExecutavelComFuncaoType }
      * 
-     * 
+     * @return this.arquivoExecutavel lista de arquivos executaveis
      */
     public List<ArquivoExecutavelComFuncaoType> getArquivoExecutavel() {
         if (arquivoExecutavel == null) {

@@ -52,6 +52,7 @@ public class UtilFile {
      * Cria pasta
      *
      * @param novoDiretorio nome da pasta
+     * @return nomeDiretorio
      */
     public String criaDiretorio(String novoDiretorio) {
         String nomeDiretorio = diretorioInicial + novoDiretorio;
@@ -133,6 +134,7 @@ public class UtilFile {
      *
      * @param xsdPath diretorio e nome do arquivo XSD
      * @param xmlPath diretorio e nome do arquivo XML
+     * @param isXMLString caso o xml estiver em formato string
      * @return true se validar o arquivo
      */
     public boolean validarXMLSchema(String xsdPath, File xmlPath, boolean isXMLString) {
@@ -359,6 +361,12 @@ public class UtilFile {
         return false;
     }
 
+    /**
+     * Salvar arquivo em XML
+     *
+     * @param documento conteudo do documento em xml
+     * @param file local e nome do arquivo a ser salvo
+     */
     public static void salvarArquivoXML(String documento, String file) {
         File exeFile = new File("");
 //        File path = new File(exeFile.getAbsolutePath() + file);
