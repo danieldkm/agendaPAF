@@ -120,7 +120,6 @@ import javafx.stage.StageStyle;
 import org.controlsfx.control.CheckComboBox;
 import org.controlsfx.dialog.Wizard;
 import org.controlsfx.dialog.Wizard.LinearFlow;
-//import org.controlsfx.dialog.Wizard.WizardPane;
 import org.controlsfx.dialog.WizardPane;
 
 /**
@@ -148,10 +147,15 @@ public class LaudoController {
         MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
         MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
         MaskFieldUtil.numericField(dTxtNumero);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtRg);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCelular);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtFax);
 
         enableEditAllTable();
 
-        txtNLaudo.setText(txtNumeroLaudo.textProperty().get());
+        txtNumeroLaudo.setOnKeyReleased(eventHabdle -> {
+            txtNLaudo.setText(txtNumeroLaudo.getText());
+        });
 
         cbResponsavelEnsaio.setItems(StaticLista.getListaGlobalUsuario());
 
@@ -484,6 +488,8 @@ public class LaudoController {
     private Button btnCarregar;
     @FXML
     private Tab tabDesenvolvedora;
+    @FXML
+    private Tab tabComplementar;
     @FXML
     private TabPane tpPrincipal;
     @FXML
@@ -2119,7 +2125,7 @@ public class LaudoController {
             txtRipmedRelacao.setText(laudoComplementar.getRipmedTxtRelacao());
             txtIm.setText(laudoComplementar.getIm());
         }
-
+        txtNLaudo.setText(txtNumeroLaudo.getText());
         System.out.println("- Finalizar metodo de preenchimento");
     }
 
@@ -2601,9 +2607,8 @@ public class LaudoController {
             System.out.println(
                     "Laudo a ser carregado " + l);
             preenchimento(l, laudoComplementar);
-
             tpPrincipal.getSelectionModel()
-                    .select(tabDesenvolvedora);
+                    .select(tabComplementar);
             txtTopEmpresa.setText(dTxtRazaoSocial.getText());
         } else if (lvLaudo.getSelectionModel().getSelectedItems().size() == 1) {
             LaudoType l = (LaudoType) utilXml.unmarshalFromFile(LaudoType.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItems().get(0));
@@ -2615,7 +2620,7 @@ public class LaudoController {
             preenchimento(l, laudoComplementar);
 
             tpPrincipal.getSelectionModel()
-                    .select(tabDesenvolvedora);
+                    .select(tabComplementar);
             txtTopEmpresa.setText(dTxtRazaoSocial.getText());
         }
         System.out.println("- Finalizar metodo actionBtnCarregar");
@@ -2807,7 +2812,7 @@ public class LaudoController {
         EnderecoService es = new EnderecoService();
         Endereco endereco = null;
         for (Endereco e : es.findByIdEmpresa(empresa)) {
-            if (e.getSelecionado()) {
+            if (e.selecionadoBoolean()) {
                 endereco = e;
                 break;
             }
@@ -2816,7 +2821,7 @@ public class LaudoController {
         ContatoService cs = new ContatoService();
         Contato contato = null;
         for (Contato c : cs.findByIdEmpresa(empresa)) {
-            if (c.getSelecionado()) {
+            if (c.selecionadoBoolean()) {
                 contato = c;
                 break;
             }
@@ -2825,7 +2830,7 @@ public class LaudoController {
         TelefoneService ts = new TelefoneService();
         Telefone tel = null;
         for (Telefone t : ts.findByIdEmpresa(empresa)) {
-            if (t.getSelecionado()) {
+            if (t.selecionadoBoolean()) {
                 tel = t;
                 break;
             }
@@ -2837,26 +2842,26 @@ public class LaudoController {
         txtNomeFantasia.setText(empresa.getNomeFantasia());
         txtIm.setText(empresa.getInscricaoMunicipal());
         dTxtRazaoSocial.setText(empresa.getDescricao());
-        dTxtCNPJ.setText(empresa.getCnpj());
+        dTxtCNPJ.setText(UtilTexto.removeAllSimbolsExceptNumber(empresa.getCnpj()));
         dTxtIE.setText(empresa.getInscricaoEstadual());
 
-        txtCelular.setText(tel.getCelular());
-        txtFax.setText(tel.getFax());
-        dTxtTelefone.setText(tel.getFixo());
+        txtCelular.setText(UtilTexto.removeAllSimbolsExceptNumber(tel.getCelular()));
+        txtFax.setText(UtilTexto.removeAllSimbolsExceptNumber(tel.getFax()));
+        dTxtTelefone.setText(UtilTexto.removeAllSimbolsExceptNumber(tel.getFixo()));
 
         dTxtLogradouro.setText(endereco.getLogradouro());
         dTxtNumero.setText(endereco.getNumero());
         dTxtComplemento.setText(endereco.getComplemento());
         dTxtBairro.setText(endereco.getBairro());
-        dTxtCEP.setText(endereco.getCep());
+        dTxtCEP.setText(UtilTexto.removeAllSimbolsExceptNumber(endereco.getCep()));
         dTxtUF.setText(endereco.getIdCidade().getIdEstado().getUf());
         dTxtCidade.setText(endereco.getIdCidade().getNome());
 
         dTxtResponsavelTestes.setText(contato.getResponsavelTeste());
         dTxtNome.setText(contato.getNome());
-        dTxtCPF.setText(contato.getCpf());
+        dTxtCPF.setText(UtilTexto.removeAllSimbolsExceptNumber(contato.getCpf()));
         dTxtEmail.setText(contato.getEmail());
-        txtRg.setText(contato.getRg());
+        txtRg.setText(UtilTexto.removeAllSimbolsExceptNumber(contato.getRg()));
     }
 
     public void setStage(Stage stage) {
