@@ -349,7 +349,7 @@ public class EmpresaController {
                     contato.setNome(txtContato.getText());
                     contato.setResponsavelTeste(txtResponsavel.getText());
                     contato.setRg(txtRg.getText());
-                    contato.setSelecionado(true);
+                    contato.setSelecionado(1);
                     cs.salvar(contato);
                     JPA.em(false).close();
 
@@ -359,7 +359,7 @@ public class EmpresaController {
                     tel.setFixo(txtTelefone.getText());
                     tel.setCelular(txtCelular.getText());
                     tel.setFax(txtFax.getText());
-                    tel.setSelecionado(true);
+                    tel.setSelecionado(1);
                     ts.salvar(tel);
                     JPA.em(false).close();
 //                    e.setIdTelefone(ts.findLast());
@@ -372,7 +372,7 @@ public class EmpresaController {
                     endereco.setCep(txtCep.getText());
                     endereco.setComplemento(txtComplemento.getText());
                     endereco.setNumero(txtNumero.getText());
-                    endereco.setSelecionado(true);
+                    endereco.setSelecionado(1);
                     if (cbEstado.getValue() == null || cbEstado.getValue().equals("")) {
                         endereco.setIdCidade(null);
 //                        e.setIdCidade(null);
@@ -613,7 +613,7 @@ public class EmpresaController {
                     endereco.setComplemento(txtComplemento.getText());
                     endereco.setLogradouro(txtEndereco.getText());
                     endereco.setNumero(txtNumero.getText());
-                    endereco.setSelecionado(true);
+                    endereco.setSelecionado(1);
                     endereco.setIdEmpresa(empresaEncontrada);
                     endereco.setIdCidade(cbCidade.getValue());
 
@@ -622,8 +622,8 @@ public class EmpresaController {
                         es.editar(endereco);
                     } else {
                         for (Endereco end : tabelaEndereco.getItems()) {
-                            if (end.getSelecionado()) {
-                                end.setSelecionado(false);
+                            if (end.selecionadoBoolean()) {
+                                end.setSelecionado(0);
                                 es.editar(end);
                                 break;
                             }
@@ -648,18 +648,18 @@ public class EmpresaController {
                     contato.setCpf(txtCpf.getText());
                     contato.setEmail(txtEmail.getText());
                     contato.setIdEmpresa(empresaEncontrada);
-                    contato.setNome(txtNumero.getText());
+                    contato.setNome(txtContato.getText());
                     contato.setResponsavelTeste(txtResponsavel.getText());
                     contato.setRg(txtRg.getText());
-                    contato.setSelecionado(true);
+                    contato.setSelecionado(1);
 
                     ContatoService cs = new ContatoService();
                     if (contatoSel != null) {
                         cs.editar(contato);
                     } else {
                         for (Contato cont : tabelaContato.getItems()) {
-                            if (cont.getSelecionado()) {
-                                cont.setSelecionado(false);
+                            if (cont.selecionadoBoolean()) {
+                                cont.setSelecionado(0);
                                 cs.editar(cont);
                                 break;
                             }
@@ -685,15 +685,15 @@ public class EmpresaController {
                     telefone.setFax(txtFax.getText());
                     telefone.setFixo(txtTelefone.getText());
                     telefone.setIdEmpresa(empresaEncontrada);
-                    telefone.setSelecionado(true);
+                    telefone.setSelecionado(1);
 
                     TelefoneService ts = new TelefoneService();
                     if (telefoneSel != null) {
                         ts.editar(telefone);
                     } else {
                         for (Telefone tel : tabelaTelefone.getItems()) {
-                            if (tel.getSelecionado()) {
-                                tel.setSelecionado(false);
+                            if (tel.getSelecionado() == 1) {
+                                tel.setSelecionado(0);
                                 ts.editar(tel);
                                 break;
                             }
@@ -946,7 +946,7 @@ public class EmpresaController {
 //        System.out.println("empresaEncontrada.getDescricao() " + empresaEncontrada.getDescricao());
         tabelaEndereco.setItems(es.findByIdEmpresa(empresaEncontrada));
         for (Endereco e : tabelaEndereco.getItems()) {
-            if (e.getSelecionado()) {
+            if (e.selecionadoBoolean()) {
                 endereco = e;
                 break;
             }
@@ -960,7 +960,7 @@ public class EmpresaController {
         Contato contato = null;
         tabelaContato.setItems(cs.findByIdEmpresa(empresaEncontrada));
         for (Contato c : tabelaContato.getItems()) {
-            if (c.getSelecionado()) {
+            if (c.selecionadoBoolean()) {
                 contato = c;
                 break;
             }
@@ -974,7 +974,7 @@ public class EmpresaController {
         Telefone tel = null;
         tabelaTelefone.setItems(ts.findByIdEmpresa(empresaEncontrada));
         for (Telefone t : tabelaTelefone.getItems()) {
-            if (t.getSelecionado()) {
+            if (t.selecionadoBoolean()) {
                 tel = t;
                 break;
             }

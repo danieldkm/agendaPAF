@@ -36,6 +36,14 @@ public class UtilTexto {
         }
     }
 
+    public static String removeAllSimbolsExceptNumber(String textoNumerico) {
+        if (textoNumerico != null) {
+            textoNumerico = textoNumerico.replaceAll("[^0-9]", "");
+        }
+//        cpf = cpf.replaceFirst("([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})$", "$1.$2.$3-$4");
+        return textoNumerico;
+    }
+
     public static String formatarMascaraCpf(String cpf) {
         cpf = cpf.replaceAll("[^0-9]", "");
         cpf = cpf.replaceFirst("([0-9]{3})([0-9]{3})([0-9]{3})([0-9]{2})$", "$1.$2.$3-$4");

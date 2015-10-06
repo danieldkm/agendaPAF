@@ -243,7 +243,7 @@ public class PrincipalController {
                                 ContatoService cs = new ContatoService();
                                 Contato contato = null;
                                 for (Contato c : cs.findByIdEmpresa(empresa)) {
-                                    if (c.getSelecionado()) {
+                                    if (c.selecionadoBoolean()) {
                                         contato = c;
                                         break;
                                     }
@@ -252,7 +252,7 @@ public class PrincipalController {
                                 TelefoneService ts = new TelefoneService();
                                 Telefone tel = null;
                                 for (Telefone t : ts.findByIdEmpresa(empresa)) {
-                                    if (t.getSelecionado()) {
+                                    if (t.selecionadoBoolean()) {
                                         tel = t;
                                         break;
                                     }
@@ -275,7 +275,7 @@ public class PrincipalController {
                                 ContatoService cs = new ContatoService();
                                 Contato contato = null;
                                 for (Contato c : cs.findByIdEmpresa(empresa)) {
-                                    if (c.getSelecionado()) {
+                                    if (c.selecionadoBoolean()) {
                                         contato = c;
                                         break;
                                     }
@@ -284,7 +284,7 @@ public class PrincipalController {
                                 TelefoneService ts = new TelefoneService();
                                 Telefone tel = null;
                                 for (Telefone t : ts.findByIdEmpresa(empresa)) {
-                                    if (t.getSelecionado()) {
+                                    if (t.selecionadoBoolean()) {
                                         tel = t;
                                         break;
                                     }

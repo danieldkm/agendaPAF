@@ -121,7 +121,7 @@
                   </VBox>
               </content>
             </Tab>
-            <Tab text="Complementar">
+            <Tab fx:id="tabComplementar" text="Complementar">
                <content>
                   <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0">
                      <children>

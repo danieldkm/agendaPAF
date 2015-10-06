@@ -90,7 +90,7 @@ public class AgendarController {
                 txtEmpresa.setText(empresaEncontrada.getDescricao());
                 Contato tempContato = null;
                 for (Contato c : StaticLista.getListaGlobalContato()) {
-                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.getSelecionado()) {
+                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.selecionadoBoolean()) {
                         tempContato = c;
                         break;
                     }
@@ -305,7 +305,7 @@ public class AgendarController {
                 dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
                 Contato tempContato = null;
                 for (Contato c : StaticLista.getListaGlobalContato()) {
-                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.getSelecionado()) {
+                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.selecionadoBoolean()) {
                         tempContato = c;
                         break;
                     }

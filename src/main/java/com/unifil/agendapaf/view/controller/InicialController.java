@@ -41,7 +41,6 @@ public class InicialController {
 
     @FXML
     public void initialize() {
-        System.out.println("??");
         initTask();
         lblClose.setOnMouseClicked((MouseEvent event) -> {
             Platform.exit();

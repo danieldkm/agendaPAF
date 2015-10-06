@@ -10,6 +10,7 @@ import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
+import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.controller.AgendarController;
 import com.unifil.agendapaf.view.controller.AlertaController;
@@ -39,6 +40,7 @@ import com.unifil.agendapaf.view.controller.UsuarioController;
 import com.unifil.agendapaf.view.controller.VisualizadorMotivoController;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import java.io.IOException;
 import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -131,6 +133,11 @@ public class SceneManager {
     }
 
     private void initPrimaryStage() {
+//        try {//TODO habilitar apos finalizar ;;
+//            Util.setLogs("SceneManager");;
+//        } catch (IOException ex) {
+//            ex.printStackTrace();
+//        }
 //        showLogin();
         inicial();
 

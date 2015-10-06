@@ -258,7 +258,7 @@ public class TabelaEmpresaController {
             te = new TabelaEmpresa();
             te.setEmpresa(empresa);
             for (Contato contato : StaticLista.getListaGlobalContato()) {
-                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.selecionadoBoolean()) {
                     te.setNomeContato(contato.getNome());
                     te.setEmail(contato.getEmail());
                     break;
@@ -266,7 +266,7 @@ public class TabelaEmpresaController {
             }
 
             for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
-                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.selecionadoBoolean()) {
                     te.setCidade(endereco.getIdCidade().getNome());
                     te.setEstado(endereco.getIdCidade().getUf());
                     break;
@@ -274,7 +274,7 @@ public class TabelaEmpresaController {
             }
 
             for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
-                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.selecionadoBoolean()) {
                     te.setTelefone(telefone.getFixo());
                     break;
                 }
@@ -297,7 +297,7 @@ public class TabelaEmpresaController {
             te = new TabelaEmpresa();
             te.setEmpresa(empresa);
             for (Contato contato : StaticLista.getListaGlobalContato()) {
-                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.getSelecionado()) {
+                if (contato.getIdEmpresa().getId().equals(empresa.getId()) && contato.selecionadoBoolean()) {
                     te.setNomeContato(contato.getNome());
                     te.setEmail(contato.getEmail());
                     break;
@@ -305,7 +305,7 @@ public class TabelaEmpresaController {
             }
 
             for (Endereco endereco : StaticLista.getListaGlobalEndereco()) {
-                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.getSelecionado()) {
+                if (endereco.getIdEmpresa().getId().equals(empresa.getId()) && endereco.selecionadoBoolean()) {
                     te.setCidade(endereco.getIdCidade().getNome());
                     te.setEstado(endereco.getIdCidade().getUf());
                     break;
@@ -313,7 +313,7 @@ public class TabelaEmpresaController {
             }
 
             for (Telefone telefone : StaticLista.getListaGlobalTelefone()) {
-                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.getSelecionado()) {
+                if (telefone.getIdEmpresa().getId().equals(empresa.getId()) && telefone.selecionadoBoolean()) {
                     te.setTelefone(telefone.getFixo());
                     break;
                 }

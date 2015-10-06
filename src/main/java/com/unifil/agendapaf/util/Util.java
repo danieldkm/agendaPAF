@@ -3,9 +3,11 @@ package com.unifil.agendapaf.util;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import com.unifil.agendapaf.view.util.enums.EnumStatus;
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.PrintStream;
+import java.text.SimpleDateFormat;
+import java.util.GregorianCalendar;
 
 /**
  *
@@ -55,6 +57,29 @@ public class Util {
             retorna = EnumStatus.NaoEnviado.getStatus();
         }
         return retorna;
+    }
+
+    /**
+     * metodo cria um arquivo contendo o log da aplicação
+     *
+     * @param classe classe que irá iniciar o log
+     * @throws IOException qualquer erro de saida ou entrada
+     */
+    public static void setLogs(String classe) throws IOException {
+        GregorianCalendar date = new GregorianCalendar();
+        SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy hh'h'mm'm'ss");
+        String agora = format.format(date.getTime());
+        agora += " - " + classe;
+        File out = new File("logs/System.out");
+        File err = new File("logs/System.err");
+        if (!out.exists()) {
+            out.mkdirs();
+        }
+        if (!err.exists()) {
+            err.mkdirs();
+        }
+        System.setOut(new PrintStream(new FileOutputStream("logs/System.out/" + agora + ".txt", true)));
+        System.setErr(new PrintStream(new FileOutputStream("logs/System.err/" + agora + ".txt", true)));
     }
 
 }

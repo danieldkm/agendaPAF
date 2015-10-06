@@ -4,10 +4,10 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -155,20 +155,24 @@ public class Endereco implements Externalizable {
         this.cep.set(cep);
     }
 
-    public StringProperty cepProperty() {
-        return cep;
-    }
-    private BooleanProperty selecionado = new SimpleBooleanProperty(this, "selecionado");
+    private IntegerProperty selecionado = new SimpleIntegerProperty(this, "selecionado");
 
-    public Boolean getSelecionado() {
+    public Integer getSelecionado() {
         return selecionado.get();
     }
 
-    public void setSelecionado(Boolean selecionado) {
+    public Boolean selecionadoBoolean() {
+        if (getSelecionado() == 1) {
+            return true;
+        }
+        return false;
+    }
+
+    public void setSelecionado(Integer selecionado) {
         this.selecionado.set(selecionado);
     }
 
-    public BooleanProperty selecionadoProperty() {
+    public IntegerProperty selecionadoProperty() {
         return selecionado;
     }
 
@@ -193,7 +197,7 @@ public class Endereco implements Externalizable {
         setComplemento((String) in.readObject());
         setBairro((String) in.readObject());
         setCep((String) in.readObject());
-        setSelecionado((Boolean) in.readObject());
+        setSelecionado((Integer) in.readObject());
     }
 
     @Override
