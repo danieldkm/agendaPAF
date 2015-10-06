@@ -562,6 +562,8 @@ public class LaudoController {
     private TextField txtRipmedRelacao;
     @FXML
     private Text txtNLaudo;
+    @FXML
+    private CheckBox cbValidarLaudo;
 
     private CheckComboBox<String> cb1 = new CheckComboBox();
     private CheckComboBox<String> cb2 = new CheckComboBox();
@@ -642,8 +644,8 @@ public class LaudoController {
     void actionBtnSalvar(ActionEvent event) {
         try {
             System.out.println("- Iniciar metodo actionBtnSalvar");
+            main.setDisable(true);
             if (!validarCampos()) {
-                main.setDisable(true);
                 mensagem.setNumero(txtNumeroLaudo.getText());
                 if (ckEmite1.isSelected()) {
                     mensagem.setEmiteNfe(true);
@@ -689,8 +691,12 @@ public class LaudoController {
                 endereco.setCep(oTxtCEP.getText());
                 otc.setEndereco(endereco);
                 PeriodoAnaliseType peridoAnalise = new PeriodoAnaliseType();
-                peridoAnalise.setDataInicio(UtilConverter.convertDateForXMLGregorianCalendar(oDtInicio));
-                peridoAnalise.setDataFim(UtilConverter.convertDateForXMLGregorianCalendar(oDtFinal));
+                if (oDtInicio.getValue() != null) {
+                    peridoAnalise.setDataInicio(UtilConverter.convertDateForXMLGregorianCalendar(oDtInicio));
+                }
+                if (oDtFinal.getValue() != null) {
+                    peridoAnalise.setDataFim(UtilConverter.convertDateForXMLGregorianCalendar(oDtFinal));
+                }
                 otc.setPeriodoAnalise(peridoAnalise);
                 otc.setVersaoEspecificacaoRequisitos(oTxtVersaoER.getText());
                 mensagem.setOtc(otc);
@@ -888,10 +894,20 @@ public class LaudoController {
                     aet.getAplicacaoEspecial().add(ckEspeciais15.getText());
                 }
                 caracteristicas.setAplicacoesEspeciais(aet);
-
-                caracteristicas.setLinguagemProgramacao(cbLinguagem.getSelectionModel().getSelectedItem().toString());
-                caracteristicas.setSistemaOperacional(cbSO.getSelectionModel().getSelectedItem().toString());
-                caracteristicas.getGerenciadorBancoDados().add(cbBD.getSelectionModel().getSelectedItem().toString());
+                if (cbLinguagem.getValue() == null) {
+                    cbLinguagem.getSelectionModel().selectFirst();
+                    caracteristicas.setLinguagemProgramacao(cbLinguagem.getValue());
+                } else {
+                    caracteristicas.setLinguagemProgramacao(cbLinguagem.getValue());
+                }
+                if (cbSO.getValue() == null) {
+                    cbSO.getSelectionModel().selectFirst();
+                    caracteristicas.setSistemaOperacional(cbSO.getValue());
+                }
+                if (cbBD.getValue() == null) {
+                    cbBD.getSelectionModel().selectFirst();
+                    caracteristicas.getGerenciadorBancoDados().add(cbBD.getValue());
+                }
                 if (ckComercializavel.isSelected()) {
                     caracteristicas.setTipoDesenvolvimento(ckComercializavel.getText());
                 } else if (ckProprio.isSelected()) {
@@ -1030,7 +1046,9 @@ public class LaudoController {
                 mensagem.setDeclaracao(fCkDeclaracao.isSelected());
 
                 EmissaoType et = new EmissaoType();
-                et.setData(UtilConverter.convertDateForXMLGregorianCalendar(fDt));
+                if (fDt.getValue() != null) {
+                    et.setData(UtilConverter.convertDateForXMLGregorianCalendar(fDt));
+                }
                 et.setLocal(fTxtLocal.getText());
                 mensagem.setEmissao(et);
 
@@ -1582,43 +1600,56 @@ public class LaudoController {
     private void finalizarAoSalvar(File criarArquivo, LaudoType lt) {
         System.out.println("Salvando arquivo XML");
         utilXml.salvarArquivo(criarArquivo, utilXml.marshal(lt));
-        if (utilXml.validarXMLSchema("xml/laudo.xsd", criarArquivo, true)) {
-            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
-            carregarDiretorioXML();
-//            System.out.println(utilXml.marshal(lt));
-            System.out.println("cbResponsavelEnsaio.getValue() " + cbResponsavelEnsaio.getValue());
-            laudoComplementar.setBairro(dTxtBairro.getText());
-            laudoComplementar.setCelular(txtCelular.getText());
-            laudoComplementar.setCep(dTxtCEP.getText());
-            laudoComplementar.setCidade(dTxtCidade.getText());
-            laudoComplementar.setCnpj(dTxtCNPJ.getText());
-            laudoComplementar.setComplemento(dTxtComplemento.getText());
-            laudoComplementar.setCpf(dTxtCPF.getText());
-            laudoComplementar.setEmail(dTxtEmail.getText());
-            laudoComplementar.setFax(txtFax.getText());
-            laudoComplementar.setIe(dTxtIE.getText());
-            laudoComplementar.setIm(txtIm.getText());
-            laudoComplementar.setLogradouro(dTxtLogradouro.getText());
-            laudoComplementar.setNomeContato(dTxtNome.getText());
-            laudoComplementar.setNomeFantasia(txtNomeFantasia.getText());
-            laudoComplementar.setNumero(dTxtNumero.getText());
-            laudoComplementar.setRazaoSocial(dTxtRazaoSocial.getText());
-            laudoComplementar.setResponsavelEnsaio(cbResponsavelEnsaio.getValue().getNome());
-            laudoComplementar.setResponsavelTeste(dTxtResponsavelTestes.getText());
-            laudoComplementar.setTelefone(dTxtTelefone.getText());
-            laudoComplementar.setRg(txtRg.getText());
-            laudoComplementar.setUf(dTxtUF.getText());
-            laudoComplementar.setPossuiSGDB(ckbGerenciadorBD.isSelected());
-            laudoComplementar.setBytesExePrincipal(txtBytes.getText());
-            laudoComplementar.setRipmedExePrincipal(txtRipmedPrincipal.getText());
-            laudoComplementar.setRipmedTxtRelacao(txtRipmedRelacao.getText());
-            File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + "_complementar.xml");
-            System.out.println("utilXml.marshal(laudoComplementar " + utilXml.marshal(laudoComplementar));
-            utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
-            actionBtnLimpar(null);
+        if (cbValidarLaudo.isSelected()) {
+            if (utilXml.validarXMLSchema("xml/laudo.xsd", criarArquivo, true)) {
+                salvarXMLComplementar();
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
+            } else {
+                System.out.println("Deletou a pasta???!!!! " + utilXml.deletarDiretorio(mensagem.getDesenvolvedora().getRazaoSocial()));
+            }
         } else {
-            System.out.println("Deletou a pasta???!!!! " + utilXml.deletarDiretorio(mensagem.getDesenvolvedora().getRazaoSocial()));
+            salvarXMLComplementar();
         }
+    }
+
+    private void salvarXMLComplementar() {
+        carregarDiretorioXML();
+//            System.out.println(utilXml.marshal(lt));
+        System.out.println("cbResponsavelEnsaio.getValue() " + cbResponsavelEnsaio.getValue());
+        laudoComplementar.setBairro(dTxtBairro.getText());
+        laudoComplementar.setCelular(txtCelular.getText());
+        laudoComplementar.setCep(dTxtCEP.getText());
+        laudoComplementar.setCidade(dTxtCidade.getText());
+        laudoComplementar.setCnpj(dTxtCNPJ.getText());
+        laudoComplementar.setComplemento(dTxtComplemento.getText());
+        laudoComplementar.setCpf(dTxtCPF.getText());
+        laudoComplementar.setEmail(dTxtEmail.getText());
+        laudoComplementar.setFax(txtFax.getText());
+        laudoComplementar.setIe(dTxtIE.getText());
+        laudoComplementar.setIm(txtIm.getText());
+        laudoComplementar.setLogradouro(dTxtLogradouro.getText());
+        laudoComplementar.setNomeContato(dTxtNome.getText());
+        laudoComplementar.setNomeFantasia(txtNomeFantasia.getText());
+        laudoComplementar.setNumero(dTxtNumero.getText());
+        laudoComplementar.setRazaoSocial(dTxtRazaoSocial.getText());
+        if (cbResponsavelEnsaio.getValue() == null) {
+            cbResponsavelEnsaio.getSelectionModel().selectFirst();
+            laudoComplementar.setResponsavelEnsaio(cbResponsavelEnsaio.getValue().getNome());
+        } else {
+            laudoComplementar.setResponsavelEnsaio(cbResponsavelEnsaio.getValue().getNome());
+        }
+        laudoComplementar.setResponsavelTeste(dTxtResponsavelTestes.getText());
+        laudoComplementar.setTelefone(dTxtTelefone.getText());
+        laudoComplementar.setRg(txtRg.getText());
+        laudoComplementar.setUf(dTxtUF.getText());
+        laudoComplementar.setPossuiSGDB(ckbGerenciadorBD.isSelected());
+        laudoComplementar.setBytesExePrincipal(txtBytes.getText());
+        laudoComplementar.setRipmedExePrincipal(txtRipmedPrincipal.getText());
+        laudoComplementar.setRipmedTxtRelacao(txtRipmedRelacao.getText());
+        File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + "_complementar.xml");
+        System.out.println("utilXml.marshal(laudoComplementar " + utilXml.marshal(laudoComplementar));
+        utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
+        actionBtnLimpar(null);
     }
 
     @FXML
@@ -1643,10 +1674,10 @@ public class LaudoController {
         iTxtMD5Outro.setText("");
         iTxtNomeComercial.setText("");
         iTxtNumero.setText("");
-        iTxtMarca.setText("");
+//        iTxtMarca.setText("");
+//        iTxtModelo.setText("");
         iTxtVersao.setText("");
         iTxtPrincipalExec.setText("");
-        iTxtModelo.setText("");
         iTxtRelacaoExec.setText("");
         iTxtOutroArq.setText("");
         iTxtMD5Relacao.setText("");
@@ -1807,8 +1838,12 @@ public class LaudoController {
         oTxtCEP.setText(m.getOtc().getEndereco().getCep());
         oTxtUF.setText(m.getOtc().getEndereco().getUf());
         oTxtCidade.setText(m.getOtc().getEndereco().getMunicipio());
-        oDtInicio.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getOtc().getPeriodoAnalise().getDataInicio()));
-        oDtFinal.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getOtc().getPeriodoAnalise().getDataFim()));
+        if (m.getOtc().getPeriodoAnalise().getDataInicio() != null) {
+            oDtInicio.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getOtc().getPeriodoAnalise().getDataInicio()));
+        }
+        if (m.getOtc().getPeriodoAnalise().getDataFim() != null) {
+            oDtFinal.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getOtc().getPeriodoAnalise().getDataFim()));
+        }
 
         iTxtNomeComercial.setText(m.getIdentificacaoPaf().getNomeComercial());
         iTxtVersao.setText(m.getIdentificacaoPaf().getVersao());
@@ -1889,30 +1924,36 @@ public class LaudoController {
         cbLinguagem.getSelectionModel().selectFirst();
         cbSO.getSelectionModel().selectFirst();
         cbBD.getSelectionModel().selectFirst();
-        while (true) {
-            if (!m.getCaracteristicasPaf().getLinguagemProgramacao().equals(cbLinguagem.getSelectionModel().getSelectedItem())) {
-                cbLinguagem.getSelectionModel().selectNext();
-            }
-            if (m.getCaracteristicasPaf().getLinguagemProgramacao().equals(cbLinguagem.getSelectionModel().getSelectedItem())) {
-                break;
-            }
-        }
-
-        while (true) {
-            if (!m.getCaracteristicasPaf().getSistemaOperacional().equals(cbSO.getSelectionModel().getSelectedItem())) {
-                cbSO.getSelectionModel().selectNext();
-            }
-            if (m.getCaracteristicasPaf().getSistemaOperacional().equals(cbSO.getSelectionModel().getSelectedItem())) {
-                break;
+        if (m.getCaracteristicasPaf().getLinguagemProgramacao() != null) {
+            while (true) {
+                if (!m.getCaracteristicasPaf().getLinguagemProgramacao().equals(cbLinguagem.getSelectionModel().getSelectedItem())) {
+                    cbLinguagem.getSelectionModel().selectNext();
+                }
+                if (m.getCaracteristicasPaf().getLinguagemProgramacao().equals(cbLinguagem.getSelectionModel().getSelectedItem())) {
+                    break;
+                }
             }
         }
 
-        while (true) {
-            if (!m.getCaracteristicasPaf().getGerenciadorBancoDados().get(0).equals(cbBD.getSelectionModel().getSelectedItem())) {
-                cbBD.getSelectionModel().selectNext();
+        if (m.getCaracteristicasPaf().getSistemaOperacional() != null) {
+            while (true) {
+                if (!m.getCaracteristicasPaf().getSistemaOperacional().equals(cbSO.getSelectionModel().getSelectedItem())) {
+                    cbSO.getSelectionModel().selectNext();
+                }
+                if (m.getCaracteristicasPaf().getSistemaOperacional().equals(cbSO.getSelectionModel().getSelectedItem())) {
+                    break;
+                }
             }
-            if (m.getCaracteristicasPaf().getGerenciadorBancoDados().get(0).equals(cbBD.getSelectionModel().getSelectedItem())) {
-                break;
+        }
+
+        if (m.getCaracteristicasPaf().getGerenciadorBancoDados().get(0) != null && cbBD.getValue() != null) {
+            while (true) {
+                if (!m.getCaracteristicasPaf().getGerenciadorBancoDados().get(0).equals(cbBD.getValue())) {
+                    cbBD.getSelectionModel().selectNext();
+                }
+                if (m.getCaracteristicasPaf().getGerenciadorBancoDados().get(0).equals(cbBD.getValue())) {
+                    break;
+                }
             }
         }
         if (ckComercializavel.getText().equals(m.getCaracteristicasPaf().getTipoDesenvolvimento())) {
@@ -2099,7 +2140,9 @@ public class LaudoController {
         }
 
         fTxtLocal.setText(m.getEmissao().getLocal());
-        fDt.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getEmissao().getData()));
+        if (m.getEmissao().getData() != null) {
+            fDt.setValue(UtilConverter.convertXMLGregorianCalendarForDate(m.getEmissao().getData()));
+        }
         feTxtNome.setText(m.getExecucaoTestes().getNome());
         feTxtCPF.setText(m.getExecucaoTestes().getCpf());
         feTxtCargo.setText(m.getExecucaoTestes().getCargo());
@@ -2837,6 +2880,14 @@ public class LaudoController {
         }
         JPA.em(false).close();
 
+        sgTxtRazaoSocial.setText(empresa.getDescricao());
+        sgTxtCNPJ.setText(empresa.getCnpj());
+        spTxtEmpresaDesenvolvedora.setText(empresa.getDescricao());
+        spTxtCNPJ.setText(empresa.getCnpj());
+        speTxtEmpresaDesenvolvedora.setText(empresa.getDescricao());
+        speTxtCNPJ.setText(empresa.getCnpj());
+
+        txtTopEmpresa.setText(empresa.getDescricao());
         laudoComplementar = new LaudoComplementar();
         laudoComplementar.setIdEmpresa(empresa.getId());
         txtNomeFantasia.setText(empresa.getNomeFantasia());
@@ -2879,37 +2930,42 @@ public class LaudoController {
     private boolean validarCampos() {
         String preencher = "";
         boolean erro = false;
-        if (cbResponsavelEnsaio.getValue() == null) {
-            preencher += "Selecionar Usuário\n";
-            erro = true;
-        }
-        if (txtNomeFantasia.getText().equals("")) {
-            preencher += "Preencher nome fantasia\n";
-            erro = true;
-        }
-        if (txtIm.getText().equals("")) {
-            preencher += "Preencher Inscrição minucipal\n";
-            erro = true;
-        }
-        if (txtBytes.getText().equals("")) {
-            preencher += "Preencher tamanho em bytes do exe principal da empresa\n";
-            erro = true;
-        }
+        if (tBtnGerarDocs.isSelected()) {
+            if (cbResponsavelEnsaio.getValue() == null) {
+                preencher += "Selecionar Usuário\n";
+                erro = true;
+            }
+            if (txtNomeFantasia.getText().equals("")) {
+                preencher += "Preencher nome fantasia\n";
+                erro = true;
+            }
+            if (txtIm.getText().equals("")) {
+                preencher += "Preencher Inscrição municipal\n";
+                erro = true;
+            }
+            if (txtBytes.getText().equals("")) {
+                preencher += "Preencher tamanho em bytes do exe principal da empresa\n";
+                erro = true;
+            }
 
-        if (txtRipmedPrincipal.getText().equals("")) {
-            preencher += "Preencher o RIPMED do exec principal\n";
-            erro = true;
-        }
+            if (txtRipmedPrincipal.getText().equals("")) {
+                preencher += "Preencher o RIPMED do exec principal\n";
+                erro = true;
+            }
 
-        if (txtRipmedRelacao.getText().equals("")) {
-            preencher += "Preencher o RIPMED do txt relação\n";
+            if (txtRipmedRelacao.getText().equals("")) {
+                preencher += "Preencher o RIPMED do txt relação\n";
+                erro = true;
+            }
+            if (laudoComplementar == null) {
+                preencher += "Identificar empresa\n";
+                erro = true;
+            }
+        }
+        if (txtNumeroLaudo.getText().equals("")) {
+            preencher += "Preencher número do laudo\n";
             erro = true;
         }
-        if (laudoComplementar == null) {
-            preencher += "Identificar empresa\n";
-            erro = true;
-        }
-
         if (!preencher.equals("")) {
             UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), preencher, "");
         }

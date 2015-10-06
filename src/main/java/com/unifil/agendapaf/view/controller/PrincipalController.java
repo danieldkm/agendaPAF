@@ -77,6 +77,7 @@ public class PrincipalController {
         System.out.println("logout");
 //        isLogout = true;
         stage.close();
+        sceneManager.rerecarregar();
         sceneManager.showNewLogin(false);
     }
 

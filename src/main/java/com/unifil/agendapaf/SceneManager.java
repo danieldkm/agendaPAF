@@ -143,8 +143,8 @@ public class SceneManager {
 
     }
 
-    private void teste() {
-        JPA.getFactory();
+    public void rerecarregar() {
+//        JPA.getFactory();
         StaticLista.setListaGlobalAgenda(Controller.getAgendas());
         StaticLista.setListaGlobalHistorico(Controller.getHistoricos());
         StaticLista.setListaGlobalFeriado(Controller.getFeriados());

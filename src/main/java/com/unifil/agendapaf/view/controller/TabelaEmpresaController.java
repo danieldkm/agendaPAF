@@ -100,6 +100,8 @@ public class TabelaEmpresaController {
                     }
                 };
             });
+            
+            
 
 //            tcCidade.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
 //                @Override

@@ -51,46 +51,46 @@
                 <Reflection fraction="0.59" topOpacity="0.49" />
             </effect>
         </HBox>
-      <HBox maxHeight="50.0" VBox.vgrow="ALWAYS">
-         <children>
-            <Button fx:id="btnMenuNovo" disable="true" mnemonicParsing="false" onAction="#onActionMenuNovo">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/addB.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnMenuSalvar" disable="true" mnemonicParsing="false" onAction="#onActionMenuSalvar">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/disk.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnMenuLixo" disable="true" mnemonicParsing="false" onAction="#onActionMenuLixo">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/delete.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="btnMenuAbrir" disable="true" mnemonicParsing="false" onAction="#onActionMenuAbrir">
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../image/archive1.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children>
-      </HBox>
+        <HBox maxHeight="50.0" VBox.vgrow="ALWAYS">
+            <children>
+                <Button fx:id="btnMenuNovo" disable="true" mnemonicParsing="false" onAction="#onActionMenuNovo">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/addB.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMenuSalvar" disable="true" mnemonicParsing="false" onAction="#onActionMenuSalvar">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/disk.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMenuLixo" disable="true" mnemonicParsing="false" onAction="#onActionMenuLixo">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/delete.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button fx:id="btnMenuAbrir" disable="true" mnemonicParsing="false" onAction="#onActionMenuAbrir">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/archive1.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children>
+        </HBox>
         <TabPane fx:id="tpPrincipal" onMouseClicked="#onMouseClickedTpPrincipal" prefHeight="349.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
             <tabs>
                 <Tab text="Empresa">
@@ -335,14 +335,18 @@
                                                         </HBox>
                                                     </children>
                                                 </GridPane>
-                                                <TableView fx:id="tabelaEndereco" prefHeight="200.0" prefWidth="845.0" VBox.vgrow="ALWAYS">
+                                                <TableView fx:id="tabelaEndereco" onMouseClicked="#onMouseClickedTabela" prefHeight="200.0" prefWidth="845.0" VBox.vgrow="ALWAYS">
                                                     <columns>
-                                                        <TableColumn prefWidth="100.0" text="Selecionado">
+                                                        <TableColumn fx:id="tcEnderecoSelecionado" prefWidth="100.0" text="Selecionado">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="selecionado" />
                                                             </cellValueFactory>
                                                         </TableColumn>
-                                                        <TableColumn prefWidth="255.0" text="Logradouro" />
+                                                        <TableColumn prefWidth="255.0" text="Logradouro">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="logradouro" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
                                                         <TableColumn prefWidth="62.0" text="Número">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="numero" />
@@ -457,7 +461,7 @@
                                 </GridPane>
                                 <TableView fx:id="tabelaTelefone" onMouseClicked="#onMouseClickedTabela" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn prefWidth="107.0" text="Selecionado">
+                                        <TableColumn fx:id="tcTelefoneSelecionado" prefWidth="107.0" text="Selecionado">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="selecionado" />
                                             </cellValueFactory>
@@ -577,7 +581,7 @@
                                 </GridPane>
                                 <TableView fx:id="tabelaContato" onMouseClicked="#onMouseClickedTabela" prefHeight="200.0" prefWidth="200.0">
                                     <columns>
-                                        <TableColumn prefWidth="104.0" text="Selecionado">
+                                        <TableColumn fx:id="tcContatoSelecionado" prefWidth="104.0" text="Selecionado">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="selecionado" />
                                             </cellValueFactory>

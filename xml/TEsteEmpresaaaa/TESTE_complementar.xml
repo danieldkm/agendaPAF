@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoComplementar>
+    <NomeFantasia>testeNomeFantasia</NomeFantasia>
+    <IM></IM>
+    <RG></RG>
+    <PossuiSGDB>false</PossuiSGDB>
+    <BytesExePrincipal></BytesExePrincipal>
+    <RipmedExePrincipal></RipmedExePrincipal>
+    <RipmedTxtRelacao></RipmedTxtRelacao>
+    <Celular></Celular>
+    <FAX></FAX>
+    <RazaoSocial>TEsteEmpresaaaa</RazaoSocial>
+    <CNPJ>23423423423423</CNPJ>
+    <IE>ieee</IE>
+    <Logradouro>fajhbsfjsb</Logradouro>
+    <Numero>289371236</Numero>
+    <Complemento>7776</Complemento>
+    <Bairro>biaw</Bairro>
+    <CEP>21312321</CEP>
+    <UF>PR</UF>
+    <Cidade>Londrina</Cidade>
+    <ResponsavelTeste>alteado</ResponsavelTeste>
+    <NomeContato>54321</NomeContato>
+    <CPF>12312312312</CPF>
+    <Telefone>4333333333</Telefone>
+    <Email>este@teste.com</Email>
+    <ResponsavelEnsaio>Sandro</ResponsavelEnsaio>
+    <IdEmpresa>37</IdEmpresa>
+</LaudoComplementar>
