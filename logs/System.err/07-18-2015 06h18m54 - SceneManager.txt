@@ -1,0 +1,16 @@
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/target/classes/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/Users/danielmorita/.m2/repository/org/slf4j/slf4j-log4j12/1.7.5/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+out 07, 2015 6:19:18 PM com.sun.javafx.css.parser.CSSParser declaration
+ADVERTÊNCIA: CSS Error parsing file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/target/classes/styles/material-fx-v0_3.css: Expected 'gaussian', 'one-pass-box', 'two-pass-box', or 'three-pass-box' while parsing '-fx-effect' at [132,24]
+out 07, 2015 6:19:18 PM com.sun.javafx.css.parser.CSSParser term
+ADVERTÊNCIA: CSS Error parsing '*{-fx-background-color: ;}: Unexpected token ';' at [1,24]
+out 07, 2015 6:19:24 PM com.sun.javafx.css.parser.CSSParser term
+ADVERTÊNCIA: CSS Error parsing '*{-fx-background-color: ;}: Unexpected token ';' at [1,24]
+out 07, 2015 6:19:33 PM com.sun.javafx.css.parser.CSSParser declaration
+ADVERTÊNCIA: CSS Error parsing file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/target/classes/styles/material-fx-v0_3.css: Expected 'gaussian', 'one-pass-box', 'two-pass-box', or 'three-pass-box' while parsing '-fx-effect' at [132,24]

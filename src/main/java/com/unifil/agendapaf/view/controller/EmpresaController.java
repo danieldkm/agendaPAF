@@ -3,7 +3,6 @@ package com.unifil.agendapaf.view.controller;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.dao.JPA;
-import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.model.Cidade;
 import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
@@ -17,14 +16,10 @@ import com.unifil.agendapaf.service.EnderecoService;
 import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.MaskFieldUtil;
-import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Optional;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -32,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
@@ -41,7 +37,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -58,10 +53,6 @@ public class EmpresaController {
     @FXML
     public void initialize() {
         try {
-            rbsEndereco = new ArrayList<>();
-            rbsContato = new ArrayList<>();
-            rbsTelefone = new ArrayList<>();
-
             tgContato = new ToggleGroup();
             tgTelefone = new ToggleGroup();
             tgEndereco = new ToggleGroup();
@@ -129,13 +120,13 @@ public class EmpresaController {
                                     rb.setId(item + "");
                                     rb.setToggleGroup(tgEndereco);
                                     rb.setSelected(true);
-                                    rbsEndereco.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 } else {
                                     rb.setId(item + "");
                                     rb.setToggleGroup(tgEndereco);
                                     rb.setSelected(false);
-                                    rbsEndereco.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 }
 //                                rb.setOnAction(actionEvent -> {
@@ -167,12 +158,12 @@ public class EmpresaController {
 //                                    this.setText("true");
                                     rb.setToggleGroup(tgTelefone);
                                     rb.setSelected(true);
-                                    rbsTelefone.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 } else {
                                     rb.setToggleGroup(tgTelefone);
                                     rb.setSelected(false);
-                                    rbsTelefone.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 }
                             }
@@ -196,12 +187,12 @@ public class EmpresaController {
                                 if (item == 1) {
                                     rb.setToggleGroup(tgContato);
                                     rb.setSelected(true);
-                                    rbsContato.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 } else {
                                     rb.setToggleGroup(tgContato);
                                     rb.setSelected(false);
-                                    rbsContato.add(rb);
+                                    rb.setDisable(true);
                                     setGraphic(rb);
                                 }
                             }
@@ -333,6 +324,8 @@ public class EmpresaController {
     @FXML
     private Tab tabEndereco;
     @FXML
+    private Tab tabEmpresa;
+    @FXML
     private TableView<Endereco> tabelaEndereco;
     @FXML
     private TableView<Contato> tabelaContato;
@@ -358,6 +351,12 @@ public class EmpresaController {
     private Button btnMenuLixo;
     @FXML
     private TabPane tpPrincipal;
+    @FXML
+    private CheckBox ckbEnderecoSelecionado;
+    @FXML
+    private CheckBox ckbTelefoneSelecionado;
+    @FXML
+    private CheckBox ckbContatoSelecionado;
 
 //    @FXMLmRemove
 //    private Tab tabRemove;
@@ -374,12 +373,17 @@ public class EmpresaController {
     private Endereco enderecoSel;
     private Contato contatoSel;
     private Telefone telefoneSel;
+
+    private Endereco enderecoAtual;
+    private Contato contatoAtual;
+    private Telefone telefoneAtual;
+
     private ToggleGroup tgEndereco;
     private ToggleGroup tgTelefone;
     private ToggleGroup tgContato;
-    private ArrayList<RadioButton> rbsEndereco;
-    private ArrayList<RadioButton> rbsTelefone;
-    private ArrayList<RadioButton> rbsContato;
+//    private ArrayList<RadioButton> rbsEndereco;
+//    private ArrayList<RadioButton> rbsTelefone;
+//    private ArrayList<RadioButton> rbsContato;;
 
     @FXML
     private void actionBtnDeletar() {
@@ -551,56 +555,6 @@ public class EmpresaController {
                 JPA.em(false).close();
                 StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
 
-                ContatoService cs = new ContatoService();
-                System.out.println("rbsContato.size() " + rbsContato.size());
-                System.out.println("tabelaContato.getItems() size  " + tabelaContato.getItems().size());
-                for (int i = 0; i < rbsContato.size() - 1; i++) {
-                    Contato c = tabelaContato.getItems().get(i);
-                    if (rbsContato.get(i + 1).isSelected() && !c.selecionadoBoolean()) {
-                        c.setSelecionado(1);
-                        cs.editar(c);
-                    }
-                    if (!rbsContato.get(i + 1).isSelected() && c.selecionadoBoolean()) {
-                        c.setSelecionado(0);
-                        cs.editar(c);
-                    }
-                }
-                JPA.em(false).close();
-
-                System.out.println("rbsTelefone.size() " + rbsTelefone.size());
-                System.out.println("tabelaTelefone.getItems().size " + tabelaTelefone.getItems().size());
-                TelefoneService ts = new TelefoneService();
-                for (int i = 0; i < rbsTelefone.size() - 1; i++) {
-                    Telefone t = tabelaTelefone.getItems().get(i);
-                    if (rbsTelefone.get(i + 1).isSelected() && !t.selecionadoBoolean()) {
-                        t.setSelecionado(1);
-                        ts.editar(t);
-                    }
-                    if (!rbsTelefone.get(i + 1).isSelected() && t.selecionadoBoolean()) {
-                        t.setSelecionado(0);
-                        ts.editar(t);
-                    }
-                }
-                JPA.em(false).close();
-
-                System.out.println("rbsEndereco.size() " + rbsEndereco.size());
-                System.out.println("tabelaEndereco.getItems() size " + tabelaEndereco.getItems().size());
-                EnderecoService ens = new EnderecoService();
-                for (int i = 0; i < rbsEndereco.size() - 1; i++) {
-                    Endereco e = tabelaEndereco.getItems().get(i);
-                    System.out.println("RB ENDE. " + rbsEndereco.get(i + 1).isSelected());
-                    System.out.println("ENDE> " + e.selecionadoBoolean());
-                    if (rbsEndereco.get(i + 1).isSelected() && !e.selecionadoBoolean()) {
-                        System.out.println("ALTER TRUE " + e.getId());
-                        e.setSelecionado(1);
-                        ens.editar(e);
-                    } else if (!rbsEndereco.get(i + 1).isSelected() && e.selecionadoBoolean()) {
-                        System.out.println("ALTER FALSE " + e.getId());
-                        e.setSelecionado(0);
-                        ens.editar(e);
-                    }
-                }
-                JPA.em(false).close();
                 resetarCampos();
                 empresaEncontrada = null;
                 UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
@@ -737,28 +691,37 @@ public class EmpresaController {
                     endereco.setComplemento(txtComplemento.getText());
                     endereco.setLogradouro(txtEndereco.getText());
                     endereco.setNumero(txtNumero.getText());
-                    endereco.setSelecionado(1);
                     endereco.setIdEmpresa(empresaEncontrada);
                     endereco.setIdCidade(cbCidade.getValue());
+                    endereco.setSelecionado(ckbEnderecoSelecionado.isSelected() ? 1 : 0);
 
                     EnderecoService es = new EnderecoService();
                     if (enderecoSel != null) {
                         es.editar(endereco);
-                    } else {
-                        for (Endereco end : tabelaEndereco.getItems()) {
-                            if (end.selecionadoBoolean()) {
-                                end.setSelecionado(0);
-                                es.editar(end);
-                                break;
+                        if (endereco.selecionadoBoolean()) {
+                            enderecoAtual = endereco;
+                            for (Endereco end : tabelaEndereco.getItems()) {
+                                if (!end.getId().equals(endereco.getId())) {
+                                    end.setSelecionado(0);
+                                    es.editar(end);
+                                }
                             }
+                        }
+                    } else {
+                        if (ckbEnderecoSelecionado.isSelected()) {
+                            for (Endereco end : tabelaEndereco.getItems()) {
+                                if (end.selecionadoBoolean()) {
+                                    end.setSelecionado(0);
+                                    es.editar(end);
+                                    break;
+                                }
+                            }
+                            enderecoAtual = endereco;
                         }
                         es.salvar(endereco);
                     }
-                    rbsEndereco.clear();
                     StaticLista.setListaGlobalEndereco(es.findAll());
                     JPA.em(false).close();
-                    preencherTabelaEndereco();
-                    onActionMenuNovo();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -776,25 +739,29 @@ public class EmpresaController {
                     contato.setNome(txtContato.getText());
                     contato.setResponsavelTeste(txtResponsavel.getText());
                     contato.setRg(txtRg.getText());
-                    contato.setSelecionado(1);
+                    contato.setSelecionado(ckbContatoSelecionado.isSelected() ? 1 : 0);
 
                     ContatoService cs = new ContatoService();
                     if (contatoSel != null) {
                         cs.editar(contato);
+                        if (contato.selecionadoBoolean()) {
+                            contatoAtual = contato;
+                        }
                     } else {
-                        for (Contato cont : tabelaContato.getItems()) {
-                            if (cont.selecionadoBoolean()) {
-                                cont.setSelecionado(0);
-                                cs.editar(cont);
-                                break;
+                        if (ckbContatoSelecionado.isSelected()) {
+                            for (Contato cont : tabelaContato.getItems()) {
+                                if (cont.selecionadoBoolean()) {
+                                    cont.setSelecionado(0);
+                                    cs.editar(cont);
+                                    break;
+                                }
                             }
+                            contatoAtual = contato;
                         }
                         cs.salvar(contato);
                     }
                     StaticLista.setListaGlobalContato(cs.findAll());
                     JPA.em(false).close();
-                    preencherTabelaContato();
-                    onActionMenuNovo();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -810,30 +777,36 @@ public class EmpresaController {
                     telefone.setFax(txtFax.getText());
                     telefone.setFixo(txtTelefone.getText());
                     telefone.setIdEmpresa(empresaEncontrada);
-                    telefone.setSelecionado(1);
+                    telefone.setSelecionado(ckbTelefoneSelecionado.isSelected() ? 1 : 0);
 
                     TelefoneService ts = new TelefoneService();
                     if (telefoneSel != null) {
                         ts.editar(telefone);
+                        if (telefone.selecionadoBoolean()) {
+                            telefoneAtual = telefone;
+                        }
                     } else {
-                        for (Telefone tel : tabelaTelefone.getItems()) {
-                            if (tel.getSelecionado() == 1) {
-                                tel.setSelecionado(0);
-                                ts.editar(tel);
-                                break;
+                        if (ckbTelefoneSelecionado.isSelected()) {
+                            for (Telefone tel : tabelaTelefone.getItems()) {
+                                if (tel.getSelecionado() == 1) {
+                                    tel.setSelecionado(0);
+                                    ts.editar(tel);
+                                    break;
+                                }
                             }
+                            telefoneAtual = telefone;
                         }
                         ts.salvar(telefone);
                     }
                     StaticLista.setListaGlobalTelefone(ts.findAll());
                     JPA.em(false).close();
                     preencherTabelaTelefone();
-                    onActionMenuNovo();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
+        defaultValuesOnTabs();
         desativarMenu();
     }
 
@@ -843,8 +816,9 @@ public class EmpresaController {
             enderecoSel = null;
             contatoSel = null;
             telefoneSel = null;
+            btnMenuSalvar.setDisable(false);
+            btnMenuLixo.setDisable(true);
             if (tabEndereco.isSelected()) {
-                btnMenuSalvar.setDisable(false);
                 txtEndereco.setText("");
                 txtNumero.setText("");
                 txtComplemento.setText("");
@@ -853,19 +827,20 @@ public class EmpresaController {
                 cbEstado.getSelectionModel().clearSelection();
                 cbCidade.getSelectionModel().clearSelection();
                 txtEndereco.requestFocus();
+                ckbEnderecoSelecionado.setSelected(false);
             } else if (tabContato.isSelected()) {
-                btnMenuSalvar.setDisable(false);
                 txtContato.setText("");
                 txtCpf.setText("");
                 txtRg.setText("");
                 txtEmail.setText("");
                 txtResponsavel.setText("");
                 txtContato.requestFocus();
+                ckbContatoSelecionado.setSelected(false);
             } else if (tabTelefone.isSelected()) {
-                btnMenuSalvar.setDisable(false);
                 txtTelefone.setText("");
                 txtFax.setText("");
                 txtCelular.setText("");
+                ckbTelefoneSelecionado.setSelected(false);
                 txtTelefone.requestFocus();
             }
         }
@@ -887,6 +862,7 @@ public class EmpresaController {
                     addEstado();
                     cbEstado.getSelectionModel().select(endereco.getIdCidade().getIdEstado());
                     addCidade(cbEstado.getValue().getUf());
+                    ckbEnderecoSelecionado.setSelected(endereco.selecionadoBoolean());
                     cbCidade.getSelectionModel().select(endereco.getIdCidade());
                 } else {
                     avisoSelecaoTabela();
@@ -901,6 +877,7 @@ public class EmpresaController {
                     txtRg.setText(contato.getRg());
                     txtEmail.setText(contato.getEmail());
                     txtResponsavel.setText(contato.getResponsavelTeste());
+                    ckbContatoSelecionado.setSelected(contato.selecionadoBoolean());
                 } else {
                     avisoSelecaoTabela();
                 }
@@ -912,6 +889,7 @@ public class EmpresaController {
                     txtTelefone.setText(tel.getFixo());
                     txtFax.setText(tel.getFax());
                     txtCelular.setText(tel.getCelular());
+                    ckbTelefoneSelecionado.setSelected(tel.selecionadoBoolean());
                 } else {
                     avisoSelecaoTabela();
                 }
@@ -919,9 +897,48 @@ public class EmpresaController {
         }
     }
 
-    @FXML
-    private void onMouseClickedTpPrincipal() {
+    private void defaultValuesOnTabs() {
+        if (tabEmpresa.isSelected()) {
+            btnMenuAbrir.setDisable(true);
+            btnMenuLixo.setDisable(true);
+            btnMenuNovo.setDisable(true);
+            btnMenuSalvar.setDisable(true);
+        } else {
+            btnMenuAbrir.setDisable(false);
+            btnMenuNovo.setDisable(false);
+        }
+        if (enderecoAtual != null) {
+            preencherTabelaContato();
+            preencherTabelaEndereco();
+            preencherTabelaTelefone();
 
+            preencherEndereco(enderecoAtual);
+            preencherContato(contatoAtual);
+            preencherTelefone(telefoneAtual);
+            btnMenuSalvar.setDisable(true);
+            btnMenuLixo.setDisable(true);
+        }
+
+    }
+
+    @FXML
+    private void onSelectionChangedTabContato() {
+        defaultValuesOnTabs();
+    }
+
+    @FXML
+    private void onSelectionChangedTabTelefone() {
+        defaultValuesOnTabs();
+    }
+
+    @FXML
+    private void onSelectionChangedTabEndereco() {
+        defaultValuesOnTabs();
+    }
+
+    @FXML
+    private void onSelectionChangedTabEmpresa() {
+        defaultValuesOnTabs();
     }
 
     private void avisoSelecaoTabela() {
@@ -1038,27 +1055,43 @@ public class EmpresaController {
         btnMenuLixo.setDisable(true);
         btnMenuNovo.setDisable(true);
         btnMenuSalvar.setDisable(true);
-        txtContato.setText("");
+
         txtEmpresa.setText("");
-        txtTelefone.setText("");
         txtaObs.setText("");
-        txtEmail.setText("");
-        txtBairro.setText("");
-        txtCelular.setText("");
-        txtCep.setText("");
         txtCnpj.setText("");
-        txtCpf.setText("");
         txtFax.setText("");
         txtIE.setText("");
         txtIM.setText("");
         txtNomeFantasia.setText("");
-        txtResponsavel.setText("");
-        txtEndereco.setText("");
-        txtComplemento.setText("");
-        txtNumero.setText("");
 
-        cbEstado.getSelectionModel().selectFirst();
-        cbCidade.getSelectionModel().selectFirst();
+        enderecoSel = null;
+        contatoSel = null;
+        telefoneSel = null;
+        enderecoAtual = null;
+        contatoAtual = null;
+        telefoneAtual = null;
+        ckbEnderecoSelecionado.setSelected(false);
+        ckbContatoSelecionado.setSelected(false);
+        ckbTelefoneSelecionado.setSelected(false);
+
+        txtEndereco.setText("");
+        txtNumero.setText("");
+        txtComplemento.setText("");
+        txtBairro.setText("");
+        txtCep.setText("");
+        cbEstado.getSelectionModel().clearSelection();
+        cbCidade.getSelectionModel().clearSelection();
+
+        txtContato.setText("");
+        txtCpf.setText("");
+        txtRg.setText("");
+        txtEmail.setText("");
+        txtResponsavel.setText("");
+
+        txtTelefone.setText("");
+        txtFax.setText("");
+        txtCelular.setText("");
+
         empresaEncontrada = null;
         sceneManager.setEmpresaEncontrada(null);
     }
@@ -1066,9 +1099,6 @@ public class EmpresaController {
     private Endereco preencherTabelaEndereco() {
         EnderecoService es = new EnderecoService();
         Endereco endereco = null;
-//        System.out.println("empresaEncontrada " + empresaEncontrada);
-//        System.out.println("empresaEncontrada.getId() " + empresaEncontrada.getId());
-//        System.out.println("empresaEncontrada.getDescricao() " + empresaEncontrada.getDescricao());
         tabelaEndereco.setItems(es.findByIdEmpresa(empresaEncontrada));
         for (Endereco e : tabelaEndereco.getItems()) {
             if (e.selecionadoBoolean()) {
@@ -1108,33 +1138,53 @@ public class EmpresaController {
         return tel;
     }
 
+    private void preencherEndereco(Endereco e) {
+        txtComplemento.setText(e.getComplemento());
+        txtNumero.setText(e.getNumero());
+        txtBairro.setText(e.getBairro());
+        txtEndereco.setText(e.getLogradouro());
+        txtCep.setText(e.getCep());
+        ckbEnderecoSelecionado.setSelected(e.selecionadoBoolean());
+        addEstado();
+        cbEstado.getSelectionModel().select(enderecoAtual.getIdCidade().getIdEstado());
+        addCidade(cbEstado.getValue().toString());
+        cbCidade.getSelectionModel().select(enderecoAtual.getIdCidade());
+    }
+
+    private void preencherContato(Contato c) {
+        txtContato.setText(c.getNome());
+        txtEmail.setText(c.getEmail());
+        txtCpf.setText(c.getCpf());
+        txtResponsavel.setText(c.getResponsavelTeste());
+        txtRg.setText(c.getRg());
+        ckbContatoSelecionado.setSelected(c.selecionadoBoolean());
+    }
+
+    private void preencherTelefone(Telefone t) {
+        txtTelefone.setText(t.getFixo());
+        txtFax.setText(t.getFax());
+        txtCelular.setText(t.getCelular());
+        ckbTelefoneSelecionado.setSelected(t.selecionadoBoolean());
+    }
+
     public void setCampos() {
-        rbsEndereco = new ArrayList<>();
-        rbsContato = new ArrayList<>();
-        rbsTelefone = new ArrayList<>();
         tgEndereco = new ToggleGroup();
         tgContato = new ToggleGroup();
         tgTelefone = new ToggleGroup();
 
-        Endereco endereco = preencherTabelaEndereco();
-        Telefone tel = preencherTabelaTelefone();
-        Contato contato = preencherTabelaContato();
+        enderecoAtual = preencherTabelaEndereco();
+        telefoneAtual = preencherTabelaTelefone();
+        contatoAtual = preencherTabelaContato();
 
-        txtComplemento.setText(endereco.getComplemento());
-        txtNumero.setText(endereco.getNumero());
-        txtBairro.setText(endereco.getBairro());
-        txtEndereco.setText(endereco.getLogradouro());
-        txtCep.setText(endereco.getCep());
-
-        txtContato.setText(contato.getNome());
-        txtEmail.setText(contato.getEmail());
-        txtCpf.setText(contato.getCpf());
-        txtResponsavel.setText(contato.getResponsavelTeste());
-        txtRg.setText(contato.getRg());
-
-        txtTelefone.setText(tel.getFixo());
-        txtFax.setText(tel.getFax());
-        txtCelular.setText(tel.getCelular());
+        if (enderecoAtual != null) {
+            preencherEndereco(enderecoAtual);
+        }
+        if (contatoAtual != null) {
+            preencherContato(contatoAtual);
+        }
+        if (telefoneAtual != null) {
+            preencherTelefone(telefoneAtual);
+        }
 
         txtEmpresa.setText(empresaEncontrada.getDescricao());
         txtaObs.setText(empresaEncontrada.getObservacao());
@@ -1142,10 +1192,6 @@ public class EmpresaController {
         txtCnpj.setText(empresaEncontrada.getCnpj());
         txtIE.setText(empresaEncontrada.getInscricaoEstadual());
         txtIM.setText(empresaEncontrada.getInscricaoMunicipal());
-        addEstado();
-        cbEstado.getSelectionModel().select(endereco.getIdCidade().getIdEstado());
-        addCidade(cbEstado.getValue().toString());
-        cbCidade.getSelectionModel().select(endereco.getIdCidade());
         cbCategoria.getSelectionModel().selectFirst();
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {
             if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(empresaEncontrada.getCategoria())) {

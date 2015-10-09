@@ -114,8 +114,8 @@
                            <children>
                               <Button fx:id="btnCarregar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnCarregar" styleClass="button-raised" text="Carregar" HBox.hgrow="ALWAYS" />
                               <Button defaultButton="true" mnemonicParsing="false" onAction="#actionBtnAbrir" styleClass="button-raised" text="Abrir" HBox.hgrow="ALWAYS" />
-                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" selected="true" text="Gerar docs" />
-                              <CheckBox fx:id="cbValidarLaudo" mnemonicParsing="false" selected="true" text="Validar laudo" />
+                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" text="Gerar docs" />
+                              <CheckBox fx:id="cbValidarLaudo" mnemonicParsing="false" text="Validar laudo" />
                            </children>
                         </HBox>
                      </children>
@@ -2953,11 +2953,6 @@
                <font>
                   <Font size="18.0" />
                </font></Button>
-            <Button defaultButton="true" mnemonicParsing="false" prefHeight="50.0" text="Salvar sem validar">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Button>
                 <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionBtnLimpar" prefHeight="50.0" styleClass="button-raised" text="Limpar">
                     <font>
                         <Font size="18.0" />

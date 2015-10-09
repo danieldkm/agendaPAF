@@ -95,7 +95,9 @@ public class AgendarController {
                         break;
                     }
                 }
-                txtResponsavel.setText(tempContato.getResponsavelTeste());
+                if (tempContato != null) {
+                    txtResponsavel.setText(tempContato.getResponsavelTeste());
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

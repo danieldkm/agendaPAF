@@ -62,6 +62,15 @@
                         </ImageView>
                     </graphic>
                 </Button>
+                <Button fx:id="btnMenuAbrir" disable="true" mnemonicParsing="false" onAction="#onActionMenuAbrir">
+                    <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../image/archive1.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
                 <Button fx:id="btnMenuSalvar" disable="true" mnemonicParsing="false" onAction="#onActionMenuSalvar">
                     <graphic>
                         <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
@@ -80,20 +89,11 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button fx:id="btnMenuAbrir" disable="true" mnemonicParsing="false" onAction="#onActionMenuAbrir">
-                    <graphic>
-                        <ImageView fitHeight="30.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../image/archive1.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
             </children>
         </HBox>
-        <TabPane fx:id="tpPrincipal" onMouseClicked="#onMouseClickedTpPrincipal" prefHeight="349.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+        <TabPane fx:id="tpPrincipal" prefHeight="349.0" prefWidth="907.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
             <tabs>
-                <Tab text="Empresa">
+                <Tab fx:id="tabEmpresa" onSelectionChanged="#onSelectionChangedTabEmpresa" text="Empresa">
                     <content>
                         <VBox>
                             <children>
@@ -203,7 +203,7 @@
                         </VBox>
                     </content>
                 </Tab>
-                <Tab fx:id="tabEndereco" text="Endereco">
+                <Tab fx:id="tabEndereco" onSelectionChanged="#onSelectionChangedTabEndereco" text="Endereco">
                     <content>
                         <VBox>
                             <children>
@@ -333,11 +333,12 @@
                                                                 </ComboBox>
                                                             </children>
                                                         </HBox>
+                                          <CheckBox fx:id="ckbEnderecoSelecionado" mnemonicParsing="false" text="Endereço atual" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                                     </children>
                                                 </GridPane>
                                                 <TableView fx:id="tabelaEndereco" onMouseClicked="#onMouseClickedTabela" prefHeight="200.0" prefWidth="845.0" VBox.vgrow="ALWAYS">
                                                     <columns>
-                                                        <TableColumn fx:id="tcEnderecoSelecionado" prefWidth="100.0" text="Selecionado">
+                                                        <TableColumn fx:id="tcEnderecoSelecionado" prefWidth="100.0" text="Endereço atual">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="selecionado" />
                                                             </cellValueFactory>
@@ -393,7 +394,7 @@
                         </VBox>
                     </content>
                 </Tab>
-                <Tab fx:id="tabTelefone" text="Telefone">
+                <Tab fx:id="tabTelefone" onSelectionChanged="#onSelectionChangedTabTelefone" text="Telefone">
                     <content>
                         <VBox>
                             <children>
@@ -410,6 +411,7 @@
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                              <RowConstraints maxHeight="20.0" minHeight="10.0" prefHeight="20.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
@@ -454,6 +456,7 @@
                                                 <TextField fx:id="txtCelular" prefHeight="25.0" prefWidth="192.0" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
+                              <CheckBox fx:id="ckbTelefoneSelecionado" mnemonicParsing="false" text="Telefone atual" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     </children>
                                     <VBox.margin>
                                         <Insets />
@@ -461,7 +464,7 @@
                                 </GridPane>
                                 <TableView fx:id="tabelaTelefone" onMouseClicked="#onMouseClickedTabela" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                                     <columns>
-                                        <TableColumn fx:id="tcTelefoneSelecionado" prefWidth="107.0" text="Selecionado">
+                                        <TableColumn fx:id="tcTelefoneSelecionado" prefWidth="107.0" text="Telefone atual?">
                                             <cellValueFactory>
                                                 <PropertyValueFactory property="selecionado" />
                                             </cellValueFactory>
@@ -490,7 +493,7 @@
                         </VBox>
                     </content>
                 </Tab>
-                <Tab fx:id="tabContato" text="Contato">
+                <Tab fx:id="tabContato" onSelectionChanged="#onSelectionChangedTabContato" text="Contato">
                     <content>
                         <VBox>
                             <children>
@@ -519,7 +522,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="txtContato" prefHeight="25.0" prefWidth="325.0" />
+                                                <TextField fx:id="txtContato" prefHeight="25.0" prefWidth="325.0" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
@@ -533,7 +536,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4">
                                             <children>
-                                                <TextField fx:id="txtCpf" prefHeight="25.0" prefWidth="325.0" />
+                                                <TextField fx:id="txtCpf" prefHeight="25.0" prefWidth="325.0" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -574,6 +577,7 @@
                                             </children>
                                         </HBox>
                                         <TextField fx:id="txtResponsavel" prefHeight="25.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <CheckBox fx:id="ckbContatoSelecionado" mnemonicParsing="false" text="Contato atual" GridPane.columnIndex="4" GridPane.rowIndex="2" />
                                     </children>
                                     <VBox.margin>
                                         <Insets />

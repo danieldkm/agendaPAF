@@ -122,7 +122,10 @@
     <bottom>
         <HBox alignment="CENTER" prefHeight="72.0" prefWidth="600.0" spacing="50.0" BorderPane.alignment="CENTER">
             <children>
-                <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" prefWidth="119.0" styleClass="button-raised" text="Salvar" />
+                <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" prefWidth="119.0" styleClass="button-raised" text="Salvar">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
                 <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionBtnLimpar" prefHeight="50.0" styleClass="button-raised" text="Limpar">
                <font>
                   <Font name="Arial" size="18.0" />
