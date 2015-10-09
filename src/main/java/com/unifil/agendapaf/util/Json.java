@@ -90,8 +90,8 @@ public class Json {
             List<ParametroDocx> personList = gson.fromJson(br, token.getType());
             for (ParametroDocx pds : personList) {
                 retornar.add(pds);
-                System.out.println("Name of Document: " + pds.getDocumento());
-                System.out.println("Parametros: " + pds.getParametros());
+//                System.out.println("Name of Document: " + pds.getDocumento());
+//                System.out.println("Parametros: " + pds.getParametros());
 //                System.out.println("States are :");
 //                ArrayList<String> listOfStates = pds.getParametros();
 //                for (int i = 0; i < listOfStates.size(); i++) {

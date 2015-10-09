@@ -903,9 +903,13 @@ public class LaudoController {
                 if (cbSO.getValue() == null) {
                     cbSO.getSelectionModel().selectFirst();
                     caracteristicas.setSistemaOperacional(cbSO.getValue());
+                } else {
+                    caracteristicas.setSistemaOperacional(cbSO.getValue());
                 }
                 if (cbBD.getValue() == null) {
                     cbBD.getSelectionModel().selectFirst();
+                    caracteristicas.getGerenciadorBancoDados().add(cbBD.getValue());
+                } else {
                     caracteristicas.getGerenciadorBancoDados().add(cbBD.getValue());
                 }
                 if (ckComercializavel.isSelected()) {
@@ -1094,14 +1098,15 @@ public class LaudoController {
             Type type = new TypeToken<HashMap<String, String>>() {
             }.getType();
             GerarDocx gerarDoc = new GerarDocx();
-            System.out.println("DOCUMENTOS JSON CONVERT " + json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho()));
+//            System.out.println("DOCUMENTOS JSON CONVERT " + json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho()));
             for (ParametroDocx pr : json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho())) {
                 pr.setParametros(setHashMap(pr.getDocumento(), gson.fromJson(pr.getParametros(), type)));
-                System.out.println("NEW PARAMETRO " + pr.getParametros());
+//                System.out.println("NEW PARAMETRO " + pr.getParametros());
                 if (pr.getDocumento().equals("ANEXO BANCO DE DADOS MODELO") || pr.getDocumento().equals("LAUDO PAF-ECF-F MODELO 2015")) {
-                    gerarDoc.gerarDocx(diretorioDoc, pr, true);
+                    gerarDoc.gerarDocx(diretorioDoc, pr, true, txtNomeFantasia.getText());
                 } else {
-                    gerarDoc.gerarDocx(diretorioDoc, pr, false);
+
+                    gerarDoc.gerarDocx(diretorioDoc, pr, false, txtNomeFantasia.getText());
                 }
             }
 
@@ -1615,7 +1620,6 @@ public class LaudoController {
     private void salvarXMLComplementar() {
         carregarDiretorioXML();
 //            System.out.println(utilXml.marshal(lt));
-        System.out.println("cbResponsavelEnsaio.getValue() " + cbResponsavelEnsaio.getValue());
         laudoComplementar.setBairro(dTxtBairro.getText());
         laudoComplementar.setCelular(txtCelular.getText());
         laudoComplementar.setCep(dTxtCEP.getText());
@@ -1647,7 +1651,7 @@ public class LaudoController {
         laudoComplementar.setRipmedExePrincipal(txtRipmedPrincipal.getText());
         laudoComplementar.setRipmedTxtRelacao(txtRipmedRelacao.getText());
         File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + "_complementar.xml");
-        System.out.println("utilXml.marshal(laudoComplementar " + utilXml.marshal(laudoComplementar));
+//        System.out.println("utilXml.marshal(laudoComplementar " + utilXml.marshal(laudoComplementar));
         utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
         actionBtnLimpar(null);
     }
@@ -1956,6 +1960,7 @@ public class LaudoController {
                 }
             }
         }
+
         if (ckComercializavel.getText().equals(m.getCaracteristicasPaf().getTipoDesenvolvimento())) {
             ckComercializavel.setSelected(true);
         } else {
@@ -2151,7 +2156,6 @@ public class LaudoController {
         feTxtCargo2.setText(m.getAprovacaoRelatorio().getCargo());
 
         if (laudoComplementar != null) {
-
             for (Usuario item : cbResponsavelEnsaio.getItems()) {
                 if (item.getNome().equals(laudoComplementar.getResponsavelEnsaio())) {
                     cbResponsavelEnsaio.getSelectionModel().select(item);
@@ -2168,6 +2172,7 @@ public class LaudoController {
             txtRipmedRelacao.setText(laudoComplementar.getRipmedTxtRelacao());
             txtIm.setText(laudoComplementar.getIm());
         }
+
         txtNLaudo.setText(txtNumeroLaudo.getText());
         System.out.println("- Finalizar metodo de preenchimento");
     }
@@ -2647,8 +2652,8 @@ public class LaudoController {
             String comp = lvLaudo.getSelectionModel().getSelectedItem().toString().substring(0, lvLaudo.getSelectionModel().getSelectedItem().toString().indexOf("."));
             comp += "_complementar.xml";
             laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
-            System.out.println(
-                    "Laudo a ser carregado " + l);
+//            System.out.println(
+//                    "Laudo a ser carregado " + l);
             preenchimento(l, laudoComplementar);
             tpPrincipal.getSelectionModel()
                     .select(tabComplementar);
@@ -2658,8 +2663,8 @@ public class LaudoController {
             String comp = lvLaudo.getSelectionModel().getSelectedItem().toString().substring(0, lvLaudo.getSelectionModel().getSelectedItem().toString().indexOf("."));
             comp += "_complementar.xml";
             laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
-            System.out.println(
-                    "Laudo a ser carregado " + l);
+//            System.out.println(
+//                    "Laudo a ser carregado " + l);
             preenchimento(l, laudoComplementar);
 
             tpPrincipal.getSelectionModel()
@@ -2881,11 +2886,11 @@ public class LaudoController {
         JPA.em(false).close();
 
         sgTxtRazaoSocial.setText(empresa.getDescricao());
-        sgTxtCNPJ.setText(empresa.getCnpj());
+        sgTxtCNPJ.setText(UtilTexto.removeAllSimbolsExceptNumber(empresa.getCnpj()));
         spTxtEmpresaDesenvolvedora.setText(empresa.getDescricao());
-        spTxtCNPJ.setText(empresa.getCnpj());
+        spTxtCNPJ.setText(UtilTexto.removeAllSimbolsExceptNumber(empresa.getCnpj()));
         speTxtEmpresaDesenvolvedora.setText(empresa.getDescricao());
-        speTxtCNPJ.setText(empresa.getCnpj());
+        speTxtCNPJ.setText(UtilTexto.removeAllSimbolsExceptNumber(empresa.getCnpj()));
 
         txtTopEmpresa.setText(empresa.getDescricao());
         laudoComplementar = new LaudoComplementar();
@@ -2913,6 +2918,7 @@ public class LaudoController {
         dTxtCPF.setText(UtilTexto.removeAllSimbolsExceptNumber(contato.getCpf()));
         dTxtEmail.setText(contato.getEmail());
         txtRg.setText(UtilTexto.removeAllSimbolsExceptNumber(contato.getRg()));
+
     }
 
     public void setStage(Stage stage) {

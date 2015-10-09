@@ -4,7 +4,7 @@
         <Numero>IFL0152015</Numero>
         <EmiteNfe>true</EmiteNfe>
         <Desenvolvedora>
-            <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
+            <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
             <Cnpj>06028222000107</Cnpj>
             <Ie>254726321</Ie>
             <Endereco>
@@ -12,17 +12,17 @@
                 <Numero>1320</Numero>
                 <Complemento>SALA 1</Complemento>
                 <Bairro>AGUA VERDE</Bairro>
-                <Municipio>Pato Branco</Municipio>
+                <Municipio>Jaragua do Sul</Municipio>
                 <Uf>SC</Uf>
                 <Cep>89254000</Cep>
             </Endereco>
             <Contato>
                 <Nome>ADEMILSON OSNI PICCOLI</Nome>
                 <Cpf>68252129900</Cpf>
-                <Telefone>4732761100</Telefone>
+                <Telefone>1029381728</Telefone>
                 <Email>piccoli@priorize.com.br</Email>
             </Contato>
-            <ResponsavelAcompanhamentoTestes>DIONEI SELONKE</ResponsavelAcompanhamentoTestes>
+            <ResponsavelAcompanhamentoTestes>nao saber</ResponsavelAcompanhamentoTestes>
         </Desenvolvedora>
         <Otc>
             <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
@@ -149,7 +149,7 @@
             <SistemaGestao>
                 <Nome>Priorize PDV</Nome>
                 <EmpresaDesenvolvedora>
-                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
                     <Cnpj>06028222000107</Cnpj>
                 </EmpresaDesenvolvedora>
                 <ArquivosExecutaveis>
@@ -167,7 +167,7 @@
             <SistemaPed>
                 <Nome>Priorize PDV</Nome>
                 <EmpresaDesenvolvedora>
-                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
                     <Cnpj>06028222000107</Cnpj>
                 </EmpresaDesenvolvedora>
                 <ArquivosExecutaveis>
@@ -183,7 +183,7 @@
             <SistemaPedNfe>
                 <Nome>Priorize PDV</Nome>
                 <EmpresaDesenvolvedora>
-                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO Ltda - EPP</RazaoSocial>
+                    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
                     <Cnpj>06028222000107</Cnpj>
                 </EmpresaDesenvolvedora>
                 <ArquivosExecutaveis>

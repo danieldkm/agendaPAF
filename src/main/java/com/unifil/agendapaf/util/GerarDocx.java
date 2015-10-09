@@ -58,8 +58,9 @@ public class GerarDocx {
      * @param dirFinal caminho completo a ser salvo o doc a ser gerado
      * @param parametro para converter parametros do parametro para hashmap
      * @param hasCheckBox verificar se o doc tem checkBox
+     * @param empresa nome da empresa para concatenar no nome do arquivo
      */
-    public void gerarDocx(String dirFinal, ParametroDocx parametro, boolean hasCheckBox) {
+    public void gerarDocx(String dirFinal, ParametroDocx parametro, boolean hasCheckBox, String empresa) {
         try {
             //
             // Convert JSON string back to Map.
@@ -70,7 +71,7 @@ public class GerarDocx {
             WordprocessingMLPackage wordMLPackage = WordprocessingMLPackage.load(new java.io.File(dirPadrao + "/word/modelo_docxs/" + parametro.getDocumento() + ".docx"));
             MainDocumentPart docu = wordMLPackage.getMainDocumentPart();
             VariablePrepare.prepare(wordMLPackage);
-            System.out.println("" + docu.getXML());
+//            System.out.println("" + docu.getXML());
             List<SectionWrapper> sectionWrappers = wordMLPackage.getDocumentModel().getSections();
 //                HashMap<String, String> mappings = new HashMap<String, String>();
 //                mappings.put("teste", "????????");
@@ -95,7 +96,7 @@ public class GerarDocx {
             if (hasCheckBox) {
                 setCheckBox(docu, map);
             }
-            System.out.println("map.get(\"${txtRelacaoEcf}\") " + map.get("${txtRelacaoEcf}"));
+//            System.out.println("map.get(\"${txtRelacaoEcf}\") " + map.get("${txtRelacaoEcf}"));
             if (map.get("txtRelacaoEcf") != null) {
                 addTabelaTxtRelacaoEcf(docu, map, "txtRelacaoEcf", 4.0f);
             }
@@ -109,6 +110,7 @@ public class GerarDocx {
             docu.variableReplace(map);
 //            wordMLPackage.save(new java.io.File());
             SaveToZipFile saver = new SaveToZipFile(wordMLPackage);
+            parametro.setDocumento(parametro.getDocumento().replace("MODELO", empresa));
             String outputfilepath = dirPadrao + "/" + dirFinal + "/" + parametro.getDocumento() + ".docx";
             saver.save(outputfilepath);
         } catch (Docx4JException ex) {

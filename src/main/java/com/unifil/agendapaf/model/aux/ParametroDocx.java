@@ -1,7 +1,5 @@
 package com.unifil.agendapaf.model.aux;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author danielmorita

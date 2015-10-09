@@ -80,8 +80,6 @@
         </IdentificacaoPaf>
         <CaracteristicasPaf>
             <LinguagemProgramacao>Delphi</LinguagemProgramacao>
-            <SistemaOperacional>Windows</SistemaOperacional>
-            <GerenciadorBancoDados>Oracle</GerenciadorBancoDados>
             <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
             <TipoFuncionamento>Exclusivamente stand alone</TipoFuncionamento>
             <MeioGeracaoArquivoSintegraEfd>
