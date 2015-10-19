@@ -1,4 +1,6 @@
-package com.unifil.agendapaf.model;
+package com.unifil.agendapaf.model.aux;
+
+import com.unifil.agendapaf.model.Empresa;
 
 /**
  *

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoFerramenta>
+    <Empresa>
+        <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+        <CNPJ>78624202000100</CNPJ>
+        <IE>Isento</IE>
+        <VersaoER>02.03</VersaoER>
+    </Empresa>
+    <Endereco>
+        <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+        <Numero>1626</Numero>
+        <Complemento></Complemento>
+        <Bairro>Centro</Bairro>
+        <CEP>10900000</CEP>
+        <UF>PR</UF>
+        <Cidade>Londrina</Cidade>
+    </Endereco>
+    <ExecucaoDosTestes>
+        <Nome>Sandro Teixeira Pinto</Nome>
+        <CPF>64555011953</CPF>
+        <Cargo>Técnico Responsável</Cargo>
+    </ExecucaoDosTestes>
+    <AprovacaoDoRelatorio>
+        <Nome>Ricardo Inácio Álvares e Silva</Nome>
+        <CPF>07065010635</CPF>
+        <Cargo>Coordenador NPI</Cargo>
+    </AprovacaoDoRelatorio>
+</LaudoFerramenta>

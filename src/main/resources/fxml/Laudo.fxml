@@ -37,7 +37,7 @@
                       </VBox>
                   <VBox alignment="CENTER_LEFT" prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="identificar empresa?" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Identificar empresa!" />
                         <Button fx:id="btnBuscarEmpresa" mnemonicParsing="false" onAction="#actionBtnBuscarEmpresa" text="Buscar" />
                      </children>
                   </VBox>
@@ -105,7 +105,7 @@
                               </HBox>
                               <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                  <children>
-                                    <ListView fx:id="lvLaudo" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                    <ListView fx:id="lvLaudo" onMouseClicked="#onMouseClickedLvLaudo" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
@@ -741,7 +741,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" maxHeight="50.0" prefHeight="50.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="oTxtRazaoSocial" text="IFL – Instituto Filadélfia de Londrina" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="oTxtRazaoSocial" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -769,7 +769,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="oTxtCNPJ" text="78624202000100" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="oTxtCNPJ" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -783,7 +783,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                                             <children>
-                                                <TextField fx:id="oTxtIE" text="Isento" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="oTxtIE" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -819,7 +819,7 @@
                                                                 </HBox>
                                                                 <HBox fx:id="otxtLogradouro" alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtLogradouro" text="Av. Juscelino Kubischeck" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtLogradouro" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
@@ -836,7 +836,7 @@
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtNumero" text="1626" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtNumero" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                             </children>
@@ -921,22 +921,22 @@
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtBairro" text="Centro" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtBairro" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtUF" text="PR" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtUF" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtCEP" text="10900000" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtCEP" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
                                                                     <children>
-                                                                        <TextField fx:id="oTxtCidade" text="Londrina" HBox.hgrow="ALWAYS" />
+                                                                        <TextField fx:id="oTxtCidade" HBox.hgrow="ALWAYS" />
                                                                     </children>
                                                                 </HBox>
                                                             </children>
@@ -1027,7 +1027,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="oTxtVersaoER" text="02.02" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="oTxtVersaoER" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -2852,17 +2852,17 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
                                             <children>
-                                                <TextField fx:id="feTxtNome" text="Sandro Teixeira Pinto" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtNome" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                                             <children>
-                                                <TextField fx:id="feTxtCPF" text="64555011953" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtCPF" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                             <children>
-                                                <TextField fx:id="feTxtCargo" text="Técnico Responsável" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtCargo" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: lightgray;" GridPane.rowIndex="3" />
@@ -2898,12 +2898,12 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                                             <children>
-                                                <TextField fx:id="feTxtNome2" text="Ricardo Inácio Álvares e Silva" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtNome2" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                             <children>
-                                                <TextField fx:id="feTxtCPF2" text="07065010635" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtCPF2" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
@@ -2917,7 +2917,7 @@
                                         </HBox>
                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                                             <children>
-                                                <TextField fx:id="feTxtCargo2" text="Coordenador NPI" HBox.hgrow="ALWAYS" />
+                                                <TextField fx:id="feTxtCargo2" HBox.hgrow="ALWAYS" />
                                             </children>
                                         </HBox>
                                     </children>
@@ -2949,15 +2949,32 @@
         </TabPane>
         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
             <children>
-                <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" prefWidth="121.0" style="-fx-background-color: ;" styleClass="button-raised" text="Salvar" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="18.0" />
-               </font></Button>
-                <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionBtnLimpar" prefHeight="50.0" styleClass="button-raised" text="Limpar">
-                    <font>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
+               <children>
+                      <Button id="lion-default" fx:id="btnSalvar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnSalvar" prefHeight="50.0" prefWidth="121.0" style="-fx-background-color: ;" styleClass="button-raised" text="Salvar" HBox.hgrow="ALWAYS">
+                     <font>
                         <Font size="18.0" />
-                    </font>
-                </Button>
+                     </font>
+                  </Button>
+                      <Button fx:id="btnLimpar" mnemonicParsing="false" onAction="#actionBtnLimpar" prefHeight="50.0" styleClass="button-raised" text="Limpar">
+                          <font>
+                              <Font size="18.0" />
+                          </font>
+                      </Button>
+               </children>
+            </HBox>
+            <VBox alignment="BOTTOM_RIGHT" maxWidth="20.0">
+               <children>
+                  <ImageView fx:id="imgFerramenta" fitHeight="23.0" fitWidth="32.0" onMouseClicked="#onMouseClickedFerramenta" onMouseEntered="#onMouseEnteredFerramenta" onMouseExited="#onMouseExitedFerramenta" pickOnBounds="true" preserveRatio="true" VBox.vgrow="ALWAYS">
+                     <image>
+                        <Image url="@../image/ferramenta32px.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="OPEN_HAND" />
+                     </cursor>
+                  </ImageView>
+               </children>
+            </VBox>
             </children>
         </HBox>
     </children>

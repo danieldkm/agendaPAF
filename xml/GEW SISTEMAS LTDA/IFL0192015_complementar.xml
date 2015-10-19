@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoComplementar>
+    <IdEmpresa>62</IdEmpresa>
+    <PossuiSGDB>false</PossuiSGDB>
+    <Empresa>
+        <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
+        <NomeFantasia>GEW SISTEMAS</NomeFantasia>
+        <CNPJ>08842559000170</CNPJ>
+        <IE>Isento</IE>
+        <IM>2526350</IM>
+    </Empresa>
+    <Endereco>
+        <Logradouro>Rua Aimoré, 547</Logradouro>
+        <Bairro>centro</Bairro>
+        <CEP>85505170</CEP>
+        <UF>PR</UF>
+        <Cidade>Pato Branco</Cidade>
+    </Endereco>
+    <Contato>
+        <Nome>WILLIAM CARLO LODI BERTOCHI</Nome>
+        <CPF>02995171957</CPF>
+        <ResponsavelTeste>WILLIAM CARLO LODI BERTOCHI</ResponsavelTeste>
+        <Telefone>
+            <Fixo>4630257122</Fixo>
+            <Celular>4691055035</Celular>
+            <FAX>4630257122</FAX>
+        </Telefone>
+        <Email>WILLIAM@GEW.COM.BR</Email>
+    </Contato>
+    <ResponsavelEnsaio>Daniel</ResponsavelEnsaio>
+    <BytesExePrincipal>1</BytesExePrincipal>
+    <RipmedExePrincipal>2</RipmedExePrincipal>
+    <RipmedTxtRelacao>3</RipmedTxtRelacao>
+</LaudoComplementar>

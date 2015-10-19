@@ -17,6 +17,7 @@ public enum EnumCaminho {
     FerramentaBD("/fxml/FerramentaBD.fxml"),
     Financeiro("/fxml/Financeiro.fxml"),
     Laudo("/fxml/Laudo.fxml"),
+    LaudoFerramenta("/fxml/LaudoFerramenta.fxml"),
     Login("/fxml/Login.fxml"),
     NewLogin("/fxml/NewLogin.fxml"),
     MotivoReagendamento("/fxml/MotivoReagendamento.fxml"),
@@ -40,7 +41,9 @@ public enum EnumCaminho {
     CssCalendar("/styles/calendar.css"),
     CSS("/styles/calendar_styles.css"),
     CSSMaterial("/styles/material-fx-v0_3.css"),
-    LogoPAFECFUniFil("/image/logoPAFECFUNIFIL.png");
+    LogoPAFECFUniFil("/image/logoPAFECFUNIFIL.png"),
+    ImgFerramentaBlack("/image/ferramenta32px.png"),
+    ImgFerramentaRed("/image/ferramenta32pxR.png");
 
     private String caminho;
     private String padrao = "/com/unifil/agendapaf/";

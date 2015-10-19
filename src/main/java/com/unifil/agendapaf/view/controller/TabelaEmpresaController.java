@@ -5,7 +5,7 @@ import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Endereco;
-import com.unifil.agendapaf.model.TabelaEmpresa;
+import com.unifil.agendapaf.model.aux.TabelaEmpresa;
 import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;

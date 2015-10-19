@@ -21,6 +21,7 @@ public enum EnumMensagem {
     RequerDtInicial("Requer data inicial"),
     RequerDtFinal("Requer data final"),
     CertezaDeletar("Tem certeza que deseja deletar?"),
+    CertezaSalvar("Tem certeza que deseja salvar?\nSe o arquivo existir será substituido."),
     InformeComboBox("Escolha umas das opções válidas!!"),
     InformeEmpresa("Informe a empresa!!"),
     Aviso("Aviso", "Aviso do Sistema!", "Não é possível agendar uma Avaliação/Pré-Avaliação: "),

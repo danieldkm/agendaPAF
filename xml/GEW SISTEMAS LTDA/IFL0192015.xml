@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0192015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
+            <Cnpj>08842559000170</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Rua Aimoré, 547</Logradouro>
+                <Bairro>centro</Bairro>
+                <Municipio>Pato Branco</Municipio>
+                <Uf>PR</Uf>
+                <Cep>85505170</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>WILLIAM CARLO LODI BERTOCHI</Nome>
+                <Cpf>02995171957</Cpf>
+                <Telefone>4630257122</Telefone>
+                <Email>WILLIAM@GEW.COM.BR</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>WILLIAM CARLO LODI BERTOCHI</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-07-22-03:00</DataInicio>
+                <DataFim>2015-07-23-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>PDV GESTOR</NomeComercial>
+            <Versao>3.0</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>PDVGESTOR.EXE</Nome>
+                <Md5>6977A82E40E3DCF6DD9E22E3056B3CCE</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>ListaMD5.txt</Nome>
+                <Md5>aeb26470e59e35c99a62fae9cbc537ac</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>PDVGestor.exe</Nome>
+                    <Md5>6977A82E40E3DCF6DD9E22E3056B3CCE</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>relacao.txt</Nome>
+                    <Md5>6ab62b766e64866a85ddc2e71cff9317</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7773985</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+                <PerfilRequisito>W</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Delphi</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>SQL Server</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Parametrizável</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo PAF-ECF</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Cancelamento automático</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>GESTOR</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
+                    <Cnpj>08842559000170</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Gestor.exe</Nome>
+                        <Md5>e364340d15668e672c7dcc3f244e7ec2</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>Requisito II</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>GESTOR</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
+                    <Cnpj>08842559000170</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Gestor.exe</Nome>
+                        <Md5>e364340d15668e672c7dcc3f244e7ec2</Md5>
+                        <Funcao>Sped/sintegra</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>GESTOR</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
+                    <Cnpj>08842559000170</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Gestor.exe</Nome>
+                        <Md5>e364340d15668e672c7dcc3f244e7ec2</Md5>
+                        <Funcao>NFe</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/3ECF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/3EF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>3202DT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>MT100</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>375-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0202</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0202</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>X</Requisito>
+                <Item>--</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2b</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2c</Item>
+                <Descricao>Ausência de Clientes na Paraíba.</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-07-23-03:00</Data>
+            <Local>Londrina, PR</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Ricardo Inácio Álvares e Silva</Nome>
+            <Cargo>Coordenador NPI</Cargo>
+            <Cpf>07065010635</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>
