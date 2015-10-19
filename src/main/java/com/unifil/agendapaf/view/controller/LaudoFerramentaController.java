@@ -170,6 +170,7 @@ public class LaudoFerramentaController {
 
             File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
             utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoFerramenta));
+            stage.close();
         }
     }
 
