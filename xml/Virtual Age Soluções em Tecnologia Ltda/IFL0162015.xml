@@ -80,6 +80,8 @@
         </IdentificacaoPaf>
         <CaracteristicasPaf>
             <LinguagemProgramacao>Delphi</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>Firebird</GerenciadorBancoDados>
             <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
             <TipoFuncionamento>Exclusivamente stand alone</TipoFuncionamento>
             <MeioGeracaoArquivoSintegraEfd>

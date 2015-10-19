@@ -194,9 +194,9 @@ public class Empresa implements Externalizable {
     }
 
     public void validate() {
-//        if (idEmpresa.get() == null) {
-//            throw new IllegalArgumentException("IdEmpresa cannot be null");
-//        }
+        if (inscricaoEstadual.get().toLowerCase().contains("isento")) {
+            inscricaoEstadual.set("Isento");
+        }
     }
 
     @Override

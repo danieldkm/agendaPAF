@@ -100,8 +100,6 @@ public class TabelaEmpresaController {
                     }
                 };
             });
-            
-            
 
 //            tcCidade.setCellFactory(new Callback<TableColumn<TabelaEmpresa, Endereco>, TableCell<TabelaEmpresa, Endereco>>() {
 //                @Override
@@ -375,6 +373,7 @@ public class TabelaEmpresaController {
                             sceneManager.getRelatorioController().setCampos(stage);
                         } else if (isLaudo) {
                             sceneManager.getLaudoController().preencherComEmpresaIdentificada(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa());
+                            sceneManager.setEmpresaEncontrada(null);
                         }
                         stage.close();
                     } else {

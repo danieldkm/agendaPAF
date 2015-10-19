@@ -149,14 +149,14 @@ public class UtilFile {
         } catch (IOException | SAXException e) {
             e.getMessage();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e.getMessage(), "Exception:");
-            System.out.println("Deletou o arquivo?!!!! " + xml.delete());
+//            System.out.println("Deletou o arquivo?!!!! " + xml.delete());
             return false;
         }
         return true;
     }
 
     /**
-     * Salva um arquivo, depende do parametro
+     * Salva um arquivo, conforme parametro
      *
      * @param directory diretorio no qual será criado o arquivo
      * @param txt conteudo a ser inserido no arquivo

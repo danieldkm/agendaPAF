@@ -36,7 +36,7 @@ public class EmpresaService implements InterfaceCrud<Empresa> {
     public void deletar(Empresa empresa) {
         try {
             dao.beginTransaction();
-            empresa.validate();
+//            empresa.validate();
             dao.delete(empresa);
             dao.commit();
         } catch (Exception e) {

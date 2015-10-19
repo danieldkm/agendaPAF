@@ -39,6 +39,7 @@ public enum EnumMensagem {
     LaudoInformeTabelaVazia("Tabela está vazia!"),
     LaudoInformeLinhaNaoSelecionada("Selecione uma linha da tabela"),
     LaudoWarningArquivoInvalido("Arquivo inválido, atente-se ao anexo III do ATO COTEPE/ICMS 9"),
+    LaudoIdentificarEmpresa("Identifique a empresa\nClicando no botão BUSCAR na parte superior"),
     LoginBDSelecionado("Selecione umas das opções de conexão com o BD"),
     LoginIncorreto("Login ou senha estão incorretos"),
     MotivoReagendamentoPreencherMotivo("Preenher o motivo!"),
