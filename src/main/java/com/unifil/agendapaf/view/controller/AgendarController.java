@@ -217,7 +217,9 @@ public class AgendarController {
     private void actionCBTipo() {
         if (cbTipo.getSelectionModel().getSelectedItem().equals(EnumServico.PreAvaliacao.getServico()) || cbTipo.getSelectionModel().getSelectedItem().equals(EnumServico.PreAvaliacaoIntinerante.getServico()) || cbTipo.getSelectionModel().getSelectedItem().equals(EnumServico.PreAvaliacaoRemoto.getServico())) {
             dtInicial.setValue(dataSelecionada);
-            dtFinal.setValue(dataSelecionada);
+            Calendar calendar = new GregorianCalendar();
+            calendar.setTime(UtilConverter.converterLocalDateToUtilDate(dataSelecionada));
+            dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(calendar.getTime()));
         } else {
             if (dataSelecionada == null) {
                 dtInicial.setValue(LocalDate.now());
@@ -257,6 +259,8 @@ public class AgendarController {
 
     private void salvarOuAtualizar(boolean atualizar) {
         try {
+            agenda.setDataInicial(dtInicial.getValue());
+            agenda.setDataFinal(dtFinal.getValue());
             agenda.setTipo(Util.removerAcentuacaoServico(agenda.getTipo()));
             agenda.setStatusBoleto(Util.removerAcentuacaoServico(agenda.getStatusBoleto()));
             agenda.setStatusAgenda(Util.removerAcentuacaoServico(agenda.getStatusAgenda()));
@@ -607,6 +611,14 @@ public class AgendarController {
                 dtVencimentoBoleto.setVisible(true);
                 dtVencimentoBoleto.setValue(agenda.getDataVencimentoBoleto());
             }
+//            txtEmpresa.setText(empresaEncontrada.getDescricao());
+//            for (Contato c : StaticLista.getListaGlobalContato()) {
+//                if (c.getIdEmpresa().equals(empresaEncontrada.getId())) {
+//                    txtResponsavel.setText(c.getResponsavelTeste());
+//                    break;
+//                }
+//            }
+//            setBindComponentsWithAgenda(agenda);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -709,8 +721,8 @@ public class AgendarController {
         cbStatusBoleto.valueProperty().bindBidirectional(this.agenda.statusBoletoProperty());
         cbStatusAgenda.valueProperty().bindBidirectional(this.agenda.statusAgendaProperty());
         txtEmpresa.textProperty().bindBidirectional(this.agenda.getIdEmpresa().descricaoProperty());
-        dtFinal.valueProperty().bindBidirectional(this.agenda.dataFinalProperty());
-        dtInicial.valueProperty().bindBidirectional(this.agenda.dataInicialProperty());
+//        dtFinal.valueProperty().bindBidirectional(this.agenda.dataFinalProperty());
+//        dtInicial.valueProperty().bindBidirectional(this.agenda.dataInicialProperty());
         txtResponsavel.textProperty().bindBidirectional(this.agenda.responsavelProperty());
         txtSemana.textProperty().bindBidirectional(this.agenda.diaSemanaProperty());
         dtVencimentoBoleto.valueProperty().bindBidirectional(this.agenda.dataVencimentoBoletoProperty());
