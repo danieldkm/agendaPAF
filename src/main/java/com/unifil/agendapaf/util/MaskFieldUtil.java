@@ -105,7 +105,7 @@ public abstract class MaskFieldUtil {
                 value = value.replaceAll("([0-9]{1})([0-9]{8})$", "$1.$2");
                 value = value.replaceAll("([0-9]{1})([0-9]{5})$", "$1.$2");
                 value = value.replaceAll("([0-9]{1})([0-9]{2})$", "$1,$2");
-                textField.setText(value);
+                textField.setText("R$ "+value);
                 positionCaret(textField);
 
                 textField.textProperty().addListener(new ChangeListener<String>() {

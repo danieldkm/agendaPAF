@@ -17,8 +17,8 @@
                 <Cep>21312321</Cep>
             </Endereco>
             <Contato>
-                <Nome>54321</Nome>
-                <Cpf>12312312312</Cpf>
+                <Nome>Teste</Nome>
+                <Cpf>12345678912</Cpf>
                 <Telefone>4333333333</Telefone>
                 <Email>este@teste.com</Email>
             </Contato>
@@ -37,7 +37,10 @@
                 <Uf>PR</Uf>
                 <Cep>10900000</Cep>
             </Endereco>
-            <PeriodoAnalise/>
+            <PeriodoAnalise>
+                <DataInicio>2015-10-13-03:00</DataInicio>
+                <DataFim>2015-10-14-03:00</DataFim>
+            </PeriodoAnalise>
             <VersaoEspecificacaoRequisitos>02.02</VersaoEspecificacaoRequisitos>
         </Otc>
         <IdentificacaoPaf>
@@ -63,16 +66,34 @@
                 <Modelo>7</Modelo>
                 <Numero></Numero>
             </EnvelopeSeguranca>
-            <PerfisRequisitos/>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+                <PerfilRequisito>W</PerfilRequisito>
+                <PerfilRequisito>Z</PerfilRequisito>
+            </PerfisRequisitos>
         </IdentificacaoPaf>
         <CaracteristicasPaf>
             <LinguagemProgramacao>4GL/4Js</LinguagemProgramacao>
             <SistemaOperacional>Windows</SistemaOperacional>
             <GerenciadorBancoDados>Access</GerenciadorBancoDados>
-            <MeioGeracaoArquivoSintegraEfd/>
-            <FormaImpressao/>
-            <TratamentoInterrupcao/>
-            <AplicacoesEspeciais/>
+            <TipoFuncionamento>Parametrizável</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo sistema de retaguarda</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+                <Modo>Não concomitante, com emissão de DAV</Modo>
+                <Modo>Não concomitante, com controle de pré-venda</Modo>
+                <Modo>DAV - impresso em impressora não fiscal</Modo>
+                <Modo>DAV - impresso em ECF</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Recuperação de dados</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
         </CaracteristicasPaf>
         <SistemasGestao>
             <SistemaGestao>
@@ -136,6 +157,7 @@
         <ComentarioOtc></ComentarioOtc>
         <Declaracao>false</Declaracao>
         <Emissao>
+            <Data>2015-08-27-03:00</Data>
             <Local></Local>
         </Emissao>
         <ExecucaoTestes>

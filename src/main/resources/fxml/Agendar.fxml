@@ -183,7 +183,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <TextField fx:id="txtResponsavel" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                  <TextField fx:id="txtResponsavel" editable="false" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: transparent;" text=" " HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">

@@ -360,7 +360,7 @@ public class TabelaEmpresaController {
                     stage.close();
                 } else {
                     if (!isConsulta) {
-                        sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa());
+                        sceneManager.setEmpresaEncontrada(tvEmpresa.getSelectionModel().getSelectedItem().getEmpresa().clone());
                         if (isEmpresa) {
                             sceneManager.showEmpresa(false);
                         } else if (isAgenda) {

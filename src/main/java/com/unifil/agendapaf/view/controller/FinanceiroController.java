@@ -10,6 +10,7 @@ import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.statics.StaticLista;
+import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
@@ -45,11 +46,11 @@ public class FinanceiroController {
             if (sceneManager.getFinanceiroEncontrada() != null) {
                 financeiroEncontrada = sceneManager.getFinanceiroEncontrada();
                 sceneManager.setFinanceiroEncontrada(null);
-                System.out.println("PASSO1");
                 setCampos();
             }
             sceneManager.setAgendaEncontrada(null);
             sceneManager.setEmpresaEncontrada(null);
+            MaskFieldUtil.monetaryField(txtValorPago);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
@@ -88,8 +89,8 @@ public class FinanceiroController {
 
     @FXML
     private void actionBuscarEmpresa() {
-        stage.close();
         sceneManager.showTabelaEmpresa(false, false, false, false, false, true, false);
+        stage.close();
     }
 
     @FXML
@@ -133,30 +134,30 @@ public class FinanceiroController {
             String n = "";
             if (porCategoria == 0) {
                 if (txtHoraAdicional.getText().equals("") || txtHoraAdicional.getText() == null) {
-                    n = valorServico + "";
+                    n = valorServico + "0";
                 } else {
                     try {
                         valorServico = valorServico * Integer.parseInt(txtHoraAdicional.getText());
-                        n = valorServico + "";
+                        n = valorServico + "0";
                     } catch (Exception e) {
                         UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             } else {
                 if (txtHoraAdicional.getText().equals("") || txtHoraAdicional.getText() == null) {
-                    n = (valorServico - (valorServico * (porCategoria / 100))) + "";
+                    n = (valorServico - (valorServico * (porCategoria / 100))) + "0";
                 } else {
                     try {
                         if (Integer.parseInt(txtHoraAdicional.getText()) > 0) {
                             valorServico = valorServico * Integer.parseInt(txtHoraAdicional.getText());
-                            n = (valorServico - (valorServico * (porCategoria / 100))) + "";
+                            n = (valorServico - (valorServico * (porCategoria / 100))) + "0";
                         }
                     } catch (Exception e) {
                         UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             }
-            txtValorPago.setText(n.replace(".", ","));
+            txtValorPago.setText(n);
         }
         porCategoria = 0;
         valorServico = 0;
@@ -164,6 +165,7 @@ public class FinanceiroController {
 
     @FXML
     private void actionCbTipoServico() {
+        txtHoraAdicional.setText("");
         calcularServico();
     }
 
@@ -422,7 +424,7 @@ public class FinanceiroController {
             txtHoraAdicional.setText(financeiroEncontrada.getHoraAdicional() + "");
         }
         String n = financeiroEncontrada.getValorPago() + "";
-        txtValorPago.setText(n.replace(".", ","));
+        txtValorPago.setText(n.replace(".", "") + "0");
         txtLaudo.setText(financeiroEncontrada.getNumeroLaudo());
         dtInicial.setValue(financeiroEncontrada.getDataInicial());
         dtFinal.setValue(financeiroEncontrada.getDataFinal());
@@ -437,8 +439,4 @@ public class FinanceiroController {
         this.mainFinanceiro = mainFinanceiro;
     }
 
-//    public void setCampos(Empresa empresa) {
-//        empresaEncontrada = empresa;
-//        setCampos(empresa);
-//    }
 }

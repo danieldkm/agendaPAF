@@ -112,10 +112,22 @@
                         </GridPane>
                         <HBox alignment="CENTER" maxHeight="50.0" spacing="20.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Button fx:id="btnCarregar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnCarregar" styleClass="button-raised" text="Carregar" HBox.hgrow="ALWAYS" />
-                              <Button defaultButton="true" mnemonicParsing="false" onAction="#actionBtnAbrir" styleClass="button-raised" text="Abrir" HBox.hgrow="ALWAYS" />
-                              <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" text="Gerar docs" />
-                              <CheckBox fx:id="cbValidarLaudo" mnemonicParsing="false" text="Validar laudo" />
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="200.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <Button fx:id="btnCarregar" defaultButton="true" mnemonicParsing="false" onAction="#actionBtnCarregar" styleClass="button-raised" text="Carregar" HBox.hgrow="ALWAYS">
+                                       <font>
+                                          <Font size="18.0" />
+                                       </font>
+                                    </Button>
+                                    <Button defaultButton="true" mnemonicParsing="false" onAction="#actionBtnAbrir" styleClass="button-raised" text="Abrir" HBox.hgrow="ALWAYS" />
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_RIGHT" maxWidth="200.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                                 <children>
+                                    <ToggleButton fx:id="tBtnGerarDocs" mnemonicParsing="false" onAction="#onActionGerarDocs" text="Gerar docs" />
+                                    <CheckBox fx:id="cbValidarLaudo" mnemonicParsing="false" text="Validar laudo" />
+                                 </children>
+                              </HBox>
                            </children>
                         </HBox>
                      </children>

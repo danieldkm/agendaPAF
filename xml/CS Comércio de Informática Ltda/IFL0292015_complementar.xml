@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoComplementar>
+    <BytesExePrincipal>efu9823fb023bg087b28gb84b3gbq43</BytesExePrincipal>
+    <Contato>
+        <id>0</id>
+        <rg>123123213</rg>
+        <selecionado>0</selecionado>
+        <Telefone>
+            <Celular>1231232131</Celular>
+            <Fax>23123123</Fax>
+            <Id>0</Id>
+            <selecionado>0</selecionado>
+        </Telefone>
+    </Contato>
+    <Empresa>
+        <categoria>-1</categoria>
+        <cnpj>07.841.532/0001-32</cnpj>
+        <dataCadastro>2015-07-02</dataCadastro>
+        <descricao>CS Comércio de Informática Ltda</descricao>
+        <id>64</id>
+        <inscricaoEstadual>90363896-61</inscricaoEstadual>
+        <InscricaoMunicipal>36005</InscricaoMunicipal>
+        <NomeFantasia>C&amp;Sistemas</NomeFantasia>
+        <observacao></observacao>
+    </Empresa>
+    <PossuiSGDB>true</PossuiSGDB>
+    <ResponsavelEnsaio>
+        <dataCadastro>2014-04-24</dataCadastro>
+        <id>4</id>
+        <Nome>José Ricardo</Nome>
+        <nomeLogin>ricardo</nomeLogin>
+        <senha>1</senha>
+        <tipo>Gerencial</tipo>
+    </ResponsavelEnsaio>
+    <RipmedExePrincipal>ksldfb4riq23bfpbp34b493bgp94b3g9b43q9gbp943bgb43gbq34ngq3n4gnaeorn034</RipmedExePrincipal>
+    <RipmedTxtRelacao>eiuabfiuwb3b3bga92bg98b298gbe9baorehn43nhqn34hnq043n0hq493nh93904h09qn34</RipmedTxtRelacao>
+</LaudoComplementar>

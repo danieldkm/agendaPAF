@@ -17,7 +17,13 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "Estado")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "estado")
@@ -28,6 +34,7 @@ public class Estado implements Externalizable {
 
     private LongProperty id = new SimpleLongProperty(this, "id");
 
+    @XmlElement(name = "Id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -43,6 +50,7 @@ public class Estado implements Externalizable {
     }
     private StringProperty nome = new SimpleStringProperty(this, "nome");
 
+    @XmlElement(name = "Nome")
     public String getNome() {
         return nome.get();
     }
@@ -57,6 +65,7 @@ public class Estado implements Externalizable {
 
     private StringProperty uf = new SimpleStringProperty(this, "uf");
 
+    @XmlElement(name = "Uf")
     public String getUf() {
         return uf.get();
     }

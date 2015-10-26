@@ -1,12 +1,15 @@
 package com.unifil.agendapaf.model;
 
 import com.unifil.agendapaf.converter.ConverterLocalDate;
+import com.unifil.agendapaf.util.LocalDateAdapter;
 import com.unifil.agendapaf.util.UtilConverter;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 import java.time.LocalDate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleLongProperty;
@@ -24,10 +27,17 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 //id, descricao, nomeContato, telefone, observacao, dataCadastro, email, 
 //estado, cidade, nomeFantasia, endereco, bairro, cep, fax, celular, cnpj, 
 //IE, IM, cpf, Respo Teste, codInterno, categoria
 
+@XmlRootElement(name = "Empresa")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "empresa")
@@ -36,6 +46,34 @@ import javax.persistence.Table;
     @NamedQuery(name = "Empresa.findByID", query = "SELECT e FROM Empresa e where e.id = :id"),
     @NamedQuery(name = "Empresa.findLast", query = "SELECT e FROM Empresa e ORDER BY e.id DESC")})
 public class Empresa implements Externalizable {
+
+    public Empresa clone() {
+        try {
+            Empresa e = new Empresa();
+            e.setCategoria(getCategoria());
+            e.setCnpj(getCnpj());
+            e.setDataCadastro(getDataCadastro());
+            e.setDescricao(getDescricao());
+            e.setId(getId());
+            e.setInscricaoEstadual(getInscricaoEstadual());
+            e.setInscricaoMunicipal(getInscricaoMunicipal());
+            e.setNomeFantasia(getNomeFantasia());
+            e.setObservacao(getObservacao());
+            return e;
+        } catch (Exception ex) {
+            Logger.getLogger(Endereco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Empresa() {
+        descricao.set("");
+        observacao.set("");
+        nomeFantasia.set("");
+        cnpj.set("");
+        inscricaoEstadual.set("");
+        inscricaoMunicipal.set("");
+    }
 
     private LongProperty id = new SimpleLongProperty(this, "id");
 
@@ -84,6 +122,7 @@ public class Empresa implements Externalizable {
     @Convert(converter = ConverterLocalDate.class)
     private ObjectProperty<LocalDate> dataCadastro = new SimpleObjectProperty<>();
 
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
     public LocalDate getDataCadastro() {
         return dataCadastro.get();
     }
@@ -98,6 +137,7 @@ public class Empresa implements Externalizable {
 
     private StringProperty nomeFantasia = new SimpleStringProperty(this, "nomeFantasia");
 
+    @XmlElement(name = "NomeFantasia")
     public String getNomeFantasia() {
         return nomeFantasia.get();
     }
@@ -121,7 +161,7 @@ public class Empresa implements Externalizable {
         this.cnpj.set(cnpj);
     }
 
-    public StringProperty tipoProperty() {
+    public StringProperty cnpjProperty() {
         return cnpj;
     }
 
@@ -141,6 +181,7 @@ public class Empresa implements Externalizable {
 
     private StringProperty inscricaoMunicipal = new SimpleStringProperty(this, "inscricaoMunicipal");
 
+    @XmlElement(name = "InscricaoMunicipal")
     public String getInscricaoMunicipal() {
         return inscricaoMunicipal.get();
     }

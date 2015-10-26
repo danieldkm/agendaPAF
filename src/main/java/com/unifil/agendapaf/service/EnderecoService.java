@@ -24,6 +24,7 @@ public class EnderecoService implements InterfaceCrud<Endereco> {
     public void salvar(Endereco endereco) {
         try {
             dao.beginTransaction();
+            endereco.validate();
             dao.save(endereco);
             dao.commit();
         } catch (Exception e) {
@@ -48,6 +49,7 @@ public class EnderecoService implements InterfaceCrud<Endereco> {
     public void editar(Endereco endereco) {
         try {
             dao.beginTransaction();
+            endereco.validate();
             dao.update(endereco);
             dao.commit();
         } catch (Exception e) {

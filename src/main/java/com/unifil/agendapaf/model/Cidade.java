@@ -21,7 +21,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "Cidade")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "cidade")
@@ -47,6 +53,7 @@ public class Cidade implements Externalizable {
     }
     private StringProperty nome = new SimpleStringProperty(this, "nome");
 
+    @XmlElement(name = "Nome")
     public String getNome() {
         return nome.get();
     }
@@ -77,6 +84,7 @@ public class Cidade implements Externalizable {
 
     private StringProperty uf = new SimpleStringProperty(this, "uf");
 
+    @XmlElement(name = "Uf")
     public String getUf() {
         return uf.get();
     }

@@ -1,9 +1,13 @@
 package com.unifil.agendapaf.model;
 
+import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -24,11 +28,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author danielmorita
  */
+@XmlRootElement(name = "Endereco")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "endereco")
@@ -40,8 +50,31 @@ import javax.persistence.Table;
     @NamedQuery(name = "Endereco.findLast", query = "SELECT e FROM Endereco e ORDER BY e.id DESC")})
 public class Endereco implements Externalizable {
 
+    public Endereco clone() {
+        try {
+            Endereco e = new Endereco();
+            e.setBairro(getBairro());
+            e.setCep(getCep());
+            e.setComplemento(getComplemento());
+            e.setId(getId());
+            e.setIdCidade(getIdCidade());
+            e.setIdEmpresa(getIdEmpresa());
+            e.setLogradouro(getLogradouro());
+            e.setNumero(getNumero());
+            e.setSelecionado(getSelecionado());
+            return e;
+        } catch (Exception ex) {
+            Logger.getLogger(Endereco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public Endereco() {
+
+    }
     private LongProperty id = new SimpleLongProperty(this, "id");
 
+    @XmlElement(name = "Id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -58,6 +91,7 @@ public class Endereco implements Externalizable {
 
     private ObjectProperty<Empresa> idEmpresa = new SimpleObjectProperty<Empresa>(this, "id");
 
+    @XmlElement(name = "IdEmpresa")
     @ManyToOne(optional = true)
     @JoinColumn(name = "idEmpresa", referencedColumnName = "id")
     public Empresa getIdEmpresa() {
@@ -74,6 +108,7 @@ public class Endereco implements Externalizable {
 
     private ObjectProperty<Cidade> idCidade = new SimpleObjectProperty<Cidade>(this, "id");
 
+    @XmlElement(name = "IdCidade")
     @ManyToOne(optional = true)
     @JoinColumn(name = "idCidade", referencedColumnName = "id")
     public Cidade getIdCidade() {
@@ -90,6 +125,7 @@ public class Endereco implements Externalizable {
 
     private StringProperty logradouro = new SimpleStringProperty(this, "logradouro");
 
+    @XmlElement(name = "Logradouro")
     public String getLogradouro() {
         return logradouro.get();
     }
@@ -104,6 +140,7 @@ public class Endereco implements Externalizable {
 
     private StringProperty numero = new SimpleStringProperty(this, "Numero");
 
+    @XmlElement(name = "Numero")
     public String getNumero() {
         return numero.get();
     }
@@ -118,6 +155,7 @@ public class Endereco implements Externalizable {
 
     private StringProperty complemento = new SimpleStringProperty(this, "Numero");
 
+    @XmlElement(name = "Complemento")
     public String getComplemento() {
         return complemento.get();
     }
@@ -132,6 +170,7 @@ public class Endereco implements Externalizable {
 
     private StringProperty bairro = new SimpleStringProperty(this, "bairro");
 
+    @XmlElement(name = "Bairro")
     public String getBairro() {
         return bairro.get();
     }
@@ -146,6 +185,7 @@ public class Endereco implements Externalizable {
 
     private StringProperty cep = new SimpleStringProperty(this, "cep");
 
+    @XmlElement(name = "Cep")
     @Column(length = 10, nullable = true)
     public String getCep() {
         return cep.get();
@@ -153,6 +193,10 @@ public class Endereco implements Externalizable {
 
     public void setCep(String cep) {
         this.cep.set(cep);
+    }
+
+    public StringProperty cepProperty() {
+        return cep;
     }
 
     private IntegerProperty selecionado = new SimpleIntegerProperty(this, "selecionado");
@@ -198,6 +242,16 @@ public class Endereco implements Externalizable {
         setBairro((String) in.readObject());
         setCep((String) in.readObject());
         setSelecionado((Integer) in.readObject());
+    }
+
+    public void validate() {
+        if (idCidade.get() == null) {
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEstadoCidade.getTitulo());
+            throw new IllegalArgumentException("IdCidade cannot be null");
+        } else if (idEmpresa.get() == null) {
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroIdEmpresaNull.getTitulo());
+            throw new IllegalArgumentException("IdEmpresa cannot be null");
+        }
     }
 
     @Override

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoFerramenta>
+    <AprovacaoDoRelatorio>
+        <Cargo>kasnkas</Cargo>
+        <CPF>23129</CPF>
+        <Nome>123123</Nome>
+    </AprovacaoDoRelatorio>
+    <Empresa>
+        <CNPJ>34353454</CNPJ>
+        <IE>c</IE>
+        <RazaoSocial>aiSim</RazaoSocial>
+        <VersaoER>wdawd</VersaoER>
+    </Empresa>
+    <Endereco>
+        <Bairro>g</Bairro>
+        <CEP>9081093</CEP>
+        <Cidade>awnd</Cidade>
+        <Complemento>f</Complemento>
+        <Logradouro>d</Logradouro>
+        <Numero>2139123</Numero>
+        <UF>uawnd</UF>
+    </Endereco>
+    <ExecucaoDosTestes>
+        <Cargo>alskdnalk</Cargo>
+        <CPF>2131</CPF>
+        <Nome>awdawd</Nome>
+    </ExecucaoDosTestes>
+</LaudoFerramenta>

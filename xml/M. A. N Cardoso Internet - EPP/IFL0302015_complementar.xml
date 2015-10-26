@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LaudoComplementar>
+    <BytesExePrincipal>6.250.496</BytesExePrincipal>
+    <Contato>
+        <id>0</id>
+        <rg>183477078</rg>
+        <selecionado>0</selecionado>
+        <Telefone>
+            <Celular>1897415596</Celular>
+            <Fax></Fax>
+            <Id>0</Id>
+            <selecionado>0</selecionado>
+        </Telefone>
+    </Contato>
+    <Empresa>
+        <categoria>0</categoria>
+        <cnpj>06.780.989/0001-80</cnpj>
+        <dataCadastro>2015-09-10</dataCadastro>
+        <descricao>M. A. N Cardoso Internet - EPP</descricao>
+        <id>83</id>
+        <inscricaoEstadual>189.152.330.111</inscricaoEstadual>
+        <InscricaoMunicipal>34668</InscricaoMunicipal>
+        <NomeFantasia>Web Managers</NomeFantasia>
+        <observacao></observacao>
+    </Empresa>
+    <PossuiSGDB>false</PossuiSGDB>
+    <ResponsavelEnsaio>
+        <dataCadastro>2014-04-24</dataCadastro>
+        <id>4</id>
+        <Nome>José Ricardo</Nome>
+        <nomeLogin>ricardo</nomeLogin>
+        <senha>1</senha>
+        <tipo>Gerencial</tipo>
+    </ResponsavelEnsaio>
+    <RipmedExePrincipal>9b913af1bbc21dc32b69383b6bc9d3d05e4b20c5</RipmedExePrincipal>
+    <RipmedTxtRelacao>7c33ab51e51ae6eec6d7a972e17054c7183d25ea</RipmedTxtRelacao>
+</LaudoComplementar>

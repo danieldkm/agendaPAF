@@ -1,34 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <LaudoComplementar>
-    <IdEmpresa>62</IdEmpresa>
-    <PossuiSGDB>false</PossuiSGDB>
-    <Empresa>
-        <RazaoSocial>GEW SISTEMAS LTDA</RazaoSocial>
-        <NomeFantasia>GEW SISTEMAS</NomeFantasia>
-        <CNPJ>08842559000170</CNPJ>
-        <IE>Isento</IE>
-        <IM>2526350</IM>
-    </Empresa>
-    <Endereco>
-        <Logradouro>Rua Aimoré, 547</Logradouro>
-        <Bairro>centro</Bairro>
-        <CEP>85505170</CEP>
-        <UF>PR</UF>
-        <Cidade>Pato Branco</Cidade>
-    </Endereco>
+    <BytesExePrincipal>1111</BytesExePrincipal>
     <Contato>
-        <Nome>WILLIAM CARLO LODI BERTOCHI</Nome>
-        <CPF>02995171957</CPF>
-        <ResponsavelTeste>WILLIAM CARLO LODI BERTOCHI</ResponsavelTeste>
+        <id>0</id>
+        <rg>121212</rg>
+        <selecionado>0</selecionado>
         <Telefone>
-            <Fixo>4630257122</Fixo>
             <Celular>4691055035</Celular>
-            <FAX>4630257122</FAX>
+            <Fax>4630257122</Fax>
+            <Id>0</Id>
+            <selecionado>0</selecionado>
         </Telefone>
-        <Email>WILLIAM@GEW.COM.BR</Email>
     </Contato>
-    <ResponsavelEnsaio>Daniel</ResponsavelEnsaio>
-    <BytesExePrincipal>1</BytesExePrincipal>
-    <RipmedExePrincipal>2</RipmedExePrincipal>
-    <RipmedTxtRelacao>3</RipmedTxtRelacao>
+    <Empresa>
+        <categoria>-1</categoria>
+        <cnpj>08.842.559/0001-70</cnpj>
+        <dataCadastro>2015-07-02</dataCadastro>
+        <descricao>GEW SISTEMAS LTDA</descricao>
+        <id>62</id>
+        <inscricaoEstadual>isento</inscricaoEstadual>
+        <InscricaoMunicipal>2526350</InscricaoMunicipal>
+        <NomeFantasia>GEW SISTEMAS</NomeFantasia>
+        <observacao></observacao>
+    </Empresa>
+    <PossuiSGDB>true</PossuiSGDB>
+    <ResponsavelEnsaio>
+        <dataCadastro>2014-04-24</dataCadastro>
+        <email>l</email>
+        <id>2</id>
+        <Nome>Sandro</Nome>
+        <nomeLogin>sandro</nomeLogin>
+        <senha>1</senha>
+        <tipo>Gerencial</tipo>
+    </ResponsavelEnsaio>
+    <RipmedExePrincipal>2222</RipmedExePrincipal>
+    <RipmedTxtRelacao>3333</RipmedTxtRelacao>
 </LaudoComplementar>

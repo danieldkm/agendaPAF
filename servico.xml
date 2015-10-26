@@ -31,5 +31,10 @@
       <nome>Hora Adicional</nome>
       <valor>151.0</valor>
     </servico>
+    <servico>
+      <id>6</id>
+      <nome>teste</nome>
+      <valor>2222.0</valor>
+    </servico>
   </backingList>
 </com.sun.javafx.collections.ObservableListWrapper>

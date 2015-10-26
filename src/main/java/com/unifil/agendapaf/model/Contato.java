@@ -1,14 +1,16 @@
 package com.unifil.agendapaf.model;
 
+import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
-import javafx.beans.property.BooleanProperty;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -40,6 +42,24 @@ import javax.persistence.Table;
     @NamedQuery(name = "Contato.findByIDEmpresa", query = "SELECT c FROM Contato c WHERE c.idEmpresa = :idEmpresa"),
     @NamedQuery(name = "Contato.findLast", query = "SELECT c FROM Contato c ORDER BY c.id DESC")})
 public class Contato implements Externalizable {
+
+    public Contato clone() {
+        try {
+            Contato c = new Contato();
+            c.setCpf(getCpf());
+            c.setEmail(getEmail());
+            c.setId(getId());
+            c.setIdEmpresa(getIdEmpresa());
+            c.setNome(getNome());
+            c.setResponsavelTeste(getResponsavelTeste());
+            c.setRg(getRg());
+            c.setSelecionado(getSelecionado());
+            return c;
+        } catch (Exception ex) {
+            Logger.getLogger(Endereco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
 
     private LongProperty id = new SimpleLongProperty(this, "id");
 
@@ -186,6 +206,16 @@ public class Contato implements Externalizable {
         setResponsavelTeste((String) in.readObject());
         setRg((String) in.readObject());
         setSelecionado((Integer) in.readObject());
+    }
+
+    public void validate() {
+        if (nome.get() == null || nome.get().equals("")) {
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroNomeContato.getTitulo());
+            throw new IllegalArgumentException("Nome cannot be null or empty");
+        } else if (email.get() == null || email.get().equals("") || !email.get().contains("@") || email.get().split("@").length > 2) {
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEmailContato.getTitulo());
+            throw new IllegalArgumentException("E-mail cannot be null or empty");
+        }
     }
 
     @Override

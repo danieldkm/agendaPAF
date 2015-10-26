@@ -680,9 +680,9 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                             if (historico.getIdAgenda().getId().equals(agenda.getId())) {
                                 if (historico.getStatus().equals("Reagendada")) {
                                     txtAux += "\nREAGENDAMENTO!";
-                                    txtAux += "\nData agendamento: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd-MM-yyyy");
+                                    txtAux += "\nData agendamento: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd/MM/yyyy");
                                     txtAux += "\nMotivo: " + historico.getMotivo();
-                                    txtAux += "\nData da alteração: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataAlteracao()), "dd-MM-yyyy");
+                                    txtAux += "\nData da alteração: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataAlteracao()), "dd/MM/yyyy");
                                     txtAux += "\n----------------------------\n";
                                 }
                                 for (Long i : codAgendas) {
@@ -694,13 +694,13 @@ public class DateChooserSkin extends SkinBase<DateChooser> {
                                     codAgendas.add(historico.getIdAgenda().getId());
                                     if (!historico.getStatus().equals("Reagendada")) {
                                         txtAux += "\nEmpresa: " + historico.getIdEmpresa().getDescricao();
-                                        txtAux += "\nData: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd-MM-yyyy");
+                                        txtAux += "\nData: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(historico.getDataInicial()), "dd/MM/yyyy");
                                         txtAux += "\nServiço: " + Util.porAcentuacaoServico(historico.getIdAgenda().getTipo());
                                         txtAux += "\nStatus Agenda: " + Util.porAcentuacaoServico(historico.getIdAgenda().getStatusAgenda());
                                         txtAux += "\nStatus Boleto: " + Util.porAcentuacaoServico(agenda.getStatusBoleto());
                                         if (!agenda.getStatusBoleto().equals("Nao enviado")) {
                                             if (agenda.getDataVencimentoBoleto() != null) {
-                                                txtAux += "\nDt envio Boleto: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(agenda.getDataVencimentoBoleto()), "dd-MM-yyyy");
+                                                txtAux += "\nDt envio Boleto: " + UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(agenda.getDataVencimentoBoleto()), "dd/MM/yyyy");
                                             }
                                         }
                                         txtAux += "\nUsuário: " + historico.getIdUsuario().getNome();

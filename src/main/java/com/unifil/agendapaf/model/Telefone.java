@@ -4,6 +4,8 @@ import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.ObjectProperty;
@@ -24,11 +26,17 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author danielmorita
  */
+@XmlRootElement(name = "Telefone")
+@XmlAccessorType(XmlAccessType.PROPERTY)
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(name = "telefone")
@@ -39,8 +47,25 @@ import javax.persistence.Table;
     @NamedQuery(name = "Telefone.findLast", query = "SELECT t FROM Telefone t ORDER BY t.id DESC")})
 public class Telefone implements Externalizable {
 
+    public Telefone clone() {
+        try {
+            Telefone t = new Telefone();
+            t.setCelular(getCelular());
+            t.setFax(getFax());
+            t.setFixo(getFixo());
+            t.setId(getId());
+            t.setIdEmpresa(getIdEmpresa());
+            t.setSelecionado(getSelecionado());
+            return t;
+        } catch (Exception ex) {
+            Logger.getLogger(Endereco.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
     private LongProperty id = new SimpleLongProperty(this, "id");
 
+    @XmlElement(name = "Id")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
@@ -56,6 +81,7 @@ public class Telefone implements Externalizable {
     }
     private ObjectProperty<Empresa> idEmpresa = new SimpleObjectProperty<Empresa>(this, "id");
 
+    @XmlElement(name = "IdEmpresa")
     @ManyToOne(optional = true)
     @JoinColumn(name = "idEmpresa", referencedColumnName = "id")
     public Empresa getIdEmpresa() {
@@ -81,12 +107,13 @@ public class Telefone implements Externalizable {
         this.fixo.set(fixo);
     }
 
-    public StringProperty fixotelefoneProperty() {
+    public StringProperty fixoProperty() {
         return fixo;
     }
 
     private StringProperty fax = new SimpleStringProperty(this, "fax");
 
+    @XmlElement(name = "Fax")
     @Column(length = 14, nullable = true)
     public String getFax() {
         return fax.get();
@@ -102,6 +129,7 @@ public class Telefone implements Externalizable {
 
     private StringProperty celular = new SimpleStringProperty(this, "celular");
 
+    @XmlElement(name = "Celular")
     @Column(length = 14, nullable = true)
     public String getCelular() {
         return celular.get();

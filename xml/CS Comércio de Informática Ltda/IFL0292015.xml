@@ -1,0 +1,812 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0292015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>CS Comércio de Informática Ltda</RazaoSocial>
+            <Cnpj>07841532000132</Cnpj>
+            <Ie>9036389661</Ie>
+            <Endereco>
+                <Logradouro>Rua Maua</Logradouro>
+                <Numero>2861</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Realeza</Municipio>
+                <Uf>PR</Uf>
+                <Cep>85770000</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>Paulo Cezar Machado dos Santos</Nome>
+                <Cpf>96685069953</Cpf>
+                <Telefone>4635432040</Telefone>
+                <Email>suporte@csistemas.com.br</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>Paulo Cezar Macha dos Santos</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-10-13-03:00</DataInicio>
+                <DataFim>2015-10-14-03:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.03</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>CES_PDV</NomeComercial>
+            <Versao>4.0</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>ces_pdv.exe</Nome>
+                <Md5>F31602B57C2A5269A5460D7AA7D2B2A5</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>RequisitoXI.txt</Nome>
+                <Md5>8d1aed51c8d28989ac64bd7b403a9c22</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>ces_pdv.exe</Nome>
+                    <Md5>F31602B57C2A5269A5460D7AA7D2B2A5</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ces_pdv.PDV.Impressao.dll</Nome>
+                    <Md5>8FBD777D7FCCA784DB3659D51BFA1805</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ces_pdv.PDV.Impressao.DotMatrix.dll</Nome>
+                    <Md5>0912BC047BB28C6E6B4D4BFEF0DD9A40</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ces_pdv.PDV.Impressao.ECF.dll</Nome>
+                    <Md5>D3E0DC2AEB9F5A0768FE7E0714CC0237</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>ces_pdv.PDV.UI.dll</Nome>
+                    <Md5>999978CECDA8BE217B7E1AA6B0E63D39</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>CSistemas.Nfe.App.exe</Nome>
+                    <Md5>2E07B1937526C4039A32A2853992F105</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>relacao.txt</Nome>
+                    <Md5>2af0ff6f68fc6f7bf19f6d0cc3511c3a</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7774667</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+                <PerfilRequisito>W</PerfilRequisito>
+                <PerfilRequisito>Y</PerfilRequisito>
+                <PerfilRequisito>Z</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Visual Basic</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>SQL Server</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Exclusivamente stand alone</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo PAF-ECF</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Com sistema de gestão ou retaguarda</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+                <Modo>Não concomitante, com emissão de DAV</Modo>
+                <Modo>Não concomitante, com controle de pré-venda</Modo>
+                <Modo>DAV - impresso em impressora não fiscal</Modo>
+                <Modo>DAV - impresso em ECF</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Recuperação de dados</Modo>
+                <Modo>Cancelamento automático</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>CES_PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>CS Comércio de Informática Ltda</RazaoSocial>
+                    <Cnpj>07841532000132</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>ces_pdv.exe </Nome>
+                        <Md5>F31602B57C2A5269A5460D7AA7D2B2A5</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>II</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>CES_PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>CS Comércio de Informática Ltda</RazaoSocial>
+                    <Cnpj>07841532000132</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>ces_pdv.exe </Nome>
+                        <Md5>F31602B57C2A5269A5460D7AA7D2B2A5</Md5>
+                        <Funcao>sped/sintegra</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>CES_PDV</Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>CS Comércio de Informática Ltda</RazaoSocial>
+                    <Cnpj>07841532000132</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Sistemas.Nfe.App.exe </Nome>
+                        <Md5>2E07B1937526C4039A32A2853992F105</Md5>
+                        <Funcao>NF-e</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBII</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 2000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 6000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI R</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-40 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-50 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF FM-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF MP-30 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI II</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF1-Q</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF300-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF375-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF IF IF950-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>ECF-IF DT 4000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>MT100</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>1Q</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>1Q-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>300-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>3202DT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>375-EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DATAREGIS</Marca>
+                <Modelo>6000EP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-H6000 FBIII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T81 FBIII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FBII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EPSON</Marca>
+                <Modelo>TM-T88 FBIII</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ITAUTEC</Marca>
+                <Modelo>INFOWAY 1E T1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ITAUTEC</Marca>
+                <Modelo>INFOWAY 1E T2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ITAUTEC</Marca>
+                <Modelo>KUBUS 1EF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ITAUTEC</Marca>
+                <Modelo>QW PRINTER 1E T3</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ITAUTEC</Marca>
+                <Modelo>QW PRINTER 6000 MT2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS2100 T</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600 USB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>EAGLE</Marca>
+                <Modelo>PRINTER 2000 II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 10000-S1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ECF-MR 800-S</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>FX7</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>IF 6000TH</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>K</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>X5</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>IBM</Marca>
+                <Modelo>4610-KJ4</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>IBM</Marca>
+                <Modelo>4610-KN4</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>IBM</Marca>
+                <Modelo>4610-KR4</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>IBM</Marca>
+                <Modelo>4610-SJ6</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>NCR</Marca>
+                <Modelo>7167</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>NCR</Marca>
+                <Modelo>7197</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTO PRINTER II 1EF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTOCHEK FP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTOCHEK POS FP</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTOPAY 2020</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTOPAY 2040</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>PERTO</Marca>
+                <Modelo>PERTOPRINTER 1EF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>UNISYS</Marca>
+                <Modelo>BR 1002-ECF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>UNISYS</Marca>
+                <Modelo>BR1001-FIT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>UNISYS</Marca>
+                <Modelo>BR20 ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>UNISYS</Marca>
+                <Modelo>BR-20 IF2 ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>UNISYS</Marca>
+                <Modelo>KIT BEETLE 4/61-MF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/1E LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/1EFA</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/1EFNF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/1EFREST</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/1FIREST</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/2E LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ECF-IF ZPM/2EFCR</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>KIT ECF-IF ZPM/1EFNF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>KIT ZPM/2EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>KIT 2EA LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>KIT 2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM 1EFM</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/II FIT LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1ECF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1EFM</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1FIM LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/1FIT LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2 FMMO LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2 FTMA LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2EA LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2ECF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/2EFE</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM-200</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/3ECF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM/3EF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM-300</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM-400</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZPM</Marca>
+                <Modelo>ZPM-500</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZANTHUS</Marca>
+                <Modelo>ECF-IF QZ 1000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ZANTHUS</Marca>
+                <Modelo>ECF-IF QZ1000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST100</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST1000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST120</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST200</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST2000</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SWEDA</Marca>
+                <Modelo>IF ST2500</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/1E LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/1EFA</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/1EFNF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/1EFREST</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/2E LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ECF-IF URANO/2EFCR</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>EFC-IF URANO/1FIREST</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>KIT ECF-IF URANO/1EFNF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>KIT URANO ECF/2EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>KIT URANO/2EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>KIT UR/2EA LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>KIT UR/2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/1EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/1FIREST</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/1FIT LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/2EA LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/2EFC</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/2EFC LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/2EFE</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/3ECF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>URANO/3EF LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ZPM/ 1 FIM LOGGER</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>URANO</Marca>
+                <Modelo>ZPM/1EF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>APB</Marca>
+                <Modelo>MSD 6600 IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SCHALTER</Marca>
+                <Modelo>D PRINT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SCHALTER</Marca>
+                <Modelo>S PRINT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SCHALTER</Marca>
+                <Modelo>S PRINT ECF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SCHALTER</Marca>
+                <Modelo>S PRINT-ECF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SONDA</Marca>
+                <Modelo>SIM-67</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>SONDA</Marca>
+                <Modelo>SIM-97</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>0203</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>0203</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades>
+            <NaoConformidade>
+                <Requisito>X</Requisito>
+                <Item>--</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito>IX</Requisito>
+                <Item>2b</Item>
+                <Descricao>Ausência de Clientes no Distrito Federal.</Descricao>
+            </NaoConformidade>
+            <NaoConformidade>
+                <Requisito> IX</Requisito>
+                <Item>2C</Item>
+                <Descricao>Ausência de Clientes na Paraíba</Descricao>
+            </NaoConformidade>
+        </NaoConformidades>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>true</Declaracao>
+        <Emissao>
+            <Data>2015-08-27-03:00</Data>
+            <Local>Londrina, PR</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Ricardo Inácio Álvares e Silva</Nome>
+            <Cargo>Coordenador NPI</Cargo>
+            <Cpf>07065010635</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

@@ -28,8 +28,6 @@ import java.util.GregorianCalendar;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -56,7 +54,6 @@ public class AgendarController {
             sceneManager = SceneManager.getInstance();
             lblAgenda.setText("Agendamento");
             setOnActionsDts();
-//            System.out.println("StaticDates.getDataSelecionada() " + StaticCalendar.getDataSelecionada());
             cbTipo.getSelectionModel().selectFirst();
             cbStatusAgenda.getSelectionModel().selectFirst();
             cbStatusBoleto.getSelectionModel().selectFirst();
@@ -66,7 +63,7 @@ public class AgendarController {
             if (sceneManager.getReagendamento()) {
                 isReagendamento = sceneManager.getReagendamento();
                 sceneManager.setReagendamento(Boolean.FALSE);
-                bloquearCamposEmpresa();
+                btnBuscar.setDisable(true);
                 btnCancelar.setDisable(true);
                 isUpdate = true;
             } else if (sceneManager.getUpdate()) {
@@ -78,27 +75,40 @@ public class AgendarController {
                 isUpdate = true;
                 sceneManager.setCancelamento(Boolean.FALSE);
                 btnCancelar.setDisable(true);
+                dtVencimentoBoleto.setDisable(true);
             }
 
             if (sceneManager.getAgendaEncontrada() != null) {
-                agendaEncontrada = sceneManager.getAgendaEncontrada();
+                agenda = sceneManager.getAgendaEncontrada();
+                sceneManager.setAgendaEncontrada(null);
                 setCampos();
-                bloquearCampos();
+                btnBuscar.setDisable(true);
+                cbTipo.setDisable(true);
             } else if (sceneManager.getEmpresaEncontrada() != null) {
                 empresaEncontrada = sceneManager.getEmpresaEncontrada();
                 sceneManager.setEmpresaEncontrada(null);
-                txtEmpresa.setText(empresaEncontrada.getDescricao());
-                Contato tempContato = null;
-                for (Contato c : StaticLista.getListaGlobalContato()) {
-                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.selecionadoBoolean()) {
-                        tempContato = c;
-                        break;
+//                txtEmpresa.setText(empresaEncontrada.getDescricao());
+            }
+            if (agenda == null) {
+                agenda = new Agenda();
+                agenda.setTipo("Avaliacao");
+                agenda.setStatusBoleto("Nao enviado");
+                agenda.setStatusAgenda("Data Agendada");
+                if (empresaEncontrada != null) {
+                    agenda.setIdEmpresa(empresaEncontrada);
+                    Contato tempContato = null;
+                    for (Contato c : StaticLista.getListaGlobalContato()) {
+                        if (c.getIdEmpresa().getId().equals(empresaEncontrada.getId()) && c.selecionadoBoolean()) {
+                            tempContato = c;
+                            break;
+                        }
+                    }
+                    if (tempContato != null) {
+                        agenda.setResponsavel(tempContato.getResponsavelTeste());
                     }
                 }
-                if (tempContato != null) {
-                    txtResponsavel.setText(tempContato.getResponsavelTeste());
-                }
             }
+            setBindComponentsWithAgenda(agenda);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar agenda", e, "Exception:");
@@ -138,7 +148,7 @@ public class AgendarController {
     private DatePicker dtVencimentoBoleto;
 
     private Empresa empresaEncontrada = null;
-    private Agenda agendaEncontrada = null;
+    private Agenda agenda = null;
     private boolean isReagendamento = false;
     private boolean isCancelamento = false;
     private String motivoReagendamento = "";
@@ -158,7 +168,7 @@ public class AgendarController {
             try {
                 salvarOuAtualizar(isUpdate);
                 if (isUpdate) {
-                    validarCamposAoAtualizar(agendaEncontrada);
+                    validarCamposAoAtualizar(agenda);
                 }
                 if (gravarHistorico() && seConcluido()) {
                     if (isUpdate) {
@@ -175,6 +185,8 @@ public class AgendarController {
                 }
                 AgendaService as = new AgendaService();
                 StaticLista.setListaGlobalAgenda(as.findOrderBy("dataInicial"));
+                as.getEm().clear();
+                as.getEm().close();
                 StaticLista.setListaGlobalHistorico(Controller.getHistoricos());
                 stage.close();
                 DateChooserSkin.getMonthBack().arm();
@@ -245,44 +257,21 @@ public class AgendarController {
 
     private void salvarOuAtualizar(boolean atualizar) {
         try {
-            Agenda a = new Agenda();
-            if (atualizar) {
-                a.setId(agendaEncontrada.getId());
-            }
-            a.setIdEmpresa(empresaEncontrada);
-            a.setResponsavel(txtResponsavel.getText());
-            a.setTipo(Util.removerAcentuacaoServico(cbTipo.getValue().toString()));
-            try {
-                a.setDataFinal(dtFinal.getValue());
-                a.setDataInicial(dtInicial.getValue());
-                a.setDiaSemana(diaSemana.format(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue())));
-            } catch (NullPointerException e) {
-                a.setDataFinal(null);
-                a.setDataInicial(null);
-                a.setDiaSemana(null);
-            }
-            a.setStatusBoleto(Util.removerAcentuacaoServico(cbStatusBoleto.getValue().toString()));
-            a.setStatusAgenda(Util.removerAcentuacaoServico(cbStatusAgenda.getValue().toString()));
-            if (cbStatusBoleto.getSelectionModel().getSelectedItem().equals(EnumStatus.Enviado.getStatus())) {
-                a.setDataVencimentoBoleto(dtVencimentoBoleto.getValue());
-            } else if (cbStatusBoleto.getSelectionModel().getSelectedItem().equals(EnumStatus.Pago.getStatus())) {
-                a.setDataVencimentoBoleto(agendaEncontrada.getDataVencimentoBoleto());
-            } else {
-                a.setDataVencimentoBoleto(null);
-            }
+            agenda.setTipo(Util.removerAcentuacaoServico(agenda.getTipo()));
+            agenda.setStatusBoleto(Util.removerAcentuacaoServico(agenda.getStatusBoleto()));
+            agenda.setStatusAgenda(Util.removerAcentuacaoServico(agenda.getStatusAgenda()));
             if (atualizar) {
                 if (isCancelamento) {
-                    a.setStatusAgenda("Cancelado");
+                    agenda.setStatusAgenda("Cancelado");
                 }
                 AgendaService as = new AgendaService();
-                as.editar(a);
+                as.editar(agenda);
                 JPA.em(false).close();
             } else {
                 AgendaService as = new AgendaService();
-                as.salvar(a);
+                as.salvar(agenda);
                 JPA.em(false).close();
             }
-            agendaEncontrada = a;
         } catch (Exception ex) {
             Logger.getLogger(AgendarController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -331,31 +320,22 @@ public class AgendarController {
         try {
             LocalDate dtReagendada = null;
             Agenda agenda = null; //= listaTemp.get(listaTemp.size() - 1);
-            if (agendaEncontrada != null) {
-                agenda = agendaEncontrada;
-                dtReagendada = agendaEncontrada.getDataInicial();
+            if (this.agenda.getId() != null) {
+                agenda = this.agenda;
+                dtReagendada = this.agenda.getDataInicial();
             } else {
                 AgendaService as = new AgendaService();
                 agenda = as.findLast();
                 JPA.em(false).close();
             }
-//            if (isReagendamento) {
-//                agenda.setStatusAgenda("Reagendada");
-//            } else if (isCancelamento) {
-//                agenda.setStatusAgenda("Cancelado");
-//            } else {
-//                System.out.println("cbStatusAgenda.getValue() " + cbStatusAgenda.getValue());
-//                agenda.setStatusAgenda(util.tirarAcentuacaoServico(cbStatusAgenda.getValue().toString()));
-//            }
             Historico h = new Historico();
 
             h.setIdAgenda(agenda);
-            h.setIdEmpresa(empresaEncontrada);
+            h.setIdEmpresa(agenda.getIdEmpresa());
             h.setDataInicial(dtInicial.getValue());
             h.setDataFinal(dtFinal.getValue());
             h.setMotivo(motivoReagendamento);
             if (isReagendamento) {
-//                "Reagendada"
                 h.setStatus(EnumStatus.Reagendada.getStatus());
                 h.setDataReagendada(dtReagendada);
             } else {
@@ -411,8 +391,8 @@ public class AgendarController {
         cbTipo.getSelectionModel().selectFirst();
         cbStatusBoleto.getSelectionModel().selectFirst();
         cbStatusAgenda.getSelectionModel().selectFirst();
-        txtSemana.setText(null);
-        agendaEncontrada = null;
+        txtSemana.setText("");
+        agenda = null;
         empresaEncontrada = null;
         alteracao = "";
         sceneManager.setCancelamento(Boolean.FALSE);
@@ -425,12 +405,13 @@ public class AgendarController {
         boolean ok = true;
         if (txtEmpresa.getText().equals("")) {
             validationSupport.registerValidator(txtEmpresa, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerResponsavel.getMensagem());
             txtEmpresa.requestFocus();
             ok = false;
         }
-        if (txtResponsavel.getText().equals("")) {
+        if (txtResponsavel.getText() == null || txtResponsavel.getText().equals("")) {
             validationSupport.registerValidator(txtResponsavel, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
-            txtResponsavel.requestFocus();
+            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerResponsavel.getMensagem());
             ok = false;
         }
         if (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico()) || cbTipo.getValue().equals(EnumServico.AvaliacaoIntinerante.getServico())) {
@@ -603,9 +584,9 @@ public class AgendarController {
     public void setCampos() {
         try {
             lblAgenda.setText("Atualizar Agendamento");
-            if (agendaEncontrada.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))
-                    || agendaEncontrada.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))
-                    || agendaEncontrada.getStatusAgenda().equals(EnumStatus.DataAgendada.getStatus())) {
+            if (agenda.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))
+                    || agenda.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))
+                    || agenda.getStatusAgenda().equals(EnumStatus.DataAgendada.getStatus())) {
                 dtInicial.setDisable(true);
                 dtFinal.setDisable(true);
             }
@@ -621,58 +602,14 @@ public class AgendarController {
                 cbTipo.setDisable(true);
                 cbStatusBoleto.setDisable(true);
             }
-            ObservableList<Empresa> empresas = Controller.getEmpresas();
-            for (Empresa empresa : empresas) {
-                if (empresa.getId() == agendaEncontrada.getIdEmpresa().getId()) {
-                    txtEmpresa.setText(empresa.getDescricao());
-                    empresaEncontrada = empresa;
-                }
-            }
-            txtResponsavel.setText(agendaEncontrada.getResponsavel());
-            txtSemana.setText(agendaEncontrada.getDiaSemana());
-            String aux = agendaEncontrada.getStatusAgenda();
-            aux = Util.porAcentuacaoServico(aux);
-            while (!cbStatusAgenda.getSelectionModel().getSelectedItem().toString().equals(aux)) {
-                if (aux.equals(EnumStatus.Reagendada.getStatus()) || aux.equals(EnumStatus.Cancelado.getStatus())
-                        || aux.equals(EnumStatus.PendenteWeb.getStatus())) {
-                    cbStatusAgenda.getSelectionModel().selectLast();
-                    break;
-                } else {
-                    cbStatusAgenda.getSelectionModel().selectNext();
-                }
-            }
-            cbStatusBoleto.getSelectionModel().selectFirst();
-            String boleto = Util.porAcentuacaoServico(agendaEncontrada.getStatusBoleto());
+            String boleto = Util.porAcentuacaoServico(agenda.getStatusBoleto());
             if (!boleto.equals(EnumStatus.NaoEnviado.getStatus())) {
                 dtVencimentoBoleto.setVisible(true);
-                dtVencimentoBoleto.setValue(agendaEncontrada.getDataVencimentoBoleto());
-            }
-            while (!cbStatusBoleto.getSelectionModel().getSelectedItem().toString().equals(boleto)) {
-                cbStatusBoleto.getSelectionModel().selectNext();
-            }
-            String tipo = Util.porAcentuacaoServico(agendaEncontrada.getTipo());
-            while (!cbTipo.getSelectionModel().getSelectedItem().equals(tipo)) {
-                cbTipo.getSelectionModel().selectNext();
-            }
-            dtInicial.setValue(agendaEncontrada.getDataInicial());
-            dtFinal.setValue(agendaEncontrada.getDataFinal());
-            if (agendaEncontrada.getDataVencimentoBoleto() != null) {
-                dtVencimentoBoleto.setValue(agendaEncontrada.getDataVencimentoBoleto());
+                dtVencimentoBoleto.setValue(agenda.getDataVencimentoBoleto());
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void bloquearCamposEmpresa() {
-        txtResponsavel.setEditable(false);
-        btnBuscar.setDisable(true);
-    }
-
-    public void bloquearCampos() {
-        txtResponsavel.setEditable(false);
-        btnBuscar.setDisable(true);
-        cbTipo.setDisable(true);
     }
 
     private void validarCamposAoAtualizar(Agenda agenda) {
@@ -734,7 +671,7 @@ public class AgendarController {
     }
 
     protected void iniciarCadastroFinanceiro() {
-        sceneManager.showFinanceiro(false, empresaEncontrada, agendaEncontrada);
+        sceneManager.showFinanceiro(false, empresaEncontrada, agenda);
     }
 
     public void setStage(Stage agendaStage) {
@@ -746,7 +683,7 @@ public class AgendarController {
                 dtInicial.setDisable(false);
                 dtFinal.setDisable(false);
                 empresaEncontrada = null;
-                agendaEncontrada = null;
+                agenda = null;
                 motivoReagendamento = null;
             }
         });
@@ -761,6 +698,22 @@ public class AgendarController {
 
     public void setMotivo(String motivo) {
         motivoReagendamento = motivo;
+    }
+
+    private void setBindComponentsWithAgenda(Agenda agenda) {
+        this.agenda = agenda;
+        this.agenda.setTipo(Util.porAcentuacaoServico(this.agenda.getTipo()));
+        this.agenda.setStatusAgenda(Util.porAcentuacaoServico(this.agenda.getStatusAgenda()));
+        this.agenda.setStatusBoleto(Util.porAcentuacaoServico(this.agenda.getStatusBoleto()));
+        cbTipo.valueProperty().bindBidirectional(this.agenda.tipoProperty());
+        cbStatusBoleto.valueProperty().bindBidirectional(this.agenda.statusBoletoProperty());
+        cbStatusAgenda.valueProperty().bindBidirectional(this.agenda.statusAgendaProperty());
+        txtEmpresa.textProperty().bindBidirectional(this.agenda.getIdEmpresa().descricaoProperty());
+        dtFinal.valueProperty().bindBidirectional(this.agenda.dataFinalProperty());
+        dtInicial.valueProperty().bindBidirectional(this.agenda.dataInicialProperty());
+        txtResponsavel.textProperty().bindBidirectional(this.agenda.responsavelProperty());
+        txtSemana.textProperty().bindBidirectional(this.agenda.diaSemanaProperty());
+        dtVencimentoBoleto.valueProperty().bindBidirectional(this.agenda.dataVencimentoBoletoProperty());
     }
 
 }

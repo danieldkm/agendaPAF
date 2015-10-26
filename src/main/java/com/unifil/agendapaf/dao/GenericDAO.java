@@ -34,6 +34,7 @@ public class GenericDAO<PK, T> {
     public void delete(T entity) {
 //        entityManager.merge(entity);
         entityManager.remove(entityManager.contains(entity) ? entity : entityManager.merge(entity));
+        entityManager.flush();
 //        entityManager.remove(entity);
     }
 

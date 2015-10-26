@@ -1,0 +1,196 @@
+Event false
+SUCCEEDED false
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+- Iniciar metodo de preenchimento
+laudoComplementarlaudoComplementarlaudoComplementarlaudoComplementar 
+LaudoComplementar{nomeFantasia=C&S Sistemas, IM=36005, RG=, CELULAR=, FAX=, RESPENSAIO=, bytesExePrincipal=, ripmedExePrincipal=, ripmedTxtRelacao=}
+- Finalizar metodo de preenchimento
+- Iniciar metodo actionBtnSalvar
+Salvando arquivo XML
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+- Finalizar metodo actionBtnSalvar
+- Iniciar metodo de preenchimento
+laudoComplementarlaudoComplementarlaudoComplementarlaudoComplementar 
+LaudoComplementar{nomeFantasia=C&S Sistemas, IM=36005, RG=, CELULAR=, FAX=, RESPENSAIO=, bytesExePrincipal=efu9823fb023bg087b28gb84b3gbq43, ripmedExePrincipal=ksldfb4riq23bfpbp34b493bgp94b3g9b43q9gbp943bgb43gbq34ng[q3n4gnaeorn[034, ripmedTxtRelacao=eiuabfiuwb3b3bga92bg98b298gbe9baorehn43nh[qn34hnq043n0hq493nh93904h09qn34}
+- Finalizar metodo de preenchimento
+- Iniciar metodo actionBtnSalvar
+Salvando arquivo XML
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+- Finalizar metodo actionBtnSalvar
+- Iniciar metodo de preenchimento
+laudoComplementarlaudoComplementarlaudoComplementarlaudoComplementar 
+LaudoComplementar{nomeFantasia=C&S Sistemas, IM=36005, RG=123123213, CELULAR=1231232131, FAX=23123123, RESPENSAIO=José Ricardo, bytesExePrincipal=efu9823fb023bg087b28gb84b3gbq43, ripmedExePrincipal=ksldfb4riq23bfpbp34b493bgp94b3g9b43q9gbp943bgb43gbq34ng[q3n4gnaeorn[034, ripmedTxtRelacao=eiuabfiuwb3b3bga92bg98b298gbe9baorehn43nh[qn34hnq043n0hq493nh93904h09qn34}
+- Finalizar metodo de preenchimento
+escolhcer com.unifil.agendapaf.view.controller.EscolherDocsController@7510854e
+- Iniciar metodo actionBtnSalvar
+getFldData org.docx4j.wml.FldChar@476a57e8
+name ckbGerenciadorBD
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@65e0dcda
+name ckbComRegras
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@6a3b66ef
+name perfilr
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5d0a274
+name perfils
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@1d20642e
+name perfilt
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@60983911
+name perfilu
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@30586855
+name perfilv
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4f7e334f
+name perfilw
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@24c65872
+name perfily
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4f871197
+name perfilz
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@32e48ab3
+name ckbComercializavel
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@ebae49f
+name ckbExclusivoProprio
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@7748a516
+name ckbExclusivoTerce
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@16181730
+name ckbConcomitante
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@3170689a
+name ckbNaoConcomitanteDV
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4a853c9f
+name ckbNaoConcomitantePr
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@1c7bd728
+name ckbNaoConcomitanteCC
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4defe4c0
+name ckbDavSemImp
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5f78e8a8
+name ckbDavImpNaoFiscal
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@caf5c39
+name ckbDavEcf
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@7feb6897
+name ckbStandAlone
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@585b5f60
+name ckbEmRede
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@32b0c9dc
+name ckbParametrizavel
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4173d0e1
+name ckbPeloPaf
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@410c2ce4
+name ckbPeloRetaguarda
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4025cd28
+name ckbPeloSisPed
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@37d89ffc
+name ckbNfeSim
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5ab29ade
+name ckbNfeNao
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@2a02af6e
+name ckbNfceSim
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@6f39b1ac
+name ckbNfceNao
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@2c05f8cf
+name ckbRecuDados
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@28517e8d
+name ckbCancelAutoma
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@7f8fbceb
+name ckbBloqueFunc
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@7fb82f55
+name ckbComRetaguarda
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@6a49645e
+name ckbComSisPed
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5f8a1239
+name ckbComAmbos
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@79b5a718
+name ckbNaoIntegrado
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5177c2f9
+name ckbPostoComBomb
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@1d04aeef
+name ckbPostoSemBomb
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@501217b5
+name ckbOficinaComDavOs
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@269ba9f9
+name ckbOficinaComCC
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@88328f9
+name ckbRestaEcfRestaCom
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@6418456d
+name ckbRestaEcfNormalCom
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4f9f7504
+name ckbRestaEcfRestaSem
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@141fe447
+name ckbRestaEcfNormalSem
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@6e532ea5
+name ckbFarmacia
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@4ad6b43b
+name ckbTransporte
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@5182e2e5
+name ckbPedagio
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@7afc932a
+name ckbEstacionamento
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@49638f41
+name ckbCinema
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@ecef865
+name ckbDemaisAtividades
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@433d78b
+name ckbSimplesNacional
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@1b529a3d
+name ckbConstatada
+CHECK BOX is checked? false
+getFldData org.docx4j.wml.FldChar@358a6c1c
+name ckbNaoConstatada
+CHECK BOX is checked? false
+LINHAS 74
+LINHAS 3
+Salvando arquivo XML
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+- Finalizar metodo actionBtnSalvar

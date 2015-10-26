@@ -8,9 +8,7 @@
             <Cnpj>06028222000107</Cnpj>
             <Ie>254726321</Ie>
             <Endereco>
-                <Logradouro>RUA ERWINO MENEGOTTI</Logradouro>
-                <Numero>1320</Numero>
-                <Complemento>SALA 1</Complemento>
+                <Logradouro>RUA ERWINO MENEGOTTI, 1320 – SALA 1</Logradouro>
                 <Bairro>AGUA VERDE</Bairro>
                 <Municipio>Jaragua do Sul</Municipio>
                 <Uf>SC</Uf>
@@ -19,10 +17,10 @@
             <Contato>
                 <Nome>ADEMILSON OSNI PICCOLI</Nome>
                 <Cpf>68252129900</Cpf>
-                <Telefone>1029381728</Telefone>
+                <Telefone></Telefone>
                 <Email>piccoli@priorize.com.br</Email>
             </Contato>
-            <ResponsavelAcompanhamentoTestes>nao saber</ResponsavelAcompanhamentoTestes>
+            <ResponsavelAcompanhamentoTestes></ResponsavelAcompanhamentoTestes>
         </Desenvolvedora>
         <Otc>
             <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>

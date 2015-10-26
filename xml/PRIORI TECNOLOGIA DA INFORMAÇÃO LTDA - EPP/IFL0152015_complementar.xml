@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <LaudoComplementar>
-    <NomeFantasia>PRIORI TECNOLOGIA DA INFORMAÇÃO</NomeFantasia>
-    <IM>26811-9</IM>
-    <RG>090909</RG>
+    <BytesExePrincipal>sfklnkjsbfiuabefubefubawefbewfbawefbilfbewlfbaewilfbewauf8</BytesExePrincipal>
+    <Contato>
+        <id>0</id>
+        <rg>1</rg>
+        <selecionado>0</selecionado>
+        <Telefone>
+            <Celular>2</Celular>
+            <Fax>3</Fax>
+            <Id>0</Id>
+            <selecionado>0</selecionado>
+        </Telefone>
+    </Contato>
+    <Empresa>
+        <categoria>0</categoria>
+        <cnpj>06.028.222/0001-07</cnpj>
+        <dataCadastro>2015-03-10</dataCadastro>
+        <descricao>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</descricao>
+        <id>60</id>
+        <inscricaoEstadual>254.726.321</inscricaoEstadual>
+        <InscricaoMunicipal>26811-9</InscricaoMunicipal>
+        <NomeFantasia>What</NomeFantasia>
+        <observacao></observacao>
+    </Empresa>
     <PossuiSGDB>true</PossuiSGDB>
-    <BytesExePrincipal>090909</BytesExePrincipal>
-    <RipmedExePrincipal>d9ad09awjd</RipmedExePrincipal>
-    <RipmedTxtRelacao>aid9a0ud09aw</RipmedTxtRelacao>
-    <Celular>090909</Celular>
-    <FAX>090909</FAX>
-    <RazaoSocial>PRIORI TECNOLOGIA DA INFORMAÇÃO LTDA - EPP</RazaoSocial>
-    <CNPJ>06028222000107</CNPJ>
-    <IE>254726321</IE>
-    <Logradouro>RUA ERWINO MENEGOTTI</Logradouro>
-    <Numero>1320</Numero>
-    <Complemento>SALA 1</Complemento>
-    <Bairro>AGUA VERDE</Bairro>
-    <CEP>89254000</CEP>
-    <UF>SC</UF>
-    <Cidade>Jaragua do Sul</Cidade>
-    <ResponsavelTeste>nao saber</ResponsavelTeste>
-    <NomeContato>ADEMILSON OSNI PICCOLI</NomeContato>
-    <CPF>68252129900</CPF>
-    <Telefone>1029381728</Telefone>
-    <Email>piccoli@priorize.com.br</Email>
-    <ResponsavelEnsaio>Daniel</ResponsavelEnsaio>
-    <IdEmpresa>60</IdEmpresa>
+    <ResponsavelEnsaio>
+        <dataCadastro>2014-04-24</dataCadastro>
+        <id>3</id>
+        <Nome>Daniel</Nome>
+        <nomeLogin>daniel</nomeLogin>
+        <senha>q</senha>
+        <tipo>Gerencial</tipo>
+    </ResponsavelEnsaio>
+    <RipmedExePrincipal>uebfluieabfiowbfbowebf8bew8bf8awbf89be9w8bfwe</RipmedExePrincipal>
+    <RipmedTxtRelacao>ebfialeb89fbawe9bf98web9fawbbfbwe9b8fbawbe9bf9w8bebf</RipmedTxtRelacao>
 </LaudoComplementar>

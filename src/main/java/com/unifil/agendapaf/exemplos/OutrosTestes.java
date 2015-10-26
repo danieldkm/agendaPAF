@@ -1,11 +1,18 @@
 package com.unifil.agendapaf.exemplos;
 
+import com.unifil.agendapaf.model.Endereco;
 import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.util.UtilTexto;
 import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +21,15 @@ import java.time.format.FormatStyle;
 public class OutrosTestes {
 
     public static void main(String[] args) {
+//        Endereco e1 = new Endereco();
+//        Endereco e2;
+//        
+//        e1.setBairro("aa");
+//        e2 = e1.clone();
+//        e2.setBairro("bb");
+//        System.out.println(e1.getBairro());
+//        System.out.println(e2.getBairro());
+        
         System.out.println(DateFormat.getDateInstance(DateFormat.LONG).format(UtilConverter.converterLocalDateToUtilDate(LocalDate.now())));
         System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(UtilConverter.converterLocalDateToUtilDate(LocalDate.now())));
         System.out.println("" + UtilTexto.formatarMascaraCnpj("10293847564732"));
@@ -26,9 +42,31 @@ public class OutrosTestes {
         System.out.println(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)));
         System.out.println(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM)));
         System.out.println(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.SHORT)));
-        System.out.println("FLOAT arrenda "+Math.round(1.5));
-        System.out.println("FLOAT arrenda "+Math.floor(1.5));
+        System.out.println("FLOAT arrenda " + Math.round(1.5));
+        System.out.println("FLOAT arrenda " + Math.floor(1.5));
 //        System.out.println(LocalDate.now().format(DateTimeFormatter.ofLocalizedDate(FormatStyle.valueOf("dd/MM/yyyy"))));
+
+        Locale ptBR = new Locale("pt", "BR");
+        DateFormat dateFormat
+                = DateFormat.getDateInstance(DateFormat.FULL, ptBR);
+        System.out.println(dateFormat.format(new Date()));
+
+        DateFormat timeFormat
+                = DateFormat.getTimeInstance(DateFormat.MEDIUM, ptBR);
+        System.out.println(timeFormat.format(new Date()));
+
+        NumberFormat numberFormat
+                = NumberFormat.getNumberInstance(ptBR); //para números
+        System.out.println(numberFormat.format(13.23));
+
+        NumberFormat moedaFormat
+                = NumberFormat.getCurrencyInstance(ptBR);  //para moedas
+        System.out.println(moedaFormat.format(13.23));
+        try {
+            System.out.println(moedaFormat.parse("13,23"));
+        } catch (ParseException ex) {
+            Logger.getLogger(OutrosTestes.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -78,7 +78,7 @@
                 <TextField fx:id="txtBuscar" onKeyPressed="#onKeyPressdTxtBuscar" prefHeight="50.0" prefWidth="390.0" promptText="" styleClass="textField" text="" />
                 <Pane prefHeight="100.0" prefWidth="159.0">
                     <children>
-                        <Button fx:id="btnCadastrar" defaultButton="true" layoutX="44.0" layoutY="25.0" mnemonicParsing="false" onAction="#actionBtnCadastrar" prefHeight="50.0" text="Cadastrar" />
+                        <Button fx:id="btnCadastrar" layoutX="44.0" layoutY="25.0" mnemonicParsing="false" onAction="#actionBtnCadastrar" prefHeight="50.0" text="Cadastrar" />
                     </children>
                     <effect>
                         <InnerShadow />

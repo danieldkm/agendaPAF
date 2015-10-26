@@ -77,16 +77,13 @@ public class GerarDocx {
 //                mappings.put("teste", "????????");
 //                mappings.put("colour", "green");
             HashMap<String, String> map = gson.fromJson(parametro.getParametros(), type);
-//            for (String key : map.keySet()) {
-//                System.out.println("key " + key + " -> map.get = " + map.get(key));
-//            }
+
             for (SectionWrapper sw : sectionWrappers) {
                 HeaderFooterPolicy hfp = sw.getHeaderFooterPolicy();
                 if (hfp.getFirstHeader() != null) {
                     hfp.getFirstHeader().variableReplace(map);
                 }
                 if (hfp.getDefaultHeader() != null) {
-//                    System.out.println("XML header Default: " + hfp.getDefaultHeader().getXML());
                     hfp.getDefaultHeader().variableReplace(map);
                 }
                 if (hfp.getEvenHeader() != null) {
@@ -96,17 +93,22 @@ public class GerarDocx {
             if (hasCheckBox) {
                 setCheckBox(docu, map);
             }
-//            System.out.println("map.get(\"${txtRelacaoEcf}\") " + map.get("${txtRelacaoEcf}"));
             if (map.get("txtRelacaoEcf") != null) {
-                addTabelaTxtRelacaoEcf(docu, map, "txtRelacaoEcf", 4.0f);
+                if (!map.get("txtRelacaoEcf").equals("")) {
+                    addTabelaTxtRelacaoEcf(docu, map, "txtRelacaoEcf", 4.0f);
+                }
             }
             if (map.get("txtNaoConformidadeRequisito") != null) {
-                addTabelaTxtRelacaoEcf(docu, map, "txtNaoConformidadeRequisito", 2.0f);
+                if (!map.get("txtNaoConformidadeRequisito").equals("")) {
+                    addTabelaTxtRelacaoEcf(docu, map, "txtNaoConformidadeRequisito", 2.0f);
+                }
             }
             if (map.get("txtRelacaoMd5Executaveis") != null) {
                 addTabelaTxtRelacaoMd5Executaveis(docu, map);
             }
-
+//            for (String key : map.keySet()) {
+//                System.out.println("key " + key + " -> map.get = " + map.get(key));
+//            }
             docu.variableReplace(map);
 //            wordMLPackage.save(new java.io.File());
             SaveToZipFile saver = new SaveToZipFile(wordMLPackage);
@@ -134,8 +136,6 @@ public class GerarDocx {
             ClassFinder finder = new ClassFinder(FldChar.class);
             new TraversalUtil(documentPart.getContent(), finder);
 
-//        System.out.println("got " + finder.results.size() + " of type " + finder.typeToFind.getName());
-//        System.out.println("got " + finder.results.size());
             for (Object o : finder.results) {
 
                 Object o2 = XmlUtils.unwrap(o);
@@ -143,7 +143,6 @@ public class GerarDocx {
                 // won't be marshalled          
                 FldChar fldChar = (FldChar) o;
                 if (fldChar.getFfData() != null) {
-                    System.out.println("getFldData " + fldChar.getFfData().getParent());
                     boolean check = false;
                     for (JAXBElement<?> nameOrEnabledOrCalcOnExit : fldChar.getFfData().getNameOrEnabledOrCalcOnExit()) {
                         if (nameOrEnabledOrCalcOnExit.getValue() instanceof CTFFName) {
@@ -151,10 +150,8 @@ public class GerarDocx {
                             if (map.get(name.getVal()).equals("true")) {
                                 check = true;
                             }
-                            System.out.println("name " + name.getVal());
                         } else if (nameOrEnabledOrCalcOnExit.getValue() instanceof CTFFCheckBox) {
                             CTFFCheckBox ccb = (CTFFCheckBox) nameOrEnabledOrCalcOnExit.getValue();
-                            System.out.println("CHECK BOX is checked? " + ccb.getDefault().isVal());
                             if (check) {
                                 ccb.setDefault(new BooleanDefaultTrue());
                                 check = false;
@@ -183,7 +180,6 @@ public class GerarDocx {
                     List<Object> allText = getAllElementFromObject(r, Text.class);
                     for (Object text : allText) {
                         Text txt = (Text) text;
-//                        System.out.println("TXT " + txt.getValue());
                         if (txt.getValue().equals("${txtRelacaoMd5Executaveis}")) {
                             txt.setValue(listaRelacao[0]);
 
@@ -206,11 +202,9 @@ public class GerarDocx {
     }
 
     public void addTabelaTxtRelacaoEcf(MainDocumentPart document, HashMap<String, String> map, String tipo, float divisao) {
-//        String[] listaRelacaoEcf = map.get("txtRelacaoEcf").split(",");
         String[] listaRelacaoEcf = map.get(tipo).split(",");
         double a = listaRelacaoEcf.length / divisao;
         int linhas = (int) Math.round(a);
-        System.out.println("LINHAS " + linhas);
         Tr trTemporario = null;
         Tbl tblTemporario = null;
         int posicaoTr = 0;
@@ -219,8 +213,6 @@ public class GerarDocx {
             Tbl tbl = (Tbl) oTbl;
             List<Object> trs = getAllElementFromObject(tbl, Tr.class);
             for (int i = 0; i < trs.size(); i++) {
-//            }
-//            for (Object oTr : trs) {
                 Tr tr = (Tr) trs.get(i);
                 List<Object> tcs = getAllElementFromObject(tr, Tc.class);
                 for (Object o : tcs) {
@@ -235,9 +227,7 @@ public class GerarDocx {
                             List<Object> allText = getAllElementFromObject(r, Text.class);
                             for (Object text : allText) {
                                 Text txt = (Text) text;
-//                                if (txt.getValue().contains("txtRelacaoEcf")) {
                                 if (txt.getValue().contains(tipo)) {
-//                                    System.out.println("TXT " + txt.getValue());
                                     trTemporario = tr;
                                     tblTemporario = tbl;
                                     break;

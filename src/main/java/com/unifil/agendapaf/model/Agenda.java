@@ -40,6 +40,17 @@ public class Agenda implements Externalizable {
 
     private static final long serialVersionUID = 1L;
 
+    public Agenda() {
+        Empresa e = new Empresa();
+        e.setDescricao("");
+        idEmpresa.set(e);
+        responsavel.set("");
+        tipo.set("");
+        diaSemana.set("");
+        statusBoleto.set("");
+        statusAgenda.set("");
+    }
+
     private LongProperty id = new SimpleLongProperty(this, "id");
 
     @Id
@@ -223,7 +234,16 @@ public class Agenda implements Externalizable {
 
     @Override
     public String toString() {
-        return "Agenda{" + "id=" + id.get() + ", idEmpresa=" + idEmpresa.get().getDescricao() + ", responsavel=" + responsavel.get() + ", tipo=" + tipo.get() + ", dataInicial=" + dataInicial.get() + ", dataFinal=" + dataFinal.get() + ", diaSemana=" + diaSemana.get() + ", statusBoleto=" + statusBoleto.get() + ", statusAgenda=" + statusAgenda.get() + ", dataVencimentoBoleto=" + dataVencimentoBoleto.get() + '}';
+        return "Agenda{" + "id=" + id.get()
+                + ", \nidEmpresa=" + idEmpresa.get()
+                + ", \nresponsavel=" + responsavel.get()
+                + ", \ntipo=" + tipo.get()
+                + ", \ndataInicial=" + dataInicial.get()
+                + ", \ndataFinal=" + dataFinal.get()
+                + ", \ndiaSemana=" + diaSemana.get()
+                + ", \nstatusBoleto=" + statusBoleto.get()
+                + ", \nstatusAgenda=" + statusAgenda.get()
+                + ", \ndataVencimentoBoleto=" + dataVencimentoBoleto.get() + '}';
     }
 
 }

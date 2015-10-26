@@ -1,29 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <LaudoComplementar>
-    <NomeFantasia>Virtual Age</NomeFantasia>
-    <IM>1630200-0</IM>
-    <RG>RG</RG>
-    <PossuiSGDB>true</PossuiSGDB>
-    <BytesExePrincipal>12312312312312312313213123123</BytesExePrincipal>
-    <RipmedExePrincipal>456</RipmedExePrincipal>
-    <RipmedTxtRelacao>789</RipmedTxtRelacao>
-    <Celular>(44)9971-1234</Celular>
-    <FAX>(44)3619-4468</FAX>
-    <RazaoSocial>Virtual Age Soluções em Tecnologia Ltda</RazaoSocial>
-    <CNPJ>14934661000107</CNPJ>
-    <IE>Isento</IE>
-    <Logradouro>Av. Brasil</Logradouro>
-    <Numero>2185</Numero>
-    <Complemento>complemento</Complemento>
-    <Bairro>Centro</Bairro>
-    <CEP>87201100</CEP>
-    <UF>PR</UF>
-    <Cidade>Cianorte</Cidade>
-    <ResponsavelTeste>Luciano Sanches Canonico</ResponsavelTeste>
-    <NomeContato>Marcélia Fecchio de Melo</NomeContato>
-    <CPF>64650790972</CPF>
-    <Telefone>4436194410</Telefone>
-    <Email>marcelia@gruponabhan.com.br</Email>
-    <ResponsavelEnsaio>Daniel</ResponsavelEnsaio>
-    <IdEmpresa>75</IdEmpresa>
+    <BytesExePrincipal>1111</BytesExePrincipal>
+    <Contato>
+        <id>0</id>
+        <rg>123</rg>
+        <selecionado>0</selecionado>
+        <Telefone>
+            <Celular>4499711234</Celular>
+            <Fax>4436194468</Fax>
+            <Id>0</Id>
+            <selecionado>0</selecionado>
+        </Telefone>
+    </Contato>
+    <Empresa>
+        <categoria>0</categoria>
+        <cnpj>14.934.661/0001-07</cnpj>
+        <dataCadastro>2015-07-23</dataCadastro>
+        <descricao>Virtual Age Soluções em Tecnologia Ltda</descricao>
+        <id>75</id>
+        <inscricaoEstadual>isenta</inscricaoEstadual>
+        <InscricaoMunicipal>1630200-0</InscricaoMunicipal>
+        <NomeFantasia>Virtual Age</NomeFantasia>
+        <observacao></observacao>
+    </Empresa>
+    <PossuiSGDB>false</PossuiSGDB>
+    <ResponsavelEnsaio>
+        <dataCadastro>2014-04-24</dataCadastro>
+        <id>3</id>
+        <Nome>Daniel</Nome>
+        <nomeLogin>daniel</nomeLogin>
+        <senha>q</senha>
+        <tipo>Gerencial</tipo>
+    </ResponsavelEnsaio>
+    <RipmedExePrincipal>2222</RipmedExePrincipal>
+    <RipmedTxtRelacao>3333</RipmedTxtRelacao>
 </LaudoComplementar>

@@ -1,28 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <LaudoFerramenta>
-    <Empresa>
-        <RazaoSocial>IFL – Instituto Filadélfia de LondrinaTESTE</RazaoSocial>
-        <CNPJ>78624202000100</CNPJ>
-        <IE>Isento</IE>
-        <VersaoER>02.03</VersaoER>
-    </Empresa>
-    <Endereco>
-        <Logradouro>Av. Juscelino Kubischeck</Logradouro>
-        <Numero>1626</Numero>
-        <Complemento></Complemento>
-        <Bairro>Centro</Bairro>
-        <CEP>10900000</CEP>
-        <UF>PR</UF>
-        <Cidade>Londrina</Cidade>
-    </Endereco>
-    <ExecucaoDosTestes>
-        <Nome>Sandro Teixeira Pinto</Nome>
-        <CPF>64555011953</CPF>
-        <Cargo>Técnico Responsável</Cargo>
-    </ExecucaoDosTestes>
     <AprovacaoDoRelatorio>
-        <Nome>Ricardo Inácio Álvares e Silva</Nome>
-        <CPF>07065010635</CPF>
+        <cpf>07065010635</cpf>
+        <id>0</id>
+        <nome>Ricardo Inácio Álvares e Silva</nome>
+        <selecionado>0</selecionado>
         <Cargo>Coordenador NPI</Cargo>
     </AprovacaoDoRelatorio>
+    <Empresa>
+        <cnpj>78624202000100</cnpj>
+        <descricao>IFL - Instituto Filadélfia de Londrina</descricao>
+        <id>0</id>
+        <inscricaoEstadual>Isento</inscricaoEstadual>
+        <InscricaoMunicipal></InscricaoMunicipal>
+        <NomeFantasia></NomeFantasia>
+    </Empresa>
+    <Endereco>
+        <Bairro>Centro</Bairro>
+        <Cep>10900000</Cep>
+        <Complemento></Complemento>
+        <Id>0</Id>
+        <IdCidade>
+            <id>0</id>
+            <Nome>Londrina</Nome>
+            <Uf>PR</Uf>
+        </IdCidade>
+        <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+        <Numero>1626</Numero>
+        <selecionado>0</selecionado>
+    </Endereco>
+    <ExecucaoDosTestes>
+        <cpf>64555011953</cpf>
+        <id>0</id>
+        <nome>Sandro Teixeira Pinto</nome>
+        <selecionado>0</selecionado>
+        <Cargo>Técnico Responsável</Cargo>
+    </ExecucaoDosTestes>
+    <VersaoER>02.03</VersaoER>
 </LaudoFerramenta>

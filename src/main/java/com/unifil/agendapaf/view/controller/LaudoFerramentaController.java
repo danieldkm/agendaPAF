@@ -1,9 +1,7 @@
 package com.unifil.agendapaf.view.controller;
 
-import com.unifil.agendapaf.model.xml.Empresa;
-import com.unifil.agendapaf.model.xml.Endereco;
+import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.xml.LaudoFerramenta;
-import com.unifil.agendapaf.model.xml.Pessoa;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilFile;
@@ -26,6 +24,37 @@ import javafx.stage.Stage;
  * @author danielmorita
  */
 public class LaudoFerramentaController {
+
+    /**
+     * Initializes the controller class.
+     */
+    @FXML
+    public void initialize() {
+        //setar o titledPane que irá iniciar/exibir
+        accordion.setExpandedPane(titledPane);
+
+        if (utilXml == null) {
+            utilXml = new UtilFile();
+        }
+        if (laudoFerramenta != null) {
+            preencherLaudoFerramenta();
+        } else {
+            try {
+                laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
+            } catch (Exception e) {
+//            e.printStackTrace();
+                System.err.println("java.io.FileNotFoundException: xml/LaudoFerramenta.xml (No such file or directory)");
+            }
+            laudoFerramenta = LaudoFerramenta.getInstance();
+            preencherLaudoFerramenta();
+        }
+
+        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(txtIE);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCNPJ);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtETCPF);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtARCPF);
+        MaskFieldUtil.numericField(txtNumero);
+    }
 
     @FXML
     private Label lblAgenda;
@@ -100,33 +129,6 @@ public class LaudoFerramentaController {
     private UtilFile utilXml;
     private LaudoFerramenta laudoFerramenta;
 
-    /**
-     * Initializes the controller class.
-     */
-    @FXML
-    public void initialize() {
-        //setar o titledPane que irá iniciar/exibir
-        accordion.setExpandedPane(titledPane);
-        if (utilXml == null) {
-            utilXml = new UtilFile();
-        }
-        try {
-            laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
-        } catch (Exception e) {
-//            e.printStackTrace();
-            System.err.println("java.io.FileNotFoundException: xml/LaudoFerramenta.xml (No such file or directory)");
-        }
-        if (laudoFerramenta != null) {
-            preencherLaudoFerramenta();
-        }
-
-        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(txtIE);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtETCPF);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtARCPF);
-        MaskFieldUtil.numericField(txtNumero);
-    }
-
     @FXML
     void onActionBtnCacelar(ActionEvent event) {
         stage.close();
@@ -136,40 +138,10 @@ public class LaudoFerramentaController {
     void onActionBtnSalvar(ActionEvent event) {
         Optional<ButtonType> r = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaSalvar.getMensagem());
         if (r.get() == ButtonType.OK) {
-            if (laudoFerramenta == null) {
-                laudoFerramenta = new LaudoFerramenta();
-            }
-            Pessoa ar = new Pessoa();
-            ar.setCpf(txtARCPF.getText());
-            ar.setCargo(txtARCargo.getText());
-            ar.setNome(txtARNome.getText());
-            laudoFerramenta.setAprovadorRelatorio(ar);
-
-            Pessoa et = new Pessoa();
-            et.setCpf(txtETCPF.getText());
-            et.setCargo(txtETCargo.getText());
-            et.setNome(txtETNome.getText());
-            laudoFerramenta.setExecutorTestes(et);
-
-            Endereco endereco = new Endereco();
-            endereco.setBairro(txtBairro.getText());
-            endereco.setCep(txtCEP.getText());
-            endereco.setCidade(txtCidade.getText());
-            endereco.setUf(txtUF.getText());
-            endereco.setComplemento(txtComplemento.getText());
-            endereco.setLogradouro(txtLogradouro.getText());
-            endereco.setNumero(txtNumero.getText());
-            laudoFerramenta.setEndereco(endereco);
-
-            Empresa empresa = new Empresa();
-            empresa.setCnpj(txtCNPJ.getText());
-            empresa.setRazaoSocial(txtRazaoSocial.getText());
-            empresa.setIe(txtIE.getText());
-            empresa.setVersaoER(txtVersaoER.getText());
-            laudoFerramenta.setEmpresa(empresa);
-
             File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
             utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoFerramenta));
+            LaudoController lc = SceneManager.getInstance().getLaudoController();
+            lc.bindComponenetsWithLaudoFerramenta(laudoFerramenta);
             stage.close();
         }
     }
@@ -183,22 +155,23 @@ public class LaudoFerramentaController {
     }
 
     private void preencherLaudoFerramenta() {
-        txtARCPF.setText(laudoFerramenta.getAprovadorRelatorio().getCpf());
-        txtARCargo.setText(laudoFerramenta.getAprovadorRelatorio().getCargo());
-        txtARNome.setText(laudoFerramenta.getAprovadorRelatorio().getNome());
-        txtETCPF.setText(laudoFerramenta.getExecutorTestes().getCpf());
-        txtETCargo.setText(laudoFerramenta.getExecutorTestes().getCargo());
-        txtETNome.setText(laudoFerramenta.getExecutorTestes().getNome());
-        txtBairro.setText(laudoFerramenta.getEndereco().getBairro());
-        txtCEP.setText(laudoFerramenta.getEndereco().getCep());
-        txtCidade.setText(laudoFerramenta.getEndereco().getCidade());
-        txtUF.setText(laudoFerramenta.getEndereco().getUf());
-        txtComplemento.setText(laudoFerramenta.getEndereco().getComplemento());
-        txtLogradouro.setText(laudoFerramenta.getEndereco().getLogradouro());
-        txtNumero.setText(laudoFerramenta.getEndereco().getNumero());
-        txtCNPJ.setText(laudoFerramenta.getEmpresa().getCnpj());
-        txtRazaoSocial.setText(laudoFerramenta.getEmpresa().getRazaoSocial());
-        txtIE.setText(laudoFerramenta.getEmpresa().getIe());
-        txtVersaoER.setText(laudoFerramenta.getEmpresa().getVersaoER());
+        txtARCPF.textProperty().bindBidirectional(laudoFerramenta.getAprovadorRelatorio().cpfProperty());
+        txtARCargo.textProperty().bindBidirectional(laudoFerramenta.getAprovadorRelatorio().cargoProperty());
+        txtARNome.textProperty().bindBidirectional(laudoFerramenta.getAprovadorRelatorio().nomeProperty());
+        txtETCPF.textProperty().bindBidirectional(laudoFerramenta.getExecutorTestes().cpfProperty());
+        txtETCargo.textProperty().bindBidirectional(laudoFerramenta.getExecutorTestes().cargoProperty());
+        txtETNome.textProperty().bindBidirectional(laudoFerramenta.getExecutorTestes().nomeProperty());
+        txtBairro.textProperty().bindBidirectional(laudoFerramenta.getEndereco().bairroProperty());
+        txtCEP.textProperty().bindBidirectional(laudoFerramenta.getEndereco().cepProperty());
+        txtCidade.textProperty().bindBidirectional(laudoFerramenta.getEndereco().getIdCidade().nomeProperty());
+        txtUF.textProperty().bindBidirectional(laudoFerramenta.getEndereco().getIdCidade().ufProperty());
+        txtComplemento.textProperty().bindBidirectional(laudoFerramenta.getEndereco().complementoProperty());
+        txtLogradouro.textProperty().bindBidirectional(laudoFerramenta.getEndereco().logradouroProperty());
+        txtNumero.textProperty().bindBidirectional(laudoFerramenta.getEndereco().numeroProperty());
+        txtCNPJ.textProperty().bindBidirectional(laudoFerramenta.getEmpresa().cnpjProperty());
+        txtRazaoSocial.textProperty().bindBidirectional(laudoFerramenta.getEmpresa().descricaoProperty());
+        txtIE.textProperty().bindBidirectional(laudoFerramenta.getEmpresa().inscricaoEstadualProperty());
+        txtVersaoER.textProperty().bindBidirectional(laudoFerramenta.versaoERProperty());
     }
+
 }

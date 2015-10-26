@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Laudo Versao="1.0">
+    <Mensagem>
+        <Numero>IFL0302015</Numero>
+        <EmiteNfe>true</EmiteNfe>
+        <Desenvolvedora>
+            <RazaoSocial>M. A. N Cardoso Internet - EPP</RazaoSocial>
+            <Cnpj>06780989000180</Cnpj>
+            <Ie>189152330111</Ie>
+            <Endereco>
+                <Logradouro>Av. Durvalino Binato</Logradouro>
+                <Numero>275</Numero>
+                <Complemento>1° ANDAR</Complemento>
+                <Bairro>Jd Aeroporto</Bairro>
+                <Municipio>Assis Brasil</Municipio>
+                <Uf>AC</Uf>
+                <Cep>19813170</Cep>
+            </Endereco>
+            <Contato>
+                <Nome>Marcel Nogueira Cardoso</Nome>
+                <Cpf>27677318851</Cpf>
+                <Telefone>1833231920</Telefone>
+                <Email>marcel@webmanagers.com.br</Email>
+            </Contato>
+            <ResponsavelAcompanhamentoTestes>Junior Cesar da Silva</ResponsavelAcompanhamentoTestes>
+        </Desenvolvedora>
+        <Otc>
+            <RazaoSocial>IFL – Instituto Filadélfia de Londrina</RazaoSocial>
+            <Cnpj>78624202000100</Cnpj>
+            <Ie>Isento</Ie>
+            <Endereco>
+                <Logradouro>Av. Juscelino Kubischeck</Logradouro>
+                <Numero>1626</Numero>
+                <Complemento></Complemento>
+                <Bairro>Centro</Bairro>
+                <Municipio>Londrina</Municipio>
+                <Uf>PR</Uf>
+                <Cep>10900000</Cep>
+            </Endereco>
+            <PeriodoAnalise>
+                <DataInicio>2015-10-21-02:00</DataInicio>
+                <DataFim>2015-10-22-02:00</DataFim>
+            </PeriodoAnalise>
+            <VersaoEspecificacaoRequisitos>02.03</VersaoEspecificacaoRequisitos>
+        </Otc>
+        <IdentificacaoPaf>
+            <NomeComercial>WM Sistema 10 </NomeComercial>
+            <Versao>7.0</Versao>
+            <ArquivoExecutavelPrincipal>
+                <Nome>Sistema10.exe</Nome>
+                <Md5>B94AC37EED5EA2A9C3EF4B2FC4972A86</Md5>
+            </ArquivoExecutavelPrincipal>
+            <ArquivoRelacaoExecutaveis>
+                <Nome>ArquivoMD5.txt</Nome>
+                <Md5>f616e7d394e6512138f0c0e5dfc7f04c</Md5>
+            </ArquivoRelacaoExecutaveis>
+            <ArquivosExecutaveis>
+                <ArquivoExecutavel>
+                    <Nome>Sistema10Aux.exe</Nome>
+                    <Md5>17F6ACF01B835596F5EE6BE7B0D7FCAD</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>Sistema10.exe</Nome>
+                    <Md5>B94AC37EED5EA2A9C3EF4B2FC4972A86</Md5>
+                </ArquivoExecutavel>
+                <ArquivoExecutavel>
+                    <Nome>default.asp</Nome>
+                    <Md5>E7ED8811A55E315888FEE4002A69504A</Md5>
+                </ArquivoExecutavel>
+            </ArquivosExecutaveis>
+            <ArquivosOutros>
+                <ArquivoOutro>
+                    <Nome>relacao.txt</Nome>
+                    <Md5>48d6798a47a9680ca25ed2e2217aebe0</Md5>
+                </ArquivoOutro>
+            </ArquivosOutros>
+            <EnvelopeSeguranca>
+                <Marca>Starlock</Marca>
+                <Modelo>7</Modelo>
+                <Numero>7774661</Numero>
+            </EnvelopeSeguranca>
+            <PerfisRequisitos>
+                <PerfilRequisito>V</PerfilRequisito>
+                <PerfilRequisito>W</PerfilRequisito>
+                <PerfilRequisito>Y</PerfilRequisito>
+                <PerfilRequisito>Z</PerfilRequisito>
+                <PerfilRequisito>R</PerfilRequisito>
+                <PerfilRequisito>S</PerfilRequisito>
+                <PerfilRequisito>T</PerfilRequisito>
+                <PerfilRequisito>U</PerfilRequisito>
+            </PerfisRequisitos>
+        </IdentificacaoPaf>
+        <CaracteristicasPaf>
+            <LinguagemProgramacao>Visual Basic</LinguagemProgramacao>
+            <SistemaOperacional>Windows</SistemaOperacional>
+            <GerenciadorBancoDados>SQL Server</GerenciadorBancoDados>
+            <TipoDesenvolvimento>Comercializável</TipoDesenvolvimento>
+            <TipoFuncionamento>Parametrizável</TipoFuncionamento>
+            <MeioGeracaoArquivoSintegraEfd>
+                <Modo>Pelo PAF-ECF</Modo>
+            </MeioGeracaoArquivoSintegraEfd>
+            <IntegracaoPaf>Não integrado</IntegracaoPaf>
+            <FormaImpressao>
+                <Modo>Concomitante</Modo>
+            </FormaImpressao>
+            <TratamentoInterrupcao>
+                <Modo>Recuperação de dados</Modo>
+            </TratamentoInterrupcao>
+            <AplicacoesEspeciais>
+                <AplicacaoEspecial>Demais atividades</AplicacaoEspecial>
+            </AplicacoesEspeciais>
+        </CaracteristicasPaf>
+        <SistemasGestao>
+            <SistemaGestao>
+                <Nome>WM Sistema 10 </Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>M. A. N Cardoso Internet - EPP</RazaoSocial>
+                    <Cnpj>06780989000180</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Sistema10.exe </Nome>
+                        <Md5>B94AC37EED5EA2A9C3EF4B2FC4972A86</Md5>
+                        <RequisitosExecutados>
+                            <RequisitoExecutado>II</RequisitoExecutado>
+                        </RequisitosExecutados>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaGestao>
+        </SistemasGestao>
+        <SistemasPed>
+            <SistemaPed>
+                <Nome>WM Sistema 10 </Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>M. A. N Cardoso Internet - EPP</RazaoSocial>
+                    <Cnpj>06780989000180</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Sistema10.exe </Nome>
+                        <Md5>B94AC37EED5EA2A9C3EF4B2FC4972A86</Md5>
+                        <Funcao>sped/documentos</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPed>
+        </SistemasPed>
+        <SistemasPedNfe>
+            <SistemaPedNfe>
+                <Nome>WM Sistema 10 </Nome>
+                <EmpresaDesenvolvedora>
+                    <RazaoSocial>M. A. N Cardoso Internet - EPP</RazaoSocial>
+                    <Cnpj>06780989000180</Cnpj>
+                </EmpresaDesenvolvedora>
+                <ArquivosExecutaveis>
+                    <ArquivoExecutavel>
+                        <Nome>Sistema10.exe </Nome>
+                        <Md5>B94AC37EED5EA2A9C3EF4B2FC4972A86</Md5>
+                        <Funcao>NF-e</Funcao>
+                    </ArquivoExecutavel>
+                </ArquivosExecutaveis>
+            </SistemaPedNfe>
+        </SistemasPedNfe>
+        <EcfAnaliseFuncional>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+        </EcfAnaliseFuncional>
+        <MarcasModelosCompativeis>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 2000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP 6000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-20 FI R</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-40 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>ECF-IF MP-50 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF FM-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>KIT ECF-IF MP-30 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-20 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-2100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-3000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-40 FI II R ECF-IF</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-4200 TH FI II</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-6100 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>BEMATECH</Marca>
+                <Modelo>MP-7000 TH FI</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS600 USB</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 H</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 L</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>FS700 M</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 1</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 2</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>DARUMA AUTOMACAO</Marca>
+                <Modelo>MACH 3</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>ELGIN FIT</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>K</Modelo>
+            </MarcaModelo>
+            <MarcaModelo>
+                <Marca>ELGIN (AMAZONIA)</Marca>
+                <Modelo>X5</Modelo>
+            </MarcaModelo>
+        </MarcasModelosCompativeis>
+        <VersaoErPaf>02.03</VersaoErPaf>
+        <RoteiroAnalise>
+            <VersaoRoteiro>02.03</VersaoRoteiro>
+            <Mes>08</Mes>
+            <Ano>2014</Ano>
+        </RoteiroAnalise>
+        <NaoConformidades/>
+        <ComentarioOtc></ComentarioOtc>
+        <Declaracao>false</Declaracao>
+        <Emissao>
+            <Data>2015-10-22-02:00</Data>
+            <Local>LONDRINA</Local>
+        </Emissao>
+        <ExecucaoTestes>
+            <Nome>Sandro Teixeira Pinto</Nome>
+            <Cargo>Técnico Responsável</Cargo>
+            <Cpf>64555011953</Cpf>
+        </ExecucaoTestes>
+        <AprovacaoRelatorio>
+            <Nome>Ricardo Inácio Álvares e Silva</Nome>
+            <Cargo>Coordenador NPI</Cargo>
+            <Cpf>07065010635</Cpf>
+        </AprovacaoRelatorio>
+    </Mensagem>
+</Laudo>

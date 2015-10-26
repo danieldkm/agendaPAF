@@ -5,7 +5,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.unifil.agendapaf.model.aux.Categoria;
 import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.aux.Servico;
-import com.unifil.agendapaf.util.Util;
+import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
@@ -34,6 +34,7 @@ public class ParametroController {
             categorias = Controller.getCategorias();
             tvServico.getItems().addAll(servicos);
             tvCategoria.getItems().addAll(categorias);
+            MaskFieldUtil.monetaryField(txtValor);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar parametro", e, "Exception:");
@@ -122,8 +123,10 @@ public class ParametroController {
                         for (Servico servico : Controller.getServicos()) {
                             if (servico.getId() == servicoEncontrado.getId()) {
                                 servico.setNome(txtNomeServico.getText());
-                                String n = txtValor.getText().replace(",", ".");
-                                servico.setValor(Double.parseDouble(n));
+                                String auxT = txtValor.getText().replace(".", "");
+                                auxT = auxT.replace(",", ".");
+                                auxT = auxT.replace("R$", "");
+                                servico.setValor(Double.parseDouble(auxT));
                             }
                             servicos.add(servico);
                         }
@@ -139,8 +142,10 @@ public class ParametroController {
                             s.setId(servicos.get(servicos.size() - 1).getId() + 1);
                         }
                         s.setNome(txtNomeServico.getText());
-                        String n = txtValor.getText().replace(",", ".");
-                        s.setValor(Double.parseDouble(n));
+                        String auxT = txtValor.getText().replace(".", "");
+                        auxT = auxT.replace(",", ".");
+                        auxT = auxT.replace("R$", "");
+                        s.setValor(Double.parseDouble(auxT));
                         servicos.add(s);
                         tvServico.getItems().setAll(servicos);
                         salvarServico();
@@ -190,7 +195,7 @@ public class ParametroController {
             servicoEncontrado = tvServico.getSelectionModel().getSelectedItem();
             txtNomeServico.setText(servicoEncontrado.getNome());
             String n = servicoEncontrado.getValor() + "";
-            txtValor.setText(n.replace(".", ",") + "");
+//            txtValor.setText(n.replace(".", ",") + "");
             atualizar = true;
         }
     }
@@ -435,25 +440,27 @@ public class ParametroController {
                 txtValor.requestFocus();
                 ok = false;
             } else {
-                try {
-                    removerStyle();
-                    if (txtValor.getText().contains(".")) {
-                        preencher += EnumMensagem.ParametroRemoverponto + "\n";
-                        validationSupport.registerValidator(txtValor, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
-                        txtValor.requestFocus();
-                        ok = false;
-                    } else if (txtValor.getText().contains(",")) {
-                        String n = txtValor.getText().replace(",", ".");
-                        double n2 = Double.parseDouble(n);
-                    } else {
-                        double n = Double.parseDouble(txtValor.getText());
-                    }
-                } catch (Exception e) {
-                    preencher += EnumMensagem.ParametroIncorretoValor + "\n";
-                    validationSupport.registerValidator(txtValor, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
-                    txtValor.requestFocus();
-                    ok = false;
-                }
+//                try {
+//                    removerStyle();
+//                    if (txtValor.getText().contains(".")) {
+//                        preencher += EnumMensagem.ParametroRemoverponto + "\n";
+//                        validationSupport.registerValidator(txtValor, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
+//                        txtValor.requestFocus();
+//                        ok = false;
+//                    } else if (txtValor.getText().contains(",")) {
+////                        String n = txtValor.getText().replace(",", ".");
+//                        String auxT = txtValor.getText().replace(".", "");
+//                        auxT = txtValor.getText().replace(",", ".");
+//                        double n2 = Double.parseDouble(auxT);
+//                    } else {
+//                        double n = Double.parseDouble(txtValor.getText());
+//                    }
+//                } catch (Exception e) {
+//                    preencher += EnumMensagem.ParametroIncorretoValor + "\n";
+//                    validationSupport.registerValidator(txtValor, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
+//                    txtValor.requestFocus();
+//                    ok = false;
+//                }
             }
 
         } else if (tabCategoria.isSelected()) {

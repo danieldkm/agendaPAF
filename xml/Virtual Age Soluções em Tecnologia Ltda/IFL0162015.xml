@@ -10,7 +10,7 @@
             <Endereco>
                 <Logradouro>Av. Brasil</Logradouro>
                 <Numero>2185</Numero>
-                <Complemento>complemento</Complemento>
+                <Complemento>-</Complemento>
                 <Bairro>Centro</Bairro>
                 <Municipio>Cianorte</Municipio>
                 <Uf>PR</Uf>
@@ -120,7 +120,7 @@
             <SistemaPed>
                 <Nome>STORE AGE</Nome>
                 <EmpresaDesenvolvedora>
-                    <RazaoSocial>Virtual Age Soluções em Tecnologia</RazaoSocial>
+                    <RazaoSocial>Virtual Age Soluções em Tecnologia Ltda</RazaoSocial>
                     <Cnpj>14934661000107</Cnpj>
                 </EmpresaDesenvolvedora>
                 <ArquivosExecutaveis>
@@ -136,7 +136,7 @@
             <SistemaPedNfe>
                 <Nome>STORE AGE</Nome>
                 <EmpresaDesenvolvedora>
-                    <RazaoSocial>Virtual Age Soluções em Tecnologia</RazaoSocial>
+                    <RazaoSocial>Virtual Age Soluções em Tecnologia Ltda</RazaoSocial>
                     <Cnpj>14934661000107</Cnpj>
                 </EmpresaDesenvolvedora>
                 <ArquivosExecutaveis>
