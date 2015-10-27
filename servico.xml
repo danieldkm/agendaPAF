@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="windows-1252"?>
 <com.sun.javafx.collections.ObservableListWrapper>
+  <listenerHelper class="com.sun.javafx.collections.ListListenerHelper$Generic">
+    <changeListeners>
+      <javafx.collections.WeakListChangeListener>
+        <ref>
+          <referent class="null"/>
+          <queue class="java.lang.ref.ReferenceQueue$Null">
+            <lock/>
+            <queueLength>0</queueLength>
+          </queue>
+        </ref>
+      </javafx.collections.WeakListChangeListener>
+      <javafx.collections.WeakListChangeListener>
+        <ref>
+          <referent class="null"/>
+          <queue class="java.lang.ref.ReferenceQueue$Null" reference="../../../javafx.collections.WeakListChangeListener/ref/queue"/>
+        </ref>
+      </javafx.collections.WeakListChangeListener>
+      <javafx.collections.WeakListChangeListener>
+        <ref>
+          <referent class="null"/>
+          <queue class="java.lang.ref.ReferenceQueue$Null" reference="../../../javafx.collections.WeakListChangeListener/ref/queue"/>
+        </ref>
+      </javafx.collections.WeakListChangeListener>
+      <javafx.collections.WeakListChangeListener reference="../javafx.collections.WeakListChangeListener[3]"/>
+    </changeListeners>
+    <invalidationSize>0</invalidationSize>
+    <changeSize>4</changeSize>
+    <locked>false</locked>
+  </listenerHelper>
   <changeBuilder>
     <list class="com.sun.javafx.collections.ObservableListWrapper" reference="../.."/>
     <changeLock>0</changeLock>
@@ -18,12 +47,12 @@
     </servico>
     <servico>
       <id>3</id>
-      <nome>Pré-Avaliacação</nome>
+      <nome>Pré-Avaliação</nome>
       <valor>1058.0</valor>
     </servico>
     <servico>
       <id>4</id>
-      <nome>Pré-Avaliacação - Remoto</nome>
+      <nome>Pré-Avaliação - Remoto</nome>
       <valor>1058.0</valor>
     </servico>
     <servico>
@@ -33,8 +62,8 @@
     </servico>
     <servico>
       <id>6</id>
-      <nome>teste</nome>
-      <valor>2222.0</valor>
+      <nome>teste222</nome>
+      <valor>999.0</valor>
     </servico>
   </backingList>
 </com.sun.javafx.collections.ObservableListWrapper>

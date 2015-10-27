@@ -12,18 +12,21 @@ import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
@@ -34,6 +37,7 @@ public class FinanceiroController {
     @FXML
     public void initialize() {
         try {
+            MaskFieldUtil.monetaryField(txtValorPago);
             sceneManager = SceneManager.getInstance();
             servicos = Controller.getServicos();
             categorias = Controller.getCategorias();
@@ -50,7 +54,6 @@ public class FinanceiroController {
             }
             sceneManager.setAgendaEncontrada(null);
             sceneManager.setEmpresaEncontrada(null);
-            MaskFieldUtil.monetaryField(txtValorPago);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
@@ -58,7 +61,9 @@ public class FinanceiroController {
     }
 
     @FXML
-    private ComboBox cbTipoServico;
+    private ComboBox<Servico> cbTipoServico;
+    @FXML
+    private ComboBox<Categoria> cbCategoria;
     @FXML
     private TextField txtBuscarEmpresa;
     @FXML
@@ -68,13 +73,13 @@ public class FinanceiroController {
     @FXML
     private TextField txtLaudo;
     @FXML
-    private ComboBox cbCategoria;
-    @FXML
     private VBox mainFinanceiro;
     @FXML
     private DatePicker dtInicial;
     @FXML
     private DatePicker dtFinal;
+    @FXML
+    private ImageView imgFerramenta;
 
     private Stage stage;
     private Empresa empresaEncontrada;
@@ -86,17 +91,12 @@ public class FinanceiroController {
     private double valorServico = 0;
     private double porCategoria = 0;
     private SceneManager sceneManager;
+    private ValidationSupport validationSupport = new ValidationSupport();
 
     @FXML
     private void actionBuscarEmpresa() {
         sceneManager.showTabelaEmpresa(false, false, false, false, false, true, false);
         stage.close();
-    }
-
-    @FXML
-    private void iniciarCadastroParametro() {
-        stage.close();
-        sceneManager.showParametro();
     }
 
     @FXML
@@ -118,7 +118,7 @@ public class FinanceiroController {
                 txtHoraAdicional.setDisable(true);
             }
             for (Servico servico : servicos) {
-                if (cbTipoServico.getSelectionModel().getSelectedItem().equals(servico.getNome())) {
+                if (cbTipoServico.getSelectionModel().getSelectedItem().getNome().equals(servico.getNome())) {
                     valorServico = servico.getValor();
                     break;
                 }
@@ -157,6 +157,7 @@ public class FinanceiroController {
                     }
                 }
             }
+            System.out.println("NNN " + n);
             txtValorPago.setText(n);
         }
         porCategoria = 0;
@@ -179,6 +180,10 @@ public class FinanceiroController {
         if (validarCampos()) {
             try {
                 FinanceiroService fs = new FinanceiroService();
+                String auxValor = txtValorPago.getText().replace("R$", "");
+                auxValor = auxValor.replace(".", "");
+                auxValor = auxValor.replace(",", ".");
+                double valor = Double.parseDouble(auxValor);
                 if (isUpdate) {
                     Financeiro f = new Financeiro();
                     if (empresaEncontrada == null) {
@@ -193,13 +198,9 @@ public class FinanceiroController {
                     } else {
                         f.setHoraAdicional(0);
                     }
-                    calcularServico();
-                    f.setValorPago(Double.parseDouble(txtValorPago.getText().replace(",", ".")));
-                    if (!txtLaudo.getText().equals("")) {
-                        f.setNumeroLaudo(txtLaudo.getText());
-                    } else {
-                        f.setNumeroLaudo("");
-                    }
+//                    calcularServico();
+                    f.setValorPago(valor);
+                    f.setNumeroLaudo(txtLaudo.getText());
                     f.setCategoria(cbCategoria.getSelectionModel().getSelectedItem() + "");
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
@@ -214,12 +215,8 @@ public class FinanceiroController {
                     } else {
                         f.setHoraAdicional(0);
                     }
-                    f.setValorPago(Double.parseDouble(txtValorPago.getText().replace(",", ".")));
-                    if (!txtLaudo.getText().equals("")) {
-                        f.setNumeroLaudo(txtLaudo.getText());
-                    } else {
-                        f.setNumeroLaudo(null);
-                    }
+                    f.setValorPago(valor);
+                    f.setNumeroLaudo(txtLaudo.getText());
                     f.setCategoria(cbCategoria.getSelectionModel().getSelectedItem() + "");
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
@@ -266,8 +263,24 @@ public class FinanceiroController {
         }
     }
 
+    @FXML
+    private void onMouseClickedFerramenta(MouseEvent event) {
+        stage.close();
+        sceneManager.showParametro();
+    }
+
+    @FXML
+    private void onMouseEnteredFerramenta(MouseEvent event) {
+        imgFerramenta.setImage(new Image(EnumCaminho.ImgFerramentaRed.getCaminho()));
+    }
+
+    @FXML
+    private void onMouseExitedFerramenta(MouseEvent event) {
+        imgFerramenta.setImage(new Image(EnumCaminho.ImgFerramentaBlack.getCaminho()));
+    }
+
     private boolean validarCampos() {
-        ValidationSupport validationSupport = new ValidationSupport();
+        validationSupport.redecorate();
         boolean ok = true;
         String preencher = "";
         removerStyle();
@@ -301,13 +314,19 @@ public class FinanceiroController {
             ok = false;
         }
 
-        if (txtValorPago.getText().equals("") || txtValorPago.getText().contains(".")) {
+        if (txtValorPago.getText().equals("")) {
             preencher += EnumMensagem.FinanceiroTxtValorInvalido.getMensagem() + "\n";
-            validationSupport.registerValidator(txtValorPago, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
+            validationSupport.registerValidator(txtValorPago, Validator.createEmptyValidator(EnumMensagem.FinanceiroTxtValorInvalido.getMensagem()));
             txtValorPago.requestFocus();
             ok = false;
         }
 
+//        if (txtValorPago.getText().equals("") || txtValorPago.getText().contains(".")) {
+//            preencher += EnumMensagem.FinanceiroTxtValorInvalido.getMensagem() + "\n";
+//            validationSupport.registerValidator(txtValorPago, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
+//            txtValorPago.requestFocus();
+//            ok = false;
+//        }
         if (!txtHoraAdicional.getText().equals("")) {
             try {
                 int n = Integer.parseInt(txtHoraAdicional.getText());
@@ -364,16 +383,15 @@ public class FinanceiroController {
     }
 
     public void setComboBox() {
-        ObservableList<String> lista = FXCollections.observableArrayList();
-        for (Servico s : Controller.getServicos()) {
-            lista.add(s.getNome());
-        }
-        cbTipoServico.getItems().setAll(lista);
-        cbCategoria.setItems(Controller.getCategorias());
-
+//        ObservableList<String> lista = FXCollections.observableArrayList();
+//        for (Servico s : Controller.getServicos()) {
+//            lista.add(s.getNome());
+//        }
         // re-adicionar as listas
         servicos = Controller.getServicos();
         categorias = Controller.getCategorias();
+        cbCategoria.setItems(categorias);
+        cbTipoServico.setItems(servicos);
     }
 
     public void setCampos(Empresa empresa, Agenda agenda) {
@@ -391,7 +409,7 @@ public class FinanceiroController {
     }
 
     public void setCampos(Empresa empresa/*java.sql.Date dtInicial, java.sql.Date dtFinal*/) {
-        System.out.println("EMPRESA CATEGORIA " + empresa.getCategoria());
+//        System.out.println("EMPRESA CATEGORIA " + empresa.getCategoria());
         empresaEncontrada = empresa;
         txtBuscarEmpresa.setText(empresa.getDescricao());
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {
@@ -407,11 +425,10 @@ public class FinanceiroController {
     public void setCampos() {
         cbTipoServico.getSelectionModel().selectFirst();
         cbCategoria.getSelectionModel().selectFirst();
-
         empresaEncontrada = financeiroEncontrada.getIdEmpresa();
         txtBuscarEmpresa.setText(financeiroEncontrada.getIdEmpresa().getDescricao());
 
-        while (!cbTipoServico.getSelectionModel().getSelectedItem().equals(financeiroEncontrada.getTipoServico())) {
+        while (!cbTipoServico.getSelectionModel().getSelectedItem().getNome().equals(financeiroEncontrada.getTipoServico())) {
             cbTipoServico.getSelectionModel().selectNext();
         }
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {

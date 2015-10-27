@@ -1,6 +1,7 @@
 package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
+import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -22,7 +23,7 @@ public class TabelaFinanceiroController {
     public void initialize() {
         try {
             sceneManager = SceneManager.getInstance();
-            tvFinanceiro.getItems().setAll(StaticLista.getListaGlobalFinanceiro());
+            tvFinanceiro.setItems(Controller.getFinanceiros());
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela financeiro", e, "Exception:");
@@ -39,7 +40,7 @@ public class TabelaFinanceiroController {
     private TableView<Financeiro> tvFinanceiro;
 
     private static Stage stage;
-    public ObservableList<Financeiro> lista = FXCollections.observableArrayList();
+    public ObservableList<Financeiro> lista;
     private SceneManager sceneManager;
 
     @FXML
@@ -58,7 +59,7 @@ public class TabelaFinanceiroController {
 
     @FXML
     private void actionBtnBuscar(KeyEvent e) {
-        lista.clear();
+        lista = FXCollections.observableArrayList();
         for (Financeiro financeiro : StaticLista.getListaGlobalFinanceiro()) {
             String todos = financeiro.getId() + " " + financeiro.getIdEmpresa().getDescricao() + " "
                     + financeiro.getTipoServico() + " " + financeiro.getValorPago() + " "
@@ -69,8 +70,7 @@ public class TabelaFinanceiroController {
                 lista.add(financeiro);
             }
         }
-        tvFinanceiro.getItems().setAll(lista);
-
+        tvFinanceiro.setItems(lista);
     }
 
     public void setStage(Stage stage) {

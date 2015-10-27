@@ -203,7 +203,7 @@
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <children>
-                  <DatePicker fx:id="dtInicial" HBox.hgrow="ALWAYS" />
+                  <DatePicker fx:id="dtInicial" disable="true" editable="false" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">

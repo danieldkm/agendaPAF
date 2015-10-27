@@ -202,4 +202,9 @@ public class Financeiro implements Externalizable {
 //        }
     }
 
+    @Override
+    public String toString() {
+        return "Financeiro{" + "id=" + id.get() + ", idEmpresa=" + idEmpresa.get().getId() + ", tipoServico=" + tipoServico.get() + ", horaAdicional=" + horaAdicional.get() + ", valorPago=" + valorPago.get() + ", numeroLaudo=" + numeroLaudo.get() + ", categoria=" + categoria.get() + ", dataInicial=" + dataInicial.get() + ", dataFinal=" + dataFinal.get() + '}';
+    }
+
 }

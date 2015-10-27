@@ -30,11 +30,11 @@ public class ParametroController {
     @FXML
     public void initialize() {
         try {
+            MaskFieldUtil.monetaryField(txtValor);
             servicos = Controller.getServicos();
             categorias = Controller.getCategorias();
-            tvServico.getItems().addAll(servicos);
-            tvCategoria.getItems().addAll(categorias);
-            MaskFieldUtil.monetaryField(txtValor);
+            tvServico.setItems(servicos);
+            tvCategoria.setItems(categorias);
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar parametro", e, "Exception:");
@@ -117,7 +117,6 @@ public class ParametroController {
         try {
             if (validarCampos()) {
                 if (tabServico.isSelected()) {
-                    System.out.println("tab servico");
                     if (atualizar) {
                         servicos.clear();
                         for (Servico servico : Controller.getServicos()) {
@@ -126,12 +125,12 @@ public class ParametroController {
                                 String auxT = txtValor.getText().replace(".", "");
                                 auxT = auxT.replace(",", ".");
                                 auxT = auxT.replace("R$", "");
+                                System.out.println("auxT " + auxT);
                                 servico.setValor(Double.parseDouble(auxT));
                             }
                             servicos.add(servico);
                         }
-                        tvServico.getItems().clear();
-                        tvServico.getItems().setAll(servicos);
+                        tvServico.setItems(servicos);
                         salvarServico();
                         atualizar = false;
                     } else {
@@ -151,7 +150,6 @@ public class ParametroController {
                         salvarServico();
                     }
                 } else if (tabCategoria.isSelected()) {
-                    System.out.println("tab categoria");
                     if (atualizar) {
                         categorias.clear();
                         for (Categoria categoria : Controller.getCategorias()) {
@@ -195,7 +193,7 @@ public class ParametroController {
             servicoEncontrado = tvServico.getSelectionModel().getSelectedItem();
             txtNomeServico.setText(servicoEncontrado.getNome());
             String n = servicoEncontrado.getValor() + "";
-//            txtValor.setText(n.replace(".", ",") + "");
+            txtValor.setText(n);
             atualizar = true;
         }
     }
@@ -265,10 +263,10 @@ public class ParametroController {
     }
 
     private void limpar() {
-        txtNomeCategoria.setText(null);
-        txtNomeServico.setText(null);
-        txtPorcentagem.setText(null);
-        txtValor.setText(null);
+        txtNomeCategoria.setText("");
+        txtNomeServico.setText("");
+        txtPorcentagem.setText("");
+        txtValor.setText("");
     }
 
     @FXML

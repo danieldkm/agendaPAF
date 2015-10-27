@@ -9,9 +9,13 @@ import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.EmpresasHomologadas;
 import com.unifil.agendapaf.model.Feriado;
+import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Historico;
+import com.unifil.agendapaf.model.aux.Categoria;
+import com.unifil.agendapaf.model.aux.Servico;
 import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.service.EmpresasHomologadasService;
+import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.service.HistoricoService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilDialog;
@@ -169,6 +173,7 @@ public class AgendarController {
                 salvarOuAtualizar(isUpdate);
                 if (isUpdate) {
                     validarCamposAoAtualizar(agenda);
+//                    agenda.setIdEmpresa(empresaEncontrada);
                 }
                 if (gravarHistorico() && seConcluido()) {
                     if (isUpdate) {
@@ -270,10 +275,12 @@ public class AgendarController {
                 }
                 AgendaService as = new AgendaService();
                 as.editar(agenda);
+                StaticLista.setListaGlobalAgenda(as.findAll());
                 JPA.em(false).close();
             } else {
                 AgendaService as = new AgendaService();
                 as.salvar(agenda);
+                StaticLista.setListaGlobalAgenda(as.findAll());
                 JPA.em(false).close();
             }
         } catch (Exception ex) {
@@ -281,39 +288,92 @@ public class AgendarController {
         }
     }
 
+    private void saveFinanceiro(int horasAdicionais) {
+        FinanceiroService fs = new FinanceiroService();
+        Financeiro f = new Financeiro();
+        int porcentagem = 0;
+        f.setTipoServico(Util.porAcentuacaoServico(agenda.getTipo()));
+        System.out.println("agenda.getIdEmpresa(). " + agenda.getIdEmpresa().toString2());
+        for (Categoria categoria : Controller.getCategorias()) {
+            if (categoria.getNome().equals(agenda.getIdEmpresa().getCategoria())) {
+                porcentagem = categoria.getPorcento();
+                break;
+            }
+        }
+        double valorServico = 0;
+        for (Servico servico : Controller.getServicos()) {
+            if (servico.getNome().equals(f.getTipoServico())) {
+                valorServico = servico.getValor();
+                break;
+            }
+        }
+        if (horasAdicionais > 0) {
+            for (Servico servico : Controller.getServicos()) {
+                if (servico.getNome().equals(EnumServico.HoraAdicional.getServico())) {
+                    valorServico = servico.getValor();
+                }
+            }
+            f.setHoraAdicional(horasAdicionais);
+            f.setValorPago(valorServico * horasAdicionais);
+            f.setTipoServico("Hora Adicional");
+        } else {
+            f.setValorPago((valorServico - (valorServico * (porcentagem / 100))));
+        }
+        f.setCategoria(agenda.getIdEmpresa().getCategoria());
+        f.setDataInicial(dtInicial.getValue());
+        f.setDataFinal(dtFinal.getValue());
+        f.setIdEmpresa(agenda.getIdEmpresa());
+        fs.salvar(f);
+        JPA.em(false).close();
+    }
+
     private
             boolean seConcluido() {
         try {
-            if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())
-                    && (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico())
-                    || cbTipo.getValue().equals(EnumServico.AvaliacaoIntinerante.getServico()))) {
-                EmpresasHomologadas eh = new EmpresasHomologadas();
-
-                eh.setIdEmpresa(empresaEncontrada);
-                eh.setDataHomologada(dtInicial.getValue());
-                Calendar cal = new GregorianCalendar();
-
-                cal.setTime(UtilConverter.converterLocalDateToSqlDate(eh.getDataHomologada()));
-                cal.add(Calendar.MONTH,
-                        10);
-                eh.setDataAviso(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
-                dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
-                Contato tempContato = null;
-                for (Contato c : StaticLista.getListaGlobalContato()) {
-                    if (c.getIdEmpresa().equals(empresaEncontrada.getId()) && c.selecionadoBoolean()) {
-                        tempContato = c;
-                        break;
+            if (cbStatusAgenda.getValue().equals(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))) {
+                saveFinanceiro(-1);
+                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ExisteHoraAdicional.getMensagem());
+                if (result.get() == ButtonType.OK) {
+                    try {
+                        int horas = Integer.parseInt(UtilDialog.criarDialogInput(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getTitulo()));
+                        saveFinanceiro(horas);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo());
                     }
-                }
-                eh.setEmail(tempContato.getEmail());
-                eh.setVisualizado(
-                        "NAO");
-                EmpresasHomologadasService ehs = new EmpresasHomologadasService();
-                ehs.salvar(eh);
-                JPA.em(false).close();
-                StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
-            }
 
+                }
+                StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
+                if (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico())
+                        || cbTipo.getValue().equals(EnumServico.AvaliacaoIntinerante.getServico())) {
+                    EmpresasHomologadas eh = new EmpresasHomologadas();
+
+                    eh.setIdEmpresa(agenda.getIdEmpresa());
+                    eh.setDataHomologada(dtInicial.getValue());
+                    Calendar cal = new GregorianCalendar();
+
+                    cal.setTime(UtilConverter.converterLocalDateToSqlDate(eh.getDataHomologada()));
+                    cal.add(Calendar.MONTH,
+                            10);
+                    eh.setDataAviso(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
+                    dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
+                    Contato tempContato = null;
+                    for (Contato c : StaticLista.getListaGlobalContato()) {
+                        if (c.getIdEmpresa().equals(agenda.getIdEmpresa().getId()) && c.selecionadoBoolean()) {
+                            tempContato = c;
+                            break;
+                        }
+                    }
+                    eh.setEmail(tempContato.getEmail());
+                    eh.setVisualizado(
+                            "NAO");
+                    EmpresasHomologadasService ehs = new EmpresasHomologadasService();
+                    ehs.salvar(eh);
+                    StaticLista.setListaGlobalEmpresasHomologadas(ehs.findAll());
+                    JPA.em(false).close();
+                    StaticLista.setListaGlobalEmpresasHomologadas(Controller.getEmpresasHomologadas());
+                }
+            }
         } catch (Exception ex) {
             Logger.getLogger(AgendarController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -332,6 +392,7 @@ public class AgendarController {
                 agenda = as.findLast();
                 JPA.em(false).close();
             }
+            System.out.println("this.agenda " + this.agenda.getIdEmpresa().toString2());
             Historico h = new Historico();
 
             h.setIdAgenda(agenda);
@@ -350,6 +411,7 @@ public class AgendarController {
 
             HistoricoService hs = new HistoricoService();
             hs.salvar(h);
+            StaticLista.setListaGlobalHistorico(hs.findAll());
             JPA.em(false).close();
 //            StaticDao.getHistoricoService().salvar(h);
         } catch (Exception ex) {
@@ -550,39 +612,37 @@ public class AgendarController {
             }
         });
 
-        dtInicial.setOnMouseExited(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent t) {
-                try {
-                    setSomarUmDiaDtFinal();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("Exption: setOnMouseExited, class AgendarController, metodo initialize - dtInicial");
-                }
-            }
-        });
-
-        dtFinal.setOnMouseEntered(new EventHandler<MouseEvent>() {
-
-            @Override
-            public void handle(MouseEvent t) {
-                try {
-                    setSomarUmDiaDtFinal();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    System.err.println("Exption: setOnMouseEntered, class AgendarController, metodo initialize - dtFinal");
-                }
-            }
-        });
-
-        dtFinal.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
-            @Override
-            public void handle(KeyEvent t) {
-                setSomarUmDiaDtFinal();
-            }
-        });
+//        dtInicial.setOnMouseExited(new EventHandler<MouseEvent>() {
+//
+//            @Override
+//            public void handle(MouseEvent t) {
+//                try {
+//                    setSomarUmDiaDtFinal();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    System.err.println("Exption: setOnMouseExited, class AgendarController, metodo initialize - dtInicial");
+//                }
+//            }
+//        });
+//        dtFinal.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//
+//            @Override
+//            public void handle(MouseEvent t) {
+//                try {
+//                    setSomarUmDiaDtFinal();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                    System.err.println("Exption: setOnMouseEntered, class AgendarController, metodo initialize - dtFinal");
+//                }
+//            }
+//        });
+//        dtFinal.setOnKeyPressed(new EventHandler<KeyEvent>() {
+//
+//            @Override
+//            public void handle(KeyEvent t) {
+//                setSomarUmDiaDtFinal();
+//            }
+//        });
     }
 
     public void setCampos() {
@@ -592,6 +652,7 @@ public class AgendarController {
                     || agenda.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))
                     || agenda.getStatusAgenda().equals(EnumStatus.DataAgendada.getStatus())) {
                 dtInicial.setDisable(true);
+            } else if (agenda.getStatusAgenda().equals(EnumStatus.DataAgendada.getStatus())) {
                 dtFinal.setDisable(true);
             }
             if (isReagendamento) {

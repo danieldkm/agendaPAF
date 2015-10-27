@@ -1,0 +1,4 @@
+Event false
+SUCCEEDED false
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
