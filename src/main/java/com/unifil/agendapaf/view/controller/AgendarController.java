@@ -341,7 +341,6 @@ public class AgendarController {
                         e.printStackTrace();
                         UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo());
                     }
-
                 }
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
                 if (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico())
