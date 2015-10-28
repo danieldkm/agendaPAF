@@ -2,7 +2,6 @@ package com.unifil.agendapaf.dao;
 
 import com.unifil.agendapaf.view.util.enums.EnumGeral;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -10,10 +9,6 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import org.hibernate.Session;
-import org.hibernate.cfg.Settings;
-import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
-import org.hibernate.engine.spi.SessionFactoryImplementor;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.jpa.HibernateEntityManager;
 
