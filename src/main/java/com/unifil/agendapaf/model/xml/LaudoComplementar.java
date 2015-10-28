@@ -30,6 +30,8 @@ public class LaudoComplementar {
 
     private BooleanProperty possuiSGDB;
 
+    private BooleanProperty nfce;
+
     private StringProperty bytesExePrincipal;
 
     private StringProperty ripmedExePrincipal;
@@ -61,6 +63,9 @@ public class LaudoComplementar {
 
         possuiSGDB = new SimpleBooleanProperty();
         possuiSGDB.set(false);
+
+        nfce = new SimpleBooleanProperty();
+        nfce.set(false);
 
         bytesExePrincipal = new SimpleStringProperty();
         bytesExePrincipal.set("");
@@ -132,6 +137,19 @@ public class LaudoComplementar {
         return possuiSGDB;
     }
 
+    @XmlElement(name = "Nfce")
+    public Boolean getNfce() {
+        return nfce.get();
+    }
+
+    public void setNfce(Boolean nfce) {
+        this.nfce.set(nfce);
+    }
+
+    public BooleanProperty nfceProperty() {
+        return nfce;
+    }
+
     @XmlElement(name = "BytesExePrincipal", required = true)
     public String getBytesExePrincipal() {
         return bytesExePrincipal.get();
@@ -179,6 +197,7 @@ public class LaudoComplementar {
                 + ", CELULAR=" + contato.get().getTelefone().getCelular()
                 + ", FAX=" + contato.get().getTelefone().getFax()
                 + ", RESPENSAIO=" + responsavelEnsaio.get().getNome()
+                + ", NFC-e=" + nfce.get()
                 + ", bytesExePrincipal=" + bytesExePrincipal.get() + ", ripmedExePrincipal=" + ripmedExePrincipal.get() + ", ripmedTxtRelacao=" + ripmedTxtRelacao.get() + '}';
     }
 

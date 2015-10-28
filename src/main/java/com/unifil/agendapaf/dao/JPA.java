@@ -11,8 +11,11 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import org.hibernate.Session;
+import org.hibernate.cfg.Settings;
 import org.hibernate.engine.jdbc.connections.spi.ConnectionProvider;
 import org.hibernate.engine.spi.SessionFactoryImplementor;
+import org.hibernate.engine.spi.SessionImplementor;
+import org.hibernate.jpa.HibernateEntityManager;
 
 /**
  *
@@ -30,6 +33,7 @@ public class JPA {
     /**
      * Cria uma entity manager factory única e o retorna em todas as demais
      * chamadas
+     *
      * @return factory
      */
     public static EntityManagerFactory getFactory() {
@@ -42,8 +46,9 @@ public class JPA {
     /**
      * Cria um entity manager único (se criar = true) para a thread e o retorna
      * em todas as demais chamadas
-     * 
-     * @param criar - necessario para verificar a criação ou não da EntityManager
+     *
+     * @param criar - necessario para verificar a criação ou não da
+     * EntityManager
      * @return em
      */
     public static EntityManager em(boolean criar) {
@@ -65,23 +70,26 @@ public class JPA {
     /**
      * Cria um entity manager único para a thread e o retorna em todas as demais
      * chamadas
-     * 
+     *
      * @return em
      */
     public static EntityManager em() {
-
         return em(true);
-
     }
 
     public static Connection getConnection() {
         Connection conn = null;
         try {
-            Session session = em().unwrap(Session.class);
-            SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
-            ConnectionProvider cp = sfi.getConnectionProvider();
-            conn = cp.getConnection();
-        } catch (SQLException ex) {
+            HibernateEntityManager hem = (HibernateEntityManager) em();
+            SessionImplementor sim = (SessionImplementor) hem.getSession();
+            return sim.connection();
+
+//            Session session = em().unwrap(Session.class);
+//            SessionFactoryImplementor sfi = (SessionFactoryImplementor) session.getSessionFactory();
+//            ConnectionProvider cp = sfi.getConnectionProvider();
+////            ConnectionProvider cp = ((SessionFactoryImplementor) session).getConnectionProvider();
+//            conn = cp.getConnection();
+        } catch (Exception ex) {
             Logger.getLogger(JPA.class.getName()).log(Level.SEVERE, null, ex);
         }
         em(false).close();

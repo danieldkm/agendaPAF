@@ -1408,9 +1408,9 @@ public class LaudoController {
                     break;
                 case "ckbNfceNao":
                     if (ckEmite2.isSelected()) {
-                        hmap.replace(key, "true");
-                    } else {
                         hmap.replace(key, "false");
+                    } else {
+                        hmap.replace(key, "true");
                     }
                     break;
                 case "ckbRecuDados":
@@ -1674,6 +1674,7 @@ public class LaudoController {
         txtBytes.textProperty().bindBidirectional(this.laudoComplementar.bytesExePrincipalProperty());
         txtRipmedPrincipal.textProperty().bindBidirectional(this.laudoComplementar.ripmedExePrincipalProperty());
         txtRipmedRelacao.textProperty().bindBidirectional(this.laudoComplementar.ripmedTxtRelacaoProperty());
+        ckEmite2.selectedProperty().bindBidirectional(this.laudoComplementar.nfceProperty());
     }
 
     public void bindComponenetsWithLaudoFerramenta(LaudoFerramenta laudoFerramenta) {
@@ -2186,8 +2187,6 @@ public class LaudoController {
         feTxtCPF2.setText(m.getAprovacaoRelatorio().getCpf());
         feTxtCargo2.setText(m.getAprovacaoRelatorio().getCargo());
 
-        System.out.println("laudoComplementarlaudoComplementarlaudoComplementarlaudoComplementar \n"
-                + laudoComplementar);
 //        if (laudoComplementar != null) {
 //            for (Usuario item : cbResponsavelEnsaio.getItems()) {
 //                if (item.getNome().equals(laudoComplementar.getResponsavelEnsaio())) {
@@ -2534,7 +2533,7 @@ public class LaudoController {
                     for (String s : cb1.getItems()) {
                         existe = false;
                         lmmt.stream().forEach((string) -> {
-                            if (string.getModelo().equals(s)) {//TODO
+                            if (string.getModelo().equals(s)) {
                                 existe = true;
                             }
                         });
@@ -2549,7 +2548,7 @@ public class LaudoController {
                     for (String s : cb1.getCheckModel().getCheckedItems()) {
                         existe = false;
                         lmmt.stream().forEach((string) -> {
-                            if (string.getModelo().equals(s)) {//TODO
+                            if (string.getModelo().equals(s)) {
 //                                System.out.println("EXISTE " + string.getModelo());
 //                                System.out.println("SS -> " + s);
                                 existe = true;
@@ -2577,7 +2576,7 @@ public class LaudoController {
                     for (String s : cb2.getItems()) {
                         existe = false;
                         lmmt.stream().forEach((string) -> {
-                            if (string.getModelo().equals(s)) {//TODO
+                            if (string.getModelo().equals(s)) {
                                 existe = true;
                             }
                         });
@@ -2592,7 +2591,7 @@ public class LaudoController {
                     for (String s : cb2.getCheckModel().getCheckedItems()) {
                         existe = false;
                         lmmt.stream().forEach((string) -> {
-                            if (string.getModelo().equals(s)) {//TODO
+                            if (string.getModelo().equals(s)) {
                                 existe = true;
                             }
                         });

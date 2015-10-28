@@ -23,6 +23,7 @@
         <NomeFantasia>GEW SISTEMAS</NomeFantasia>
         <observacao></observacao>
     </Empresa>
+    <Nfce>true</Nfce>
     <PossuiSGDB>true</PossuiSGDB>
     <ResponsavelEnsaio>
         <dataCadastro>2014-04-24</dataCadastro>
