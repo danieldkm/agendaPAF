@@ -71,7 +71,7 @@ public class TabelaHistoricoController {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                         }
                     }
                 };
@@ -86,7 +86,7 @@ public class TabelaHistoricoController {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                             // Style all dates in March with a different color.
 //                            if (item.getDayOfMonth() < LocalDate.now().getDayOfMonth()) {
                             setTextFill(Color.CHOCOLATE);
@@ -109,7 +109,7 @@ public class TabelaHistoricoController {
                             setText(null);
                             setStyle("");
                         } else {
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                         }
                     }
                 };

@@ -1,0 +1,8 @@
+Event false
+SUCCEEDED false
+HIDDEN TABELA AGENDA
+isCancelamento true
+isReagendamento false
+isUpdate true
+timesI 2
+timesF 0

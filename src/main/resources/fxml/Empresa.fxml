@@ -278,9 +278,10 @@
                                                                 </Label>
                                                             </children>
                                                         </HBox>
-                                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                                                             <children>
-                                                                <TextField fx:id="txtCep" prefHeight="25.0" prefWidth="195.0" HBox.hgrow="ALWAYS" />
+                                                                <TextField fx:id="txtCep" onAction="#onActionBtnBuscar" prefHeight="25.0" prefWidth="195.0" HBox.hgrow="ALWAYS" />
+                                                <Button mnemonicParsing="false" onAction="#onActionBtnBuscar" text="Buscar" />
                                                             </children>
                                                         </HBox>
                                                         <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">

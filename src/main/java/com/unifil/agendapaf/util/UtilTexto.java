@@ -1,6 +1,7 @@
 package com.unifil.agendapaf.util;
 
 import java.io.IOException;
+import java.text.Normalizer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 
@@ -66,6 +67,10 @@ public class UtilTexto {
         cep = cep.replaceAll("[^0-9]", "");
         cep = cep.replaceFirst("([0-9]{5})([0-9]{3})$", "$1-$2");
         return cep;
+    }
+
+    public static String removerAcentos(String str) {
+        return Normalizer.normalize(str, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
     }
 
     /**

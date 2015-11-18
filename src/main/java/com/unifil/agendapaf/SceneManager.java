@@ -135,12 +135,12 @@ public class SceneManager {
     }
 
     private void initPrimaryStage() {
-//        try {//TODO habilitar apos finalizar ;
-//            Util.setLogs("SceneManager");
-//        } catch (IOException ex) {
-//            ex.printStackTrace();
-//        }
-//        showLogin();
+        try {//TODO habilitar apos finalizar ;
+            Util.setLogs("SceneManager");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+////        showLogin();
         inicial();
 
     }

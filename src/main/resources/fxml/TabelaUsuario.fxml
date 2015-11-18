@@ -31,7 +31,7 @@
                 </TableColumn>
                 <TableColumn fx:id="tbcDataCadastro" maxWidth="5000.0" minWidth="10.0" prefWidth="128.0" text="Data Cadastro">
                     <cellValueFactory>
-                        <PropertyValueFactory property="senha" />
+                        <PropertyValueFactory property="dataCadastro" />
                     </cellValueFactory>
                 </TableColumn>
                 <TableColumn fx:id="tbcEmail" prefWidth="75.0" text="E-mail" >

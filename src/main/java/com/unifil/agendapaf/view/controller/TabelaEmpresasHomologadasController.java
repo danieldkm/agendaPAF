@@ -51,7 +51,7 @@ public class TabelaEmpresasHomologadasController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                             // Style all dates in March with a different color.
                             setTextFill(Color.CHOCOLATE);
                             setStyle("-fx-background-color: yellow");
@@ -71,7 +71,7 @@ public class TabelaEmpresasHomologadasController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                         }
                     }
                 };

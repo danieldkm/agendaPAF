@@ -335,7 +335,7 @@ public class AgendarController {
                 Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ExisteHoraAdicional.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     try {
-                        int horas = Integer.parseInt(UtilDialog.criarDialogInput(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getTitulo()));
+                        int horas = Integer.parseInt(UtilDialog.criarDialogInput(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getMensagem()));
                         saveFinanceiro(horas);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -583,6 +583,40 @@ public class AgendarController {
                 ok = false;
             }
         }
+        if (!isCancelamento && !isReagendamento && !isUpdate) {
+            AgendaService as = new AgendaService();
+            int timesI = 0;
+            int timesF = 0;
+            for (Agenda a : as.findAll()) {
+                if (dtInicial.getValue().equals(a.getDataInicial())) {
+                    timesI++;
+                    if (a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Cancelado.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Pendente.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.PendenteWeb.getStatus()))) {
+                        timesI--;
+                    }
+                }
+                if (dtInicial.getValue().equals(a.getDataFinal())) {
+                    timesF++;
+                    if (a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Cancelado.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.NaoCompareceu.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.Pendente.getStatus()))
+                            || a.getStatusAgenda().equals(Util.removerAcentuacaoServico(EnumStatus.PendenteWeb.getStatus()))) {
+                        timesF--;
+                    }
+                }
+            }
+
+            if (timesI > 1 || timesF > 1) {
+                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                        EnumMensagem.Aviso.getMensagem() + "\n"
+                        + "Já existe mais de um agendamento nesse dia");
+                ok = false;
+            }
+            JPA.em(false).close();
+        }
+
         return ok;
     }
 

@@ -97,7 +97,7 @@ public class TabelaAgendaController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
 
                             // Style all dates in March with a different color.
                             if (item.getDayOfMonth() < LocalDate.now().getDayOfMonth()) {
@@ -122,7 +122,7 @@ public class TabelaAgendaController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
 
                             // Style all dates in March with a different color.
                             if (item.getDayOfMonth() < LocalDate.now().getDayOfMonth()) {
@@ -147,7 +147,7 @@ public class TabelaAgendaController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                         }
                     }
                 };

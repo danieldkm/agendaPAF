@@ -54,12 +54,12 @@
                         <PropertyValueFactory property="categoria" />                          
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="75.0" text="Dt inicial">
+                <TableColumn fx:id="tcDataInicial" prefWidth="75.0" text="Dt inicial">
                     <cellValueFactory>
                         <PropertyValueFactory property="dataInicial" />                          
                     </cellValueFactory>
                 </TableColumn>
-                <TableColumn prefWidth="75.0" text="Dt final">
+                <TableColumn fx:id="tcDataFinal" prefWidth="75.0" text="Dt final">
                     <cellValueFactory>
                         <PropertyValueFactory property="dataFinal" />                          
                     </cellValueFactory>

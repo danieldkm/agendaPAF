@@ -17,9 +17,15 @@ import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.UtilTexto;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -46,6 +52,11 @@ import javafx.stage.WindowEvent;
 import javafx.util.Callback;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
+
+import org.jsoup.HttpStatusException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 
 public class EmpresaController {
 
@@ -431,16 +442,17 @@ public class EmpresaController {
     private void actionBtnSalvar() throws Exception {
         mainEmpresa.setDisable(true);
         try {
-            if (validarCampos()) {
-                System.out.println("isUpdate " + isUpdate);
-                if (isUpdate) {
-                    isUpdate = false;
-                    empresaEncontrada.setCategoria(cbCategoria.getSelectionModel().getSelectedItem().getNome());
-                    EmpresaService es = new EmpresaService();
-                    es.editar(empresaEncontrada);
-                    JPA.em(false).close();
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
-                } else {
+            if (isUpdate) {
+                isUpdate = false;
+                empresaEncontrada.setCategoria(cbCategoria.getSelectionModel().getSelectedItem().getNome());
+                EmpresaService es = new EmpresaService();
+                es.editar(empresaEncontrada);
+                JPA.em(false).close();
+                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                resetarCampos();
+                StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
+            } else {
+                if (validarCampos()) {
                     empresaEncontrada.setDataCadastro(LocalDate.now());
                     empresaEncontrada.setCategoria(((Categoria) cbCategoria.getSelectionModel().getSelectedItem()).getNome());
 
@@ -471,9 +483,9 @@ public class EmpresaController {
                     telefoneSel.setSelecionado(1);
                     ts.salvar(telefoneSel);
                     JPA.em(false).close();
+                    resetarCampos();
+                    StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
                 }
-                resetarCampos();
-                StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
             }
         } catch (Exception e) {
             if (JPA.em(false).isOpen()) {
@@ -712,9 +724,10 @@ public class EmpresaController {
                     }
                     es.editar(enderecoSel);
                 }
+
                 StaticLista.setListaGlobalEndereco(es.findAll());
                 JPA.em(false).close();
-                preencherTabelaEndereco();
+                enderecoAtual = preencherTabelaEndereco();
                 setBindComponentsWithEndereco();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -737,7 +750,7 @@ public class EmpresaController {
                 }
                 StaticLista.setListaGlobalContato(cs.findAll());
                 JPA.em(false).close();
-                preencherTabelaContato();
+                contatoAtual = preencherTabelaContato();
                 setBindComponentsWithContato();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -760,7 +773,7 @@ public class EmpresaController {
                 }
                 StaticLista.setListaGlobalTelefone(ts.findAll());
                 JPA.em(false).close();
-                preencherTabelaTelefone();
+                telefoneAtual = preencherTabelaTelefone();
                 setBindComponentsWithTelefone();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -861,13 +874,62 @@ public class EmpresaController {
         UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Selecione uma linha da tabela!!");
     }
 
+    @FXML
+    private void onActionBtnBuscar() {
+        Map<String, String> query = new HashMap<String, String>();
+        query.put("cepEntrada", UtilTexto.removeAllSimbolsExceptNumber(txtCep.getText()));
+        query.put("tipoCep", "");
+        query.put("cepTemp", "");
+        query.put("metodo", "buscarCep");
+
+        try {
+            Document doc = Jsoup.connect("http://m.correios.com.br/movel/buscaCepConfirma.do")
+                    .data(query)
+                    .post();
+            Elements elemetos = doc.select(".respostadestaque");
+            if (elemetos.size() == 4) {
+                txtEndereco.setText(elemetos.get(0).text());
+                txtBairro.setText(elemetos.get(1).text());
+                setWithCepCidadeUF(elemetos.get(2).text());
+            } else if (elemetos.size() == 2) {
+                txtEndereco.setText("");
+                txtBairro.setText("");
+                setWithCepCidadeUF(elemetos.get(0).text());
+            } else {
+                txtEndereco.setText("");
+                txtBairro.setText("");
+                cbEstado.getSelectionModel().clearSelection();
+                cbCidade.getSelectionModel().clearSelection();
+//                System.out.println("Dados não encontrado");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(EmpresaController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void setWithCepCidadeUF(String cUf) {
+        String cidadeUf = UtilTexto.removerAcentos(cUf);
+        cbEstado.setItems(StaticLista.getListaGlobalEstado());
+        cbCidade.setItems(StaticLista.getListaGlobalCidade());
+        for (Cidade c : StaticLista.getListaGlobalCidade()) {
+            if (c.getNome().toLowerCase().equals(cidadeUf.substring(0, cidadeUf.indexOf("/")).toLowerCase().trim())
+                    && c.getUf().toLowerCase().equals(cidadeUf.substring(cidadeUf.indexOf("/") + 1).toLowerCase().trim())) {
+                cbEstado.setValue(c.getIdEstado());
+                cbCidade.setValue(c);
+                break;
+            }
+        }
+    }
+
     private void desativarMenu() {
         btnMenuLixo.setDisable(true);
         btnMenuNovo.setDisable(true);
         btnMenuSalvar.setDisable(true);
-        ckbEnderecoSelecionado.setDisable(true);
-        ckbTelefoneSelecionado.setDisable(true);
-        ckbContatoSelecionado.setDisable(true);
+        if (ckbEnderecoSelecionado != null) {
+            ckbEnderecoSelecionado.setDisable(true);
+            ckbTelefoneSelecionado.setDisable(true);
+            ckbContatoSelecionado.setDisable(true);
+        }
     }
 
     private void ativarMenu() {

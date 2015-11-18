@@ -39,7 +39,7 @@ public class TabelaFeriadoController {
                             setStyle("");
                         } else {
                             // Format date.
-                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd-MM-yyyy"));
+                            setText(UtilConverter.converterDataToFormat(UtilConverter.converterLocalDateToUtilDate(item), "dd/MM/yyyy"));
                         }
                     }
                 };

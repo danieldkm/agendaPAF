@@ -10,14 +10,14 @@ import java.util.List;
  */
 public class StaticRelatorio {
 
-    private static List<Anual> listaAnual = new ArrayList<Anual>();
-
-    public static List<Anual> getListaAnual() {
-        return listaAnual;
-    }
-
-    public static void setListaAnual(List<Anual> listaAnual) {
-        StaticRelatorio.listaAnual = listaAnual;
-    }
+//    private static List<Anual> listaAnual = new ArrayList<Anual>();
+//
+//    public static List<Anual> getListaAnual() {
+//        return listaAnual;
+//    }
+//
+//    public static void setListaAnual(List<Anual> listaAnual) {
+//        StaticRelatorio.listaAnual = listaAnual;
+//    }
 
 }
