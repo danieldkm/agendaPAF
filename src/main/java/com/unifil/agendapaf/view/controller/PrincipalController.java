@@ -329,13 +329,21 @@ public class PrincipalController {
         // Verifica se a tecla a e o control est�o pressionados
         if (t.getCode() == KeyCode.A && t.isControlDown()) {
 //                    System.out.println("CTRL + " + t.getCode());
-            iniciarCadastroAgenda();
+            if (sceneManager.getUsuarioLogado().getTipo().equals("Gerencial")) {
+                iniciarCadastroAgenda();
+            }
         } else if (t.getCode() == KeyCode.E && t.isControlDown()) {
-            iniciarCadastroEmpresa();
+            if (sceneManager.getUsuarioLogado().getTipo().equals("Gerencial")) {
+                iniciarCadastroEmpresa();
+            }
         } else if (t.getCode() == KeyCode.U && t.isControlDown()) {
-            iniciarCadastroUsuario();
+            if (sceneManager.getUsuarioLogado().getTipo().equals("Gerencial")) {
+                iniciarCadastroUsuario();
+            }
         } else if (t.getCode() == KeyCode.R && t.isControlDown()) {
-            iniciarRelatorio();
+            if (sceneManager.getUsuarioLogado().getTipo().equals("Gerencial")) {
+                iniciarRelatorio();
+            }
         } else if (t.getCode() == KeyCode.S && t.isControlDown()) {
             iniciarCalendarioSemestral();
         } else if (t.getCode() == KeyCode.LEFT) {
