@@ -373,9 +373,9 @@ public class UtilFile {
         File path = new File(exeFile.getAbsolutePath() + file);
         try {
             PrintWriter writer = new PrintWriter(path);
-            writer.println(
-                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
-            );
+//            writer.println(
+//                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
+//            );
             writer.println(documento);
             writer.flush();
             writer.close();

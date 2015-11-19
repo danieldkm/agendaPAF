@@ -635,11 +635,6 @@
                         <Font name="Arial" size="18.0" />
                     </font>
                 </Button>
-                <Button fx:id="btnDeletar" mnemonicParsing="false" onAction="#actionBtnDeletar" styleClass="button-raised" text="Deletar">
-                    <font>
-                        <Font name="Arial" size="18.0" />
-                    </font>
-                </Button>
             </children>
         </HBox>
     </children>

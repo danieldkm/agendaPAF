@@ -1,0 +1,9 @@
+Event false
+SUCCEEDED false
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+- Iniciar metodo de preenchimento
+- Finalizar metodo de preenchimento
+- Iniciar metodo de actionBtnLimpar
+- Finalizar metodo de actionBtnLimpar
+TABELA EMPRESA VALUES teste2 kct kct@kct.com (32)13213-1231 AM Amatura

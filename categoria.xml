@@ -1,35 +1,29 @@
-<?xml version="1.0" encoding="windows-1252"?>
-<com.sun.javafx.collections.ObservableListWrapper>
-  <changeBuilder>
-    <list class="com.sun.javafx.collections.ObservableListWrapper" reference="../.."/>
-    <changeLock>0</changeLock>
-    <addRemoveChanges/>
-  </changeBuilder>
-  <backingList>
-    <categoria>
-      <id>0</id>
-      <nome>Normal</nome>
-      <porcento>0</porcento>
-    </categoria>
-    <categoria>
-      <id>1</id>
-      <nome>Empresas APL</nome>
-      <porcento>10</porcento>
-    </categoria>
-    <categoria>
-      <id>2</id>
-      <nome>Cintec</nome>
-      <porcento>20</porcento>
-    </categoria>
-    <categoria>
-      <id>3</id>
-      <nome>Governança da APL</nome>
-      <porcento>30</porcento>
-    </categoria>
-    <categoria>
-      <id>3</id>
-      <nome>Reavaliação</nome>
-      <porcento>10</porcento>
-    </categoria>
-  </backingList>
-</com.sun.javafx.collections.ObservableListWrapper>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Categorias>
+    <Categorias>
+        <id>0</id>
+        <Nome>Normal</Nome>
+        <Porcento>0</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>1</id>
+        <Nome>Empresas APL</Nome>
+        <Porcento>10</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>2</id>
+        <Nome>Cintec</Nome>
+        <Porcento>20</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>3</id>
+        <Nome>Governança da APL</Nome>
+        <Porcento>30</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>3</id>
+        <Nome>Reavaliação</Nome>
+        <Porcento>10</Porcento>
+    </Categorias>
+</Categorias>
+

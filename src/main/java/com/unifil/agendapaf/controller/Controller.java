@@ -16,7 +16,9 @@ import com.unifil.agendapaf.model.Historico;
 import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.model.aux.Categoria;
+import com.unifil.agendapaf.model.aux.Categorias;
 import com.unifil.agendapaf.model.aux.Servico;
+import com.unifil.agendapaf.model.aux.Servicos;
 import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.service.CidadeService;
 import com.unifil.agendapaf.service.ContatoService;
@@ -29,6 +31,7 @@ import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.service.HistoricoService;
 import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.service.UsuarioService;
+import com.unifil.agendapaf.util.UtilFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -183,37 +186,52 @@ public class Controller {
 
     public static ObservableList<Servico> getServicos() {
         File exeFile = new File("");
-        FileReader reader = null;
+        UtilFile uf = new UtilFile();
+//        FileReader reader = null;
         ObservableList<Servico> servicos = FXCollections.observableArrayList();
-        try {
-            String caminho = exeFile.getAbsolutePath() + "/servico.xml";
-            if (new File(caminho).exists()) {
-                reader = new FileReader(caminho);
-                XStream xStream = new XStream(new DomDriver());
-                xStream.alias("servico", Servico.class);
-                servicos = (ObservableList) xStream.fromXML(reader);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        String caminho = exeFile.getAbsolutePath() + "/servico.xml";
+        if (new File(caminho).exists()) {
+            System.out.println("CAMINHO " + caminho);
+            Servicos ss = (Servicos) uf.unmarshalFromFile(Servicos.class, caminho);
+            return FXCollections.observableArrayList(ss.getServicos());
+//                reader = new FileReader(caminho);
+//                XStream xStream = new XStream(new DomDriver());
+//                xStream.alias("servico", Servico.class);
+//                servicos = (ObservableList) xStream.fromXML(reader);
         }
         return servicos;
     }
 
     public static ObservableList<Categoria> getCategorias() {
         File exeFile = new File("");
-        FileReader reader = null;
+        UtilFile uf = new UtilFile();
+//        FileReader reader = null;
         ObservableList<Categoria> categorias = FXCollections.observableArrayList();
-        try {
-            String caminho = exeFile.getAbsolutePath() + "/categoria.xml";
-            if (new File(caminho).exists()) {
-                reader = new FileReader(caminho);
-                XStream xStream = new XStream(new DomDriver());
-                xStream.alias("categoria", Categoria.class);
-                categorias = (ObservableList) xStream.fromXML(reader);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        String caminho = exeFile.getAbsolutePath() + "/categoria.xml";
+        if (new File(caminho).exists()) {
+            System.out.println("CAMINHO " + caminho);
+            Categorias ss = (Categorias) uf.unmarshalFromFile(Categorias.class, caminho);
+            return FXCollections.observableArrayList(ss.getCategorias());
+//                reader = new FileReader(caminho);
+//                XStream xStream = new XStream(new DomDriver());
+//                xStream.alias("servico", Servico.class);
+//                servicos = (ObservableList) xStream.fromXML(reader);
         }
+
+//        File exeFile = new File("");
+//        FileReader reader = null;
+//        ObservableList<Categoria> categorias = FXCollections.observableArrayList();
+//        try {
+//            String caminho = exeFile.getAbsolutePath() + "/categoria.xml";
+//            if (new File(caminho).exists()) {
+//                reader = new FileReader(caminho);
+//                XStream xStream = new XStream(new DomDriver());
+//                xStream.alias("categoria", Categoria.class);
+//                categorias = (ObservableList) xStream.fromXML(reader);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
         return categorias;
     }
 

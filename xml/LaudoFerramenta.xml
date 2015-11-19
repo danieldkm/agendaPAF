@@ -14,6 +14,7 @@
         <inscricaoEstadual>Isento</inscricaoEstadual>
         <InscricaoMunicipal></InscricaoMunicipal>
         <NomeFantasia></NomeFantasia>
+        <observacao></observacao>
     </Empresa>
     <Endereco>
         <Bairro>Centro</Bairro>

@@ -40,12 +40,12 @@ public class LaudoFerramentaController {
             preencherLaudoFerramenta();
         } else {
             try {
+                laudoFerramenta = LaudoFerramenta.getInstance();
                 laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
             } catch (Exception e) {
-//            e.printStackTrace();
+                e.printStackTrace();
                 System.err.println("java.io.FileNotFoundException: xml/LaudoFerramenta.xml (No such file or directory)");
             }
-            laudoFerramenta = LaudoFerramenta.getInstance();
             preencherLaudoFerramenta();
         }
 

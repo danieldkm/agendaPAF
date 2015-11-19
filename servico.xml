@@ -1,69 +1,29 @@
-<?xml version="1.0" encoding="windows-1252"?>
-<com.sun.javafx.collections.ObservableListWrapper>
-  <listenerHelper class="com.sun.javafx.collections.ListListenerHelper$Generic">
-    <changeListeners>
-      <javafx.collections.WeakListChangeListener>
-        <ref>
-          <referent class="null"/>
-          <queue class="java.lang.ref.ReferenceQueue$Null">
-            <lock/>
-            <queueLength>0</queueLength>
-          </queue>
-        </ref>
-      </javafx.collections.WeakListChangeListener>
-      <javafx.collections.WeakListChangeListener>
-        <ref>
-          <referent class="null"/>
-          <queue class="java.lang.ref.ReferenceQueue$Null" reference="../../../javafx.collections.WeakListChangeListener/ref/queue"/>
-        </ref>
-      </javafx.collections.WeakListChangeListener>
-      <javafx.collections.WeakListChangeListener>
-        <ref>
-          <referent class="null"/>
-          <queue class="java.lang.ref.ReferenceQueue$Null" reference="../../../javafx.collections.WeakListChangeListener/ref/queue"/>
-        </ref>
-      </javafx.collections.WeakListChangeListener>
-      <javafx.collections.WeakListChangeListener reference="../javafx.collections.WeakListChangeListener[3]"/>
-    </changeListeners>
-    <invalidationSize>0</invalidationSize>
-    <changeSize>4</changeSize>
-    <locked>false</locked>
-  </listenerHelper>
-  <changeBuilder>
-    <list class="com.sun.javafx.collections.ObservableListWrapper" reference="../.."/>
-    <changeLock>0</changeLock>
-    <addRemoveChanges/>
-  </changeBuilder>
-  <backingList>
-    <servico>
-      <id>1</id>
-      <nome>Avaliação</nome>
-      <valor>2106.0</valor>
-    </servico>
-    <servico>
-      <id>2</id>
-      <nome>Avaliação - Intinerante</nome>
-      <valor>2538.0</valor>
-    </servico>
-    <servico>
-      <id>3</id>
-      <nome>Pré-Avaliação</nome>
-      <valor>1058.0</valor>
-    </servico>
-    <servico>
-      <id>4</id>
-      <nome>Pré-Avaliação - Remoto</nome>
-      <valor>1058.0</valor>
-    </servico>
-    <servico>
-      <id>5</id>
-      <nome>Hora Adicional</nome>
-      <valor>151.0</valor>
-    </servico>
-    <servico>
-      <id>6</id>
-      <nome>teste222</nome>
-      <valor>999.0</valor>
-    </servico>
-  </backingList>
-</com.sun.javafx.collections.ObservableListWrapper>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Servicos>
+    <Servicos>
+        <id>1</id>
+        <Nome>Avaliação</Nome>
+        <Valor>2106.0</Valor>
+    </Servicos>
+    <Servicos>
+        <id>2</id>
+        <Nome>Avaliação - Intinerante</Nome>
+        <Valor>2538.0</Valor>
+    </Servicos>
+    <Servicos>
+        <id>3</id>
+        <Nome>Pré-Avaliação</Nome>
+        <Valor>1058.0</Valor>
+    </Servicos>
+    <Servicos>
+        <id>4</id>
+        <Nome>Pré-Avaliação - Remoto</Nome>
+        <Valor>1058.0</Valor>
+    </Servicos>
+    <Servicos>
+        <id>5</id>
+        <Nome>Hora Adicional</Nome>
+        <Valor>151.0</Valor>
+    </Servicos>
+</Servicos>
+

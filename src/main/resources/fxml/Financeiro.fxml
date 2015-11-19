@@ -145,7 +145,7 @@
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                     <children>
-                        <TextField fx:id="txtValorPago" editable="false" styleClass="text-field" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="txtValorPago" styleClass="text-field" HBox.hgrow="ALWAYS" />
                     </children>
                 </HBox>
                 <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">

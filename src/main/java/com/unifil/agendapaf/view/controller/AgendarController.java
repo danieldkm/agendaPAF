@@ -26,6 +26,7 @@ import com.unifil.agendapaf.util.UtilConverter;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -503,45 +504,55 @@ public class AgendarController {
             } else {
                 // aki nesse trecho do codigo verifico se a data inicial e final 
                 // tem diferenteça de 2 dias ou mais se houver não deixa cadastrar
-                Calendar ca1 = new GregorianCalendar();
-                ca1.setTime(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()));
-                ca1.set(Calendar.HOUR_OF_DAY, 0);
-                ca1.set(Calendar.MINUTE, 0);
-                ca1.set(Calendar.SECOND, 0);
-                ca1.set(Calendar.MILLISECOND, 0);
-
-                Calendar ca2 = new GregorianCalendar();
-                ca2.setTime(UtilConverter.converterLocalDateToUtilDate(dtFinal.getValue()));
-                ca2.set(Calendar.HOUR_OF_DAY, 0);
-                ca2.set(Calendar.MINUTE, 0);
-                ca2.set(Calendar.SECOND, 0);
-                ca2.set(Calendar.MILLISECOND, 0);
-
-                //varial para verificar se o proximo dia do dia ca1 é 1
-                //se for deixar cadastrar o ultimo com o 1 dia do mes seguinte!
-                Calendar ca3 = new GregorianCalendar();
-                ca3.setTime(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()));
-                ca3.set(Calendar.HOUR_OF_DAY, 0);
-                ca3.set(Calendar.MINUTE, 0);
-                ca3.set(Calendar.SECOND, 0);
-                ca3.set(Calendar.MILLISECOND, 0);
-
-                int d1 = ca1.get(Calendar.DAY_OF_MONTH);
-                int d2 = ca2.get(Calendar.DAY_OF_MONTH);
-                ca3.set(Calendar.DAY_OF_MONTH, d1 + 1);
-                int d3 = ca3.get(Calendar.DAY_OF_MONTH);
-                if (d3 != 1) {
-                    if ((d2 - d1) > 1 || (d2 - d1) < 1) {
-//                        validate(dtFinal);
-                        validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
-                                -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
-                        dtFinal.requestFocus();
-                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
-                                EnumMensagem.Aviso.getMensagem() + "\n"
-                                + "com data final em dois dias a mais de diferença da data inicial!!!");
-                        ok = false;
-                    }
+                long dias = Period.between(dtInicial.getValue(), dtFinal.getValue()).getDays();
+                if (Math.abs(dias) > 1) {
+                    validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
+                            -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
+                    dtFinal.requestFocus();
+                    UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                            EnumMensagem.Aviso.getMensagem() + "\n"
+                            + "com data final em dois dias a mais de diferença da data inicial!!!");
+                    ok = false;
                 }
+//                Calendar ca1 = new GregorianCalendar();
+//                ca1.setTime(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()));
+//                ca1.set(Calendar.HOUR_OF_DAY, 0);
+//                ca1.set(Calendar.MINUTE, 0);
+//                ca1.set(Calendar.SECOND, 0);
+//                ca1.set(Calendar.MILLISECOND, 0);
+//
+//                Calendar ca2 = new GregorianCalendar();
+//                ca2.setTime(UtilConverter.converterLocalDateToUtilDate(dtFinal.getValue()));
+//                ca2.set(Calendar.HOUR_OF_DAY, 0);
+//                ca2.set(Calendar.MINUTE, 0);
+//                ca2.set(Calendar.SECOND, 0);
+//                ca2.set(Calendar.MILLISECOND, 0);
+//
+//                //varial para verificar se o proximo dia do dia ca1 é 1
+//                //se for deixar cadastrar o ultimo com o 1 dia do mes seguinte!
+//                Calendar ca3 = new GregorianCalendar();
+//                ca3.setTime(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()));
+//                ca3.set(Calendar.HOUR_OF_DAY, 0);
+//                ca3.set(Calendar.MINUTE, 0);
+//                ca3.set(Calendar.SECOND, 0);
+//                ca3.set(Calendar.MILLISECOND, 0);
+//
+//                int d1 = ca1.get(Calendar.DAY_OF_MONTH);
+//                int d2 = ca2.get(Calendar.DAY_OF_MONTH);
+//                ca3.set(Calendar.DAY_OF_MONTH, d1 + 1);
+//                int d3 = ca3.get(Calendar.DAY_OF_MONTH);
+//                if (d3 != 1) {
+//                    if ((d2 - d1) > 1 || (d2 - d1) < 1) {
+////                        validate(dtFinal);
+//                        validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
+//                                -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
+//                        dtFinal.requestFocus();
+//                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+//                                EnumMensagem.Aviso.getMensagem() + "\n"
+//                                + "com data final em dois dias a mais de diferença da data inicial!!!");
+//                        ok = false;
+//                    }
+//                }
             }
         }
         if (contemFeriado(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()))) {
@@ -582,6 +593,15 @@ public class AgendarController {
                 UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "\n" + "Prencher a data inicial e/ou final");
                 ok = false;
             }
+        }
+        if (dtFinal.getValue().isBefore(dtInicial.getValue())) {
+            validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
+                    -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
+            dtFinal.requestFocus();
+            UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                    EnumMensagem.Aviso.getMensagem() + "\n"
+                    + "com data final não pode ser menor que data inicial!!!");
+            ok = false;
         }
         if (!isCancelamento && !isReagendamento && !isUpdate) {
             AgendaService as = new AgendaService();

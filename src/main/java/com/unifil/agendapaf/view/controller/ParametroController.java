@@ -1,10 +1,12 @@
 package com.unifil.agendapaf.view.controller;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
+//import com.thoughtworks.xstream.XStream;
+//import com.thoughtworks.xstream.io.xml.DomDriver;
 import com.unifil.agendapaf.model.aux.Categoria;
 import com.unifil.agendapaf.controller.Controller;
+import com.unifil.agendapaf.model.aux.Categorias;
 import com.unifil.agendapaf.model.aux.Servico;
+import com.unifil.agendapaf.model.aux.Servicos;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.UtilFile;
@@ -31,10 +33,17 @@ public class ParametroController {
     public void initialize() {
         try {
             MaskFieldUtil.monetaryField(txtValor);
-            servicos = Controller.getServicos();
-            categorias = Controller.getCategorias();
-            tvServico.setItems(servicos);
-            tvCategoria.setItems(categorias);
+            util = new UtilFile();
+            servicos = new Servicos();
+            categorias = new Categorias();
+            for (Servico s : Controller.getServicos()) {
+                servicos.getServicos().add(s);
+            }
+            for (Categoria c : Controller.getCategorias()) {
+                categorias.getCategorias().add(c);
+            }
+            tvServico.setItems(FXCollections.observableArrayList(servicos.getServicos()));
+            tvCategoria.setItems(FXCollections.observableArrayList(categorias.getCategorias()));
         } catch (Exception e) {
             e.printStackTrace();
             UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar parametro", e, "Exception:");
@@ -89,25 +98,24 @@ public class ParametroController {
     private TableView<Categoria> tvCategoria;
 
     private Stage stage;
-    private ObservableList<Servico> servicos;
-    private ObservableList<Categoria> categorias;
+//    private ObservableList<Servico> servicos;
+    private Servicos servicos;
+//    private ObservableList<Categoria> categorias;
+    private Categorias categorias;
     private Servico servicoEncontrado;
     private Categoria categoriaEncontrado;
     private boolean atualizar = false;
-    private XStream xStream = new XStream(new DomDriver());
+//    private XStream xStream = new XStream(new DomDriver());
+    private UtilFile util;
 
     private void salvarServico() {
-        xStream.alias("servico", Servico.class);
-        String xml = xStream.toXML(servicos);
-        UtilFile.salvarArquivoXML(xml, "/servico.xml");
+        UtilFile.salvarArquivoXML(util.marshal(servicos), "/servico.xml");
         btnLimpar.arm();
         btnLimpar.fire();
     }
 
     private void salvarCategoria() {
-        xStream.alias("categoria", Categoria.class);
-        String xml = xStream.toXML(categorias);
-        UtilFile.salvarArquivoXML(xml, "/categoria.xml");
+        UtilFile.salvarArquivoXML(util.marshal(categorias), "/categoria.xml");
         btnLimpar.arm();
         btnLimpar.fire();
     }
@@ -118,62 +126,62 @@ public class ParametroController {
             if (validarCampos()) {
                 if (tabServico.isSelected()) {
                     if (atualizar) {
-                        servicos.clear();
+                        servicos.getServicos().clear();
                         for (Servico servico : Controller.getServicos()) {
                             if (servico.getId() == servicoEncontrado.getId()) {
                                 servico.setNome(txtNomeServico.getText());
                                 String auxT = txtValor.getText().replace(".", "");
                                 auxT = auxT.replace(",", ".");
                                 auxT = auxT.replace("R$", "");
-                                System.out.println("auxT " + auxT);
+//                                System.out.println("auxT " + auxT);
                                 servico.setValor(Double.parseDouble(auxT));
                             }
-                            servicos.add(servico);
+                            servicos.getServicos().add(servico);
                         }
-                        tvServico.setItems(servicos);
+                        tvServico.setItems(FXCollections.observableArrayList(servicos.getServicos()));
                         salvarServico();
                         atualizar = false;
                     } else {
                         Servico s = new Servico();
-                        if (servicos.size() == 0) {
+                        if (servicos.getServicos().size() == 0) {
                             s.setId(1);
                         } else {
-                            s.setId(servicos.get(servicos.size() - 1).getId() + 1);
+                            s.setId(servicos.getServicos().get(servicos.getServicos().size() - 1).getId() + 1);
                         }
                         s.setNome(txtNomeServico.getText());
                         String auxT = txtValor.getText().replace(".", "");
                         auxT = auxT.replace(",", ".");
                         auxT = auxT.replace("R$", "");
                         s.setValor(Double.parseDouble(auxT));
-                        servicos.add(s);
-                        tvServico.getItems().setAll(servicos);
+                        servicos.getServicos().add(s);
+                        tvServico.getItems().setAll(FXCollections.observableArrayList(servicos.getServicos()));
                         salvarServico();
                     }
                 } else if (tabCategoria.isSelected()) {
                     if (atualizar) {
-                        categorias.clear();
+                        categorias.getCategorias().clear();
                         for (Categoria categoria : Controller.getCategorias()) {
                             if (categoria.getId() == categoriaEncontrado.getId()) {
                                 categoria.setNome(txtNomeCategoria.getText());
                                 categoria.setPorcento(Integer.parseInt(txtPorcentagem.getText()));
                             }
-                            categorias.add(categoria);
+                            categorias.getCategorias().add(categoria);
                         }
                         tvCategoria.getItems().clear();
-                        tvCategoria.getItems().setAll(categorias);
+                        tvCategoria.getItems().setAll(FXCollections.observableArrayList(categorias.getCategorias()));
                         salvarCategoria();
                         atualizar = false;
                     } else {
                         Categoria c = new Categoria();
-                        if (categorias.size() == 0) {
+                        if (categorias.getCategorias().size() == 0) {
                             c.setId(1);
                         } else {
-                            c.setId(categorias.get(categorias.size() - 1).getId() + 1);
+                            c.setId(categorias.getCategorias().get(categorias.getCategorias().size() - 1).getId() + 1);
                         }
                         c.setNome(txtNomeCategoria.getText());
                         c.setPorcento(Integer.parseInt(txtPorcentagem.getText()));
-                        categorias.add(c);
-                        tvCategoria.getItems().setAll(categorias);
+                        categorias.getCategorias().add(c);
+                        tvCategoria.getItems().setAll(FXCollections.observableArrayList(categorias.getCategorias()));
                         salvarCategoria();
                     }
                 }
@@ -193,6 +201,9 @@ public class ParametroController {
             servicoEncontrado = tvServico.getSelectionModel().getSelectedItem();
             txtNomeServico.setText(servicoEncontrado.getNome());
             String n = servicoEncontrado.getValor() + "";
+            if (n.substring(n.indexOf(".") + 1, n.length()).length() < 2) {
+                n = n + "0";
+            }
             txtValor.setText(n);
             atualizar = true;
         }
@@ -215,14 +226,17 @@ public class ParametroController {
             if (servicoEncontrado != null) {
                 try {
                     ObservableList<Servico> novaLista = FXCollections.observableArrayList();
-                    for (Servico servico : servicos) {
+                    for (Servico servico : servicos.getServicos()) {
                         if (servicoEncontrado.getId() != servico.getId()) {
                             novaLista.add(servico);
                         }
                     }
-                    servicos = novaLista;
+                    servicos.getServicos().clear();
+                    for (Servico nl : novaLista) {
+                        servicos.getServicos().add(nl);
+                    }
                     salvarServico();
-                    tvServico.getItems().setAll(servicos);
+                    tvServico.getItems().setAll(FXCollections.observableArrayList(servicos.getServicos()));
                     UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                 } catch (Exception e) {
                     UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e, "Exception");
@@ -235,14 +249,17 @@ public class ParametroController {
             if (categoriaEncontrado != null) {
                 try {
                     ObservableList<Categoria> novaLista = FXCollections.observableArrayList();
-                    for (Categoria categoria : categorias) {
+                    for (Categoria categoria : categorias.getCategorias()) {
                         if (categoriaEncontrado.getId() != categoria.getId()) {
                             novaLista.add(categoria);
                         }
                     }
-                    categorias = novaLista;
+                    categorias.getCategorias().clear();
+                    for (Categoria nl : novaLista) {
+                        categorias.getCategorias().add(nl);
+                    }
                     salvarCategoria();
-                    tvCategoria.getItems().setAll(categorias);
+                    tvCategoria.getItems().setAll(FXCollections.observableArrayList(categorias.getCategorias()));
                     UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                 } catch (Exception e) {
                     UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e, "Exception");
@@ -275,10 +292,10 @@ public class ParametroController {
         Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.ParametroConfirmarGerarParametroPadrao.getMensagem(), EnumMensagem.ParametroConfirmandoGerarParametroPadrao.getMensagem());
         if (result.get() == ButtonType.OK) {
             try {
-                xStream.alias("servico", Servico.class
-                );
+//                xStream.alias("servico", Servico.class
+//                );
 
-                ObservableList<Servico> tipos = FXCollections.observableArrayList();
+//                ObservableList<Servico> tipos = FXCollections.observableArrayList();
                 Servico servico = new Servico();
 
                 servico.setId(
@@ -319,36 +336,31 @@ public class ParametroController {
                 servico4.setValor(
                         1058);
 
-                Servico servico6 = new Servico();
+                Servico servico5 = new Servico();
 
-                servico6.setId(
+                servico5.setId(
                         5);
-                servico6.setNome(
+                servico5.setNome(
                         EnumServico.HoraAdicional.getServico()
                 );
-                servico6.setValor(
+                servico5.setValor(
                         151);
 
-                tipos.add(servico);
+                Servicos ss = new Servicos();
+                ss.getServicos().add(servico);
+                ss.getServicos().add(servico2);
+                ss.getServicos().add(servico3);
+                ss.getServicos().add(servico4);
+                ss.getServicos().add(servico5);
 
-                tipos.add(servico2);
-
-                tipos.add(servico3);
-
-                tipos.add(servico4);
-
-                tipos.add(servico6);
-
-                String xml = xStream.toXML(tipos);
-
-                UtilFile.salvarArquivoXML(xml,
+//                String xml = xStream.toXML(tipos);
+                UtilFile.salvarArquivoXML(util.marshal(ss),
                         "/servico.xml");
 
-                xStream.alias(
-                        "categoria", Categoria.class
-                );
-
-                ObservableList<Categoria> categorias = FXCollections.observableArrayList();
+//                xStream.alias(
+//                        "categoria", Categoria.class
+//                );
+//                ObservableList<Categoria> categorias = FXCollections.observableArrayList();
                 Categoria categoria = new Categoria();
                 categoria.setId(0);
                 categoria.setNome(
@@ -384,24 +396,36 @@ public class ParametroController {
                 categoria5.setPorcento(
                         10);
 
-                categorias.add(categoria);
-                categorias.add(categoria2);
-                categorias.add(categoria3);
-                categorias.add(categoria4);
-                categorias.add(categoria5);
+                Categorias cs = new Categorias();
+                cs.getCategorias().add(categoria);
+                cs.getCategorias().add(categoria2);
+                cs.getCategorias().add(categoria3);
+                cs.getCategorias().add(categoria4);
+                cs.getCategorias().add(categoria5);
+//                categorias.add(categoria);
+//                categorias.add(categoria2);
+//                categorias.add(categoria3);
+//                categorias.add(categoria4);
+//                categorias.add(categoria5);
+//
+//                String xml2 = xStream.toXML(categorias);
 
-                String xml2 = xStream.toXML(categorias);
-
-                UtilFile.salvarArquivoXML(xml2,
+                UtilFile.salvarArquivoXML(util.marshal(cs),
                         "/categoria.xml");
 
-                servicos = Controller.getServicos();
-                categorias = Controller.getCategorias();
+                servicos.getServicos().clear();
+                for (Servico s : Controller.getServicos()) {
+                    servicos.getServicos().add(s);
+                }
+                categorias.getCategorias().clear();
+                for (Categoria c : Controller.getCategorias()) {
+                    categorias.getCategorias().add(c);
+                }
 
                 tvServico.getItems()
-                        .setAll(servicos);
+                        .setAll(FXCollections.observableArrayList(servicos.getServicos()));
                 tvCategoria.getItems()
-                        .setAll(categorias);
+                        .setAll(FXCollections.observableArrayList(categorias.getCategorias()));
                 UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Gerado.getMensagem());
             } catch (Exception e) {
                 UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroGerar.getMensagem(), e, "Exception");
@@ -412,11 +436,11 @@ public class ParametroController {
 
     @FXML
     private void setOnSelectionChangedTbCategoria() {
-        if (tabCategoria.isSelected()) {
-            btnDeletar.setDisable(true);
-        } else {
-            btnDeletar.setDisable(false);
-        }
+//        if (tabCategoria.isSelected()) {
+//            btnDeletar.setDisable(true);
+//        } else {
+//            btnDeletar.setDisable(false);
+//        }
     }
 
     private boolean validarCampos() {

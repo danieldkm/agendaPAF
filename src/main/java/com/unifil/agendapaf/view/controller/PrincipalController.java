@@ -66,7 +66,10 @@ public class PrincipalController {
         });
         Usuario ul = sceneManager.getUsuarioLogado();
         if (!ul.getTipo().equals("Gerencial")) {
-            mCadastros.setVisible(false);
+//            mCadastros.setVisible(false);
+            miCadastroUsuario.setVisible(false);
+            miLaudo.setVisible(false);
+            miFinanceiro.setVisible(false);
             mRelatorio.setVisible(false);
             miConsultarHistorico.setVisible(false);
         }
@@ -105,6 +108,8 @@ public class PrincipalController {
     private MenuItem miConfigurar;
     @FXML
     private MenuItem miLaudo;
+    @FXML
+    private MenuItem miFinanceiro;
     @FXML
     private Menu mCadastros;
     @FXML

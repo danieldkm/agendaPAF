@@ -15,6 +15,7 @@ import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
+import java.time.Period;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -112,7 +113,7 @@ public class FinanceiroController {
 
     private void calcularServico() {
         if (cbTipoServico.getSelectionModel().getSelectedItem() != null) {
-            if (cbTipoServico.getSelectionModel().getSelectedItem().equals(EnumServico.HoraAdicional.getServico())) {
+            if (cbTipoServico.getSelectionModel().getSelectedItem().getNome().equals(EnumServico.HoraAdicional.getServico())) {
                 txtHoraAdicional.setDisable(false);
             } else {
                 txtHoraAdicional.setDisable(true);
@@ -192,13 +193,12 @@ public class FinanceiroController {
                         f.setIdEmpresa(empresaEncontrada);
                     }
                     f.setId(financeiroEncontrada.getId());
-                    f.setTipoServico(cbTipoServico.getSelectionModel().getSelectedItem() + "");
+                    f.setTipoServico(cbTipoServico.getSelectionModel().getSelectedItem().getNome() + "");
                     if (!txtHoraAdicional.getText().equals("")) {
                         f.setHoraAdicional(Integer.parseInt(txtHoraAdicional.getText()));
                     } else {
                         f.setHoraAdicional(0);
                     }
-//                    calcularServico();
                     f.setValorPago(valor);
                     f.setNumeroLaudo(txtLaudo.getText());
                     f.setCategoria(cbCategoria.getSelectionModel().getSelectedItem() + "");
@@ -209,7 +209,7 @@ public class FinanceiroController {
                 } else {
                     Financeiro f = new Financeiro();
                     f.setIdEmpresa(empresaEncontrada);
-                    f.setTipoServico(cbTipoServico.getSelectionModel().getSelectedItem() + "");
+                    f.setTipoServico(cbTipoServico.getSelectionModel().getSelectedItem().getNome() + "");
                     if (!txtHoraAdicional.getText().equals("")) {
                         f.setHoraAdicional(Integer.parseInt(txtHoraAdicional.getText()));
                     } else {
@@ -295,7 +295,7 @@ public class FinanceiroController {
             validationSupport.registerValidator(cbTipoServico, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbTipoServico.requestFocus();
             ok = false;
-        } else if (cbTipoServico.getSelectionModel().getSelectedItem().equals("")) {
+        } else if (cbTipoServico.getSelectionModel().getSelectedItem().getNome().equals("")) {
             preencher += EnumMensagem.InformeComboBox.getMensagem() + "\n";
             validationSupport.registerValidator(cbTipoServico, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
             cbTipoServico.requestFocus();
@@ -321,12 +321,6 @@ public class FinanceiroController {
             ok = false;
         }
 
-//        if (txtValorPago.getText().equals("") || txtValorPago.getText().contains(".")) {
-//            preencher += EnumMensagem.FinanceiroTxtValorInvalido.getMensagem() + "\n";
-//            validationSupport.registerValidator(txtValorPago, Validator.createEmptyValidator(EnumMensagem.RequerComboBox.getMensagem()));
-//            txtValorPago.requestFocus();
-//            ok = false;
-//        }
         if (!txtHoraAdicional.getText().equals("")) {
             try {
                 int n = Integer.parseInt(txtHoraAdicional.getText());
@@ -349,6 +343,30 @@ public class FinanceiroController {
             validationSupport.registerValidator(dtFinal, Validator.createEmptyValidator(EnumMensagem.RequerDtFinal.getMensagem()));
             dtInicial.requestFocus();
             ok = false;
+        }
+
+        if (dtFinal.getValue().isBefore(dtInicial.getValue())) {
+            preencher += EnumMensagem.RequerDtFinalMenorDtInicial.getMensagem() + "\n";
+            validationSupport.registerValidator(dtFinal, Validator.createEmptyValidator(EnumMensagem.RequerDtFinalMenorDtInicial.getMensagem()));
+            dtFinal.requestFocus();
+            ok = false;
+        }
+        long dias = Period.between(dtInicial.getValue(), dtFinal.getValue()).getDays();
+//        System.out.println("dias " + dias);
+        if (cbTipoServico.getValue().getNome().contains("Pré")) {
+            if (dias != 0) {
+                preencher += EnumMensagem.FinanceiroDataInvalida.getMensagem() + "\n";
+                validationSupport.registerValidator(dtInicial, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
+                dtInicial.requestFocus();
+                ok = false;
+            }
+        } else if (!cbTipoServico.getValue().getNome().equals(EnumServico.HoraAdicional.getServico())) {
+            if (Math.abs(dias) > 1) {
+                preencher += EnumMensagem.FinanceiroDataInvalida.getMensagem() + "\n";
+                validationSupport.registerValidator(dtInicial, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
+                dtInicial.requestFocus();
+                ok = false;
+            }
         }
 
         if (!ok) {
@@ -441,7 +459,10 @@ public class FinanceiroController {
             txtHoraAdicional.setText(financeiroEncontrada.getHoraAdicional() + "");
         }
         String n = financeiroEncontrada.getValorPago() + "";
-        txtValorPago.setText(n.replace(".", "") + "0");
+        if (n.substring(n.indexOf(".") + 1, n.length()).length() < 2) {
+            n = n + "0";
+        }
+        txtValorPago.setText(n);
         txtLaudo.setText(financeiroEncontrada.getNumeroLaudo());
         dtInicial.setValue(financeiroEncontrada.getDataInicial());
         dtFinal.setValue(financeiroEncontrada.getDataFinal());
