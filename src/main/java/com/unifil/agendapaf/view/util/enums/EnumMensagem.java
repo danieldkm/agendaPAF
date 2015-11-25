@@ -32,6 +32,7 @@ public enum EnumMensagem {
     AgendaDesejaCadastrarFinanceiro("Deseja cadastrar no financeiro a conclusão desse agendamento?"),
     AgendaErroSalvarHistoricoAgenda("Erro ao tentar salvar Histórico da agenda"),
     AgendaRequerResponsavel("Atualize no cadastro de empresa o responsável"),
+    AgendaRequerEmpresa("Encontre uma empresa para ser agendada"),
     EmpresaErroNaoExiste("Não existe nenhuma empresa para ser deletado"),
     EmpresaErroTentarDeletar("Erro ao tentar deletar a empresa: "),
     EmpresaErroEstadoCidade("Selecione um estado e uma cidade"),

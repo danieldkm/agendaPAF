@@ -10,8 +10,8 @@ import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
-import com.unifil.agendapaf.util.Util;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.controller.AgendarController;
 import com.unifil.agendapaf.view.controller.AlertaController;
 import com.unifil.agendapaf.view.controller.CalendarioSemestralController;
@@ -41,7 +41,6 @@ import com.unifil.agendapaf.view.controller.UsuarioController;
 import com.unifil.agendapaf.view.controller.VisualizadorMotivoController;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
-import java.io.IOException;
 import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -118,6 +117,7 @@ public class SceneManager {
     private Boolean BDSERVIDOR = Boolean.FALSE;
 
     private LocalDate dataSelecionada;
+    private Mensagem mensagem;
 
     private SceneManager() {
     }
@@ -170,6 +170,16 @@ public class SceneManager {
             stage.setResizable(false);
             criarPadrao("Carregando", stage, loginLayout);
 
+//            Notificacao no = new Notificacao(principalStage);
+//            no.notificar("a","b",Pos.CENTER);
+////            Dialogos d = new Dialogos(stage);
+////
+////            String a = "aa";
+////            try {
+////                int n = Integer.parseInt(a);
+////            } catch (Exception e) {
+////                d.informacao("titulo", "cabecalho", "corpo");
+////            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -187,13 +197,13 @@ public class SceneManager {
             rootStage.setResizable(false);
             criarPadrao("Login", rootStage, parent);
             if (erro) {
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar estabelecer comunicação com o Bando de dados!!\nO programa será encerrado.");
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar estabelecer comunicação com o Bando de dados!!\nO programa será encerrado.");
                 Platform.exit();
                 System.exit(0);
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
@@ -209,13 +219,14 @@ public class SceneManager {
 
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
     public void showPrincipal() {
         try {
             principalStage = new Stage();
+            mensagem = new Mensagem(principalStage);
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(EnumCaminho.Principal.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
@@ -234,7 +245,7 @@ public class SceneManager {
             principalController.showAlert();
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
@@ -253,7 +264,7 @@ public class SceneManager {
             criarPadraoModal("Agendamento", agendaStage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start da agenda", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start da agenda", e);
         }
     }
 
@@ -277,7 +288,7 @@ public class SceneManager {
             criarPadraoModal("Cadastro de empresa", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro do start empresa", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro do start empresa", e);
         }
     }
 
@@ -306,7 +317,7 @@ public class SceneManager {
             criarPadraoModal("Tabela de empresa", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela empresa", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela empresa", e);
         }
     }
 
@@ -324,7 +335,7 @@ public class SceneManager {
 
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela agenda", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela agenda", e);
         }
     }
 
@@ -341,7 +352,7 @@ public class SceneManager {
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start ALERTA", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start ALERTA", e);
         }
     }
 
@@ -358,7 +369,7 @@ public class SceneManager {
             criarPadraoModal("Calendário semestral", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start CALENDARIO SEMESTRAL", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start CALENDARIO SEMESTRAL", e);
         }
     }
 
@@ -374,7 +385,7 @@ public class SceneManager {
             criarPadraoModal("Cadastrar feriados", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start feriado", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start feriado", e);
         }
     }
 
@@ -390,7 +401,7 @@ public class SceneManager {
             criarPadraoModal("Ferramenta BD", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
@@ -412,7 +423,7 @@ public class SceneManager {
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start financeiro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start financeiro", e);
         }
     }
 
@@ -431,7 +442,7 @@ public class SceneManager {
             criarPadraoModal("Laudo", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
@@ -449,7 +460,7 @@ public class SceneManager {
             criarPadraoModal("Laudo ferramenta", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e);
         }
     }
 
@@ -465,7 +476,7 @@ public class SceneManager {
             criarPadraoModal("Motivo", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start agenda", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start agenda", e);
         }
     }
 
@@ -481,7 +492,7 @@ public class SceneManager {
             criarPadraoModal("Parâmetro", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start parametro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start parametro", e);
         }
     }
 
@@ -498,7 +509,7 @@ public class SceneManager {
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start relatorio", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start relatorio", e);
         }
     }
 
@@ -516,7 +527,7 @@ public class SceneManager {
             stage.setResizable(false);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start relatorio financeiro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start relatorio financeiro", e);
         }
     }
 
@@ -532,7 +543,7 @@ public class SceneManager {
             criarPadraoModal("Tabela de empresas homologadas", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela empresa homologadas", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela empresa homologadas", e);
         }
     }
 
@@ -548,7 +559,7 @@ public class SceneManager {
             criarPadraoModal("Tabela de feriado", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela feriado", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela feriado", e);
         }
     }
 
@@ -564,7 +575,7 @@ public class SceneManager {
             criarPadraoModal("Tabela financeiro", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela financeiro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela financeiro", e);
         }
     }
 
@@ -580,7 +591,7 @@ public class SceneManager {
             criarPadraoModal("Tabela histórico", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela historico", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela historico", e);
         }
     }
 
@@ -596,7 +607,7 @@ public class SceneManager {
             criarPadraoModal("Tabela de usuário", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela usuario", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start tabela usuario", e);
         }
     }
 
@@ -612,7 +623,7 @@ public class SceneManager {
             criarPadraoModal("Cadastro de usuário", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e);
         }
     }
 
@@ -629,7 +640,7 @@ public class SceneManager {
             criarPadraoModal("Motivo!!", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e);
         }
     }
 
@@ -648,7 +659,7 @@ public class SceneManager {
             criarPadraoModal("Gerar docs", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start visualizar motivo", e);
         }
     }
 
@@ -821,5 +832,10 @@ public class SceneManager {
     public LaudoController getLaudoController() {
         return laudoController;
     }
+
+    public Mensagem getMensagem() {
+        return mensagem;
+    }
+    
 
 }

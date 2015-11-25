@@ -1,9 +1,11 @@
 package com.unifil.agendapaf.util;
 
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.service.AgendaService;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -20,10 +22,12 @@ public class PopUp {
 
     private ContextMenu popUp;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     public PopUp() {
         popUp = new ContextMenu();
         sceneManager = SceneManager.getInstance();
+        mensagem = new Mensagem(null);
     }
 
     public void criarPopUp() {
@@ -63,7 +67,7 @@ public class PopUp {
                             ObservableList<Agenda> listaAgendas = as.findByDate(sceneManager.getDataSelecionada());
                             JPA.em(false).close();
                             if (listaAgendas.size() == 0) {
-                                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
+                                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
                             } else {
                                 sceneManager.setUpdate(Boolean.TRUE);
                                 sceneManager.showTabelaAgenda();
@@ -81,7 +85,7 @@ public class PopUp {
                             ObservableList<Agenda> listaAgendas = as.findByDate(sceneManager.getDataSelecionada());
                             JPA.em(false).close();
                             if (listaAgendas.size() == 0) {
-                                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
+                                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
                             } else {
                                 boolean dataAgendada = false;
                                 for (Agenda agenda : listaAgendas) {
@@ -94,7 +98,7 @@ public class PopUp {
                                     sceneManager.setCancelamento(Boolean.TRUE);
                                     sceneManager.showTabelaAgenda();
                                 } else {
-                                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
+                                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.PrincipalErroNaoExisteAgendamento.getMensagem());
                                 }
                             }
                         }

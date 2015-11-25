@@ -2,7 +2,8 @@ package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.util.Calendar;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ public class RelatorioFinanceiroController {
 
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
     }
 
     private Stage stage;
@@ -45,6 +47,7 @@ public class RelatorioFinanceiroController {
     private String titulo;
     private ObservableList stringFiltro = FXCollections.observableArrayList();
     private ObservableList<Mes> listaMes = FXCollections.observableArrayList();
+    private Mensagem mensagem;
 
     public void setCampos(String titulo, String tipo) {
         dataInicial = new DatePicker();
@@ -85,12 +88,12 @@ public class RelatorioFinanceiroController {
             try {
                 ano = Integer.parseInt(combo.getSelectionModel().getSelectedItem().toString());
                 if (ano < 1990) {
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.RelatorioErroValorIncorreto.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.RelatorioErroValorIncorreto.getMensagem());
                     erro = true;
                 }
             } catch (Exception e) {
                 erro = true;
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.RelatorioErroValorIncorreto.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.RelatorioErroValorIncorreto.getMensagem());
             }
             try {
                 if (!erro) {

@@ -18,11 +18,12 @@ import com.unifil.agendapaf.service.EmpresasHomologadasService;
 import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.service.HistoricoService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumStatus;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -57,6 +58,7 @@ public class AgendarController {
     public void initialize() {
         try {
             sceneManager = SceneManager.getInstance();
+            mensagem = new Mensagem(stage);
             lblAgenda.setText("Agendamento");
             setOnActionsDts();
             cbTipo.getSelectionModel().selectFirst();
@@ -116,7 +118,7 @@ public class AgendarController {
             setBindComponentsWithAgenda(agenda);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar agenda", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar agenda", e);
         }
 
     }
@@ -165,6 +167,7 @@ public class AgendarController {
     private boolean isUpdate = false;
     private static SceneManager sceneManager;
     private LocalDate dataSelecionada;
+    private Mensagem mensagem;
 
     @FXML
     private void actionBtnSalvar() {
@@ -178,13 +181,14 @@ public class AgendarController {
                 }
                 if (gravarHistorico() && seConcluido()) {
                     if (isUpdate) {
-                        UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
                     } else {
-                        UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                     }
                 }
                 if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())) {
-                    Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
+                    Dialogos d = new Dialogos(stage);
+                    Optional<?> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
                     if (result.get() == ButtonType.OK) {
                         iniciarCadastroFinanceiro();
                     }
@@ -202,7 +206,7 @@ public class AgendarController {
                 resetarCampos();
             } catch (Exception e) {
                 e.printStackTrace();
-                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+                mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
             }
         }
     }
@@ -333,14 +337,15 @@ public class AgendarController {
         try {
             if (cbStatusAgenda.getValue().equals(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))) {
                 saveFinanceiro(-1);
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ExisteHoraAdicional.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ExisteHoraAdicional.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     try {
-                        int horas = Integer.parseInt(UtilDialog.criarDialogInput(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getMensagem()));
+                        int horas = Integer.parseInt(d.entrada(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getMensagem()));
                         saveFinanceiro(horas);
                     } catch (Exception e) {
                         e.printStackTrace();
-                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo());
+                        mensagem.erro(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo(), e);
                     }
                 }
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
@@ -417,11 +422,8 @@ public class AgendarController {
         } catch (Exception ex) {
             Logger.getLogger(AgendarController.class
                     .getName()).log(Level.SEVERE, null, ex);
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(),
-                    EnumMensagem.AgendaErroSalvarHistoricoAgenda.getMensagem(), ex, "Exception:");
-            System.out.println(
-                    "Erro: ao salvar no banco. Metodo: gravarHistorico. classe: AgendarController");
-            return false;
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(),
+                    EnumMensagem.AgendaErroSalvarHistoricoAgenda.getMensagem(), ex);
         }
         return true;
     }
@@ -471,13 +473,13 @@ public class AgendarController {
         boolean ok = true;
         if (txtEmpresa.getText().equals("")) {
             validationSupport.registerValidator(txtEmpresa, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerResponsavel.getMensagem());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerEmpresa.getMensagem());
             txtEmpresa.requestFocus();
             ok = false;
         }
         if (txtResponsavel.getText() == null || txtResponsavel.getText().equals("")) {
             validationSupport.registerValidator(txtResponsavel, Validator.createEmptyValidator(EnumMensagem.Requer.getMensagem()));
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerResponsavel.getMensagem());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaRequerResponsavel.getMensagem());
             ok = false;
         }
         if (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico()) || cbTipo.getValue().equals(EnumServico.AvaliacaoIntinerante.getServico())) {
@@ -487,7 +489,7 @@ public class AgendarController {
                     validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
                             -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
                     dtInicial.requestFocus();
-                    UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                    mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                             EnumMensagem.Aviso.getMensagem() + "\n"
                             + "data final não pode ser de sabado ou domingo");
                     ok = false;
@@ -497,7 +499,7 @@ public class AgendarController {
                 validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
                 dtInicial.requestFocus();
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem() + "\n"
                         + "data final no mesmo dia da data inicial!!!");
                 ok = false;
@@ -509,7 +511,7 @@ public class AgendarController {
                     validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                             -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
                     dtFinal.requestFocus();
-                    UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                    mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                             EnumMensagem.Aviso.getMensagem() + "\n"
                             + "com data final em dois dias a mais de diferença da data inicial!!!");
                     ok = false;
@@ -547,7 +549,7 @@ public class AgendarController {
 //                        validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
 //                                -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
 //                        dtFinal.requestFocus();
-//                        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+//                        Dialogos.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
 //                                EnumMensagem.Aviso.getMensagem() + "\n"
 //                                + "com data final em dois dias a mais de diferença da data inicial!!!");
 //                        ok = false;
@@ -556,7 +558,7 @@ public class AgendarController {
             }
         }
         if (contemFeriado(UtilConverter.converterLocalDateToUtilDate(dtInicial.getValue()))) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "nos feriados");
+            mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "nos feriados");
             ok = false;
         }
         if (cbTipo.getValue().equals(EnumServico.HoraAdicional.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacao.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacaoIntinerante.getServico()) || cbTipo.getValue().equals(EnumServico.PreAvaliacaoRemoto.getServico())) {
@@ -564,7 +566,7 @@ public class AgendarController {
                 validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
                 dtFinal.requestFocus();
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem()
                         + "\n com data final diferente da data inicial");
                 return false;
@@ -576,7 +578,7 @@ public class AgendarController {
             } else {
                 validationSupport.registerValidator(cbStatusAgenda, Validator.createEmptyValidator("ComboBox Selection required"));
                 cbStatusAgenda.requestFocus();
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem() + "\n"
                         + "Status inválido, para criar o agendamento sem data,"
                         + "\ntroque o status do agendamento para Pendente");
@@ -590,7 +592,7 @@ public class AgendarController {
                 dtInicial.requestFocus();
                 validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                         -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "\n" + "Prencher a data inicial e/ou final");
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.Aviso.getMensagem() + "\n" + "Prencher a data inicial e/ou final");
                 ok = false;
             }
         }
@@ -598,7 +600,7 @@ public class AgendarController {
             validationSupport.registerValidator(dtFinal, false, (Control c, LocalDate newValue)
                     -> ValidationResult.fromWarningIf(dtFinal, "Informe a data", !LocalDate.now().equals(newValue)));
             dtFinal.requestFocus();
-            UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+            mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                     EnumMensagem.Aviso.getMensagem() + "\n"
                     + "com data final não pode ser menor que data inicial!!!");
             ok = false;
@@ -629,7 +631,7 @@ public class AgendarController {
             }
 
             if (timesI > 1 || timesF > 1) {
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
                         EnumMensagem.Aviso.getMensagem() + "\n"
                         + "Já existe mais de um agendamento nesse dia");
                 ok = false;

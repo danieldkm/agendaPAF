@@ -1,7 +1,7 @@
 package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
@@ -12,6 +12,7 @@ public class MotivoReagendamentoController {
 
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
         sceneManager = SceneManager.getInstance();
     }
 
@@ -22,18 +23,19 @@ public class MotivoReagendamentoController {
 
     private Stage stage;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void actionBtnContinuar() {
         if (!txtaTexto.getText().equals("")) {
 //            StaticString.setTxtMotivoReagendamento(txtaTexto.getText());
             if (sceneManager.getCancelamento()) {
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.MotivoReagendamentoParaCancelar.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.MotivoReagendamentoParaCancelar.getMensagem());
             }
             sceneManager.showAgenda(txtaTexto.getText());
             stage.close();
         } else {
-            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.MotivoReagendamentoPreencherMotivo.getMensagem());
+            mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.MotivoReagendamentoPreencherMotivo.getMensagem());
         }
     }
 

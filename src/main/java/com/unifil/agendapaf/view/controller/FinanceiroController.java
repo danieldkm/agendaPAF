@@ -11,7 +11,8 @@ import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.service.FinanceiroService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.MaskFieldUtil;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
@@ -38,6 +39,7 @@ public class FinanceiroController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             MaskFieldUtil.monetaryField(txtValorPago);
             sceneManager = SceneManager.getInstance();
             servicos = Controller.getServicos();
@@ -57,7 +59,7 @@ public class FinanceiroController {
             sceneManager.setEmpresaEncontrada(null);
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar financeiro", e);
         }
     }
 
@@ -93,6 +95,7 @@ public class FinanceiroController {
     private double porCategoria = 0;
     private SceneManager sceneManager;
     private ValidationSupport validationSupport = new ValidationSupport();
+    private Mensagem mensagem;
 
     @FXML
     private void actionBuscarEmpresa() {
@@ -141,7 +144,7 @@ public class FinanceiroController {
                         valorServico = valorServico * Integer.parseInt(txtHoraAdicional.getText());
                         n = valorServico + "0";
                     } catch (Exception e) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             } else {
@@ -154,7 +157,7 @@ public class FinanceiroController {
                             n = (valorServico - (valorServico * (porCategoria / 100))) + "0";
                         }
                     } catch (Exception e) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Não é um número inteiro");
                     }
                 }
             }
@@ -205,7 +208,7 @@ public class FinanceiroController {
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
                     fs.editar(f);
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
                 } else {
                     Financeiro f = new Financeiro();
                     f.setIdEmpresa(empresaEncontrada);
@@ -221,13 +224,13 @@ public class FinanceiroController {
                     f.setDataInicial(dtInicial.getValue());
                     f.setDataFinal(dtFinal.getValue());
                     fs.salvar(f);
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                 }
                 JPA.em(false).close();
                 actionBtnLimpar();
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
             } catch (Exception e) {
-                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
+                mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
                 e.printStackTrace();
             }
         }
@@ -237,22 +240,23 @@ public class FinanceiroController {
     private void actionBtnDeletar() {
         if (financeiroEncontrada != null) {
             try {
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     FinanceiroService fs = new FinanceiroService();
                     fs.deletar(financeiroEncontrada);
                     JPA.em(false).close();
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                     StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
                 }
             } catch (Exception ex) {
                 JPA.em(false).close();
                 Logger.getLogger(FinanceiroController.class.getName()).log(Level.SEVERE, null, ex);
-                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), ex, "Exception");
+                mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), ex);
             }
             limpar();
         } else {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FinanceiroErroNaoSelecionado.getMensagem());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FinanceiroErroNaoSelecionado.getMensagem());
         }
     }
 
@@ -370,7 +374,7 @@ public class FinanceiroController {
         }
 
         if (!ok) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }

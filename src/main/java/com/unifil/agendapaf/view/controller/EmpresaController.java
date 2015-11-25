@@ -16,8 +16,9 @@ import com.unifil.agendapaf.service.EnderecoService;
 import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.MaskFieldUtil;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilTexto;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.IOException;
 import java.time.LocalDate;
@@ -53,7 +54,6 @@ import javafx.util.Callback;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -63,6 +63,7 @@ public class EmpresaController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             tgContato = new ToggleGroup();
             tgTelefone = new ToggleGroup();
             tgEndereco = new ToggleGroup();
@@ -217,7 +218,7 @@ public class EmpresaController {
             defaultBind();
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar empresa", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar empresa", e);
         }
     }
 
@@ -270,7 +271,7 @@ public class EmpresaController {
 //            });
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro do start empresa", e, "Exception:");
+//            Dialogos.excecao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro do start empresa", e, "Exception:");
 //        }
 //    }
     @FXML
@@ -386,6 +387,8 @@ public class EmpresaController {
     private ToggleGroup tgTelefone;
     private ToggleGroup tgContato;
 
+    private Mensagem mensagem;
+
     private ValidationSupport validationSupport = new ValidationSupport();
 
     @FXML
@@ -393,7 +396,8 @@ public class EmpresaController {
         mainEmpresa.setDisable(true);
         try {
             if (empresaEncontrada != null) {
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     try {
                         EmpresaService es = new EmpresaService();
@@ -419,20 +423,20 @@ public class EmpresaController {
                         JPA.em(false).close();
 
                         resetarCampos();
-                        UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                         StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
                     } catch (Exception e) {
                         JPA.em(false).close();
-                        UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTentarDeletar.getMensagem() + empresaEncontrada.getId(), e, "Exception");
+                        mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTentarDeletar.getMensagem() + empresaEncontrada.getId(), e);
                         e.printStackTrace();
                     }
                 }
             } else {
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroNaoExiste.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroNaoExiste.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTentarDeletar.getMensagem() + empresaEncontrada.getId(), e, "Exception");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTentarDeletar.getMensagem() + empresaEncontrada.getId(), e);
             e.printStackTrace();
         }
         mainEmpresa.setDisable(false);
@@ -448,7 +452,7 @@ public class EmpresaController {
                 EmpresaService es = new EmpresaService();
                 es.editar(empresaEncontrada);
                 JPA.em(false).close();
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
                 resetarCampos();
                 StaticLista.setListaGlobalEmpresa(Controller.getEmpresas());
             } else {
@@ -461,7 +465,7 @@ public class EmpresaController {
                     empresaEncontrada = es.findLast();
                     JPA.em(false).close();
 
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                     if (isTabelaEmpresa) {
                         stage.close();
                     }
@@ -491,7 +495,7 @@ public class EmpresaController {
             if (JPA.em(false).isOpen()) {
                 JPA.em(false).close();
             }
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
             e.printStackTrace();
         }
         mainEmpresa.setDisable(false);
@@ -531,13 +535,13 @@ public class EmpresaController {
 //
 //                resetarCampos();
 //                empresaEncontrada = null;
-//                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+//                Dialogos.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
 //                isUpdate = false;
 //            }
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //            JPA.em(false).close();
-//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e, "Exception:");
+//            Dialogos.excecao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e, "Exception:");
 //        }
 //    }
     @FXML
@@ -611,7 +615,7 @@ public class EmpresaController {
             try {
                 if (enderecoSel != null) {
                     if (enderecoSel.selecionadoBoolean()) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEnderecoSelecionado.getMensagem());
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEnderecoSelecionado.getMensagem());
                     } else {
                         EnderecoService es = new EnderecoService();
                         es.deletar(enderecoSel);
@@ -626,7 +630,7 @@ public class EmpresaController {
             try {
                 if (contatoSel != null) {
                     if (contatoSel.selecionadoBoolean()) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroContatoSelecionado.getMensagem());
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroContatoSelecionado.getMensagem());
                     } else {
                         ContatoService cs = new ContatoService();
                         cs.deletar(contatoSel);
@@ -641,7 +645,7 @@ public class EmpresaController {
             try {
                 if (telefoneSel != null) {
                     if (telefoneSel.selecionadoBoolean()) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTelefoneSelecionado.getMensagem());
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroTelefoneSelecionado.getMensagem());
                     } else {
                         TelefoneService ts = new TelefoneService();
                         ts.deletar(telefoneSel);
@@ -871,7 +875,7 @@ public class EmpresaController {
     }
 
     private void avisoSelecaoTabela() {
-        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Selecione uma linha da tabela!!");
+        mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Selecione uma linha da tabela!!");
     }
 
     @FXML
@@ -1028,7 +1032,7 @@ public class EmpresaController {
             }
         }
         if (!ok) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }

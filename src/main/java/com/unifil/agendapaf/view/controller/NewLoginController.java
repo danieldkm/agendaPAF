@@ -6,11 +6,11 @@ import com.unifil.agendapaf.animations.FadeInLeftTransition1;
 import com.unifil.agendapaf.animations.FadeInRightTransition;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.service.UsuarioService;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -58,12 +58,14 @@ public class NewLoginController {
     private Stage stage;
     private boolean logando = false;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     /**
      * Initializes the controller class.
      */
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
         sceneManager = SceneManager.getInstance();
         Platform.runLater(() -> {
             new FadeInRightTransition(lblUserLogin).play();
@@ -101,10 +103,10 @@ public class NewLoginController {
                     stage.close();
                     sceneManager.showPrincipal();
                 } else {
-                    UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
+                    mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
                 }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
             }
         }
     }
@@ -135,7 +137,8 @@ public class NewLoginController {
 
     @FXML
     private void setOnActionBtnFerramenta() {
-        Pair<String, String> pair = UtilDialog.criarLoginDialog();
+        Dialogos d = new Dialogos(stage);
+        Pair<String, String> pair = d.login();
         if (isAutentic(pair.getKey(), pair.getValue())) {
             if (btnServidor.isSelected() || btnLocal.isSelected()) {
                 if (btnLocal.isSelected()) {
@@ -145,10 +148,10 @@ public class NewLoginController {
                 }
                 sceneManager.showFerramentaBD();
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
             }
         } else {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
         }
     }
 

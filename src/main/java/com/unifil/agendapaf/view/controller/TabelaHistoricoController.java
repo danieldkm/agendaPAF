@@ -4,10 +4,11 @@ import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Historico;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +32,7 @@ public class TabelaHistoricoController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             tcEmpresa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<Historico, String>, ObservableValue<String>>() {
 
@@ -120,7 +122,7 @@ public class TabelaHistoricoController {
             tvHistorico.getItems().setAll(StaticLista.getListaGlobalHistorico());
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela historico", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela historico", e);
         }
     }
 
@@ -151,6 +153,7 @@ public class TabelaHistoricoController {
     private Empresa empresaEncontrada;
     private Stage stage;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void onKeyPressedTxtBuscar(KeyEvent e) {

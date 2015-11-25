@@ -3,7 +3,8 @@ package com.unifil.agendapaf.view.controller;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.service.UsuarioService;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.animation.ParallelTransition;
 import javafx.animation.ScaleTransition;
@@ -34,6 +35,7 @@ public class LoginController {
 
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
         sceneManager = SceneManager.getInstance();
         btnLocal.setTooltip(new Tooltip("BD Local"));
         btnServidor.setTooltip(new Tooltip("BD Servidor"));
@@ -113,10 +115,12 @@ public class LoginController {
     private ParallelTransition pt;
     private boolean logando = false;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void setOnActionBtnFerramenta() {
-        Pair<String, String> pair = UtilDialog.criarLoginDialog();
+        Dialogos d = new Dialogos(stage);
+        Pair<String, String> pair = d.login();
 //        StaticBoolean.setSelectedLocal(false);
         if (isAutentic(pair.getKey(), pair.getValue())) {
             if (btnServidor.isSelected() || btnLocal.isSelected()) {
@@ -129,10 +133,10 @@ public class LoginController {
                 }
                 sceneManager.showFerramentaBD();
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
             }
         } else {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
         }
     }
 
@@ -159,34 +163,33 @@ public class LoginController {
                 pt = new ParallelTransition(scaleTransition1, scaleTransition2);
                 pt.play();
                 new java.util.Timer()
-                        .schedule(
-                                new java.util.TimerTask() {
-                                    @Override
+                        .schedule(new java.util.TimerTask() {
+                            @Override
+                            public void run() {
+                                pt.pause();
+                                //aki come�a uma nova aplica��o para n�o ocorrer conflito entre as threads
+                                //executa dpois de executar o timer
+                                Platform.runLater(new Runnable() {
                                     public void run() {
-                                        pt.pause();
-                                        //aki come�a uma nova aplica��o para n�o ocorrer conflito entre as threads
-                                        //executa dpois de executar o timer
-                                        Platform.runLater(new Runnable() {
-                                            public void run() {
-                                                if (isAutentic(txtLogin.getText(), txtSenha.getText())) {
+                                        if (isAutentic(txtLogin.getText(), txtSenha.getText())) {
 //                                                    SceneManager.getInstance().closeLogin();
-                                                    stage.close();
-                                                    sceneManager.showPrincipal();
+                                            stage.close();
+                                            sceneManager.showPrincipal();
 //                                                    RunAnotherApp.runAnotherApp(PrincipalController.class);
-                                                } else {
-                                                    voltarAnimacao();
-                                                    UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
-                                                    logo.toBack();
-                                                }
-                                            }
-                                        });
+                                        } else {
+                                            voltarAnimacao();
+                                            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginIncorreto.getMensagem());
+                                            logo.toBack();
+                                        }
                                     }
-                                },
-                                1000
+                                });
+                            }
+                        },
+                        1000
                         );
 //            }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LoginBDSelecionado.getMensagem());
             }
         }
     }

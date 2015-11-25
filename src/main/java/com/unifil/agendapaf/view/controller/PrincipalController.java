@@ -14,8 +14,9 @@ import com.unifil.agendapaf.notificador.Agendador;
 import com.unifil.agendapaf.service.ContatoService;
 import com.unifil.agendapaf.service.TelefoneService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilConverter;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.logging.Level;
@@ -47,6 +48,7 @@ public class PrincipalController {
 
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
         sceneManager = SceneManager.getInstance();
         Platform.setImplicitExit(false);
         Agendador agendador = new Agendador();
@@ -136,6 +138,7 @@ public class PrincipalController {
     private Stage stage;
     private RelatorioController relatorioController;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 //    private LoginController application;
 //    private boolean isLogout = false;
 
@@ -206,7 +209,8 @@ public class PrincipalController {
     protected void iniciarCalendarioSemestral() {
         String n = null;
         do {
-            n = UtilDialog.criarDialogInput("Confirmação", "1 - Primeiro semestre\n2 - Segundo semestre", "Digite 1 ou 2");
+            Dialogos d = new Dialogos(stage);
+            n = d.entrada("Confirmação", "1 - Primeiro semestre\n2 - Segundo semestre", "Digite 1 ou 2");
             if (n == null) {
                 break;
             }
@@ -315,7 +319,7 @@ public class PrincipalController {
 
     @FXML
     private void sobre() {
-        UtilDialog.criarDialogInfomation("Sobre", "UniFil - PAF-ECF",
+        mensagem.informacao("Sobre", "UniFil - PAF-ECF",
                 "Desenvolvido por: Daniel K. Morita\n"
                 + "Ver.: 1.1\n"
                 + "Copyright - 2015 PAF-ECF. Todos os direitos reservados.\n"
@@ -374,5 +378,9 @@ public class PrincipalController {
 
     public void setPrincipalId(BorderPane principalId) {
         this.principalId = principalId;
+    }
+
+    public BorderPane getPrincipalId() {
+        return this.principalId;
     }
 }

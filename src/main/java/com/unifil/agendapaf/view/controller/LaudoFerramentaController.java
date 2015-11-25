@@ -3,7 +3,7 @@ package com.unifil.agendapaf.view.controller;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.xml.LaudoFerramenta;
 import com.unifil.agendapaf.util.MaskFieldUtil;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.File;
@@ -136,7 +136,8 @@ public class LaudoFerramentaController {
 
     @FXML
     void onActionBtnSalvar(ActionEvent event) {
-        Optional<ButtonType> r = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaSalvar.getMensagem());
+        Dialogos d = new Dialogos(stage);
+        Optional<ButtonType> r = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaSalvar.getMensagem());
         if (r.get() == ButtonType.OK) {
             File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
             utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoFerramenta));

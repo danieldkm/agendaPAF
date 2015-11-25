@@ -1,5 +1,6 @@
 package com.unifil.agendapaf.util;
 
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import java.awt.AWTException;
@@ -45,7 +46,8 @@ public class TrayIcon {
                     public void run() {
                         if (SystemTray.isSupported()) {
                             if (firstAccess) {
-                                Optional<ButtonType> n = UtilDialog.criarDialogConfirmacao("Informações do Sistema",
+                                Dialogos d = new Dialogos(stage);
+                                Optional<ButtonType> n = d.confirmacao("Informações do Sistema",
                                         "O sistema não será fechado, permanecerá acessível\n" //                                    + "no canto inferior direito ao lado do rel�gio",
                                         , "Deseja continuar?");
                                 if (n.get() == ButtonType.OK) {

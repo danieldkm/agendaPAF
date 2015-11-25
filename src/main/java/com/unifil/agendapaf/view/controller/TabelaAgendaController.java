@@ -8,7 +8,8 @@ import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
 import javafx.beans.property.SimpleObjectProperty;
@@ -184,7 +185,7 @@ public class TabelaAgendaController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela agenda", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela agenda", e);
         }
     }
 
@@ -225,6 +226,7 @@ public class TabelaAgendaController {
     public ObservableList<Agenda> listaAgendas = FXCollections.observableArrayList();
     public Empresa empresaEncontrada;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void actionCB() {
@@ -339,7 +341,7 @@ public class TabelaAgendaController {
 
     private void padrao2() {
         if (sceneManager.getReagendamento()) {
-            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroStatusAgenda.getMensagem());
+            mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroStatusAgenda.getMensagem());
         } else {
             abrirTelaAgendamento();
         }
@@ -350,7 +352,7 @@ public class TabelaAgendaController {
         if (event.getClickCount() == 2) {
             switch (tvAgenda.getSelectionModel().getSelectedItem().getStatusAgenda()) {
                 case "Reagendada":
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroReagendado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroReagendado.getMensagem());
                     break;
                 case "Pendente":
                     padrao1();
@@ -368,7 +370,7 @@ public class TabelaAgendaController {
                     padrao2();
                     break;
                 case "Cancelado":
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroCancelado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.TabelaAgendaErroCancelado.getMensagem());
                     break;
             }
         }

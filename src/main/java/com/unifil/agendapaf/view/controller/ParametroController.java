@@ -8,8 +8,9 @@ import com.unifil.agendapaf.model.aux.Categorias;
 import com.unifil.agendapaf.model.aux.Servico;
 import com.unifil.agendapaf.model.aux.Servicos;
 import com.unifil.agendapaf.util.MaskFieldUtil;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilFile;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class ParametroController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             MaskFieldUtil.monetaryField(txtValor);
             util = new UtilFile();
             servicos = new Servicos();
@@ -46,7 +48,7 @@ public class ParametroController {
             tvCategoria.setItems(FXCollections.observableArrayList(categorias.getCategorias()));
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar parametro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar parametro", e);
         }
     }
 
@@ -71,7 +73,7 @@ public class ParametroController {
 //            });
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start parametro", e, "Exception:");
+//            Dialogos.excecao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start parametro", e, "Exception:");
 //        }
 //    }
     @FXML
@@ -107,6 +109,7 @@ public class ParametroController {
     private boolean atualizar = false;
 //    private XStream xStream = new XStream(new DomDriver());
     private UtilFile util;
+    private Mensagem mensagem;
 
     private void salvarServico() {
         UtilFile.salvarArquivoXML(util.marshal(servicos), "/servico.xml");
@@ -185,10 +188,10 @@ public class ParametroController {
                         salvarCategoria();
                     }
                 }
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
             }
         } catch (Exception e) {
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
             e.printStackTrace();
             System.out.println("Erro: ao tentar salvar. Metodo: actionBtnSalvar. Classe: ParametroController");
         }
@@ -237,13 +240,13 @@ public class ParametroController {
                     }
                     salvarServico();
                     tvServico.getItems().setAll(FXCollections.observableArrayList(servicos.getServicos()));
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                 } catch (Exception e) {
-                    UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e, "Exception");
+                    mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e);
                     e.printStackTrace();
                 }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ParametroErroServicoNaoSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ParametroErroServicoNaoSelecionado.getMensagem());
             }
         } else if (tabCategoria.isSelected()) {
             if (categoriaEncontrado != null) {
@@ -260,13 +263,13 @@ public class ParametroController {
                     }
                     salvarCategoria();
                     tvCategoria.getItems().setAll(FXCollections.observableArrayList(categorias.getCategorias()));
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                 } catch (Exception e) {
-                    UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e, "Exception");
+                    mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroDeletar.getMensagem(), e);
                     e.printStackTrace();
                 }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ParametroErroCategoriaNaoSelecionado.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ParametroErroCategoriaNaoSelecionado.getMensagem());
             }
         }
     }
@@ -288,8 +291,8 @@ public class ParametroController {
 
     @FXML
     private void actionBtnPadrao() {
-
-        Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.ParametroConfirmarGerarParametroPadrao.getMensagem(), EnumMensagem.ParametroConfirmandoGerarParametroPadrao.getMensagem());
+        Dialogos d = new Dialogos(stage);
+        Optional<ButtonType> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.ParametroConfirmarGerarParametroPadrao.getMensagem(), EnumMensagem.ParametroConfirmandoGerarParametroPadrao.getMensagem());
         if (result.get() == ButtonType.OK) {
             try {
 //                xStream.alias("servico", Servico.class
@@ -426,9 +429,9 @@ public class ParametroController {
                         .setAll(FXCollections.observableArrayList(servicos.getServicos()));
                 tvCategoria.getItems()
                         .setAll(FXCollections.observableArrayList(categorias.getCategorias()));
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Gerado.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Gerado.getMensagem());
             } catch (Exception e) {
-                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroGerar.getMensagem(), e, "Exception");
+                mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroGerar.getMensagem(), e);
                 e.printStackTrace();
             }
         }
@@ -516,7 +519,7 @@ public class ParametroController {
             }
         }
         if (!ok) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }

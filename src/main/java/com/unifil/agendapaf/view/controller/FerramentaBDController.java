@@ -1,9 +1,10 @@
 package com.unifil.agendapaf.view.controller;
 
 import com.unifil.agendapaf.SceneManager;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.huffman.JSONHuffman;
 import com.unifil.agendapaf.util.huffman.Huffman;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -33,6 +34,7 @@ public class FerramentaBDController {
      */
     @FXML
     public void initialize() {
+        mensagem = new Mensagem(stage);
         sceneManager = SceneManager.getInstance();
         lerJSONSistema("sistema.txt");
         if (sceneManager.getBDLOCAL()) {
@@ -68,10 +70,12 @@ public class FerramentaBDController {
     private String arquivoServidor;
 //    private boolean local;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void setOnActionBtnSalvar() {
-        Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Deseja salvar?");
+        Dialogos d = new Dialogos(stage);
+        Optional<ButtonType> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Deseja salvar?");
         if (result.get() == ButtonType.OK) {
             if (tabSistema.isSelected()) {
                 criarJSONSistema("sistema.txt");
@@ -160,10 +164,10 @@ public class FerramentaBDController {
             writer.flush();
             writer.close();
             bw.close();
-            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+            mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
         } catch (IOException ex) {
             Logger.getLogger(FerramentaBDController.class.getName()).log(Level.SEVERE, null, ex);
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex);
         }
 
     }
@@ -226,10 +230,10 @@ public class FerramentaBDController {
             writer.flush();
             writer.close();
             bw.close();
-            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+            mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
         } catch (IOException ex) {
             Logger.getLogger(FerramentaBDController.class.getName()).log(Level.SEVERE, null, ex);
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar + " o arquivo", ex);
         }
 
     }

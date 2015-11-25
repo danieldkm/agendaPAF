@@ -1,7 +1,7 @@
 package com.unifil.agendapaf.dao.conexao;
 
-import com.unifil.agendapaf.util.UtilDialog;
 import com.unifil.agendapaf.util.huffman.JSONHuffman;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,7 +11,8 @@ import java.sql.DriverManager;
 public class Conexao {
 
     public static String message;
-    private static UtilDialog utilDialog = new UtilDialog();
+//    private static Dialogos utilDialog = new Dialogos(null);
+    private static Mensagem mensagem = new Mensagem(null);
     private String ip;
     private String user;
     private String pass;
@@ -33,7 +34,7 @@ public class Conexao {
     public static Connection getInstance() {
         UnicaConexao.con = new Conexao().getConnection();
         if (UnicaConexao.con == null) {
-            utilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro: não foi possivel conectar com o BD");
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro: não foi possivel conectar com o BD");
         }
         return UnicaConexao.con;
     }

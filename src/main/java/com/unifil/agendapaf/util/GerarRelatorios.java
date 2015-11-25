@@ -1,8 +1,10 @@
 package com.unifil.agendapaf.util;
 
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.aux.Anual;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.controller.RelatorioController;
 import java.awt.Desktop;
 import java.io.File;
@@ -31,7 +33,10 @@ import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
 
 public class GerarRelatorios {
 
+    private Mensagem mensagem;
+
     public GerarRelatorios() {
+        mensagem = new Mensagem(null);
     }
 
 //    private Map<String, Object> parametros = new HashMap<String, Object>(); // para receber o dados determinado pelo usu�rio que ir� filtrar conforme essa informa��o
@@ -99,11 +104,12 @@ public class GerarRelatorios {
                     exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
                     exporter.exportReport();
                 }
-                UtilDialog.criarDialogInfomation("Informação", "Informação do sistema", "Gerado com sucesso!!!");
+                mensagem.informacao("Informação", "Informação do sistema", "Gerado com sucesso!!!");
                 Desktop desk = Desktop.getDesktop();
                 desk.open(file);
                 if (isAnual) {
-                    Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao("Informação", "Informação do sistema", "Deseja gerar o Gráfico?!");
+                    Dialogos d = new Dialogos(stage);
+                    Optional<ButtonType> result = d.confirmacao("Informação", "Informação do sistema", "Deseja gerar o Gráfico?!");
                     if (result.get() == ButtonType.OK) {
                         gerarSubRelatorioAnual(stage, "relatorios/RelatorioFinanceiroAnualSubReport.jrxml", parametros, listaAnual);
                     }
@@ -112,7 +118,7 @@ public class GerarRelatorios {
                 SceneManager.getInstance().getRelatorioController().actionBtnLimpar();
             }
         } catch (Exception e) {
-            UtilDialog.criarDialogException("Informação", "Informação do sistema", "Erro ao gerar!!!", e, "Exception");
+            mensagem.erro("Informação", "Informação do sistema", "Erro ao gerar!!!", e);
             e.printStackTrace();
         }
     }
@@ -151,7 +157,7 @@ public class GerarRelatorios {
                         file);
                 exporter.setParameter(JRExporterParameter.JASPER_PRINT, print);
                 exporter.exportReport();
-                UtilDialog.criarDialogInfomation("Informação", "Informação do sistema", "Gerado com sucesso!!!");
+                mensagem.informacao("Informação", "Informação do sistema", "Gerado com sucesso!!!");
                 Desktop desk = Desktop.getDesktop();
                 desk.open(file);
             }

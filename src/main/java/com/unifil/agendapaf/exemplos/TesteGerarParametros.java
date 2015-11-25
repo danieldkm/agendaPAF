@@ -10,7 +10,7 @@ import com.unifil.agendapaf.model.aux.Categoria;
 import com.unifil.agendapaf.model.aux.Categorias;
 import com.unifil.agendapaf.model.aux.Servico;
 import com.unifil.agendapaf.model.aux.Servicos;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
@@ -27,7 +27,7 @@ public class TesteGerarParametros {
 
     public static void main(String[] args) {
 
-//        Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.ParametroConfirmarGerarParametroPadrao.getMensagem(), EnumMensagem.ParametroConfirmandoGerarParametroPadrao.getMensagem());
+//        Optional<ButtonType> result = Dialogos.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.ParametroConfirmarGerarParametroPadrao.getMensagem(), EnumMensagem.ParametroConfirmandoGerarParametroPadrao.getMensagem());
 //        if (result.get() == ButtonType.OK) {
         try {
             UtilFile util = new UtilFile();
@@ -164,9 +164,9 @@ public class TesteGerarParametros {
 //                        .setAll(servicos);
 //                tvCategoria.getItems()
 //                        .setAll(categorias);
-//            UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Gerado.getMensagem());
+//            Dialogos.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Gerado.getMensagem());
         } catch (Exception e) {
-//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroGerar.getMensagem(), e, "Exception");
+//            Dialogos.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroGerar.getMensagem(), e, "Exception");
             e.printStackTrace();
         }
 //        }

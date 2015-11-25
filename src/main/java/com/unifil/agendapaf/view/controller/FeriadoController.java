@@ -6,7 +6,8 @@ import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.service.FeriadoService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.util.Optional;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ public class FeriadoController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             if (SceneManager.getInstance().getFeriadoEncontrado() != null) {
                 feriadoEncontrado = SceneManager.getInstance().getFeriadoEncontrado();
                 SceneManager.getInstance().setFeriadoEncontrado(null);
@@ -32,7 +34,7 @@ public class FeriadoController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar feriado", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar feriado", e);
         }
     }
 
@@ -54,6 +56,7 @@ public class FeriadoController {
     private Stage stage;
     private boolean isUpdate = false;
     private Feriado feriadoEncontrado;
+    private Mensagem mensagem;
 
     @FXML
     private void actionBtnSalvar() {
@@ -73,10 +76,10 @@ public class FeriadoController {
                 }
                 actionBtnLimpar();
                 StaticLista.setListaGlobalFeriado(Controller.getFeriados());
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
             }
         } catch (Exception e) {
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
             e.printStackTrace();
             JPA.em(false).close();
         }
@@ -87,7 +90,8 @@ public class FeriadoController {
     private void actionBtnDeletar() {
         try {
             if (feriadoEncontrado != null) {
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     FeriadoService fs = new FeriadoService();
                     fs.deletar(feriadoEncontrado);
@@ -96,11 +100,11 @@ public class FeriadoController {
                 }
                 StaticLista.setListaGlobalFeriado(Controller.getFeriados());
             } else {
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroNaoExiste.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroNaoExiste.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroTentarDeletar.getMensagem() + feriadoEncontrado.getId(), e, "Exception");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.FeriadoErroTentarDeletar.getMensagem() + feriadoEncontrado.getId(), e);
             e.printStackTrace();
         }
     }
@@ -135,7 +139,7 @@ public class FeriadoController {
             ok = false;
         }
         if (!ok) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Requer.getTitulo(), "Validando campos", preencher);
+            mensagem.aviso(EnumMensagem.Requer.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }

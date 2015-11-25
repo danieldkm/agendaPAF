@@ -62,9 +62,10 @@ import com.unifil.agendapaf.util.GerarDocx;
 import com.unifil.agendapaf.util.Json;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.util.UtilTexto;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
@@ -82,8 +83,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -140,7 +139,7 @@ public class LaudoController {
      */
     @FXML
     public void initialize() {
-
+        mensagem = new Mensagem(stage);
         MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(oTxtIE);
         MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE);
         MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
@@ -164,7 +163,7 @@ public class LaudoController {
         cbResponsavelEnsaio.setItems(StaticLista.getListaGlobalUsuario());
         cbResponsavelEnsaio.getSelectionModel().selectFirst();
 
-        mensagem = new MensagemType();
+        laudo_mensagem = new MensagemType();
         utilXml = new UtilFile();
         utilXml.listarArquivos(new File(EnumCaminho.ModeloDocxs.getCaminho()));
         files = utilXml.getDocs();
@@ -607,13 +606,14 @@ public class LaudoController {
     private CheckBox cbSelecionarTodos = new CheckBox("Selecionar Todos");
     private CheckBox cbSelecionarTodos2 = new CheckBox("Selecionar Todos");
     private Stage stage;
-    private MensagemType mensagem;
+    private MensagemType laudo_mensagem;
     private UtilFile utilXml;
     private MarcasModelosCompativeisType mct;
     private ObservableList<String> files;
     private LaudoComplementar laudoComplementar;
     private LaudoFerramenta laudoFerramenta;
     private String diretorioDoc;
+    private Mensagem mensagem;
 
     private void carregarDiretorioXML() {
         utilXml.setEmpresas(FXCollections.observableArrayList());
@@ -640,7 +640,7 @@ public class LaudoController {
         final WizardPane page1 = new WizardPane() {
             @Override
             public void onExitingPage(Wizard wizard) {
-                mensagem.setNumero(txFirstName.getText());
+                laudo_mensagem.setNumero(txFirstName.getText());
             }
         };
         page1.setHeaderText("Informe o número do laudo");
@@ -656,9 +656,9 @@ public class LaudoController {
             if (result == ButtonType.FINISH) {
                 System.out.println("Wizard finished, settings: " + wizard.getSettings());
                 if (checkBox.isSelected()) {
-                    mensagem.setEmiteNfe(true);
+                    laudo_mensagem.setEmiteNfe(true);
                 } else {
-                    mensagem.setEmiteNfe(false);
+                    laudo_mensagem.setEmiteNfe(false);
                 }
             }
         });
@@ -684,11 +684,11 @@ public class LaudoController {
             System.out.println("- Iniciar metodo actionBtnSalvar");
             main.setDisable(true);
             if (!validarCampos()) {
-                mensagem.setNumero(txtNumeroLaudo.getText());
+                laudo_mensagem.setNumero(txtNumeroLaudo.getText());
                 if (ckEmite1.isSelected()) {
-                    mensagem.setEmiteNfe(true);
+                    laudo_mensagem.setEmiteNfe(true);
                 } else {
-                    mensagem.setEmiteNfe(false);
+                    laudo_mensagem.setEmiteNfe(false);
                 }
 
                 //-----------------------Desenvolvedora---------------------------------
@@ -712,7 +712,7 @@ public class LaudoController {
                 contato.setEmail(dTxtEmail.getText());
                 desenvolvedora.setContato(contato);
                 desenvolvedora.setResponsavelAcompanhamentoTestes(dTxtResponsavelTestes.getText());
-                mensagem.setDesenvolvedora(desenvolvedora);
+                laudo_mensagem.setDesenvolvedora(desenvolvedora);
 
                 //------------------------------OTC-------------------------------------
                 OtcType otc = new OtcType();
@@ -737,7 +737,7 @@ public class LaudoController {
                 }
                 otc.setPeriodoAnalise(peridoAnalise);
                 otc.setVersaoEspecificacaoRequisitos(oTxtVersaoER.getText());
-                mensagem.setOtc(otc);
+                laudo_mensagem.setOtc(otc);
 
                 //---------------------------Identificação------------------------------
                 IdentificacaoPafType identificacao = new IdentificacaoPafType();
@@ -825,7 +825,7 @@ public class LaudoController {
                 }
 
                 identificacao.setPerfisRequisitos(pqt);
-                mensagem.setIdentificacaoPaf(identificacao);
+                laudo_mensagem.setIdentificacaoPaf(identificacao);
 
                 //---------------------------Caracteristica-----------------------------
                 CaracteristicasPafType caracteristicas = new CaracteristicasPafType();
@@ -966,7 +966,7 @@ public class LaudoController {
                 }
 
                 caracteristicas.setMeioGeracaoArquivoSintegraEfd(maset);
-                mensagem.setCaracteristicasPaf(caracteristicas);
+                laudo_mensagem.setCaracteristicasPaf(caracteristicas);
 
                 //---------------------------Sistema Gestao-----------------------------
                 SistemaGestaoType sgt = new SistemaGestaoType();
@@ -999,7 +999,7 @@ public class LaudoController {
                 sgt.setArquivosExecutaveis(aet2);
                 SistemasGestaoType sgts = new SistemasGestaoType();
                 sgts.getSistemaGestao().add(sgt);
-                mensagem.setSistemasGestao(sgts);
+                laudo_mensagem.setSistemasGestao(sgts);
 
                 //---------------------------Sistema PED--------------------------------
                 SistemaPedType spt = new SistemaPedType();
@@ -1030,7 +1030,7 @@ public class LaudoController {
                 spt.setArquivosExecutaveis(aesft);
                 SistemasPedType spts = new SistemasPedType();
                 spts.getSistemaPed().add(spt);
-                mensagem.setSistemasPed(spts);
+                laudo_mensagem.setSistemasPed(spts);
 
                 //------------------------Sistema PED NF-e------------------------------
                 SistemaPedNfeType spft = new SistemaPedNfeType();
@@ -1061,58 +1061,59 @@ public class LaudoController {
                 spft.setArquivosExecutaveis(aesft2);
                 SistemasPedNfeType spnts = new SistemasPedNfeType();
                 spnts.getSistemaPedNfe().add(spft);
-                mensagem.setSistemasPedNfe(spnts);
+                laudo_mensagem.setSistemasPedNfe(spnts);
 
                 //8. Identifica��o dos Equipamentos ECF Utilizados para a An�lise Funcional :
                 EcfAnaliseFuncionalType eaft = new EcfAnaliseFuncionalType();
                 eaft.getMarcaModelo().addAll(eTvTabela.getItems());
-                mensagem.setEcfAnaliseFuncional(eaft);
+                laudo_mensagem.setEcfAnaliseFuncional(eaft);
 
                 //9. Rela��o de marcas e modelos de equipamentos ECF compat�veis com o PAF-ECF:
                 MarcasModelosCompativeisType mmct = new MarcasModelosCompativeisType();
                 mmct.getMarcaModelo().addAll(tTvTabela.getItems());
-                mensagem.setMarcasModelosCompativeis(mmct);
+                laudo_mensagem.setMarcasModelosCompativeis(mmct);
 //-------------------------------------------------------------------------------
-                mensagem.setVersaoErPaf(vTxtVersaoER.getText());
+                laudo_mensagem.setVersaoErPaf(vTxtVersaoER.getText());
                 RoteiroAnaliseType rat = new RoteiroAnaliseType();
                 rat.setAno(vTxtAno.getText());
                 rat.setMes(vTxtMes.getText());
                 rat.setVersaoRoteiro(vTxtVersaoRoteiro.getText());
-                mensagem.setRoteiroAnalise(rat);
+                laudo_mensagem.setRoteiroAnalise(rat);
 
                 NaoConformidadesType nct = new NaoConformidadesType();
                 nct.getNaoConformidade().addAll(nTvTabela.getItems());
-                mensagem.setNaoConformidades(nct);
+                laudo_mensagem.setNaoConformidades(nct);
 
-                mensagem.setComentarioOtc(fTxtArea.getText());
-                mensagem.setDeclaracao(fCkDeclaracao.isSelected());
+                laudo_mensagem.setComentarioOtc(fTxtArea.getText());
+                laudo_mensagem.setDeclaracao(fCkDeclaracao.isSelected());
 
                 EmissaoType et = new EmissaoType();
                 if (fDt.getValue() != null) {
                     et.setData(UtilConverter.convertDateForXMLGregorianCalendar(fDt));
                 }
                 et.setLocal(fTxtLocal.getText());
-                mensagem.setEmissao(et);
+                laudo_mensagem.setEmissao(et);
 
                 ExecucaoTestesType ett = new ExecucaoTestesType();
                 ett.setNome(feTxtNome.getText());
                 ett.setCargo(feTxtCargo.getText());
                 ett.setCpf(feTxtCPF.getText());
-                mensagem.setExecucaoTestes(ett);
+                laudo_mensagem.setExecucaoTestes(ett);
 
                 AprovacaoRelatorioType art = new AprovacaoRelatorioType();
                 art.setNome(feTxtNome2.getText());
                 art.setCargo(feTxtCargo2.getText());
                 art.setCpf(feTxtCPF2.getText());
-                mensagem.setAprovacaoRelatorio(art);
+                laudo_mensagem.setAprovacaoRelatorio(art);
                 LaudoType lt = new LaudoType();
-                lt.setMensagem(mensagem);
+                lt.setMensagem(laudo_mensagem);
                 lt.setVersao("1.0");
-                diretorioDoc = utilXml.criaDiretorio(mensagem.getDesenvolvedora().getRazaoSocial());
+                diretorioDoc = utilXml.criaDiretorio(laudo_mensagem.getDesenvolvedora().getRazaoSocial());
                 gerarDocx();
-                File criarArquivo = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + ".xml");
+                File criarArquivo = new File(utilXml.getDiretorioInicial() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + ".xml");
                 if (criarArquivo.exists()) {
-                    Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + mensagem.getNumero() + ".xml");
+                    Dialogos d = new Dialogos(stage);
+                    Optional<ButtonType> result = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + laudo_mensagem.getNumero() + ".xml");
                     if (result.get() == ButtonType.OK) {
                         finalizarAoSalvar(criarArquivo, lt);
                     }
@@ -1125,7 +1126,7 @@ public class LaudoController {
         } catch (Exception e) {
             e.printStackTrace();
             main.setDisable(false);
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e, "Obs:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), "Erro!", "Preencher todos os campos", e);
         }
     }
 
@@ -1645,7 +1646,7 @@ public class LaudoController {
         if (cbValidarLaudo.isSelected()) {
             if (utilXml.validarXMLSchema("xml/laudo.xsd", criarArquivo, true)) {
                 salvarXMLComplementar();
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo XML validado com sucesso");
 //            } else {
 //                System.out.println("Deletou a pasta???!!!! " + utilXml.deletarDiretorio(mensagem.getDesenvolvedora().getDescricao()));
 
@@ -1657,7 +1658,7 @@ public class LaudoController {
 
     private void salvarXMLComplementar() {
         carregarDiretorioXML();
-        File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + mensagem.getDesenvolvedora().getRazaoSocial() + "/" + mensagem.getNumero() + "_complementar.xml");
+        File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + "_complementar.xml");
         utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
         actionBtnLimpar(null);
     }
@@ -1703,7 +1704,7 @@ public class LaudoController {
     @FXML
     private void actionBtnLimpar(ActionEvent event) {
         System.out.println("- Iniciar metodo de actionBtnLimpar");
-        mensagem = new MensagemType();
+        laudo_mensagem = new MensagemType();
         txtNumeroLaudo.setText("");
         vTxtVersaoER.setText("");
         vTxtMes.setText("");
@@ -2260,10 +2261,8 @@ public class LaudoController {
                         }
                     }
                     if (buscouArquivo == false) {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoWarningArquivoInvalido.getMensagem());
-
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoWarningArquivoInvalido.getMensagem());
                     }
-
                 } catch (FileNotFoundException ex) {
                     Logger.getLogger(LaudoController.class
                             .getName()).log(Level.SEVERE, null, ex);
@@ -2494,11 +2493,11 @@ public class LaudoController {
                         li.remove(eTvTabela.getSelectionModel().getSelectedItem());
                         eTvTabela.setItems(li);
                     } else {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
                     }
                 }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
             }
         } else if (relacaoE.isSelected()) {
             if (tTvTabela.getItems().size() > 0) {
@@ -2510,11 +2509,11 @@ public class LaudoController {
                         li.remove(tTvTabela.getSelectionModel().getSelectedItem());
                         tTvTabela.setItems(li);
                     } else {
-                        UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeLinhaNaoSelecionada.getMensagem());
                     }
                 }
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeTabelaVazia.getMensagem());
             }
         }
     }
@@ -2560,14 +2559,14 @@ public class LaudoController {
                             mmt.setModelo(s);
                             lmmt.add(mmt);
                         } else {
-                            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
                         }
                     }
                 }
                 cb1.getCheckModel().clearChecks();
                 eTvTabela.setItems(lmmt);
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
             }
         } else if (relacaoE.isSelected()) {
             if (rCbMarca.getSelectionModel().getSelectedItem() != null && !cb2.getCheckModel().getCheckedItems().isEmpty() || cbSelecionarTodos2.isSelected()) {
@@ -2601,15 +2600,14 @@ public class LaudoController {
                             mmt.setModelo(s);
                             lmmt.add(mmt);
                         } else {
-                            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
+                            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), s + " -> já existe");
                         }
                     }
-
                 }
                 cb2.getCheckModel().clearChecks();
                 tTvTabela.setItems(lmmt);
             } else {
-                UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
+                mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.LaudoInformeMarcaModelo.getMensagem());
             }
         }
     }
@@ -2681,7 +2679,7 @@ public class LaudoController {
             comp += "_complementar.xml";
             laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
             if (laudoComplementar == null) {
-                UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.LaudoIdentificarEmpresa.getMensagem());
+                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.LaudoIdentificarEmpresa.getMensagem());
                 laudoComplementar = LaudoComplementar.getInstance();
                 bindComponentsWithLaudoComplementar(laudoComplementar);
             } else {
@@ -2885,7 +2883,7 @@ public class LaudoController {
 
     @FXML
     private void actionBtnBuscarEmpresa() {
-        UtilDialog.criarDialogWarning(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Campos relacionado a empresa será substituido ao identificar");
+        mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), "Campos relacionado a empresa será substituido ao identificar");
         SceneManager.getInstance().showTabelaEmpresa(false, false, false, false, false, false, true);
     }
 
@@ -3011,7 +3009,7 @@ public class LaudoController {
             erro = true;
         }
         if (!preencher.equals("")) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), preencher);
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), preencher);
         }
         return erro;
 

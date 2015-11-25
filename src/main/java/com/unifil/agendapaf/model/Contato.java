@@ -1,6 +1,7 @@
 package com.unifil.agendapaf.model;
 
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.Externalizable;
 import java.io.IOException;
@@ -209,11 +210,12 @@ public class Contato implements Externalizable {
     }
 
     public void validate() {
+        Mensagem mensagem = new Mensagem(null);
         if (nome.get() == null || nome.get().equals("")) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroNomeContato.getTitulo());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroNomeContato.getTitulo());
             throw new IllegalArgumentException("Nome cannot be null or empty");
         } else if (email.get() == null || email.get().equals("") || !email.get().contains("@") || email.get().split("@").length > 2) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEmailContato.getTitulo());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEmailContato.getTitulo());
             throw new IllegalArgumentException("E-mail cannot be null or empty");
         }
     }

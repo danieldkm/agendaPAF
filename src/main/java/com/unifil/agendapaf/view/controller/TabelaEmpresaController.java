@@ -9,7 +9,8 @@ import com.unifil.agendapaf.model.aux.TabelaEmpresa;
 import com.unifil.agendapaf.model.Telefone;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -30,6 +31,7 @@ public class TabelaEmpresaController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             popularTabela();
 
@@ -205,7 +207,7 @@ public class TabelaEmpresaController {
             txtBuscar.requestFocus();
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela empresa", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela empresa", e);
         }
     }
 
@@ -248,6 +250,7 @@ public class TabelaEmpresaController {
     private ObservableList<TabelaEmpresa> listaTbECF = FXCollections.observableArrayList();
     private String contatTextBusca = "";
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void onKeyPressdTxtBuscar(KeyEvent e) {

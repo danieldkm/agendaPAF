@@ -1,7 +1,9 @@
 package com.unifil.agendapaf.util;
 
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.model.laudo.MarcaModeloType;
 import com.unifil.agendapaf.model.laudo.MarcasModelosCompativeisType;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -44,6 +46,7 @@ public class UtilFile {
     private ObservableList<String> docs = FXCollections.observableArrayList();
     private ObservableList<String> laudos = FXCollections.observableArrayList();
     private String diretorioInicial = "xml/"; //local padr�o para armazenar arquivos XML
+    private Mensagem mensagem = new Mensagem(null);
 
     public UtilFile() {
     }
@@ -140,6 +143,7 @@ public class UtilFile {
     public boolean validarXMLSchema(String xsdPath, File xmlPath, boolean isXMLString) {
         //System.out.println("employee.xml validates against Employee.xsd? "+validateXMLSchema("laudo.xsd", "tj.xml"));
         File xml = xmlPath;
+        
         try {
             SchemaFactory factory
                     = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -148,7 +152,7 @@ public class UtilFile {
             validator.validate(new StreamSource(xml));
         } catch (IOException | SAXException e) {
             e.getMessage();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e.getMessage(), "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e);
 //            System.out.println("Deletou o arquivo?!!!! " + xml.delete());
             return false;
         }

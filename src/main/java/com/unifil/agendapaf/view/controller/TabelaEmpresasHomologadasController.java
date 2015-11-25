@@ -6,7 +6,8 @@ import com.unifil.agendapaf.model.EmpresasHomologadas;
 import com.unifil.agendapaf.service.EmpresasHomologadasService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -32,6 +33,7 @@ public class TabelaEmpresasHomologadasController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             tcEmpresa.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<EmpresasHomologadas, String>, ObservableValue<String>>() {
 
                 @Override
@@ -80,7 +82,7 @@ public class TabelaEmpresasHomologadasController {
             tvHomologadas.getItems().setAll(StaticLista.getListaGlobalEmpresasHomologadas());
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela empresas homologadas", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela empresas homologadas", e);
         }
     }
 
@@ -99,6 +101,7 @@ public class TabelaEmpresasHomologadasController {
 
     private Stage stage;
     private ObservableList<EmpresasHomologadas> lista = FXCollections.observableArrayList();
+    private Mensagem mensagem;
 
     @Deprecated
     private void atualizarTabela() {
@@ -121,7 +124,8 @@ public class TabelaEmpresasHomologadasController {
         if (event.getClickCount() == 2) {
             try {
                 EmpresasHomologadasService ehs = new EmpresasHomologadasService();
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.TabelaEmpresasHomologadasPergunta.getTitulo(), EnumMensagem.TabelaEmpresasHomologadasPergunta.getSubTitulo(), EnumMensagem.TabelaEmpresasHomologadasPergunta.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.TabelaEmpresasHomologadasPergunta.getTitulo(), EnumMensagem.TabelaEmpresasHomologadasPergunta.getSubTitulo(), EnumMensagem.TabelaEmpresasHomologadasPergunta.getMensagem());
                 if (tvHomologadas.getSelectionModel().getSelectedItem() != null) {
                     for (EmpresasHomologadas empresasHomologadas : StaticLista.getListaGlobalEmpresasHomologadas()) {
                         if (empresasHomologadas.getId().equals(tvHomologadas.getSelectionModel().getSelectedItem().getId())) {
@@ -166,6 +170,5 @@ public class TabelaEmpresasHomologadasController {
     public void setMainTbHomologadas(BorderPane mainTbHomologadas) {
         this.mainTbHomologadas = mainTbHomologadas;
     }
-    
-    
+
 }

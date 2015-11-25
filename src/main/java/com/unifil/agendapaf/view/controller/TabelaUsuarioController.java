@@ -5,7 +5,8 @@ import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -25,6 +26,7 @@ public class TabelaUsuarioController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             popularTabela();
             tbcDataCadastro.setCellFactory(column -> {
                 return new TableCell<Usuario, LocalDate>() {
@@ -43,7 +45,7 @@ public class TabelaUsuarioController {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela usuario", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela usuario", e);
         }
     }
 
@@ -59,6 +61,7 @@ public class TabelaUsuarioController {
     private BorderPane mainTbUsuario;
 
     private Stage stage;
+    private Mensagem mensagem;
 
     @FXML
     private void onKeyPressdTxtBuscar(KeyEvent e) {

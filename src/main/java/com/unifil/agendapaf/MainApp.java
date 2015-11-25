@@ -23,6 +23,7 @@ public class MainApp extends Application {
         mainStage.setTitle("Agenda PAF");
         mainStage.getIcons().add(new Image(EnumCaminho.LogoPAFECFUniFil.getCaminho()));
         SceneManager.getInstance().setPrimaryStage(this);
+        
     }
 
     public Stage getStage() {

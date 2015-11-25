@@ -6,7 +6,8 @@ import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.service.UsuarioService;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -25,6 +26,7 @@ public class UsuarioController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             if (sceneManager.getUsuarioEncontrada() != null) {
                 usuarioEncontrado = sceneManager.getUsuarioEncontrada();
@@ -33,7 +35,7 @@ public class UsuarioController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar usuário", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar usuário", e);
         }
     }
 
@@ -68,7 +70,7 @@ public class UsuarioController {
 //            });
 //        } catch (Exception e) {
 //            e.printStackTrace();
-//            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e, "Exception:");
+//            Dialogos.excecao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start usuario", e, "Exception:");
 //        }
 //    }
     @FXML
@@ -88,6 +90,7 @@ public class UsuarioController {
     private static Stage stage;
     private SceneManager sceneManager;
     private Usuario usuarioEncontrado;
+    private Mensagem mensagem;
 
     private boolean isUpdate = false;
 
@@ -95,21 +98,22 @@ public class UsuarioController {
     private void onActionBtnDeletar() {
         try {
             if (usuarioEncontrado != null) {
-                Optional<ButtonType> result = UtilDialog.criarDialogConfirmacao(EnumMensagem.UsuarioPerguntaDeletar.getTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getSubTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getMensagem());
+                Dialogos d = new Dialogos(stage);
+                Optional<ButtonType> result = d.confirmacao(EnumMensagem.UsuarioPerguntaDeletar.getTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getSubTitulo(), EnumMensagem.UsuarioPerguntaDeletar.getMensagem());
                 if (result.get() == ButtonType.OK) {
                     UsuarioService us = new UsuarioService();
                     us.deletar(usuarioEncontrado);
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Deletado.getMensagem());
                     resetarCampos();
                     JPA.em(false).close();
                     StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
                 }
             } else {
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.UsuarioErroNaoExiste.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.UsuarioErroNaoExiste.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar deletar usuario: " + usuarioEncontrado.getId(), e, "Exception");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar deletar usuario: " + usuarioEncontrado.getId(), e);
             e.printStackTrace();
         }
     }
@@ -134,11 +138,11 @@ public class UsuarioController {
                     JPA.em(false).close();
                     resetarCampos();
                     StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-                    UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
                 }
             } catch (Exception e) {
                 JPA.em(false).close();
-                UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e, "Exception:");
+                mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroSalvar.getMensagem(), e);
                 e.printStackTrace();
             }
         }
@@ -172,11 +176,11 @@ public class UsuarioController {
                 JPA.em(false).close();
                 resetarCampos();
                 StaticLista.setListaGlobalUsuario(Controller.getUsuarios());
-                UtilDialog.criarDialogInfomation(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
             }
         } catch (Exception e) {
             JPA.em(false).close();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ErroAtualizar.getMensagem(), e);
             e.printStackTrace();
         }
     }
@@ -220,7 +224,7 @@ public class UsuarioController {
             }
         }
         if (!ok) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), "Validando campos", preencher);
         }
         return ok;
     }

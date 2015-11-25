@@ -1,6 +1,7 @@
 package com.unifil.agendapaf.model;
 
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.Externalizable;
 import java.io.IOException;
@@ -245,11 +246,12 @@ public class Endereco implements Externalizable {
     }
 
     public void validate() {
+        Mensagem mensagem = new Mensagem(null);
         if (idCidade.get() == null) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEstadoCidade.getTitulo());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroEstadoCidade.getTitulo());
             throw new IllegalArgumentException("IdCidade cannot be null");
         } else if (idEmpresa.get() == null) {
-            UtilDialog.criarDialogWarning(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroIdEmpresaNull.getTitulo());
+            mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.EmpresaErroIdEmpresaNull.getTitulo());
             throw new IllegalArgumentException("IdEmpresa cannot be null");
         }
     }

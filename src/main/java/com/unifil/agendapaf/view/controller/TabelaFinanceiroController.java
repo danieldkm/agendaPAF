@@ -5,7 +5,8 @@ import com.unifil.agendapaf.controller.Controller;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
@@ -26,6 +27,7 @@ public class TabelaFinanceiroController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             tcDataInicial.setCellFactory(column -> {
                 return new TableCell<Financeiro, LocalDate>() {
@@ -61,7 +63,7 @@ public class TabelaFinanceiroController {
             tvFinanceiro.setItems(Controller.getFinanceiros());
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela financeiro", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela financeiro", e);
         }
     }
 
@@ -81,6 +83,7 @@ public class TabelaFinanceiroController {
     private static Stage stage;
     public ObservableList<Financeiro> lista;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void onKeyPressdTxtBuscar(KeyEvent e) {

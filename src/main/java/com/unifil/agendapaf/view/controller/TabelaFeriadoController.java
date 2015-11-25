@@ -3,9 +3,10 @@ package com.unifil.agendapaf.view.controller;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.statics.StaticLista;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.util.UtilConverter;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import java.time.LocalDate;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -25,6 +26,7 @@ public class TabelaFeriadoController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             tvFeriado.setItems(StaticLista.getListaGlobalFeriado());
 
@@ -46,7 +48,7 @@ public class TabelaFeriadoController {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela feriado", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar tabela feriado", e);
         }
     }
 
@@ -64,6 +66,7 @@ public class TabelaFeriadoController {
     private static Stage stage;
     private SceneManager sceneManager;
     private ObservableList<Feriado> todos = FXCollections.observableArrayList();
+    private Mensagem mensagem;
 
     @FXML
     private void onActionTxtBuscar(KeyEvent e) {

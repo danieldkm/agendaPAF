@@ -6,7 +6,8 @@ import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.GerarRelatorios;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.UtilDialog;
+import com.unifil.agendapaf.util.mensagem.Dialogos;
+import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
@@ -38,6 +39,7 @@ public class RelatorioController {
     @FXML
     public void initialize() {
         try {
+            mensagem = new Mensagem(stage);
             sceneManager = SceneManager.getInstance();
             isAnual = false;
 //        setRelatorioAnual();
@@ -74,7 +76,7 @@ public class RelatorioController {
             });
         } catch (Exception e) {
             e.printStackTrace();
-            UtilDialog.criarDialogException(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar relatorio", e, "Exception:");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao inicializar relatorio", e);
         }
 
     }
@@ -112,6 +114,7 @@ public class RelatorioController {
     private int ano;
     private boolean isAnual = false;
     private SceneManager sceneManager;
+    private Mensagem mensagem;
 
     @FXML
     private void actionBtnGerar() {
