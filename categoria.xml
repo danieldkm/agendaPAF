@@ -25,5 +25,35 @@
         <Nome>Reavaliação</Nome>
         <Porcento>10</Porcento>
     </Categorias>
+    <Categorias>
+        <id>4</id>
+        <Nome>teste</Nome>
+        <Porcento>99</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>5</id>
+        <Nome>kjhgy</Nome>
+        <Porcento>14</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>6</id>
+        <Nome>kjhgfr</Nome>
+        <Porcento>99</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>7</id>
+        <Nome>a</Nome>
+        <Porcento>99</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>8</id>
+        <Nome>teste19191</Nome>
+        <Porcento>9</Porcento>
+    </Categorias>
+    <Categorias>
+        <id>9</id>
+        <Nome>yryry</Nome>
+        <Porcento>2</Porcento>
+    </Categorias>
 </Categorias>
 

@@ -48,6 +48,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import org.apache.commons.imaging.formats.jpeg.JpegConstants;
 import org.controlsfx.validation.ValidationResult;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -179,13 +180,15 @@ public class AgendarController {
                     validarCamposAoAtualizar(agenda);
 //                    agenda.setIdEmpresa(empresaEncontrada);
                 }
-                if (gravarHistorico() && seConcluido()) {
-                    if (isUpdate) {
-                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
-                    } else {
-                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
-                    }
-                }
+                gravarHistorico();
+                seConcluido();
+//                if (gravarHistorico() && seConcluido()) {
+//                    if (isUpdate) {
+//                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+//                    } else {
+//                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+//                    }
+//                }
                 if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())) {
                     Dialogos d = new Dialogos(stage);
                     Optional<?> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
@@ -203,6 +206,11 @@ public class AgendarController {
                 DateChooserSkin.getMonthBack().fire();
                 DateChooserSkin.getMonthForward().arm();
                 DateChooserSkin.getMonthForward().fire();
+                if (isUpdate) {
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Atualizado.getMensagem());
+                } else {
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
+                }
                 resetarCampos();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -349,8 +357,10 @@ public class AgendarController {
                     }
                 }
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
-                if (cbTipo.getValue().equals(EnumServico.Avaliacao.getServico())
-                        || cbTipo.getValue().equals(EnumServico.AvaliacaoIntinerante.getServico())) {
+//                System.out.println("cbTipo.getValue() " + cbTipo.getValue());
+                if (cbTipo.getValue().equals(Util.removerAcentuacaoServico(EnumServico.Avaliacao.getServico()))
+                        || cbTipo.getValue().equals(Util.removerAcentuacaoServico(EnumServico.AvaliacaoIntinerante.getServico()))) {
+                    System.out.println("cbTipo.getValue().equals(EnumServico.Avaliacao.getServico() " + cbTipo.getValue().equals(EnumServico.Avaliacao.getServico()));
                     EmpresasHomologadas eh = new EmpresasHomologadas();
 
                     eh.setIdEmpresa(agenda.getIdEmpresa());
@@ -358,13 +368,15 @@ public class AgendarController {
                     Calendar cal = new GregorianCalendar();
 
                     cal.setTime(UtilConverter.converterLocalDateToSqlDate(eh.getDataHomologada()));
+                    cal.add(Calendar.YEAR,
+                            1);
                     cal.add(Calendar.MONTH,
                             10);
                     eh.setDataAviso(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
                     dtFinal.setValue(UtilConverter.converterUtilDateToLocalDate(cal.getTime()));
                     Contato tempContato = null;
                     for (Contato c : StaticLista.getListaGlobalContato()) {
-                        if (c.getIdEmpresa().equals(agenda.getIdEmpresa().getId()) && c.selecionadoBoolean()) {
+                        if (c.getIdEmpresa().getId().equals(agenda.getIdEmpresa().getId()) && c.selecionadoBoolean()) {
                             tempContato = c;
                             break;
                         }
@@ -397,7 +409,7 @@ public class AgendarController {
                 agenda = as.findLast();
                 JPA.em(false).close();
             }
-            System.out.println("this.agenda " + this.agenda.getIdEmpresa().toString2());
+//            System.out.println("this.agenda " + this.agenda.getIdEmpresa().toString2());
             Historico h = new Historico();
 
             h.setIdAgenda(agenda);
@@ -424,6 +436,7 @@ public class AgendarController {
                     .getName()).log(Level.SEVERE, null, ex);
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(),
                     EnumMensagem.AgendaErroSalvarHistoricoAgenda.getMensagem(), ex);
+            return false;
         }
         return true;
     }
@@ -496,12 +509,14 @@ public class AgendarController {
                 }
             }
             if (dtInicial.getValue().equals(dtFinal.getValue())) {
-                validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
-                        -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
-                dtInicial.requestFocus();
-                mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
-                        EnumMensagem.Aviso.getMensagem() + "\n"
-                        + "data final no mesmo dia da data inicial!!!");
+                if (cbTipo.getValue().toString().equals(EnumServico.Avaliacao.getServico())) {
+                    validationSupport.registerValidator(dtInicial, false, (Control c, LocalDate newValue)
+                            -> ValidationResult.fromWarningIf(dtInicial, "Informe a data", !LocalDate.now().equals(newValue)));
+                    dtInicial.requestFocus();
+                    mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(),
+                            EnumMensagem.Aviso.getMensagem() + "\n"
+                            + "data final no mesmo dia da data inicial!!!");
+                }
                 ok = false;
             } else {
                 // aki nesse trecho do codigo verifico se a data inicial e final 

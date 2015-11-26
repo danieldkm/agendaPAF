@@ -49,10 +49,10 @@ public class LaudoFerramentaController {
             preencherLaudoFerramenta();
         }
 
-        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(txtIE);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtETCPF);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtARCPF);
+        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(txtIE, 30);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtETCPF, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtARCPF, 20);
         MaskFieldUtil.numericField(txtNumero);
     }
 

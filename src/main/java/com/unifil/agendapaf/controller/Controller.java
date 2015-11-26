@@ -191,7 +191,7 @@ public class Controller {
         ObservableList<Servico> servicos = FXCollections.observableArrayList();
         String caminho = exeFile.getAbsolutePath() + "/servico.xml";
         if (new File(caminho).exists()) {
-            System.out.println("CAMINHO " + caminho);
+//            System.out.println("CAMINHO " + caminho);
             Servicos ss = (Servicos) uf.unmarshalFromFile(Servicos.class, caminho);
             return FXCollections.observableArrayList(ss.getServicos());
 //                reader = new FileReader(caminho);
@@ -209,7 +209,7 @@ public class Controller {
         ObservableList<Categoria> categorias = FXCollections.observableArrayList();
         String caminho = exeFile.getAbsolutePath() + "/categoria.xml";
         if (new File(caminho).exists()) {
-            System.out.println("CAMINHO " + caminho);
+//            System.out.println("CAMINHO " + caminho);
             Categorias ss = (Categorias) uf.unmarshalFromFile(Categorias.class, caminho);
             return FXCollections.observableArrayList(ss.getCategorias());
 //                reader = new FileReader(caminho);

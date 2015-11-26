@@ -112,7 +112,6 @@ public class Notificacao implements ImplMensagem {
                 notificationBuilder.showWarning();
                 break;
             case "Informacao":
-                System.out.println("INFORMACAO");
                 notificationBuilder.showInformation();
                 break;
             case "Confirm graphic":

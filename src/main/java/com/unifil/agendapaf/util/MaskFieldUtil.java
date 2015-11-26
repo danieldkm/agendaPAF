@@ -345,7 +345,8 @@ public abstract class MaskFieldUtil {
      *
      * @param textField TextField
      */
-    public static void removeAllSimbolsExceptNumber(final TextField textField) {
+    public static void removeAllSimbolsExceptNumber(final TextField textField, int maxField) {
+        maxField(textField, maxField);
         textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override
@@ -398,7 +399,8 @@ public abstract class MaskFieldUtil {
      *
      * @param textField TextField
      */
-    public static void removeAllSimbolsExceptCaracterAndNumber(final TextField textField) {
+    public static void removeAllSimbolsExceptCaracterAndNumber(final TextField textField, int maxField) {
+        maxField(textField, maxField);
         textField.focusedProperty().addListener(new ChangeListener<Boolean>() {
 
             @Override

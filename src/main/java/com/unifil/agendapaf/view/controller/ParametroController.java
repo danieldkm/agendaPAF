@@ -35,6 +35,7 @@ public class ParametroController {
         try {
             mensagem = new Mensagem(stage);
             MaskFieldUtil.monetaryField(txtValor);
+            MaskFieldUtil.removeAllSimbolsExceptNumber(txtPorcentagem, 3);
             util = new UtilFile();
             servicos = new Servicos();
             categorias = new Categorias();

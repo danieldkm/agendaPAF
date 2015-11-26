@@ -323,7 +323,6 @@ public class TabelaEmpresaController {
             }
             tes.add(te);
         }
-        System.out.println("TABELA EMPRESA VALUES " + te);
         tvEmpresa.setItems(tes);
     }
 

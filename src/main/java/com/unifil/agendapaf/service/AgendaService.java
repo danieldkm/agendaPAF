@@ -4,7 +4,6 @@ import com.unifil.agendapaf.interfaces.InterfaceCrud;
 import com.unifil.agendapaf.dao.AgendaDAO;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
-import com.unifil.agendapaf.model.Contato;
 import java.time.LocalDate;
 import javafx.collections.ObservableList;
 import javax.persistence.EntityManager;

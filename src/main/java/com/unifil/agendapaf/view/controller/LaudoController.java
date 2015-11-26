@@ -140,21 +140,21 @@ public class LaudoController {
     @FXML
     public void initialize() {
         mensagem = new Mensagem(stage);
-        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(oTxtIE);
-        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCPF);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtTelefone);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCEP);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCEP);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ);
+        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(oTxtIE, 30);
+        MaskFieldUtil.removeAllSimbolsExceptCaracterAndNumber(dTxtIE, 30);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCPF, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtTelefone, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(oTxtCEP, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(dTxtCEP, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(sgTxtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(spTxtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(speTxtCNPJ, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtRg, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCelular, 20);
+        MaskFieldUtil.removeAllSimbolsExceptNumber(txtFax, 20);
         MaskFieldUtil.numericField(dTxtNumero);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtRg);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtCelular);
-        MaskFieldUtil.removeAllSimbolsExceptNumber(txtFax);
 
         enableEditAllTable();
 
