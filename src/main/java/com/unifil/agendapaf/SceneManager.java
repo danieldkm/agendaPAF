@@ -10,7 +10,6 @@ import com.unifil.agendapaf.model.Usuario;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
-import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.controller.AgendarController;
 import com.unifil.agendapaf.view.controller.AlertaController;
@@ -170,16 +169,6 @@ public class SceneManager {
             stage.setResizable(false);
             criarPadrao("Carregando", stage, loginLayout);
 
-//            Notificacao no = new Notificacao(principalStage);
-//            no.notificar("a","b",Pos.CENTER);
-////            Dialogos d = new Dialogos(stage);
-////
-////            String a = "aa";
-////            try {
-////                int n = Integer.parseInt(a);
-////            } catch (Exception e) {
-////                d.informacao("titulo", "cabecalho", "corpo");
-////            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -216,7 +205,7 @@ public class SceneManager {
             loginController = rootLoader.getController();
             loginController.setStage(rootStage);
             criarPadrao("Agenda PAF-ECF", rootStage, loginLayout);
-
+            
         } catch (Exception e) {
             e.printStackTrace();
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
@@ -836,6 +825,10 @@ public class SceneManager {
     public Mensagem getMensagem() {
         return mensagem;
     }
-    
+
+    public AgendarController getAgendaController() {
+        return agendaController;
+    }
+
 
 }

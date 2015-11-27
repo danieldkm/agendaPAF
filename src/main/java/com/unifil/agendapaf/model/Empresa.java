@@ -235,8 +235,10 @@ public class Empresa implements Externalizable {
     }
 
     public void validate() {
-        if (inscricaoEstadual.get().toLowerCase().contains("isento")) {
-            inscricaoEstadual.set("Isento");
+        if (inscricaoEstadual.get() != null) {
+            if (inscricaoEstadual.get().toLowerCase().contains("isento")) {
+                inscricaoEstadual.set("Isento");
+            }
         }
     }
 

@@ -161,7 +161,7 @@ public class FinanceiroController {
                     }
                 }
             }
-            System.out.println("NNN " + n);
+//            System.out.println("NNN " + n);
             txtValorPago.setText(n);
         }
         porCategoria = 0;
@@ -452,6 +452,9 @@ public class FinanceiroController {
 
         while (!cbTipoServico.getSelectionModel().getSelectedItem().getNome().equals(financeiroEncontrada.getTipoServico())) {
             cbTipoServico.getSelectionModel().selectNext();
+        }
+        if (cbTipoServico.getValue().getNome().equals("Hora Adicional")) {
+            txtHoraAdicional.setDisable(false);
         }
         for (int i = 0; i < cbCategoria.getItems().size(); i++) {
             if (((Categoria) cbCategoria.getItems().get(i)).getNome().equals(financeiroEncontrada.getCategoria())) {

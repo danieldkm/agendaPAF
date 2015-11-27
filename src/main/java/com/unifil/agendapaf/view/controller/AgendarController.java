@@ -188,13 +188,13 @@ public class AgendarController {
 //                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
 //                    }
 //                }
-                if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())) {
-                    Dialogos d = new Dialogos(stage);
-                    Optional<?> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaDesejaCadastrarFinanceiro.getMensagem());
-                    if (result.get() == ButtonType.OK) {
-                        iniciarCadastroFinanceiro();
-                    }
-                }
+//                if (cbStatusAgenda.getValue().equals(EnumStatus.Concluido.getStatus())) {
+//                    Dialogos d = new Dialogos(stage);
+//                    Optional<?> result = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaFinanceiroDesejaCadastrar.getMensagem());
+//                    if (result.get() == ButtonType.OK) {
+//                        iniciarCadastroFinanceiro();
+//                    }
+//                }
                 AgendaService as = new AgendaService();
                 StaticLista.setListaGlobalAgenda(as.findOrderBy("dataInicial"));
                 as.getEm().clear();
@@ -300,12 +300,11 @@ public class AgendarController {
         }
     }
 
-    private void saveFinanceiro(int horasAdicionais) {
+    public void salvarFinanceiro(Financeiro financeiro) {
         FinanceiroService fs = new FinanceiroService();
-        Financeiro f = new Financeiro();
         int porcentagem = 0;
-        f.setTipoServico(Util.porAcentuacaoServico(agenda.getTipo()));
-        System.out.println("agenda.getIdEmpresa(). " + agenda.getIdEmpresa().toString2());
+        financeiro.setTipoServico(Util.porAcentuacaoServico(agenda.getTipo()));
+//        System.out.println("agenda.getIdEmpresa(). " + agenda.getIdEmpresa().toString2());
         for (Categoria categoria : Controller.getCategorias()) {
             if (categoria.getNome().equals(agenda.getIdEmpresa().getCategoria())) {
                 porcentagem = categoria.getPorcento();
@@ -314,28 +313,30 @@ public class AgendarController {
         }
         double valorServico = 0;
         for (Servico servico : Controller.getServicos()) {
-            if (servico.getNome().equals(f.getTipoServico())) {
+            if (servico.getNome().equals(financeiro.getTipoServico())) {
                 valorServico = servico.getValor();
                 break;
             }
         }
-        if (horasAdicionais > 0) {
+        if (financeiro.getHoraAdicional() > 0) {
             for (Servico servico : Controller.getServicos()) {
                 if (servico.getNome().equals(EnumServico.HoraAdicional.getServico())) {
                     valorServico = servico.getValor();
                 }
             }
-            f.setHoraAdicional(horasAdicionais);
-            f.setValorPago(valorServico * horasAdicionais);
-            f.setTipoServico("Hora Adicional");
+            financeiro.setValorPago(valorServico * financeiro.getHoraAdicional());
+            financeiro.setTipoServico("Hora Adicional");
         } else {
-            f.setValorPago((valorServico - (valorServico * (porcentagem / 100))));
+            financeiro.setHoraAdicional(0);
+            if (financeiro.getValorPago() == 0.0) {
+                financeiro.setValorPago((valorServico - (valorServico * (porcentagem / 100))));
+            }
         }
-        f.setCategoria(agenda.getIdEmpresa().getCategoria());
-        f.setDataInicial(dtInicial.getValue());
-        f.setDataFinal(dtFinal.getValue());
-        f.setIdEmpresa(agenda.getIdEmpresa());
-        fs.salvar(f);
+        financeiro.setCategoria(agenda.getIdEmpresa().getCategoria());
+        financeiro.setDataInicial(dtInicial.getValue());
+        financeiro.setDataFinal(dtFinal.getValue());
+        financeiro.setIdEmpresa(agenda.getIdEmpresa());
+        fs.salvar(financeiro);
         JPA.em(false).close();
     }
 
@@ -343,19 +344,23 @@ public class AgendarController {
             boolean seConcluido() {
         try {
             if (cbStatusAgenda.getValue().equals(Util.removerAcentuacaoServico(EnumStatus.Concluido.getStatus()))) {
-                saveFinanceiro(-1);
                 Dialogos d = new Dialogos(stage);
-                Optional<ButtonType> result = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.ExisteHoraAdicional.getMensagem());
-                if (result.get() == ButtonType.OK) {
-                    try {
-                        int horas = Integer.parseInt(d.entrada(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getMensagem()));
-                        saveFinanceiro(horas);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        mensagem.erro(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo(), e);
-                    }
-                }
+                d.financeiro(sceneManager);
+//                Optional<ButtonType> cadastrarFinanceiro = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaFinanceiroDesejaCadastrar.getMensagem());
+//                if (cadastrarFinanceiro.get() == ButtonType.OK) {
+//                    salvarFinanceiro(-1);
+//                    Optional<ButtonType> result = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.AgendaFinanceiroExisteHoraAdicional.getMensagem());
+//                    if (result.get() == ButtonType.OK) {
+//                        try {
+//                            int horas = Integer.parseInt(d.entrada(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.InformeHoraAdicional.getMensagem()));
+//                            salvarFinanceiro(horas);
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                            mensagem.erro(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.ErroConversao.getTitulo(), e);
+//                        }
+//                    }
                 StaticLista.setListaGlobalFinanceiro(Controller.getFinanceiros());
+//                }
 //                System.out.println("cbTipo.getValue() " + cbTipo.getValue());
                 if (cbTipo.getValue().equals(Util.removerAcentuacaoServico(EnumServico.Avaliacao.getServico()))
                         || cbTipo.getValue().equals(Util.removerAcentuacaoServico(EnumServico.AvaliacaoIntinerante.getServico()))) {
