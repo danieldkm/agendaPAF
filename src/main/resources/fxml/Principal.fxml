@@ -98,6 +98,13 @@
                         <MenuItem fx:id="miConfigurar" mnemonicParsing="false" onAction="#iniciarRelatorio" text="Configurar dados" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Ferramenta">
+              <items>
+                  <MenuItem mnemonicParsing="false" text="Financeiro" />
+                <MenuItem mnemonicParsing="false" text="E-mail" />
+                  <MenuItem mnemonicParsing="false" text="Laudo" />
+              </items>
+            </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">
                     <items>
                         <MenuItem fx:id="miAbout" mnemonicParsing="false" onAction="#sobre" text="Sobre" />

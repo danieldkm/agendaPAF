@@ -3056,7 +3056,7 @@ public class LaudoController {
 
     @FXML
     private void onMouseClickedFerramenta(MouseEvent event) {
-        SceneManager.getInstance().showLaudoFerramenta();
+        SceneManager.getInstance().showFerramentaLaudo();
     }
 
     @FXML

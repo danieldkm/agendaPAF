@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  *
  * @author danielmorita
  */
-public class LaudoFerramentaController {
+public class FerramentaLaudoController {
 
     /**
      * Initializes the controller class.

@@ -21,7 +21,7 @@ import com.unifil.agendapaf.view.controller.FerramentaBDController;
 import com.unifil.agendapaf.view.controller.FinanceiroController;
 import com.unifil.agendapaf.view.controller.InicialController;
 import com.unifil.agendapaf.view.controller.LaudoController;
-import com.unifil.agendapaf.view.controller.LaudoFerramentaController;
+import com.unifil.agendapaf.view.controller.FerramentaLaudoController;
 import com.unifil.agendapaf.view.controller.LoginController;
 import com.unifil.agendapaf.view.controller.MotivoReagendamentoController;
 import com.unifil.agendapaf.view.controller.NewLoginController;
@@ -86,7 +86,7 @@ public class SceneManager {
     private FerramentaBDController ferramentaBDController;
     private FinanceiroController financeiroController;
     private LaudoController laudoController;
-    private LaudoFerramentaController laudoFerramentaController;
+    private FerramentaLaudoController ferramentaLaudoController;
     private MotivoReagendamentoController motivoReagendamentoController;
     private ParametroController parametroController;
     private RelatorioController relatorioController;
@@ -435,15 +435,15 @@ public class SceneManager {
         }
     }
 
-    public void showLaudoFerramenta() {
+    public void showFerramentaLaudo() {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.LaudoFerramenta.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaLaudo.getCaminho()));
             VBox layout = (VBox) loader.load();
-            laudoFerramentaController = loader.getController();
-            laudoFerramentaController.setStage(stage);
-            laudoFerramentaController.setMain((VBox) layout);
+            ferramentaLaudoController = loader.getController();
+            ferramentaLaudoController.setStage(stage);
+            ferramentaLaudoController.setMain((VBox) layout);
 //            stage.setResizable(false);
 //            stage.initStyle(StageStyle.UNDECORATED);
             criarPadraoModal("Laudo ferramenta", stage, layout);

@@ -17,7 +17,7 @@ public enum EnumCaminho {
     FerramentaBD("/fxml/FerramentaBD.fxml"),
     Financeiro("/fxml/Financeiro.fxml"),
     Laudo("/fxml/Laudo.fxml"),
-    LaudoFerramenta("/fxml/LaudoFerramenta.fxml"),
+    FerramentaLaudo("/fxml/FerramentaLaudo.fxml"),
     Login("/fxml/Login.fxml"),
     NewLogin("/fxml/NewLogin.fxml"),
     MotivoReagendamento("/fxml/MotivoReagendamento.fxml"),

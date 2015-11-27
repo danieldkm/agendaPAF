@@ -206,6 +206,16 @@ public class PrincipalController {
     }
 
     @FXML
+    protected void iniciarFerramentaFinanceiro() {
+        sceneManager.showParametro();
+    }
+
+    @FXML
+    protected void iniciarFerramentalaudo() {
+        sceneManager.showFerramentaLaudo();
+    }
+
+    @FXML
     protected void iniciarCalendarioSemestral() {
         String n = null;
         do {
