@@ -19,7 +19,12 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
@@ -46,9 +51,28 @@ public class UtilFile {
     private ObservableList<String> docs = FXCollections.observableArrayList();
     private ObservableList<String> laudos = FXCollections.observableArrayList();
     private String diretorioInicial = "xml/"; //local padr�o para armazenar arquivos XML
-    private Mensagem mensagem = new Mensagem(null);
+//    private Mensagem mensagem = new Mensagem(null);
 
     public UtilFile() {
+    }
+
+    public String criptografar(String senha) {
+        MessageDigest algorithm;
+        try {
+            algorithm = MessageDigest.getInstance("SHA-256");
+            byte messageDigest[] = algorithm.digest(senha.getBytes("UTF-8"));
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02X", 0xFF & b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UtilFile.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(UtilFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
     }
 
     /**
@@ -143,7 +167,7 @@ public class UtilFile {
     public boolean validarXMLSchema(String xsdPath, File xmlPath, boolean isXMLString) {
         //System.out.println("employee.xml validates against Employee.xsd? "+validateXMLSchema("laudo.xsd", "tj.xml"));
         File xml = xmlPath;
-        
+
         try {
             SchemaFactory factory
                     = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
@@ -152,7 +176,7 @@ public class UtilFile {
             validator.validate(new StreamSource(xml));
         } catch (IOException | SAXException e) {
             e.getMessage();
-            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e);
+//            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e);
 //            System.out.println("Deletou o arquivo?!!!! " + xml.delete());
             return false;
         }
@@ -189,6 +213,30 @@ public class UtilFile {
         }
     }
 
+//    /**
+//     * Salvar arquivo em XML
+//     *
+//     * @param documento conteudo do documento em xml
+//     * @param file local e nome do arquivo a ser salvo
+//     */
+//    public static void salvarArquivoXML(String documento, String file) {
+//        File exeFile = new File("");
+////        File path = new File(exeFile.getAbsolutePath() + file);
+//        File path = new File(exeFile.getAbsolutePath() + file);
+//        try {
+//            PrintWriter writer = new PrintWriter(path);
+////            writer.println(
+////                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
+////            );
+//            writer.println(documento);
+//            writer.flush();
+//            writer.close();
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     /**
      * Converte arquivo CSV em objeto marca e modelos compativeis.
      *
@@ -363,31 +411,6 @@ public class UtilFile {
             }
         }
         return false;
-    }
-
-    /**
-     * Salvar arquivo em XML
-     *
-     * @param documento conteudo do documento em xml
-     * @param file local e nome do arquivo a ser salvo
-     */
-    public static void salvarArquivoXML(String documento, String file) {
-        File exeFile = new File("");
-//        File path = new File(exeFile.getAbsolutePath() + file);
-        File path = new File(exeFile.getAbsolutePath() + file);
-        try {
-            PrintWriter writer = new PrintWriter(path);
-//            writer.println(
-//                    "<?xml version=\"1.0\" encoding=\"windows-1252\"?>"
-//            );
-            writer.println(documento);
-            writer.flush();
-            writer.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public ObservableList<String> getEmpresas() {

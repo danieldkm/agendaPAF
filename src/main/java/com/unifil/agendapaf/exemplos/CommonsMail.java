@@ -1,5 +1,9 @@
 package com.unifil.agendapaf.exemplos;
 
+import com.unifil.agendapaf.model.aux.FerramentaEmail;
+import com.unifil.agendapaf.util.Criptografia;
+import com.unifil.agendapaf.util.UtilFile;
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import org.apache.commons.mail.DefaultAuthenticator;
@@ -123,7 +127,39 @@ public class CommonsMail {
      * @throws MalformedURLException
      */
     public static void main(String[] args) throws EmailException, MalformedURLException {
-        new CommonsMail();
+//        new CommonsMail();
+        UtilFile uf = new UtilFile();
+        FerramentaEmail fe = new FerramentaEmail();
+        fe.setHostName("smtp.googlemail.com");
+        fe.setPortaSMTP(465);
+        fe.setEmail("daniel@teste.com");
+        fe.setSenha("qwe123");
+        uf.salvarArquivo(new File("FerramentaEmail.xml"), uf.marshal(fe));
+
+//        System.out.println("criptografia " + uf.criptografar("daniel"));
+//        for (int i = 0; i <= 255; i++) {
+//            System.out.println(i + " : " + (char) i);
+//        }
+//        System.out.println("a" + " : " + ((char) "a"));
+//        int numeroDigitado = 1;
+//        String valorAscII = char(numeroDigitado);  
+//        System.out.println("??? " + (char) 123);
+//        System.out.println("??? " + (char) 124);
+//        System.out.println("??? " + (char) 125);
+//        System.out.println("??? " + (char) 126);
+//        System.out.println("??? " + (char) 127);
+//        System.out.println("??? " + (char) 128);
+//        System.out.println("??? " + (char) 129);
+//        System.out.println("??? " + (char) 97);
+//        char character = 'a';
+//        int ascii = (int) character;
+//        System.out.println("ascii " + ascii);
+        
+        Criptografia c = new Criptografia();
+        System.out.println(c.cifrarVigenere("123@qwe", "pafecf7326"));
+        System.out.println(c.decifrarVigenere("123@fwj", "pafecf7326"));
+                
+//        daniuhh
     }
 
 }

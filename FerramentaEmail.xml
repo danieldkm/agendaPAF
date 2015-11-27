@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<FerramentaEmail>
+    <HostName>smtp.googlemail.com</HostName>
+    <PortaSMTP>4651</PortaSMTP>
+    <Email>daniel@teste.com</Email>
+    <Senha>qwe123</Senha>
+</FerramentaEmail>

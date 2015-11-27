@@ -13,6 +13,7 @@ import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
+import java.io.File;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,13 +114,15 @@ public class FerramentaFinanceiroController {
     private Mensagem mensagem;
 
     private void salvarServico() {
-        UtilFile.salvarArquivoXML(util.marshal(servicos), "/servico.xml");
+//        UtilFile.salvarArquivo(util.marshal(servicos), "/servico.xml");
+        util.salvarArquivo(new File("servico.xml"), util.marshal(servicos));
         btnLimpar.arm();
         btnLimpar.fire();
     }
 
     private void salvarCategoria() {
-        UtilFile.salvarArquivoXML(util.marshal(categorias), "/categoria.xml");
+//        UtilFile.salvarArquivoXML(util.marshal(categorias), "/categoria.xml");
+        util.salvarArquivo(new File("categoria.xml"), util.marshal(categorias));
         btnLimpar.arm();
         btnLimpar.fire();
     }
@@ -358,9 +361,9 @@ public class FerramentaFinanceiroController {
                 ss.getServicos().add(servico5);
 
 //                String xml = xStream.toXML(tipos);
-                UtilFile.salvarArquivoXML(util.marshal(ss),
-                        "/servico.xml");
-
+//                UtilFile.salvarArquivoXML(util.marshal(ss),
+//                        "/servico.xml");
+                util.salvarArquivo(new File("servico.xml"), util.marshal(ss));
 //                xStream.alias(
 //                        "categoria", Categoria.class
 //                );
@@ -414,8 +417,9 @@ public class FerramentaFinanceiroController {
 //
 //                String xml2 = xStream.toXML(categorias);
 
-                UtilFile.salvarArquivoXML(util.marshal(cs),
-                        "/categoria.xml");
+//                UtilFile.salvarArquivoXML(util.marshal(cs),
+//                        "/categoria.xml");
+                util.salvarArquivo(new File("categoria.xml"), util.marshal(cs));
 
                 servicos.getServicos().clear();
                 for (Servico s : Controller.getServicos()) {

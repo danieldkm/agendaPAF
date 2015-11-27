@@ -22,6 +22,7 @@ public enum EnumCaminho {
     NewLogin("/fxml/NewLogin.fxml"),
     MotivoReagendamento("/fxml/MotivoReagendamento.fxml"),
     FerramentaFinanceiro("/fxml/FerramentaFinanceiro.fxml"),
+    FerramentaEmail("/fxml/FerramentaEmail.fxml"),
     PopUp("/fxml/PopUp.fxml"),
     Principal("/fxml/Principal.fxml"),
     Relatorio("/fxml/Relatorio.fxml"),

@@ -18,6 +18,7 @@ import com.unifil.agendapaf.view.controller.EmpresaController;
 import com.unifil.agendapaf.view.controller.EscolherDocsController;
 import com.unifil.agendapaf.view.controller.FeriadoController;
 import com.unifil.agendapaf.view.controller.FerramentaBDController;
+import com.unifil.agendapaf.view.controller.FerramentaEmailController;
 import com.unifil.agendapaf.view.controller.FinanceiroController;
 import com.unifil.agendapaf.view.controller.InicialController;
 import com.unifil.agendapaf.view.controller.LaudoController;
@@ -89,6 +90,7 @@ public class SceneManager {
     private FerramentaLaudoController ferramentaLaudoController;
     private MotivoReagendamentoController motivoReagendamentoController;
     private FerramentaFinanceiroController ferramentaFinanceiroController;
+    private FerramentaEmailController ferramentaEmailController;
     private RelatorioController relatorioController;
     private RelatorioFinanceiroController relatorioFinanceiroController;
     private TabelaEmpresasHomologadasController empresasHomologadasController;
@@ -205,7 +207,7 @@ public class SceneManager {
             loginController = rootLoader.getController();
             loginController.setStage(rootStage);
             criarPadrao("Agenda PAF-ECF", rootStage, loginLayout);
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
@@ -478,10 +480,26 @@ public class SceneManager {
             ferramentaFinanceiroController = loader.getController();
             ferramentaFinanceiroController.setStage(stage);
             ferramentaFinanceiroController.setPrincipal(layout);
-            criarPadraoModal("Parâmetro", stage, layout);
+            criarPadraoModal("Ferramenta Financeiro", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start parametro", e);
+        }
+    }
+
+    public void showFerramentaEmail() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaEmail.getCaminho()));
+            VBox layout = (VBox) loader.load();
+            ferramentaEmailController = loader.getController();
+            ferramentaEmailController.setStage(stage);
+            ferramentaEmailController.setPrincipal(layout);
+            criarPadraoModal("Ferramenta E-mail", stage, layout);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
         }
     }
 
@@ -829,6 +847,5 @@ public class SceneManager {
     public AgendarController getAgendaController() {
         return agendaController;
     }
-
 
 }

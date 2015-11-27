@@ -101,7 +101,7 @@
             <Menu mnemonicParsing="false" text="Ferramenta">
               <items>
                   <MenuItem fx:id="miFerramentaFinanceiro" mnemonicParsing="false" onAction="#iniciarFerramentaFinanceiro" text="Financeiro" />
-                <MenuItem mnemonicParsing="false" text="E-mail" />
+                <MenuItem fx:id="miFerramentaEmail" mnemonicParsing="false" onAction="#iniciarFerramentaEmail" text="E-mail" />
                   <MenuItem fx:id="miFerramentaLaudo" mnemonicParsing="false" onAction="#iniciarFerramentalaudo" text="Laudo" />
               </items>
             </Menu>

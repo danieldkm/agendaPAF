@@ -14,6 +14,7 @@ import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
+import java.io.File;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -100,8 +101,10 @@ public class TesteGerarParametros {
             tipos.add(servico6);
 
 //                String xml = xStream.toXML(tipos);
-            UtilFile.salvarArquivoXML(util.marshal(ss),
-                    "/servico.xml");
+//            UtilFile.salvarArquivoXML(util.marshal(ss),
+//                    "/servico.xml");
+            
+            util.salvarArquivo(new File("servico.xml"), util.marshal(ss));
 
 //                xStream.alias(
 //                        "categoria", Categoria.class
@@ -155,8 +158,9 @@ public class TesteGerarParametros {
             categorias.add(categoria5);
 
 //                String xml2 = xStream.toXML(categorias);
-            UtilFile.salvarArquivoXML(util.marshal(cs),
-                    "/categoria.xml");
+//            UtilFile.salvarArquivoXML(util.marshal(cs),
+//                    "/categoria.xml");
+            util.salvarArquivo(new File("categoria.xml"), util.marshal(cs));
 
 //                servicos = Controller.getServicos();
 //                categorias = Controller.getCategorias();
