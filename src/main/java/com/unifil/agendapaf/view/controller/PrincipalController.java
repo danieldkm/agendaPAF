@@ -207,7 +207,7 @@ public class PrincipalController {
 
     @FXML
     protected void iniciarFerramentaFinanceiro() {
-        sceneManager.showParametro();
+        sceneManager.showFerramentaFinanceiro();
     }
 
     @FXML

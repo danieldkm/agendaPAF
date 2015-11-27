@@ -270,7 +270,7 @@ public class FinanceiroController {
     @FXML
     private void onMouseClickedFerramenta(MouseEvent event) {
         stage.close();
-        sceneManager.showParametro();
+        sceneManager.showFerramentaFinanceiro();
     }
 
     @FXML

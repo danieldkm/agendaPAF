@@ -28,7 +28,7 @@ import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
 
-public class ParametroController {
+public class FerramentaFinanceiroController {
 
     @FXML
     public void initialize() {

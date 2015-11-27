@@ -25,7 +25,7 @@ import com.unifil.agendapaf.view.controller.FerramentaLaudoController;
 import com.unifil.agendapaf.view.controller.LoginController;
 import com.unifil.agendapaf.view.controller.MotivoReagendamentoController;
 import com.unifil.agendapaf.view.controller.NewLoginController;
-import com.unifil.agendapaf.view.controller.ParametroController;
+import com.unifil.agendapaf.view.controller.FerramentaFinanceiroController;
 import com.unifil.agendapaf.view.controller.PrincipalController;
 import com.unifil.agendapaf.view.controller.RelatorioController;
 import com.unifil.agendapaf.view.controller.RelatorioFinanceiroController;
@@ -88,7 +88,7 @@ public class SceneManager {
     private LaudoController laudoController;
     private FerramentaLaudoController ferramentaLaudoController;
     private MotivoReagendamentoController motivoReagendamentoController;
-    private ParametroController parametroController;
+    private FerramentaFinanceiroController ferramentaFinanceiroController;
     private RelatorioController relatorioController;
     private RelatorioFinanceiroController relatorioFinanceiroController;
     private TabelaEmpresasHomologadasController empresasHomologadasController;
@@ -469,15 +469,15 @@ public class SceneManager {
         }
     }
 
-    public void showParametro() {
+    public void showFerramentaFinanceiro() {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Parametro.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaFinanceiro.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
-            parametroController = loader.getController();
-            parametroController.setStage(stage);
-            parametroController.setPrincipal(layout);
+            ferramentaFinanceiroController = loader.getController();
+            ferramentaFinanceiroController.setStage(stage);
+            ferramentaFinanceiroController.setPrincipal(layout);
             criarPadraoModal("Parâmetro", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
