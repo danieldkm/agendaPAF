@@ -100,9 +100,9 @@
                 </Menu>
             <Menu mnemonicParsing="false" text="Ferramenta">
               <items>
-                  <MenuItem mnemonicParsing="false" text="Financeiro" />
+                  <MenuItem fx:id="miFerramentaFinanceiro" mnemonicParsing="false" onAction="#iniciarFerramentaFinanceiro" text="Financeiro" />
                 <MenuItem mnemonicParsing="false" text="E-mail" />
-                  <MenuItem mnemonicParsing="false" text="Laudo" />
+                  <MenuItem fx:id="miFerramentaLaudo" mnemonicParsing="false" onAction="#iniciarFerramentalaudo" text="Laudo" />
               </items>
             </Menu>
                 <Menu mnemonicParsing="false" text="Ajuda">

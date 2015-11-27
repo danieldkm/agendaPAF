@@ -19,9 +19,9 @@
     <top>
         <Pane prefHeight="113.0" prefWidth="200.0" style="-fx-background-color: #AEFCD5;" BorderPane.alignment="CENTER">
             <children>
-                <Label layoutX="14.0" layoutY="33.0" text="Conf. parâmetro">
+                <Label layoutX="14.0" layoutY="33.0" text="Financeiro Ferramenta">
                     <font>
-                        <Font name="System Bold" size="32.0" />
+                        <Font name="System Bold" size="27.0" />
                     </font>
                     <effect>
                         <Reflection />
