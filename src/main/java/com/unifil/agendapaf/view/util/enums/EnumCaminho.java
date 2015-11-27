@@ -20,6 +20,7 @@ public enum EnumCaminho {
     FerramentaLaudo("/fxml/FerramentaLaudo.fxml"),
     Login("/fxml/Login.fxml"),
     NewLogin("/fxml/NewLogin.fxml"),
+    Email("/fxml/Email.fxml"),
     MotivoReagendamento("/fxml/MotivoReagendamento.fxml"),
     FerramentaFinanceiro("/fxml/FerramentaFinanceiro.fxml"),
     FerramentaEmail("/fxml/FerramentaEmail.fxml"),
