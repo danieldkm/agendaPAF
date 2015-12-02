@@ -55,37 +55,58 @@ public class CommonsMail {
      */
     public void enviaEmailComAnexo() throws EmailException {
 
-        // cria o anexo 1.  
-        EmailAttachment anexo1 = new EmailAttachment();
-        anexo1.setPath("email/conexaoLocal.json"); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)  
-        anexo1.setDisposition(EmailAttachment.ATTACHMENT);
-        anexo1.setDescription("Exemplo de arquivo anexo");
-        anexo1.setName("conexaoLocal.json");
+        // Create the attachment
+        EmailAttachment attachment = new EmailAttachment();
+        attachment.setPath("mypictures/john.jpg");
+        attachment.setDisposition(EmailAttachment.ATTACHMENT);
+        attachment.setDescription("Picture of John");
+        attachment.setName("John");
 
-        // cria o anexo 2.  
-        EmailAttachment anexo2 = new EmailAttachment();
-        anexo2.setPath("email/Marca e modelo.csv"); //caminho do arquivo (RAIZ_PROJETO/teste/teste2.jsp)  
-        anexo2.setDisposition(EmailAttachment.ATTACHMENT);
-        anexo2.setDescription("Exemplo de arquivo anexo");
-        anexo2.setName("Marca e modelo.csv");
-
-        // configura o email  
+        // Create the email message
         MultiPartEmail email = new MultiPartEmail();
-        email.setHostName("smtp.googlemail.com"); // o servidor SMTP para envio do e-mail  
-        email.addTo("danielkeyti@gmail.com", "danielkeyti"); //destinatário  
-        email.setFrom("danielkeyti@gmail.com", "Eu"); // remetente  
-        email.setSubject("Teste -> Email com anexos"); // assunto do e-mail  
-        email.setMsg("Teste de Email utilizando commons-email"); //conteudo do e-mail  
-        email.setAuthentication("danielkeyti", "daniel@morita");
-//        email.setSmtpPort(465);
-//        email.setSSL(true);
-//        email.setTLS(true);
+        email.setHostName("mail.myserver.com");
+        email.addTo("jdoe@somewhere.org", "John Doe");
+        email.setFrom("me@apache.org", "Me");
+        email.setSubject("The picture");
+        email.setMsg("Here is the picture you wanted");
 
-        // adiciona arquivo(s) anexo(s)  
-        email.attach(anexo1);
-        email.attach(anexo2);
-        // envia o email  
+        // add the attachment
+        email.attach(attachment);
+
+        // send the email
         email.send();
+
+//        // cria o anexo 1.  
+//        EmailAttachment anexo1 = new EmailAttachment();
+//        anexo1.setPath("email/conexaoLocal.json"); //caminho do arquivo (RAIZ_PROJETO/teste/teste.txt)  
+//        anexo1.setDisposition(EmailAttachment.ATTACHMENT);
+//        anexo1.setDescription("Exemplo de arquivo anexo");
+//        anexo1.setName("conexaoLocal.json");
+//
+//        // cria o anexo 2.  
+//        EmailAttachment anexo2 = new EmailAttachment();
+//        anexo2.setPath("email/Marca e modelo.csv"); //caminho do arquivo (RAIZ_PROJETO/teste/teste2.jsp)  
+//        anexo2.setDisposition(EmailAttachment.ATTACHMENT);
+//        anexo2.setDescription("Exemplo de arquivo anexo");
+//        anexo2.setName("Marca e modelo.csv");
+//
+//        // configura o email  
+//        MultiPartEmail email = new MultiPartEmail();
+//        email.setHostName("smtp.googlemail.com"); // o servidor SMTP para envio do e-mail  
+//        email.addTo("danielkeyti@gmail.com", "danielkeyti"); //destinatário  
+//        email.setFrom("danielkeyti@gmail.com", "Eu"); // remetente  
+//        email.setSubject("Teste -> Email com anexos"); // assunto do e-mail  
+//        email.setMsg("Teste de Email utilizando commons-email"); //conteudo do e-mail  
+//        email.setAuthentication("danielkeyti", "daniel@morita");
+////        email.setSmtpPort(465);
+////        email.setSSL(true);
+////        email.setTLS(true);
+//
+//        // adiciona arquivo(s) anexo(s)  
+//        email.attach(anexo1);
+//        email.attach(anexo2);
+//        // envia o email  
+//        email.send();
     }
 
     /**
@@ -115,6 +136,7 @@ public class CommonsMail {
         email.setMsg("Teste de Email HTML utilizando commons-email"); //conteudo do e-mail  
         email.setAuthentication("danielkeyti", "daniel@morita");
         email.setSmtpPort(465);
+        email.setSSLOnConnect(true);
 //        email.setSSL(true);
 //        email.setTLS(true);
         // envia email  
@@ -127,14 +149,16 @@ public class CommonsMail {
      * @throws MalformedURLException
      */
     public static void main(String[] args) throws EmailException, MalformedURLException {
+        CommonsMail c = new CommonsMail();
+        c.enviaEmailFormatoHtml();
 //        new CommonsMail();
-        UtilFile uf = new UtilFile();
-        FerramentaEmail fe = new FerramentaEmail();
-        fe.setHostName("smtp.googlemail.com");
-        fe.setPortaSMTP(465);
-        fe.setEmail("daniel@teste.com");
-        fe.setSenha("qwe123");
-        uf.salvarArquivo(new File("FerramentaEmail.xml"), uf.marshal(fe));
+//        UtilFile uf = new UtilFile();
+//        FerramentaEmail fe = new FerramentaEmail();
+//        fe.setHostName("smtp.googlemail.com");
+//        fe.setPortaSMTP(465);
+//        fe.setEmail("daniel@teste.com");
+//        fe.setSenha("qwe123");
+//        uf.salvarArquivo(new File("FerramentaEmail.xml"), uf.marshal(fe));
 
 //        System.out.println("criptografia " + uf.criptografar("daniel"));
 //        for (int i = 0; i <= 255; i++) {
@@ -154,11 +178,10 @@ public class CommonsMail {
 //        char character = 'a';
 //        int ascii = (int) character;
 //        System.out.println("ascii " + ascii);
-        
-        Criptografia c = new Criptografia();
-        System.out.println(c.cifrarVigenere("123@qwe", "pafecf7326"));
-        System.out.println(c.decifrarVigenere("123@fwj", "pafecf7326"));
-                
+//        Criptografia c = new Criptografia();
+//        System.out.println(c.cifrarVigenere("123@qwe", "pafecf7326"));
+//        System.out.println(c.decifrarVigenere("123@fwj", "pafecf7326"));
+
 //        daniuhh
     }
 

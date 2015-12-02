@@ -16,7 +16,8 @@ import javax.xml.bind.annotation.XmlType;
     "hostName",
     "portaSMTP",
     "email",
-    "senha"
+    "senha",
+    "caminhoImg"
 })
 public class FerramentaEmail {
 
@@ -28,6 +29,8 @@ public class FerramentaEmail {
     private String email;
     @XmlElement(name = "Senha", required = true)
     private String senha;
+    @XmlElement(name = "CaminhoImg")
+    private String caminhoImg;
 
     public String getHostName() {
         return hostName;
@@ -61,8 +64,17 @@ public class FerramentaEmail {
         this.senha = senha;
     }
 
+    public String getCaminhoImg() {
+        return caminhoImg;
+    }
+
+    public void setCaminhoImg(String caminhoImg) {
+        this.caminhoImg = caminhoImg;
+    }
+
     @Override
     public String toString() {
-        return "FerramentaEmail{" + "hostName=" + hostName + ", portaSMTP=" + portaSMTP + ", email=" + email + ", senha=" + senha + '}';
+        return "FerramentaEmail{" + "hostName=" + hostName + ", portaSMTP=" + portaSMTP + ", email=" + email + ", senha=" + senha + ", caminhoImg=" + caminhoImg + '}';
     }
+
 }

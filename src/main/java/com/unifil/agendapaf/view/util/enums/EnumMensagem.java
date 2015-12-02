@@ -84,7 +84,13 @@ public enum EnumMensagem {
     UsuarioInformarComboBoxTipo("Selecionar o tipo"),
     UsuarioInformarEmail("Preencher E-mail"),
     UsuarioErroNaoExiste("Não existe nenhum usuário à ser deletado"),
-    UsuarioPerguntaDeletar("Pergunta", "Pergunta do Sistema", "Tem certeza que deseja deletar?");
+    UsuarioPerguntaDeletar("Pergunta", "Pergunta do Sistema", "Tem certeza que deseja deletar?"),
+    FerramentaEmailAvisoEmailNulo("Preencher e-mail"),
+    FerramentaEmailAvisoSenhaNulo("Preencher senha"),
+    FerramentaEmailAvisoRepetirSenhaNulo("Preencher repetir senha"),
+    FerramentaEmailAvisoSMTPNulo("Preencher SMTP"),
+    FerramentaEmailAvisoHostNulo("Preencher host name"),
+    FerramentaEmailAvisoSenhaDiferente("Repetir senha"),;
 
     private String titulo;
     private String subTitulo;

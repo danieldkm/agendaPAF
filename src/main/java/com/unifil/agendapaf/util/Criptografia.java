@@ -11,6 +11,7 @@ public class Criptografia {
     String palavraCodificada;
     HashMap<Character, Integer> letraNumero = new HashMap<Character, Integer>();
     HashMap<Integer, Character> numeroLetra = new HashMap<Integer, Character>();
+    private String chave = "pafecf7326";
 
     public Criptografia() {
         letraNumero.put('a', 0);
@@ -39,6 +40,16 @@ public class Criptografia {
         letraNumero.put('x', 23);
         letraNumero.put('y', 24);
         letraNumero.put('z', 25);
+        letraNumero.put('0', 26);
+        letraNumero.put('1', 27);
+        letraNumero.put('2', 28);
+        letraNumero.put('3', 29);
+        letraNumero.put('4', 30);
+        letraNumero.put('5', 31);
+        letraNumero.put('6', 32);
+        letraNumero.put('7', 33);
+        letraNumero.put('8', 34);
+        letraNumero.put('9', 35);
 
         numeroLetra.put(0, 'a');
         numeroLetra.put(1, 'b');
@@ -66,6 +77,16 @@ public class Criptografia {
         numeroLetra.put(23, 'x');
         numeroLetra.put(24, 'y');
         numeroLetra.put(25, 'z');
+        numeroLetra.put(26, '0');
+        numeroLetra.put(27, '1');
+        numeroLetra.put(28, '2');
+        numeroLetra.put(29, '3');
+        numeroLetra.put(30, '4');
+        numeroLetra.put(31, '5');
+        numeroLetra.put(32, '6');
+        numeroLetra.put(33, '7');
+        numeroLetra.put(34, '8');
+        numeroLetra.put(35, '9');
 
     }
 
@@ -141,7 +162,7 @@ public class Criptografia {
         return texto;
     }
 
-    public String cifrarVigenere(String palavra, String chave) {
+    public String cifrarVigenere(String palavra) {
         String texto = "";
         char[] chaveAux = chave.toLowerCase().toCharArray();
         int tamanhoChave = chave.length();
@@ -152,13 +173,9 @@ public class Criptografia {
                 novaPalavra += listaPalavra[i];
             }
         }
-        while (chave.length() < (novaPalavra.length() - 1)) {
-            for (int i = 0; i < tamanhoChave; i++) {
-                chave = chave + chaveAux[i];
-                if (chave.length() == (novaPalavra.length())) {
-                    break;
-                }
-            }
+        int falta = novaPalavra.length() - chave.length();
+        for (int i = 0; i < falta; i++) {
+            chave += chaveAux[i];
         }
         int c;
         int k;
@@ -190,7 +207,7 @@ public class Criptografia {
         return texto;
     }
 
-    public String decifrarVigenere(String palavra, String chave) {
+    public String decifrarVigenere(String palavra) {
         String texto = "";
         char[] chaveAux = chave.toLowerCase().toCharArray();
         int tamanhoChave = chave.length();

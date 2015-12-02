@@ -8,7 +8,6 @@ import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.Util;
 import com.unifil.agendapaf.util.UtilConverter;
-import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.time.LocalDate;

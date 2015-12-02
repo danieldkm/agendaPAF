@@ -214,9 +214,15 @@ public class PrincipalController {
     protected void iniciarFerramentalaudo() {
         sceneManager.showFerramentaLaudo();
     }
+
     @FXML
     protected void iniciarFerramentaEmail() {
         sceneManager.showFerramentaEmail();
+    }
+
+    @FXML
+    protected void iniciarEmail() {
+        sceneManager.showEmail();
     }
 
     @FXML

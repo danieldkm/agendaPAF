@@ -14,6 +14,7 @@ import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.controller.AgendarController;
 import com.unifil.agendapaf.view.controller.AlertaController;
 import com.unifil.agendapaf.view.controller.CalendarioSemestralController;
+import com.unifil.agendapaf.view.controller.EmailController;
 import com.unifil.agendapaf.view.controller.EmpresaController;
 import com.unifil.agendapaf.view.controller.EscolherDocsController;
 import com.unifil.agendapaf.view.controller.FeriadoController;
@@ -101,6 +102,7 @@ public class SceneManager {
     private UsuarioController usuarioController;
     private VisualizadorMotivoController visulizadorMotivoController;
     private EscolherDocsController escolherDocsController;
+    private EmailController emailController;
 
     private Usuario usuarioLogado;
     private Agenda agendaEncontrada;
@@ -497,6 +499,22 @@ public class SceneManager {
             ferramentaEmailController.setStage(stage);
             ferramentaEmailController.setPrincipal(layout);
             criarPadraoModal("Ferramenta E-mail", stage, layout);
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);
+        }
+    }
+    
+    public void showEmail() {
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.Email.getCaminho()));
+            VBox layout = (VBox) loader.load();
+            emailController = loader.getController();
+            emailController.setStage(stage);
+            emailController.setPrincipal(layout);
+            criarPadraoModal("E-mail", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro no start", e);

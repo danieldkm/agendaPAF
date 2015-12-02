@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <FerramentaEmail>
     <HostName>smtp.googlemail.com</HostName>
-    <PortaSMTP>4651</PortaSMTP>
-    <Email>daniel@teste.com</Email>
-    <Senha>qwe123</Senha>
+    <PortaSMTP>465</PortaSMTP>
+    <Email>danielkeyti@gmail.com</Email>
+    <Senha>sasmgq@trtoia</Senha>
+    <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/src/main/resources/image/AgendaBannerTop.png</CaminhoImg>
 </FerramentaEmail>
