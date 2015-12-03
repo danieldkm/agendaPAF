@@ -12,53 +12,64 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.EmailController">
+
+<HBox fx:id="principal" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.unifil.agendapaf.view.controller.EmailController">
    <children>
-      <VBox maxHeight="100.0" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+      <VBox fx:id="vbEmailSalvo" HBox.hgrow="ALWAYS" />
+      <VBox fx:id="vbMais" alignment="CENTER" maxWidth="27.0" HBox.hgrow="ALWAYS">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PARA:" />
-                        <TextField fx:id="txtPara" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                        <ImageView fx:id="imgAddContato" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onMouseClickedImgAddContato" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
-                           <image>
-                              <Image url="@../image/addContato.png" />
-                           </image>
-                        </ImageView>
-                     </children>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ASSUNTO:" />
-                        <TextField fx:id="txtAssunto" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
-               </children>
-            </VBox>
-            <VBox prefHeight="200.0" prefWidth="100.0">
-               <children>
-                  <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DE:" />
-                        <TextField fx:id="txtDe" editable="false" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
-                     </children>
-                  </HBox>
-                  <Separator prefWidth="200.0" />
-               </children>
-            </VBox>
+            <Button mnemonicParsing="false" onAction="#onActionEmailSalvo" prefHeight="395.0" prefWidth="27.0" text="&gt;" VBox.vgrow="ALWAYS" />
          </children>
-         <VBox.margin>
-            <Insets left="20.0" right="20.0" />
-         </VBox.margin>
       </VBox>
-      <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" prefHeight="200.0" prefWidth="506.0" VBox.vgrow="ALWAYS" />
+      <VBox fx:id="vbEmail" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="653.0" HBox.hgrow="ALWAYS">
+         <children>
+            <VBox fx:id="vbCampos" maxHeight="100.0" prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="PARA:" />
+                              <TextField fx:id="txtPara" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                              <ImageView fx:id="imgAddContato" fitHeight="20.0" fitWidth="20.0" onMouseClicked="#onMouseClickedImgAddContato" onMouseEntered="#onMouseEnteredImgAddContato" onMouseExited="#onMouseExitedImgAddContato" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                                 <image>
+                                    <Image url="@../image/addContato.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ASSUNTO:" />
+                              <TextField fx:id="txtAssunto" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DE:" />
+                              <TextField fx:id="txtDe" editable="false" style="-fx-background-color: transparent;" HBox.hgrow="ALWAYS" />
+                           </children>
+                        </HBox>
+                        <Separator prefWidth="200.0" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets left="20.0" right="20.0" />
+               </VBox.margin>
+            </VBox>
+            <HTMLEditor fx:id="htmlEditor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" VBox.vgrow="ALWAYS" />
+         </children>
+      </VBox>
    </children>
-</VBox>
+</HBox>

@@ -1,10 +1,8 @@
 package com.unifil.agendapaf.util;
 
-import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.model.laudo.MarcaModeloType;
 import com.unifil.agendapaf.model.laudo.MarcasModelosCompativeisType;
-import com.unifil.agendapaf.util.mensagem.Mensagem;
-import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +14,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
@@ -50,7 +47,7 @@ public class UtilFile {
     private ObservableList<String> empresas = FXCollections.observableArrayList();
     private ObservableList<String> docs = FXCollections.observableArrayList();
     private ObservableList<String> laudos = FXCollections.observableArrayList();
-    private String diretorioInicial = "xml/"; //local padr�o para armazenar arquivos XML
+//    private String diretorioInicial = "xml/"; //local padr�o para armazenar arquivos DiretorioXML
 //    private Mensagem mensagem = new Mensagem(null);
 
     public UtilFile() {
@@ -81,8 +78,8 @@ public class UtilFile {
      * @param novoDiretorio nome da pasta
      * @return nomeDiretorio
      */
-    public String criaDiretorio(String novoDiretorio) {
-        String nomeDiretorio = diretorioInicial + novoDiretorio;
+    public String criarDiretorio(String novoDiretorio) {
+        String nomeDiretorio = novoDiretorio;
         try {
             if (!new File(nomeDiretorio).exists()) { // Verifica se o diret�rio existe.
                 (new File(nomeDiretorio)).mkdir();   // Cria o diret�rio   
@@ -100,7 +97,7 @@ public class UtilFile {
      * @return retorna true ou false a existentcia do diretorio
      */
     public boolean deletarDiretorio(String diretorio) {
-        String nomeDiretorio = diretorioInicial + diretorio;
+        String nomeDiretorio = diretorio;
         File dir = new File(nomeDiretorio);
         try {
             if (dir.exists()) { // Verifica se o diret�rio existe.
@@ -157,10 +154,10 @@ public class UtilFile {
     }
 
     /**
-     * Valida arquivos XML com arquivo XSD
+     * Valida arquivos DiretorioXML com arquivo XSD
      *
      * @param xsdPath diretorio e nome do arquivo XSD
-     * @param xmlPath diretorio e nome do arquivo XML
+     * @param xmlPath diretorio e nome do arquivo DiretorioXML
      * @param isXMLString caso o xml estiver em formato string
      * @return true se validar o arquivo
      */
@@ -176,7 +173,7 @@ public class UtilFile {
             validator.validate(new StreamSource(xml));
         } catch (IOException | SAXException e) {
             e.getMessage();
-//            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo XML", e);
+//            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao validar o arquivo DiretorioXML", e);
 //            System.out.println("Deletou o arquivo?!!!! " + xml.delete());
             return false;
         }
@@ -214,7 +211,7 @@ public class UtilFile {
     }
 
 //    /**
-//     * Salvar arquivo em XML
+//     * Salvar arquivo em DiretorioXML
 //     *
 //     * @param documento conteudo do documento em xml
 //     * @param file local e nome do arquivo a ser salvo
@@ -278,10 +275,10 @@ public class UtilFile {
     }
 
     /**
-     * Converte o objeto em uma String com estrutura XML.
+     * Converte o objeto em uma String com estrutura DiretorioXML.
      *
-     * @param object objeto a ser convertido em XML.
-     * @return String contendo a estrutura XML.
+     * @param object objeto a ser convertido em DiretorioXML.
+     * @return String contendo a estrutura DiretorioXML.
      */
     public String marshal(Object object) {
         final StringWriter out = new StringWriter();
@@ -303,11 +300,11 @@ public class UtilFile {
     }
 
     /**
-     * Converte o objeto em uma estrutura XML.
+     * Converte o objeto em uma estrutura DiretorioXML.
      *
-     * @param object objeto a ser convertido em XML.
-     * @param fileName nome do arquivo XML a ser gerado.
-     * @return uma string com o conteudo do XML gerado.
+     * @param object objeto a ser convertido em DiretorioXML.
+     * @param fileName nome do arquivo DiretorioXML a ser gerado.
+     * @return uma string com o conteudo do DiretorioXML gerado.
      */
     public String marshalToFile(Object object, String fileName) {
         final StringWriter out = new StringWriter();
@@ -349,10 +346,10 @@ public class UtilFile {
     }
 
     /**
-     * Converte um string com estrutura XML em um objeto.
+     * Converte um string com estrutura DiretorioXML em um objeto.
      *
      * @param clazz classe referente ao tipo do objeto a ser retornado.
-     * @param stringXml string com o conteudo XML a ser convertido em objeto.
+     * @param stringXml string com o conteudo DiretorioXML a ser convertido em objeto.
      * @return retorna um novo objeto de clazz.
      */
     public Object unmarshal(Class clazz, String stringXml) {
@@ -370,11 +367,11 @@ public class UtilFile {
     }
 
     /**
-     * Realiza a conversao (unmarshal) de um arquivo XML em um objeto do seu
-     * tipo.
+     * Realiza a conversao (unmarshal) de um arquivo DiretorioXML em um objeto do seu
+ tipo.
      *
-     * @param clazz classe referente ao objeto a ser criado a partir do XML.
-     * @param fileXml nome do arquivo XML a ser convertido em objeto.
+     * @param clazz classe referente ao objeto a ser criado a partir do DiretorioXML.
+     * @param fileXml nome do arquivo DiretorioXML a ser convertido em objeto.
      * @return novo objeto.
      */
     public Object unmarshalFromFile(Class clazz, String fileXml) {
@@ -403,7 +400,7 @@ public class UtilFile {
         numeroLaudo += ".xml";
         for (String s : empresas) {
             setLaudos(FXCollections.observableArrayList());
-            listarArquivos(new File(getDiretorioInicial() + s));
+            listarArquivos(new File(EnumCaminho.DiretorioXML.getCaminho() + s));
             for (String s2 : laudos) {
                 if (s2.equals(numeroLaudo)) {
                     return true;
@@ -429,14 +426,13 @@ public class UtilFile {
         this.laudos = laudos;
     }
 
-    public String getDiretorioInicial() {
-        return diretorioInicial;
-    }
-
-    public void setDiretorioInicial(String diretorioInicial) {
-        this.diretorioInicial = diretorioInicial;
-    }
-
+//    public String getDiretorioInicial() {
+//        return diretorioInicial;
+//    }
+//
+//    public void setDiretorioInicial(String diretorioInicial) {
+//        this.diretorioInicial = diretorioInicial;
+//    }
     public ObservableList<String> getDocs() {
         return docs;
     }

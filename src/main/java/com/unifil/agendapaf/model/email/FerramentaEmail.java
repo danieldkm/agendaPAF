@@ -1,4 +1,4 @@
-package com.unifil.agendapaf.model.aux;
+package com.unifil.agendapaf.model.email;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -165,7 +165,7 @@ public class LaudoController {
 
         laudo_mensagem = new MensagemType();
         utilXml = new UtilFile();
-        utilXml.listarArquivos(new File(EnumCaminho.ModeloDocxs.getCaminho()));
+        utilXml.listarArquivos(new File(EnumCaminho.DocxsModelo.getCaminho()));
         files = utilXml.getDocs();
 
         paneCheckBox1.getChildren().add(cb1);
@@ -176,7 +176,7 @@ public class LaudoController {
         carregarDiretorioXML();
 
         try {
-            laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
+            laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, EnumCaminho.DiretorioXMLLaudoFerramenta.getCaminho());
         } catch (Exception e) {
 //            e.printStackTrace();
             System.err.println("java.io.FileNotFoundException: xml/LaudoFerramenta.xml (No such file or directory)");
@@ -617,7 +617,7 @@ public class LaudoController {
 
     private void carregarDiretorioXML() {
         utilXml.setEmpresas(FXCollections.observableArrayList());
-        utilXml.listarDireitorio(new File(utilXml.getDiretorioInicial()));
+        utilXml.listarDireitorio(new File(EnumCaminho.DiretorioXML.getCaminho()));
         cbEmpresa.setItems(utilXml.getEmpresas());
     }
 
@@ -1108,9 +1108,9 @@ public class LaudoController {
                 LaudoType lt = new LaudoType();
                 lt.setMensagem(laudo_mensagem);
                 lt.setVersao("1.0");
-                diretorioDoc = utilXml.criaDiretorio(laudo_mensagem.getDesenvolvedora().getRazaoSocial());
+                diretorioDoc = utilXml.criarDiretorio(EnumCaminho.DiretorioXML.getCaminho() + laudo_mensagem.getDesenvolvedora().getRazaoSocial());
                 gerarDocx();
-                File criarArquivo = new File(utilXml.getDiretorioInicial() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + ".xml");
+                File criarArquivo = new File(EnumCaminho.DiretorioXML.getCaminho() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + ".xml");
                 if (criarArquivo.exists()) {
                     Dialogos d = new Dialogos(stage);
                     Optional<ButtonType> result = d.confirmacao(EnumMensagem.Pergunta.getTitulo(), EnumMensagem.Pergunta.getSubTitulo(), "Esté arquivo já existe; " + laudo_mensagem.getNumero() + ".xml");
@@ -1137,8 +1137,8 @@ public class LaudoController {
             Type type = new TypeToken<HashMap<String, String>>() {
             }.getType();
             GerarDocx gerarDoc = new GerarDocx();
-//            System.out.println("DOCUMENTOS JSON CONVERT " + json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho()));
-            for (ParametroDocx pr : json.lerArquivoJSON(EnumCaminho.DocumentosDocxs.getCaminho())) {
+//            System.out.println("DOCUMENTOS JSON CONVERT " + json.lerArquivoJSON(EnumCaminho.DocxsDocumentos.getCaminho()));
+            for (ParametroDocx pr : json.lerArquivoJSON(EnumCaminho.DocxsDocumentos.getCaminho())) {
                 pr.setParametros(setHashMap(pr.getDocumento(), gson.fromJson(pr.getParametros(), type)));
 //                System.out.println("NEW PARAMETRO " + pr.getParametros());
                 if (pr.getDocumento().equals("ANEXO BANCO DE DADOS MODELO") || pr.getDocumento().equals("LAUDO PAF-ECF-F MODELO 2015")) {
@@ -1658,7 +1658,7 @@ public class LaudoController {
 
     private void salvarXMLComplementar() {
         carregarDiretorioXML();
-        File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + "_complementar.xml");
+        File criarLaudoComplementar = new File(EnumCaminho.DiretorioXML.getCaminho() + laudo_mensagem.getDesenvolvedora().getRazaoSocial() + "/" + laudo_mensagem.getNumero() + "_complementar.xml");
         utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoComplementar));
         actionBtnLimpar(null);
     }
@@ -2189,7 +2189,7 @@ public class LaudoController {
         feTxtCargo2.setText(m.getAprovacaoRelatorio().getCargo());
 
 //        if (laudoComplementar != null) {
-//            for (Usuario item : cbResponsavelEnsaio.getItems()) {
+//            for (FXMLUsuario item : cbResponsavelEnsaio.getItems()) {
 //                if (item.getNome().equals(laudoComplementar.getResponsavelEnsaio())) {
 //                    cbResponsavelEnsaio.getSelectionModel().select(item);
 //                    break;
@@ -2666,7 +2666,7 @@ public class LaudoController {
     private void actionCbEmpresa() {
         if (cbEmpresa.getSelectionModel().getSelectedItem() != null) {
             utilXml.setLaudos(FXCollections.observableArrayList());
-            utilXml.listarArquivos(new File(utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString()));
+            utilXml.listarArquivos(new File(EnumCaminho.DiretorioXML.getCaminho() + cbEmpresa.getSelectionModel().getSelectedItem().toString()));
             lvLaudo.setItems(utilXml.getLaudos());
         }
     }
@@ -2674,10 +2674,10 @@ public class LaudoController {
     @FXML
     private void actionBtnCarregar() {
         if (lvLaudo.getSelectionModel().getSelectedItem() != null) {
-            LaudoType l = (LaudoType) utilXml.unmarshalFromFile(LaudoType.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString());
+            LaudoType l = (LaudoType) utilXml.unmarshalFromFile(LaudoType.class, EnumCaminho.DiretorioXML.getCaminho() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString());
             String comp = lvLaudo.getSelectionModel().getSelectedItem().toString().substring(0, lvLaudo.getSelectionModel().getSelectedItem().toString().indexOf("."));
             comp += "_complementar.xml";
-            laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
+            laudoComplementar = (LaudoComplementar) utilXml.unmarshalFromFile(LaudoComplementar.class, EnumCaminho.DiretorioXML.getCaminho() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + comp);
             if (laudoComplementar == null) {
                 mensagem.aviso(EnumMensagem.Aviso.getTitulo(), EnumMensagem.Aviso.getSubTitulo(), EnumMensagem.LaudoIdentificarEmpresa.getMensagem());
                 laudoComplementar = LaudoComplementar.getInstance();
@@ -2686,7 +2686,7 @@ public class LaudoController {
                 bindComponentsWithLaudoComplementar(laudoComplementar);
             }
 //            System.out.println(
-//                    "Laudo a ser carregado " + l);
+//                    "FXMLLaudo a ser carregado " + l);
             preenchimento(l);
             tpPrincipal.getSelectionModel()
                     .select(tabComplementar);
@@ -2697,7 +2697,7 @@ public class LaudoController {
 
     @FXML
     private void actionBtnAbrir() {
-        String fi = utilXml.getDiretorioInicial() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString();
+        String fi = EnumCaminho.DiretorioXML.getCaminho() + cbEmpresa.getSelectionModel().getSelectedItem().toString() + "/" + lvLaudo.getSelectionModel().getSelectedItem().toString();
         try {
             java.awt.Desktop.getDesktop().open(new File(fi));
 

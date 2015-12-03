@@ -1,10 +1,11 @@
 package com.unifil.agendapaf.view.controller;
 
-import com.unifil.agendapaf.model.aux.FerramentaEmail;
+import com.unifil.agendapaf.model.email.FerramentaEmail;
 import com.unifil.agendapaf.util.Criptografia;
 import com.unifil.agendapaf.util.MaskFieldUtil;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
+import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.File;
 import java.net.MalformedURLException;
@@ -34,8 +35,8 @@ public class FerramentaEmailController {
         cifra = new Criptografia();
         mensagem = new Mensagem(stage);
         MaskFieldUtil.numericField(txtPortaSMTP);
-        ferramentaEmail = (FerramentaEmail) utilFile.unmarshalFromFile(FerramentaEmail.class, "FerramentaEmail.xml");
-        System.out.println("FerramentaEmail " + ferramentaEmail);
+        ferramentaEmail = (FerramentaEmail) utilFile.unmarshalFromFile(FerramentaEmail.class, EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho());
+//        System.out.println("FerramentaEmail " + ferramentaEmail);
         setCampos(ferramentaEmail);
     }
 
@@ -93,7 +94,7 @@ public class FerramentaEmailController {
                 if (fileImg != null) {
                     ferramentaEmail.setCaminhoImg(fileImg.getAbsolutePath());
                 }
-                utilFile.salvarArquivo(new File("FerramentaEmail.xml"), utilFile.marshal(ferramentaEmail));
+                utilFile.salvarArquivo(new File(EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho()), utilFile.marshal(ferramentaEmail));
                 mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());
             } catch (Exception e) {
                 e.printStackTrace();

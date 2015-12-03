@@ -14,6 +14,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -45,7 +47,7 @@ public class GerarRelatorios {
     /**
      * Gera o relat�rio conforme as v�riaveis passadas por parametro
      *
-     * @param stage o FileChooser precisa de um stage para abrir a janela
+     * @param stage referencia para abrir a janela
      * @param jasperFile diretorio do arquivo
      * @param parametros parametros que compoem os arquivos jasper
      * @param extensao tipo de extensão que foi escolhido pelo usuário
@@ -54,14 +56,10 @@ public class GerarRelatorios {
      */
     public void gerarRelatorio(Stage stage, String jasperFile, Map<String, Object> parametros,/*String agrupadoPor, Object dados,*/ String extensao/*, String tipo*/, boolean isAnual, List<Anual> listaAnual) {
 
-//        String jasperFile = getJasperFile(tipo, agrupadoPor, dados);
-        System.out.println("jasperFile " + jasperFile);
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save");
             File file = fileChooser.showSaveDialog(stage);
-//            org.apache.log4j.BasicConfigurator.configure();
-//            JasperReport compile = JasperCompileManager.compileReport(jasperFile);
             if (file != null) {
                 String print = null;
                 if (isAnual) {
@@ -107,16 +105,24 @@ public class GerarRelatorios {
                 mensagem.informacao("Informação", "Informação do sistema", "Gerado com sucesso!!!");
                 Desktop desk = Desktop.getDesktop();
                 desk.open(file);
+                File fileSubRelatorio = null;
                 if (isAnual) {
                     Dialogos d = new Dialogos(stage);
                     Optional<ButtonType> result = d.confirmacao("Informação", "Informação do sistema", "Deseja gerar o Gráfico?!");
                     if (result.get() == ButtonType.OK) {
-                        gerarSubRelatorioAnual(stage, "relatorios/RelatorioFinanceiroAnualSubReport.jrxml", parametros, listaAnual);
+                        fileSubRelatorio = gerarSubRelatorioAnual(stage, "relatorios/RelatorioFinanceiroAnualSubReport.jrxml", parametros, listaAnual);
                     }
                     SceneManager.getInstance().getRelatorioController().setIsAnual(false);
                 }
                 SceneManager.getInstance().getRelatorioController().actionBtnLimpar();
+                ObservableList<File> anexos = FXCollections.observableArrayList();
+                anexos.add(file);
+                if (fileSubRelatorio != null) {
+                    anexos.add(fileSubRelatorio);
+                }
+                SceneManager.getInstance().showEmail(anexos);
             }
+            JPA.em(false).close();
         } catch (Exception e) {
             mensagem.erro("Informação", "Informação do sistema", "Erro ao gerar!!!", e);
             e.printStackTrace();
@@ -131,15 +137,15 @@ public class GerarRelatorios {
      * @param parametros parametros que compoem os arquivos jasper
      * @param listaAnual para compor o grafico
      */
-    private void gerarSubRelatorioAnual(Stage stage, String caminhoAbsoluto, Map<String, Object> parametros, List<Anual> listaAnual) {
+    private File gerarSubRelatorioAnual(Stage stage, String caminhoAbsoluto, Map<String, Object> parametros, List<Anual> listaAnual) {
         JRDataSource dataSource = new JRBeanCollectionDataSource(listaAnual, false);
         JasperReport compile;
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Save");
             File file = fileChooser.showSaveDialog(stage);
-            System.out.println("Caminho p1 " + file.getPath());
-            System.out.println("File " + file);
+//            System.out.println("Caminho p1 " + file.getPath());
+//            System.out.println("File " + file);
             if (file != null) {
                 compile = JasperCompileManager.compileReport(caminhoAbsoluto);
                 JasperPrint print = JasperFillManager.fillReport(
@@ -161,12 +167,13 @@ public class GerarRelatorios {
                 Desktop desk = Desktop.getDesktop();
                 desk.open(file);
             }
+            return file;
         } catch (JRException ex) {
             Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(RelatorioController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        return null;
     }
 
 }

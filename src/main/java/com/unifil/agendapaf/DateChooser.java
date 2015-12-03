@@ -37,7 +37,7 @@ public class DateChooser extends Control {
 
     @Override
     public String getUserAgentStylesheet() {
-        return EnumCaminho.CssCalendar.getCaminho();
+        return EnumCaminho.CSSCalendar.getCaminho();
     }
 
     public Date getDate() {

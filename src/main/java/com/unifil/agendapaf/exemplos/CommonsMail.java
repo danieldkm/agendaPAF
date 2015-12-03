@@ -1,6 +1,6 @@
 package com.unifil.agendapaf.exemplos;
 
-import com.unifil.agendapaf.model.aux.FerramentaEmail;
+import com.unifil.agendapaf.model.email.FerramentaEmail;
 import com.unifil.agendapaf.util.Criptografia;
 import com.unifil.agendapaf.util.UtilFile;
 import java.io.File;

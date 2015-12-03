@@ -21,7 +21,7 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         mainStage = primaryStage;
         mainStage.setTitle("Agenda PAF");
-        mainStage.getIcons().add(new Image(EnumCaminho.LogoPAFECFUniFil.getCaminho()));
+        mainStage.getIcons().add(new Image(EnumCaminho.ImgLogoPAFECFUniFil.getCaminho()));
         SceneManager.getInstance().setPrimaryStage(this);
         
     }

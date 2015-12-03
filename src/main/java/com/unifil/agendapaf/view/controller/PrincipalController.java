@@ -222,7 +222,7 @@ public class PrincipalController {
 
     @FXML
     protected void iniciarEmail() {
-        sceneManager.showEmail();
+        sceneManager.showEmail(null);
     }
 
     @FXML

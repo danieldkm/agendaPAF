@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Emails>
+    <Emails>
+        <destinatario>destinatario</destinatario>
+        <assunto>Assunto</assunto>
+        <conteudo>conteudo</conteudo>
+        <remente>
+            <HostName>smtp.googlemail.com</HostName>
+            <PortaSMTP>465</PortaSMTP>
+            <Email>danielkeyti@gmail.com</Email>
+            <Senha>sasmgq@trtoia</Senha>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/src/main/resources/image/AgendaBannerTop.png</CaminhoImg>
+        </remente>
+    </Emails>
+</Emails>

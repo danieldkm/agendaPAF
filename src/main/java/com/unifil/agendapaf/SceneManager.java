@@ -42,6 +42,7 @@ import com.unifil.agendapaf.view.controller.UsuarioController;
 import com.unifil.agendapaf.view.controller.VisualizadorMotivoController;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import java.io.File;
 import java.time.LocalDate;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -53,6 +54,7 @@ import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -165,7 +167,7 @@ public class SceneManager {
         try {
             Stage stage = this.application.getStage();
             FXMLLoader rootLoader = new FXMLLoader();
-            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.Inicial.getCaminho()));
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLInicial.getCaminho()));
             Parent loginLayout = rootLoader.load();
             inicialController = rootLoader.getController();
             inicialController.setStage(stage);
@@ -182,7 +184,7 @@ public class SceneManager {
         try {
             Stage rootStage = new Stage();
             FXMLLoader rootLoader = new FXMLLoader();
-            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.NewLogin.getCaminho()));
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLNewLogin.getCaminho()));
             Parent parent = rootLoader.load();
             newLoginController = rootLoader.getController();
             newLoginController.setStage(rootStage);
@@ -204,7 +206,7 @@ public class SceneManager {
         try {
             Stage rootStage = this.application.getStage();
             FXMLLoader rootLoader = new FXMLLoader();
-            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.Login.getCaminho()));
+            rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLLogin.getCaminho()));
             loginLayout = (VBox) rootLoader.load();
             loginController = rootLoader.getController();
             loginController.setStage(rootStage);
@@ -221,13 +223,13 @@ public class SceneManager {
             principalStage = new Stage();
             mensagem = new Mensagem(principalStage);
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Principal.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLPrincipal.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             principalController = loader.getController();
             principalController.setStage(principalStage);
             principalController.setPrincipalId(layout);
 
-            principalStage.getIcons().add(new Image(EnumCaminho.LogoPAFECFUniFil.getCaminho()) {
+            principalStage.getIcons().add(new Image(EnumCaminho.ImgLogoPAFECFUniFil.getCaminho()) {
             });
 
             criarPadrao("Agenda PAF-ECF", principalStage, layout);
@@ -246,7 +248,7 @@ public class SceneManager {
         try {
             agendaStage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Agenda.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLAgenda.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             agendaController = loader.getController();
             agendaController.setStage(agendaStage);
@@ -271,7 +273,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Empresa.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLEmpresa.getCaminho()));
             Parent layout = loader.load();
             empresaController = loader.getController();
             empresaController.setStage(stage);
@@ -301,7 +303,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaEmpresa.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaEmpresa.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaEmpresaController = loader.getController();
             tabelaEmpresaController.setStage(stage);
@@ -318,7 +320,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaAgenda.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaAgenda.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaAgendaController = loader.getController();
             tabelaAgendaController.setStage(stage);
@@ -336,7 +338,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Alerta.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLAlerta.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             alertaController = loader.getController();
             alertaController.setStage(stage);
@@ -353,7 +355,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.CalendarioSemestral.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLCalendarioSemestral.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             calendarioSemestralController = loader.getController();
             calendarioSemestralController.setStage(stage);
@@ -370,7 +372,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Feriado.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFeriado.getCaminho()));
             VBox layout = (VBox) loader.load();
             feriadoController = loader.getController();
             feriadoController.setStage(stage);
@@ -386,7 +388,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaBD.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFerramentaBD.getCaminho()));
             VBox layout = (VBox) loader.load();
             ferramentaBDController = loader.getController();
             ferramentaBDController.setStage(stage);
@@ -402,7 +404,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Financeiro.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFinanceiro.getCaminho()));
             VBox layout = (VBox) loader.load();
             financeiroController = loader.getController();
             financeiroController.setStage(stage);
@@ -424,7 +426,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Laudo.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLLaudo.getCaminho()));
             VBox layout = (VBox) loader.load();
             laudoController = loader.getController();
             laudoController.setStage(stage);
@@ -443,7 +445,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaLaudo.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFerramentaLaudo.getCaminho()));
             VBox layout = (VBox) loader.load();
             ferramentaLaudoController = loader.getController();
             ferramentaLaudoController.setStage(stage);
@@ -461,7 +463,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.MotivoReagendamento.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLMotivoReagendamento.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             motivoReagendamentoController = loader.getController();
             motivoReagendamentoController.setStage(stage);
@@ -477,7 +479,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaFinanceiro.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFerramentaFinanceiro.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             ferramentaFinanceiroController = loader.getController();
             ferramentaFinanceiroController.setStage(stage);
@@ -493,7 +495,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.FerramentaEmail.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLFerramentaEmail.getCaminho()));
             VBox layout = (VBox) loader.load();
             ferramentaEmailController = loader.getController();
             ferramentaEmailController.setStage(stage);
@@ -505,15 +507,16 @@ public class SceneManager {
         }
     }
     
-    public void showEmail() {
+    public void showEmail(ObservableList<File> anexos) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Email.getCaminho()));
-            VBox layout = (VBox) loader.load();
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLEmail.getCaminho()));
+            HBox layout = (HBox) loader.load();
             emailController = loader.getController();
             emailController.setStage(stage);
             emailController.setPrincipal(layout);
+            emailController.setAnexos(anexos);
             criarPadraoModal("E-mail", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();
@@ -525,7 +528,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Relatorio.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLRelatorio.getCaminho()));
             VBox layout = (VBox) loader.load();
             relatorioController = loader.getController();
             relatorioController.setStage(stage);
@@ -542,7 +545,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.RelatorioFinanceiro.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLRelatorioFinanceiro.getCaminho()));
             VBox layout = (VBox) loader.load();
             relatorioFinanceiroController = loader.getController();
             relatorioFinanceiroController.setStage(stage);
@@ -560,7 +563,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaEmpresasHomologadas.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaEmpresasHomologadas.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             empresasHomologadasController = loader.getController();
             empresasHomologadasController.setStage(stage);
@@ -576,7 +579,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaFeriados.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaFeriados.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaFeriadoController = loader.getController();
             tabelaFeriadoController.setStage(stage);
@@ -592,7 +595,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaFinanceiro.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaFinanceiro.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaFinanceiroController = loader.getController();
             tabelaFinanceiroController.setStage(stage);
@@ -608,7 +611,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaHistorico.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaHistorico.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaHistoricoController = loader.getController();
             tabelaHistoricoController.setStage(stage);
@@ -624,7 +627,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.TabelaUsuario.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLTabelaUsuario.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             tabelaUsuarioController = loader.getController();
             tabelaUsuarioController.setStage(stage);
@@ -640,7 +643,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.Usuario.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLUsuario.getCaminho()));
             VBox layout = (VBox) loader.load();
             usuarioController = loader.getController();
             usuarioController.setStage(stage);
@@ -656,7 +659,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.VisualizadorMotivo.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLVisualizadorMotivo.getCaminho()));
             BorderPane layout = (BorderPane) loader.load();
             visulizadorMotivoController = loader.getController();
             visulizadorMotivoController.setStage(stage);
@@ -673,7 +676,7 @@ public class SceneManager {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(MainApp.class.getResource(EnumCaminho.EscolherDosc.getCaminho()));
+            loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLEscolherDosc.getCaminho()));
             VBox layout = (VBox) loader.load();
             escolherDocsController = loader.getController();
             System.out.println("escolhcer " + escolherDocsController);

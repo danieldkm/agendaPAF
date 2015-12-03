@@ -120,9 +120,9 @@
                         <MenuItem mnemonicParsing="false" text="Iniciar sincronismo" />
                     </items>
                 </Menu>
-            <Menu mnemonicParsing="false" text="Teste">
+            <Menu mnemonicParsing="false" text="E-mail">
               <items>
-                <MenuItem mnemonicParsing="false" onAction="#iniciarEmail" text="Email" />
+                <MenuItem mnemonicParsing="false" onAction="#iniciarEmail" text="E-mail" />
               </items>
             </Menu>
             </menus>

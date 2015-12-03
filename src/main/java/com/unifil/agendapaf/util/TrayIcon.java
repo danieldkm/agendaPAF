@@ -35,8 +35,8 @@ public class TrayIcon {
         SystemTray tray = SystemTray.getSystemTray();
         // load an image
         java.awt.Image image = null;
-        image = Toolkit.getDefaultToolkit().getImage(TrayIcon.class.getResource(EnumCaminho.LogoPAFECFUniFil.getCaminho()));
-        stage.getIcons().add(new Image(EnumCaminho.LogoPAFECFUniFil.getCaminho()) {
+        image = Toolkit.getDefaultToolkit().getImage(TrayIcon.class.getResource(EnumCaminho.ImgLogoPAFECFUniFil.getCaminho()));
+        stage.getIcons().add(new Image(EnumCaminho.ImgLogoPAFECFUniFil.getCaminho()) {
         });
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

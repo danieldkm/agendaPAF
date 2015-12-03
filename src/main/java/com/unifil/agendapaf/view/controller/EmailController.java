@@ -4,16 +4,21 @@ import com.unifil.agendapaf.MainApp;
 import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Usuario;
-import com.unifil.agendapaf.model.aux.FerramentaEmail;
+import com.unifil.agendapaf.model.email.Emails;
+import com.unifil.agendapaf.model.email.FerramentaEmail;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.UtilEmail;
 import com.unifil.agendapaf.util.UtilFile;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumCaminho;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.application.Application;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -23,6 +28,8 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +38,9 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.DropShadow;
@@ -41,6 +50,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.HTMLEditor;
@@ -49,7 +59,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javassist.bytecode.annotation.EnumMemberValue;
+import org.apache.commons.mail.Email;
+import org.apache.commons.mail.EmailException;
+import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.PopOver;
 import org.controlsfx.control.action.Action;
 import org.controlsfx.control.action.ActionUtils;
@@ -66,16 +78,15 @@ public class EmailController extends Application {
      */
     @FXML
     public void initialize() {
-        //Menu
-        principal.getChildren().add(0, ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW));
-
+        idImgView = 0;
         mensagem = new Mensagem(stage);
-        hideHtmlEditor();
+        utilFile = new UtilFile();
         masterArrowSize = new SimpleDoubleProperty(0);
         masterArrowIndent = new SimpleDoubleProperty(0);
         masterCornerRadius = new SimpleDoubleProperty(0);
         masterArrowLocation = new SimpleObjectProperty<>(PopOver.ArrowLocation.TOP_CENTER);
         masterHeaderAlwaysVisible = new SimpleBooleanProperty(false);
+
         listaContato = FXCollections.observableArrayList();
         addAllListaContato();
 
@@ -84,9 +95,29 @@ public class EmailController extends Application {
         listaGrupo.add("Empresa");
         listaGrupo.add("Usuário");
 
+        utilEmail = new UtilEmail();
+        vbCampos.getChildren().add(hbAnexoPrincipal);
+        vbEmail.getChildren().add(0, ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW));
+//        //Realocar os pane para add Masker
+        StackPane sp = new StackPane();
+        principal.getChildren().remove(vbEmail);
+        principal.getChildren().remove(vbMais);
+        principal.getChildren().remove(vbEmailSalvo);
+        HBox hbTemp = new HBox();
+        hbTemp.getChildren().addAll(vbEmail, vbMais, vbEmailSalvo);
+        sp.getChildren().addAll(hbTemp, masker);
+        masker.setVisible(false);
+        principal.getChildren().add(sp);
+        hideHtmlEditor();
+//        principal.getChildren().remove(vbCampos);
+//        principal.getChildren().remove(htmlEditor);
+//        VBox vbTemp = new VBox();
+//        vbTemp.getChildren().addAll(ActionUtils.createToolBar(actions, ActionUtils.ActionTextBehavior.SHOW), vbCampos, htmlEditor);
+//        sp.getChildren().addAll(vbTemp, masker);
         UtilFile utilFile = new UtilFile();
-        ferramentaEmail = (FerramentaEmail) utilFile.unmarshalFromFile(FerramentaEmail.class, "FerramentaEmail.xml");
+        ferramentaEmail = (FerramentaEmail) utilFile.unmarshalFromFile(FerramentaEmail.class, EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho());
         txtDe.setText(ferramentaEmail.getEmail());
+        utilFile.criarDiretorio(EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + ferramentaEmail.getEmail());
         if (ferramentaEmail.getCaminhoImg() != null) {
             if (!ferramentaEmail.getCaminhoImg().equals("")) {
                 htmlEditor.setHtmlText(
@@ -101,35 +132,16 @@ public class EmailController extends Application {
                 );
             }
         }
-
-        utilEmail = new UtilEmail();
-    }
-
-    private void addAllListaContato() {
-        for (Empresa e : StaticLista.getListaGlobalEmpresa()) {
-            listaContato.add(e);
-        }
-
-        for (Usuario u : StaticLista.getListaGlobalUsuario()) {
-            listaContato.add(u);
-        }
-    }
-
-    private void addEmpresasListaContato() {
-        for (Empresa e : StaticLista.getListaGlobalEmpresa()) {
-            listaContato.add(e);
-        }
-    }
-
-    private void addUsuariosListaContato() {
-        for (Usuario u : StaticLista.getListaGlobalUsuario()) {
-            listaContato.add(u);
-        }
     }
 
     @FXML
-    private VBox principal;
+    private HBox principal;
     @FXML
+    private VBox vbEmail;
+    @FXML
+    private VBox vbEmailSalvo;
+    @FXML
+    private VBox vbMais;
     private HTMLEditor htmlEditor;
     @FXML
     private TextField txtPara;
@@ -139,6 +151,8 @@ public class EmailController extends Application {
     private TextField txtAssunto;
     @FXML
     private ImageView imgAddContato;
+    @FXML
+    private VBox vbCampos;
 
     private static Stage stage;
     private Collection<? extends Action> actions = Arrays.asList(
@@ -178,6 +192,14 @@ public class EmailController extends Application {
     private ObservableList<String> listaGrupo;
     private ObservableList<Object> listaContato;
     private Mensagem mensagem;
+    private double tamanhoAnexo = 0;
+    private ProgressIndicator pi = new ProgressIndicator(tamanhoAnexo);
+    private HBox hbAnexoPrincipal = new HBox(5);
+    private VBox vbAnexos = new VBox(5);
+    private Label lbTamanhoTotalAnexo = new Label();
+    private int idImgView;
+    private MaskerPane masker = new MaskerPane();
+    private UtilFile utilFile;
 
     @FXML
     private void onMouseEnteredImgAddContato() {
@@ -208,6 +230,28 @@ public class EmailController extends Application {
             popOver.show(stage);
         } else {
             popOver.show(stage, targetX, targetY);
+        }
+    }
+
+    @FXML
+    private VBox vboxEmailSalvo;
+
+    @FXML
+    private void onActionEmailSalvo(ActionEvent event) {
+        if (vboxEmailSalvo.getChildren().size() == 0) {
+            ListView<VBox> lv = new ListView();
+            VBox vbox = new VBox();
+            Label assunto = new Label("Assunto");
+            assunto.setStyle("-fx-text-fill: lightgray");
+            Label conteudo = new Label("Conteudo");
+            conteudo.setStyle("-fx-text-fill: lightgray");
+            vbox.getChildren().addAll(new Label("Remente"), assunto, conteudo);
+            lv.getItems().add(vbox);
+//            lv.getItems().add("22222222");
+//            lv.getItems().add("33333333");
+//            lv.getItems().add("444444444");
+            vboxEmailSalvo.getChildren().addAll(lv);
+            stage.setMinWidth(800);
         }
     }
 
@@ -379,6 +423,19 @@ public class EmailController extends Application {
     }
 
     public static void main(String[] args) {
+//        com.unifil.agendapaf.model.email.Email teste = new com.unifil.agendapaf.model.email.Email();
+//        teste.setAssunto("Assunto");
+//        teste.setConteudo("conteudo");
+//        teste.setDestinatario("destinatario");
+//        UtilFile uf = new UtilFile();
+//        FerramentaEmail fe = (FerramentaEmail) uf.unmarshalFromFile(FerramentaEmail.class, EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho());
+//        teste.setRemente(fe);
+//        uf.criarDiretorio(EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + fe.getEmail());
+//        Emails e = new Emails();
+//        e.getEmails().add(teste);
+//        System.out.println("" + EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + fe.getEmail());
+//        uf.salvarArquivo(new File(EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + fe.getEmail()), uf.marshal(e));
+
         launch(args);
     }
 
@@ -386,8 +443,8 @@ public class EmailController extends Application {
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
         FXMLLoader rootLoader = new FXMLLoader();
-        rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.Email.getCaminho()));
-        VBox layout = (VBox) rootLoader.load();
+        rootLoader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLEmail.getCaminho()));
+        HBox layout = (HBox) rootLoader.load();
 //        stage.initStyle(StageStyle.UNDECORATED);
         principal = layout;
 //        layout.getChildren().add(ActionUtils.createToolBar(null, ActionUtils.ActionTextBehavior.SHOW));
@@ -405,8 +462,130 @@ public class EmailController extends Application {
         this.stage = stage;
     }
 
-    public void setPrincipal(VBox layout) {
+    public void setPrincipal(HBox layout) {
         principal = layout;
+    }
+
+    public void setAnexos(ObservableList<File> anexos) {
+
+    }
+
+    private void addAllListaContato() {
+        for (Empresa e : StaticLista.getListaGlobalEmpresa()) {
+            listaContato.add(e);
+        }
+
+        for (Usuario u : StaticLista.getListaGlobalUsuario()) {
+            listaContato.add(u);
+        }
+    }
+
+    private void addEmpresasListaContato() {
+        for (Empresa e : StaticLista.getListaGlobalEmpresa()) {
+            listaContato.add(e);
+        }
+    }
+
+    private void addUsuariosListaContato() {
+        for (Usuario u : StaticLista.getListaGlobalUsuario()) {
+            listaContato.add(u);
+        }
+    }
+
+    private void anexar() {
+        try {
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(stage);
+            if (hbAnexoPrincipal.getChildren().size() == 0) {
+                lbTamanhoTotalAnexo.setText(tamanhoAnexo + "MB");
+                hbAnexoPrincipal.getChildren().addAll(vbAnexos, pi, lbTamanhoTotalAnexo);
+            }
+            if (vbCampos.getChildren().size() == 3) {
+                vbCampos.getChildren().add(hbAnexoPrincipal);
+            }
+            try {
+                //retorna o icone do arquivo selecionado contido no file
+                final javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+                javax.swing.Icon icon = fc.getUI().getFileView(fc).getIcon(file);
+
+                BufferedImage bufferedImage = new BufferedImage(
+                        icon.getIconWidth(),
+                        icon.getIconHeight(),
+                        BufferedImage.TYPE_INT_ARGB
+                );
+                icon.paintIcon(null, bufferedImage.getGraphics(), 0, 0);
+                Image fxImage = SwingFXUtils.toFXImage(
+                        bufferedImage, null
+                );
+                ImageView imageView = new ImageView(fxImage);
+
+                double bytes = file.length();
+                double kilobytes = (bytes / 1024);
+                final double megabytes = (kilobytes / 1024);
+//                double gigabytes = (megabytes / 1024);
+//                double terabytes = (gigabytes / 1024);
+//                double petabytes = (terabytes / 1024);
+//                double exabytes = (petabytes / 1024);
+//                double zettabytes = (exabytes / 1024);
+//                double yottabytes = (zettabytes / 1024);
+                if (megabytes > 25) {
+                    mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo não pode ser maior que 25 MB");
+                } else {
+                    //Add icone do arquivo, nome, tamanho e uma lixeira
+                    HBox hbTemp = new HBox(5);
+                    hbTemp.getChildren().add(imageView);
+                    hbTemp.getChildren().add(new Label(file.getName()));
+                    hbTemp.getChildren().add(new Label("(" + String.format("%.2f", megabytes) + "MB)"));
+//                System.out.println("filetrash "+ fileTrash.getAbsolutePath());
+                    Image imageTrash = new Image("/image/trash.png");
+                    ImageView iv = new ImageView(imageTrash);
+                    hbTemp.setId(idImgView + "");
+                    iv.setOnMouseClicked(e -> {
+                        //quando clica na imagem da lixeira toma a seguinte ação;
+                        //remove o HBox que contém o anexo
+                        vbAnexos.getChildren().remove(hbTemp);
+                        //realterar a porcentagem do progresso diminuindo 
+                        //conforme o tamanho do anexo a ser removido
+                        double removeProgresso = recalcularIndicadorProgresso(megabytes);
+                        tamanhoAnexo += -megabytes;
+                        lbTamanhoTotalAnexo.setText(String.format("%.2f", tamanhoAnexo) + "MB");
+                        pi.setProgress(pi.getProgress() - removeProgresso);
+//                    System.out.println("vbAnexos.getChildren().size() " + vbAnexos.getChildren().size());
+                        //caso não houver nenhum anexo remover o Hbox principal do anexo
+                        if (vbAnexos.getChildren().size() == 0) {
+                            vbCampos.getChildren().remove(hbAnexoPrincipal);
+                        }
+                        utilEmail.removerAnexo(hbTemp.getId());
+                    });
+                    hbTemp.getChildren().add(iv);
+                    vbAnexos.getChildren().addAll(hbTemp);
+                    DecimalFormat formato = new DecimalFormat("#.##");
+                    double tempMegabytes = Double.valueOf(formato.format(megabytes).replace(",", "."));
+                    tamanhoAnexo += tempMegabytes;
+                    double progresso = recalcularIndicadorProgresso(tamanhoAnexo);
+//                System.out.println("progresso " + progresso);
+                    lbTamanhoTotalAnexo.setText(String.format("%.2f", tamanhoAnexo) + "/25MB");
+                    if (progresso > 1.0) {
+                        mensagem.aviso(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Tamanho total do anexo excede o limite de 25 MB");
+                    } else {
+                        pi.setProgress(progresso);
+                    }
+                    utilEmail.anexar(file.getAbsolutePath(), (idImgView++) + "");
+                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo anexado! " + file.getName());
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+            }
+        } catch (Exception e) {
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar anexar", e);
+            e.printStackTrace();
+        }
+    }
+
+    private double recalcularIndicadorProgresso(double progresso) {
+        progresso = (progresso / (25 * 100)) * 100;
+        return progresso;
     }
 
     class DummyAction extends Action {
@@ -430,24 +609,30 @@ public class EmailController extends Application {
                 });
             } else if (id.equals("anexo")) {
                 setEventHandler(ae -> {
-                    FileChooser fileChooser = new FileChooser();
-                    File file = fileChooser.showOpenDialog(stage);
-                    utilEmail.anexar(file.getAbsolutePath());
-//                    System.out.println("file " + file.getAbsolutePath());
-                    mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Arquivo anexado! " + file.getName());
+                    anexar();
                 });
             } else if (id.equals("enviar")) {
                 setEventHandler(ae -> {
                     try {
-
+                        masker.setVisible(true);
                         ObservableList<Object> contatos = FXCollections.observableArrayList();
                         for (String split : txtPara.getText().split(";")) {
                             contatos.add(split.trim());
-//                        System.out.println("split " + split.trim());
                         }
                         utilEmail.enviarEmail(ferramentaEmail, htmlEditor.getHtmlText(), contatos, txtAssunto.getText());
-                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "E-mail enviado com sucesso!");
+//                        utilFile.criarDiretorio(EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + ferramentaEmail.getEmail());
+                        com.unifil.agendapaf.model.email.Email email = new com.unifil.agendapaf.model.email.Email();
+                        email.setAssunto(txtAssunto.getText());
+                        email.setDestinatario(txtPara.getText());
+                        email.setRemente(ferramentaEmail);
+                        email.setConteudo(removerTagsHTML(htmlEditor.getHtmlText()));
+                        Emails emails = (Emails) utilFile.unmarshalFromFile(Emails.class, EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + ferramentaEmail.getEmail() + "/" + EnumCaminho.XMLEmails.getCaminho());
+//                        utilFile.salvarArquivo(new File(EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho()), utilFile.marshal(ferramentaEmail));
+                        emails.getEmails().add(email);
+                        File direc = new File(EnumCaminho.DiretorioEmailEnviadas.getCaminho() + "/" + ferramentaEmail.getEmail() + "/" + EnumCaminho.XMLEmails.getCaminho());
+                        utilFile.salvarArquivo(direc, utilFile.marshal(emails));
                         stage.close();
+                        mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "E-mail enviado com sucesso!");
                     } catch (Exception e) {
                         mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao tentar enviar e-mail", e);
                         e.printStackTrace();
@@ -493,6 +678,18 @@ public class EmailController extends Application {
                     }
                 });
             }
+        }
+
+        private String removerTagsHTML(String htmlText) {
+            Pattern pattern = Pattern.compile("<[^>]*>");
+            Matcher matcher = pattern.matcher(htmlText);
+            final StringBuffer sb = new StringBuffer(htmlText.length());
+            while (matcher.find()) {
+                matcher.appendReplacement(sb, " ");
+            }
+            matcher.appendTail(sb);
+            System.out.println(sb.toString().trim());
+            return sb.toString();
         }
 
         private String hex(int i) {

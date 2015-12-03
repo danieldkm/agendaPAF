@@ -3,11 +3,12 @@ package com.unifil.agendapaf.util;
 import com.unifil.agendapaf.model.Contato;
 import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Usuario;
-import com.unifil.agendapaf.model.aux.FerramentaEmail;
+import com.unifil.agendapaf.model.email.FerramentaEmail;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import java.io.File;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import javafx.collections.ObservableList;
@@ -96,7 +97,7 @@ public class UtilEmail {
 //        email.setSubject(assunto);
 //    }
     /**
-     * envia email simples(somente texto)
+     * Enviar email simples(somente texto)
      *
      * @param destinatario
      * @param mensagem
@@ -129,17 +130,39 @@ public class UtilEmail {
      * Anexar arquivo
      *
      * @param caminhoArquivo caminho absoluto do arquivo
+     * @param idName
      */
-    public void anexar(String caminhoArquivo) {
+    public void anexar(String caminhoArquivo, String idName) {
         try {
             EmailAttachment anexar = new EmailAttachment();
             anexar.setPath(caminhoArquivo);
             anexar.setDisposition(EmailAttachment.ATTACHMENT);
+            anexar.setDescription(idName);
 //        anexar.setDescription("Picture of John");
 //        anexar.setName("John");
             anexos.add(anexar);
         } catch (Exception e) {
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao anexar", e);
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Remover anexo conforme o idName
+     *
+     * @param idName utilizei a descrição do anexo para fazer a verificação do
+     * id que foi add para remover
+     */
+    public void removerAnexo(String idName) {
+        try {
+            for (EmailAttachment anexo : anexos) {
+                if (anexo.getDescription().equals(idName)) {
+                    anexos.remove(anexo);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao remover o anexo", e);
             e.printStackTrace();
         }
     }
@@ -151,60 +174,61 @@ public class UtilEmail {
      * @param html
      * @param para
      * @param assunto
+     * @throws EmailException
+     * @throws MalformedURLException
      */
-    public void enviarEmail(FerramentaEmail ferramentaEmail, String html, ObservableList<Object> para, String assunto) {
-        try {
-            System.out.println("ferramentaEmail " + ferramentaEmail);
-            ImageHtmlEmail email = new ImageHtmlEmail();
-            email.setDataSourceResolver(new DataSourceUrlResolver(new File("").toURI().toURL()));
+    public void enviarEmail(FerramentaEmail ferramentaEmail, String html, ObservableList<Object> para, String assunto) throws MalformedURLException, EmailException {
+        System.out.println("ferramentaEmail " + ferramentaEmail);
+        ImageHtmlEmail email = new ImageHtmlEmail();
+        email.setDataSourceResolver(new DataSourceUrlResolver(new File("").toURI().toURL()));
 //            // adiciona uma imagem ao corpo da mensagem e retorna seu id  
 //            URL url = new URL("http://www.apache.org/images/asf_logo_wide.gif");
 //            String cid = email.embed(url, "Apache logo");
-            // configura a mensagem para o formato HTML  
-            email.setHtmlMsg(html);
-            // configure uma mensagem alternativa caso o servidor não suporte HTML  
-            email.setTextMsg("Seu servidor de e-mail não suporta mensagem HTML");
+        // configura a mensagem para o formato HTML  
+        email.setHtmlMsg(html);
+        // configure uma mensagem alternativa caso o servidor não suporte HTML  
+        email.setTextMsg("Seu servidor de e-mail não suporta mensagem HTML");
 
-            email.setHostName(ferramentaEmail.getHostName()); // o servidor SMTP para envio do e-mail  
-            for (Object o : para) {
-                if (o instanceof Usuario) {
-                    Usuario u = (Usuario) o;
-                    email.addTo(u.getEmail(), u.getNome());
-                } else if (o instanceof Empresa) {
-                    Empresa e = (Empresa) o;
-                    for (Contato c : StaticLista.getListaGlobalContato()) {
-                        if (c.getIdEmpresa().getId().equals(e.getId())) {
-                            email.addTo(c.getEmail(), c.getNome());
-                        }
+        email.setHostName(ferramentaEmail.getHostName()); // o servidor SMTP para envio do e-mail  
+        for (Object o : para) {
+            if (o instanceof Usuario) {
+                Usuario u = (Usuario) o;
+                email.addTo(u.getEmail(), u.getNome());
+            } else if (o instanceof Empresa) {
+                Empresa e = (Empresa) o;
+                for (Contato c : StaticLista.getListaGlobalContato()) {
+                    if (c.getIdEmpresa().getId().equals(e.getId())) {
+                        email.addTo(c.getEmail(), c.getNome());
                     }
-                } else {
-                    String s = (String) o;
-//                    System.out.println("DESTINATARIO " + s);
-                    email.addTo(s);
                 }
+            } else {
+                String s = (String) o;
+//                    System.out.println("DESTINATARIO " + s);
+                email.addTo(s);
             }
-            email.setFrom(ferramentaEmail.getEmail(), "PAF-ECF"); // remetente  
-            email.setSubject(assunto); // assunto do e-mail  
+        }
+        email.setFrom(ferramentaEmail.getEmail(), "PAF-ECF"); // remetente  
+        email.setSubject(assunto); // assunto do e-mail  
 //            email.setMsg("???"); //conteudo do e-mail  
-            System.out.println("ferramentaEmail.getEmail().substring(0, ferramentaEmail.getEmail().indexOf(\"@\")) " + ferramentaEmail.getEmail().substring(0, ferramentaEmail.getEmail().indexOf("@")));
-            Criptografia cri = new Criptografia();
-            email.setAuthentication(ferramentaEmail.getEmail(), cri.decifrarVigenere(ferramentaEmail.getSenha()));
-            email.setSmtpPort(ferramentaEmail.getPortaSMTP());
-            email.setSSLOnConnect(true);
+        System.out.println("ferramentaEmail.getEmail().substring(0, ferramentaEmail.getEmail().indexOf(\"@\")) " + ferramentaEmail.getEmail().substring(0, ferramentaEmail.getEmail().indexOf("@")));
+        Criptografia cri = new Criptografia();
+        email.setAuthentication(ferramentaEmail.getEmail(), cri.decifrarVigenere(ferramentaEmail.getSenha()));
+        email.setSmtpPort(ferramentaEmail.getPortaSMTP());
+        email.setSSLOnConnect(true);
 //        email.setSSL(true);
 //        email.setTLS(true);
 
-            if (anexos.size() > 0) {
-                for (EmailAttachment anexo : anexos) {
-                    email.attach(anexo);
-                }
+        if (anexos.size() > 0) {
+            for (EmailAttachment anexo : anexos) {
+                email.attach(anexo);
             }
-            // envia email  
-            email.send();
-        } catch (Exception e) {
-            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao criar e-mail", e);
-            e.printStackTrace();
         }
+        // envia email  
+        email.send();
+//        } catch (Exception e) {
+//            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao criar e-mail", e);
+//            e.printStackTrace();
+//        }
     }
 
 }

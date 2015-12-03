@@ -32,7 +32,7 @@ public class EscolherDocsController {
     @FXML
     public void initialize() {
         utilXML = new UtilFile();
-        utilXML.listarArquivos(new File(EnumCaminho.ModeloDocxs.getCaminho()));
+        utilXML.listarArquivos(new File(EnumCaminho.DocxsModelo.getCaminho()));
 //        utilXML.listarArquivos(new File(System.getProperty("user.dir") + "/docx"));
         for (String it : utilXML.getDocs()) {
             Item item = new Item(it, false);

@@ -122,20 +122,20 @@ public class RelatorioController {
             if (cbRelatorio.getValue().equals("Agenda")) {
 //            ds = new JRBeanCollectionDataSource(Controller.getAgendasOrderBy());
                 if (cbGrupo.getValue().equals("Empresa")) {
-//                System.out.println("Relatorio de agenda1 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + empresaEncontrada.getCodEmpresa() + "\nExtensao: " + cbExtensao.getValue());
-                    relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "Agenda"*/, false, listaAnual);
+//                System.out.println("FXMLRelatorio de agenda1 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + empresaEncontrada.getCodEmpresa() + "\nExtensao: " + cbExtensao.getValue());
+                    relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), sceneManager.getEmpresaEncontrada().getId()), parametros, /*cbGrupo.getValue().toString(), empresaEncontrada.getCodEmpresa(), */ cbExtensao.getValue().toString()/*, "FXMLAgenda"*/, false, listaAnual);
                 } else if (cbGrupo.getValue().equals("Período")) {
-//                System.out.println("Relatorio de agenda2 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + dataPicker.getValue() + "\nExtensao: " + cbExtensao.getValue());
-//                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "Agenda");
-//                relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString());
+//                System.out.println("FXMLRelatorio de agenda2 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + dataPicker.getValue() + "\nExtensao: " + cbExtensao.getValue());
+//                relatorio.gerarRelatorio(stage, cbGrupo.getValue().toString(), dataPicker.getValue(), cbExtensao.getValue().toString(), "FXMLAgenda");
+//                relatorio.gerarRelatorio(stage, getJasperFile("FXMLAgenda", cbGrupo.getValue().toString(), converterLocalDateToUtilDate(dataPicker.getValue())), parametros, cbExtensao.getValue().toString());
                     relatorio.gerarRelatorio(stage, getJasperFile("Agenda", cbGrupo.getValue().toString(), ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
                 } else {
-//                System.out.println("Relatorio de agenda3 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + txtInfo.getText() + "\nExtensao: " + cbExtensao.getValue());
-//                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Agenda");
+//                System.out.println("FXMLRelatorio de agenda3 \nGrupo: " + cbGrupo.getValue() + "\nInfo: " + txtInfo.getText() + "\nExtensao: " + cbExtensao.getValue());
+//                relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "FXMLAgenda");
                     relatorio.gerarRelatorio(stage, getJasperFile("Agenda", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
                 }
             } else if (cbRelatorio.getValue().equals("Empresa")) {
-//            relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "Empresa");
+//            relatorio.gerarRelatorio(stage, "", "", cbExtensao.getValue().toString(), "FXMLEmpresa");
                 relatorio.gerarRelatorio(stage, getJasperFile("Empresa", "", ""), parametros, cbExtensao.getValue().toString(), false, listaAnual);
             } else if (cbRelatorio.getValue().equals("Historico")) {
                 if (cbGrupo.getValue().equals("Empresa")) {
@@ -267,7 +267,7 @@ public class RelatorioController {
     public String getJasperFile(String tipo, String agrupadoPor, Object dados) {
         BufferedImage gto = null;
         try {
-            gto = ImageIO.read(getClass().getResource(EnumCaminho.LogoPAFECFUniFil.getCaminho()));
+            gto = ImageIO.read(getClass().getResource(EnumCaminho.ImgLogoPAFECFUniFil.getCaminho()));
         } catch (IOException ex) {
             Logger.getLogger(GerarRelatorios.class.getName()).log(Level.SEVERE, null, ex);
         }

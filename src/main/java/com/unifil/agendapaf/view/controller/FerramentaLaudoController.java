@@ -41,7 +41,7 @@ public class FerramentaLaudoController {
         } else {
             try {
                 laudoFerramenta = LaudoFerramenta.getInstance();
-                laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
+                laudoFerramenta = (LaudoFerramenta) utilXml.unmarshalFromFile(LaudoFerramenta.class, "xml/LaudoFerramenta.xml");
             } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println("java.io.FileNotFoundException: xml/LaudoFerramenta.xml (No such file or directory)");
@@ -139,7 +139,7 @@ public class FerramentaLaudoController {
         Dialogos d = new Dialogos(stage);
         Optional<ButtonType> r = d.confirmacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.CertezaSalvar.getMensagem());
         if (r.get() == ButtonType.OK) {
-            File criarLaudoComplementar = new File(utilXml.getDiretorioInicial() + "LaudoFerramenta.xml");
+            File criarLaudoComplementar = new File("xml/LaudoFerramenta.xml");
             utilXml.salvarArquivo(criarLaudoComplementar, utilXml.marshal(laudoFerramenta));
             LaudoController lc = SceneManager.getInstance().getLaudoController();
             lc.bindComponenetsWithLaudoFerramenta(laudoFerramenta);
