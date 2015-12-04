@@ -92,7 +92,9 @@ public class FerramentaEmailController {
                 ferramentaEmail.setPortaSMTP(Integer.parseInt(txtPortaSMTP.getText()));
                 ferramentaEmail.setSenha(cifra.cifrarVigenere(txtSenha.getText()));
                 if (fileImg != null) {
-                    ferramentaEmail.setCaminhoImg(fileImg.getAbsolutePath());
+                    File destino = new File("email/assinatura/" + fileImg.getName());
+                    utilFile.copiarArquivo(fileImg, destino);
+                    ferramentaEmail.setCaminhoImg(destino.getAbsolutePath());
                 }
                 utilFile.salvarArquivo(new File(EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho()), utilFile.marshal(ferramentaEmail));
                 mensagem.informacao(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), EnumMensagem.Salvo.getMensagem());

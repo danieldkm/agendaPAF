@@ -130,16 +130,17 @@ public class UtilEmail {
      * Anexar arquivo
      *
      * @param caminhoArquivo caminho absoluto do arquivo
-     * @param idName
+     * @param idName id para identificar depois
+     * @param nome nome do arquivo
      */
-    public void anexar(String caminhoArquivo, String idName) {
+    public void anexar(String caminhoArquivo, String idName, String nome) {
         try {
             EmailAttachment anexar = new EmailAttachment();
             anexar.setPath(caminhoArquivo);
             anexar.setDisposition(EmailAttachment.ATTACHMENT);
             anexar.setDescription(idName);
 //        anexar.setDescription("Picture of John");
-//        anexar.setName("John");
+            anexar.setName(nome);
             anexos.add(anexar);
         } catch (Exception e) {
             mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao anexar", e);
@@ -229,6 +230,10 @@ public class UtilEmail {
 //            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "Erro ao criar e-mail", e);
 //            e.printStackTrace();
 //        }
+    }
+
+    public ArrayList<EmailAttachment> getAnexos() {
+        return anexos;
     }
 
 }

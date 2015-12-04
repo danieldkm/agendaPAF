@@ -1,7 +1,7 @@
 package com.unifil.agendapaf.model;
 
 import com.unifil.agendapaf.converter.ConverterLocalDate;
-import com.unifil.agendapaf.util.LocalDateAdapter;
+import com.unifil.agendapaf.adapter.LocalDateAdapter;
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;

@@ -12,6 +12,7 @@ import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class OutrosTestes {
 //        e2.setBairro("bb");
 //        System.out.println(e1.getBairro());
 //        System.out.println(e2.getBairro());
-        
+
 //        System.out.println(DateFormat.getDateInstance(DateFormat.LONG).format(UtilConverter.converterLocalDateToUtilDate(LocalDate.now())));
 //        System.out.println(DateFormat.getDateInstance(DateFormat.MEDIUM).format(UtilConverter.converterLocalDateToUtilDate(LocalDate.now())));
 //        System.out.println("" + UtilTexto.formatarMascaraCnpj("10293847564732"));
@@ -72,11 +73,12 @@ public class OutrosTestes {
 //        } catch (ParseException ex) {
 //            Logger.getLogger(OutrosTestes.class.getName()).log(Level.SEVERE, null, ex);
 //        }
-        
         com.unifil.agendapaf.model.email.Email teste = new com.unifil.agendapaf.model.email.Email();
         teste.setAssunto("Assunto");
         teste.setConteudo("conteudo");
         teste.setDestinatario("destinatario");
+        System.out.println("" + LocalDate.now());
+        teste.setData(LocalDateTime.now());
         UtilFile uf = new UtilFile();
         FerramentaEmail fe = (FerramentaEmail) uf.unmarshalFromFile(FerramentaEmail.class, EnumCaminho.DiretorioEmail.getCaminho() + EnumCaminho.XMLFerramentaEmail.getCaminho());
         teste.setRemente(fe);

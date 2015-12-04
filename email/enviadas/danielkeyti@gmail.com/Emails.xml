@@ -1,15 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Emails>
-    <Emails>
-        <destinatario>destinatario</destinatario>
-        <assunto>Assunto</assunto>
-        <conteudo>conteudo</conteudo>
-        <remente>
+    <Email>
+        <ID>1</ID>
+        <Destinatario>danielkeyti@gmail.com</Destinatario>
+        <Assunto>danielkeyti@gmail.com</Assunto>
+        <Conteudo>&lt;html dir="ltr"&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;br&gt;&lt;p&gt;&lt;font face="Lucida Grande"&gt;danielkeyti@gmail.com&lt;/font&gt;&lt;/p&gt;&lt;br&gt;&lt;img src="file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png"&gt;&lt;/body&gt;&lt;/html&gt;</Conteudo>
+        <Remente>
             <HostName>smtp.googlemail.com</HostName>
             <PortaSMTP>465</PortaSMTP>
             <Email>danielkeyti@gmail.com</Email>
             <Senha>sasmgq@trtoia</Senha>
-            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/src/main/resources/image/AgendaBannerTop.png</CaminhoImg>
-        </remente>
-    </Emails>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
+        </Remente>
+        <Data>2015-12-04T10:40:50.588</Data>
+        <Anexos>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104050588/ac_wallpaper__arno_by_ninja_of_athens-d7lw1su.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104050588/ac_wallpaper__next_gen_by_ninja_of_athens-d7lw32j.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104050588/ac_wallpaper__under_common_cause_by_ninja_of_athens-d7lw1vn.jpg</Anexo>
+        </Anexos>
+    </Email>
+    <Email>
+        <ID>2</ID>
+        <Destinatario>danielkeyti@gmail.com</Destinatario>
+        <Assunto>danielkeyti@gmail.com</Assunto>
+        <Conteudo>&lt;html dir="ltr"&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;br&gt;&lt;p&gt;&lt;font face="Lucida Grande"&gt;danielkeyti@gmail.com&lt;/font&gt;&lt;/p&gt;&lt;br&gt;&lt;img src="file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png"&gt;&lt;/body&gt;&lt;/html&gt;</Conteudo>
+        <Remente>
+            <HostName>smtp.googlemail.com</HostName>
+            <PortaSMTP>465</PortaSMTP>
+            <Email>danielkeyti@gmail.com</Email>
+            <Senha>sasmgq@trtoia</Senha>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
+        </Remente>
+        <Data>2015-12-04T10:44:47.070</Data>
+        <Anexos>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104447070/ac_wallpaper__arno_by_ninja_of_athens-d7lw1su.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104447070/ac_wallpaper__next_gen_by_ninja_of_athens-d7lw32j.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T104447070/ac_wallpaper__under_common_cause_by_ninja_of_athens-d7lw1vn.jpg</Anexo>
+        </Anexos>
+    </Email>
+    <Email>
+        <ID>3</ID>
+        <Destinatario>danielkeyti@gmail.com</Destinatario>
+        <Assunto>danielkeyti@gmail.com</Assunto>
+        <Conteudo>&lt;html dir="ltr"&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;img src="file:/Users/danielmorita/Pictures/ac_wallpaper__next_gen_by_ninja_of_athens-d7lw32j.jpg"&gt;&lt;br&gt;&lt;p&gt;&lt;font face="Lucida Grande"&gt;danielkeyti@gmail.com&lt;/font&gt;&lt;/p&gt;&lt;br&gt;&lt;img src="file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png"&gt;&lt;/body&gt;&lt;/html&gt;</Conteudo>
+        <Remente>
+            <HostName>smtp.googlemail.com</HostName>
+            <PortaSMTP>465</PortaSMTP>
+            <Email>danielkeyti@gmail.com</Email>
+            <Senha>sasmgq@trtoia</Senha>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
+        </Remente>
+        <Data>2015-12-04T11:32:42.995</Data>
+        <Anexos>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T113242995/ac_wallpaper__arno_by_ninja_of_athens-d7lw1su.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T113242995/ac_wallpaper__next_gen_by_ninja_of_athens-d7lw32j.jpg</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T113242995/ac_wallpaper__under_common_cause_by_ninja_of_athens-d7lw1vn.jpg</Anexo>
+        </Anexos>
+    </Email>
+    <Email>
+        <ID>4</ID>
+        <Destinatario>danielkeyti@gmail.com</Destinatario>
+        <Assunto>Relatório PAF-ECF</Assunto>
+        <Conteudo>&lt;html dir="ltr"&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;p&gt;&lt;font face="Lucida Grande"&gt;Segue relatorio do paf ecf&lt;/font&gt;&lt;/p&gt;&lt;br&gt;&lt;br&gt;&lt;img src="file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png"&gt;&lt;/body&gt;&lt;/html&gt;</Conteudo>
+        <Remente>
+            <HostName>smtp.googlemail.com</HostName>
+            <PortaSMTP>465</PortaSMTP>
+            <Email>danielkeyti@gmail.com</Email>
+            <Senha>sasmgq@trtoia</Senha>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
+        </Remente>
+        <Data>2015-12-04T11:59:18.190</Data>
+        <Anexos>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T115918190/teste.pdf</Anexo>
+        </Anexos>
+    </Email>
+    <Email>
+        <ID>5</ID>
+        <Destinatario>danielkeyti@gmail.com</Destinatario>
+        <Assunto>Relatório PAF-ECF</Assunto>
+        <Conteudo>&lt;html dir="ltr"&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable="true"&gt;&lt;p&gt;&lt;font face="Lucida Grande"&gt;teste com anexo&lt;/font&gt;&lt;/p&gt;&lt;br&gt;&lt;br&gt;&lt;img src="file:/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png"&gt;&lt;/body&gt;&lt;/html&gt;</Conteudo>
+        <Remente>
+            <HostName>smtp.googlemail.com</HostName>
+            <PortaSMTP>465</PortaSMTP>
+            <Email>danielkeyti@gmail.com</Email>
+            <Senha>sasmgq@trtoia</Senha>
+            <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
+        </Remente>
+        <Data>2015-12-04T14:08:09.902</Data>
+        <Anexos>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T140809902/teste1.pdf</Anexo>
+            <Anexo>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/enviadas/danielkeyti@gmail.com/2015-12-04T140809902/teste2.pdf</Anexo>
+        </Anexos>
+    </Email>
 </Emails>

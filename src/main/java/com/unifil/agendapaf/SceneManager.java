@@ -7,6 +7,7 @@ import com.unifil.agendapaf.model.Empresa;
 import com.unifil.agendapaf.model.Feriado;
 import com.unifil.agendapaf.model.Financeiro;
 import com.unifil.agendapaf.model.Usuario;
+import com.unifil.agendapaf.model.email.Email;
 import com.unifil.agendapaf.statics.StaticLista;
 import com.unifil.agendapaf.util.PopUp;
 import com.unifil.agendapaf.util.TrayIcon;
@@ -53,6 +54,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -507,16 +509,16 @@ public class SceneManager {
         }
     }
     
-    public void showEmail(ObservableList<File> anexos) {
+    public void showEmail(Email email) {
         try {
             Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainApp.class.getResource(EnumCaminho.FXMLEmail.getCaminho()));
-            HBox layout = (HBox) loader.load();
+            AnchorPane layout = (AnchorPane) loader.load();
             emailController = loader.getController();
             emailController.setStage(stage);
             emailController.setPrincipal(layout);
-            emailController.setAnexos(anexos);
+            emailController.setEmail(email);
             criarPadraoModal("E-mail", stage, layout);
         } catch (Exception e) {
             e.printStackTrace();

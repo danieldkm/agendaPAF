@@ -6,6 +6,7 @@ import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.Agenda;
 import com.unifil.agendapaf.service.AgendaService;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
+import com.unifil.agendapaf.view.controller.EmailController;
 import com.unifil.agendapaf.view.util.enums.EnumMensagem;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -23,11 +24,68 @@ public class PopUp {
     private ContextMenu popUp;
     private SceneManager sceneManager;
     private Mensagem mensagem;
+    private EmailController emailController;
 
     public PopUp() {
         popUp = new ContextMenu();
         sceneManager = SceneManager.getInstance();
         mensagem = new Mensagem(null);
+    }
+
+    public PopUp(EmailController ec) {
+        popUp = new ContextMenu();
+        sceneManager = SceneManager.getInstance();
+        mensagem = new Mensagem(null);
+        emailController = ec;
+    }
+
+    public void criarPopUpForEmail() {
+        try {
+            popUp.getItems().addAll(
+                    MenuItemBuilder.create()
+                    .text("Abrir")
+                    .onAction(new EventHandler() {
+                        @Override
+                        public void handle(Event t) {
+                            emailController.popUpAbrir();
+                        }
+                    })
+//                    .
+//                    build(),
+//                    SeparatorMenuItemBuilder.create().build(),
+//                    MenuItemBuilder.create()
+//                    .text("Enviar novamente")
+//                    .onAction(new EventHandler() {
+//                        @Override
+//                        public void handle(Event t) {
+//                        }
+//                    })
+//                    .build(),
+                    /*.graphic(createIcon())*/
+//                    SeparatorMenuItemBuilder.create().build(),
+//                    MenuItemBuilder.create()
+//                    .text("Responder")
+//                    .onAction(new EventHandler() {
+//
+//                        @Override
+//                        public void handle(Event t) {
+//                        }
+//
+//                    }).build(),
+//                    SeparatorMenuItemBuilder.create().build(),
+//                    MenuItemBuilder.create()
+//                    .text("Encaminhar")
+//                    .onAction(new EventHandler() {
+//                        @Override
+//                        public void handle(Event t) {
+//                        }
+//                    })
+                    .build()
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "", e);
+        }
     }
 
     public void criarPopUp() {
@@ -107,7 +165,7 @@ public class PopUp {
             );
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Erro!! Classe: Controller.class  Metodo: criarPopUp");
+            mensagem.erro(EnumMensagem.Padrao.getTitulo(), EnumMensagem.Padrao.getSubTitulo(), "", e);
         }
     }
 

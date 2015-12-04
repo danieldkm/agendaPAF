@@ -4,5 +4,5 @@
     <PortaSMTP>465</PortaSMTP>
     <Email>danielkeyti@gmail.com</Email>
     <Senha>sasmgq@trtoia</Senha>
-    <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/src/main/resources/image/AgendaBannerTop.png</CaminhoImg>
+    <CaminhoImg>/Users/danielmorita/NetBeansProjects/AGENDAPAF_MAVEN/agendapaf/email/assinatura/AgendaBannerTop.png</CaminhoImg>
 </FerramentaEmail>

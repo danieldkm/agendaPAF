@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.nio.channels.FileChannel;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.logging.Level;
@@ -51,6 +52,31 @@ public class UtilFile {
 //    private Mensagem mensagem = new Mensagem(null);
 
     public UtilFile() {
+    }
+
+    public void copiarArquivo(File arquivoPrincipal, File destino) throws IOException {
+        if (!destino.exists()) {
+            destino.createNewFile();
+        }
+        FileChannel source = null;
+        FileChannel destination = null;
+        try {
+            source = new FileInputStream(arquivoPrincipal).getChannel();
+            destination = new FileOutputStream(destino).getChannel();
+
+            // previous code: destination.transferFrom(source, 0, source.size());
+            // to avoid infinite loops, should be:
+            long count = 0;
+            long size = source.size();
+            while ((count += destination.transferFrom(source, count, size - count)) < size);
+        } finally {
+            if (source != null) {
+                source.close();
+            }
+            if (destination != null) {
+                destination.close();
+            }
+        }
     }
 
     public String criptografar(String senha) {
@@ -349,7 +375,8 @@ public class UtilFile {
      * Converte um string com estrutura DiretorioXML em um objeto.
      *
      * @param clazz classe referente ao tipo do objeto a ser retornado.
-     * @param stringXml string com o conteudo DiretorioXML a ser convertido em objeto.
+     * @param stringXml string com o conteudo DiretorioXML a ser convertido em
+     * objeto.
      * @return retorna um novo objeto de clazz.
      */
     public Object unmarshal(Class clazz, String stringXml) {
@@ -367,10 +394,11 @@ public class UtilFile {
     }
 
     /**
-     * Realiza a conversao (unmarshal) de um arquivo DiretorioXML em um objeto do seu
- tipo.
+     * Realiza a conversao (unmarshal) de um arquivo DiretorioXML em um objeto
+     * do seu tipo.
      *
-     * @param clazz classe referente ao objeto a ser criado a partir do DiretorioXML.
+     * @param clazz classe referente ao objeto a ser criado a partir do
+     * DiretorioXML.
      * @param fileXml nome do arquivo DiretorioXML a ser convertido em objeto.
      * @return novo objeto.
      */

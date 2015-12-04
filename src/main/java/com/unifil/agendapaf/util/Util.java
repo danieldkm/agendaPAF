@@ -1,5 +1,7 @@
 package com.unifil.agendapaf.util;
 
+import com.unifil.agendapaf.model.email.Email;
+import com.unifil.agendapaf.model.email.Emails;
 import com.unifil.agendapaf.view.util.enums.EnumServico;
 import com.unifil.agendapaf.view.util.enums.EnumStatus;
 import java.io.File;
@@ -7,6 +9,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.GregorianCalendar;
 
 /**
@@ -14,6 +18,35 @@ import java.util.GregorianCalendar;
  * @author danielmorita
  */
 public class Util {
+
+    /**
+     * Ordenar lista de emails
+     *
+     * @param list objeto Emails que contem a lista
+     * @param por atributos da classe Email ex: data, id
+     * @param ordenarPor "asc" qualquer outro por desc
+     */
+    public static void ordenarEmailsPor(Emails list, String por, String ordenarPor) {
+        Collections.sort(list.getEmails(), new Comparator<Email>() {
+            @Override
+            public int compare(Email email1, Email email2) {
+                if (por.equals("data")) {
+                    if (ordenarPor.equals("asc")) {
+                        return email1.getData().compareTo(email2.getData());
+                    } else {
+                        return email2.getData().compareTo(email1.getData());
+                    }
+                } else if (por.equals("id")) {
+                    if (ordenarPor.equals("asc")) {
+                        return email1.getId().compareTo(email2.getId());
+                    } else {
+                        return email2.getId().compareTo(email1.getId());
+                    }
+                }
+                return 0;
+            }
+        });
+    }
 
     public static String removerAcentuacaoServico(String comAcento) {
         String retorna = comAcento;

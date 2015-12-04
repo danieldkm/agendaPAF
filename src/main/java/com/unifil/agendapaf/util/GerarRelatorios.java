@@ -4,6 +4,7 @@ import com.unifil.agendapaf.util.mensagem.Dialogos;
 import com.unifil.agendapaf.SceneManager;
 import com.unifil.agendapaf.dao.JPA;
 import com.unifil.agendapaf.model.aux.Anual;
+import com.unifil.agendapaf.model.email.Email;
 import com.unifil.agendapaf.util.mensagem.Mensagem;
 import com.unifil.agendapaf.view.controller.RelatorioController;
 import java.awt.Desktop;
@@ -54,7 +55,7 @@ public class GerarRelatorios {
      * @param isAnual caso o relatorio for do tipo anual gera o grafico
      * @param listaAnual para compor o grafico
      */
-    public void gerarRelatorio(Stage stage, String jasperFile, Map<String, Object> parametros,/*String agrupadoPor, Object dados,*/ String extensao/*, String tipo*/, boolean isAnual, List<Anual> listaAnual) {
+    public void gerarRelatorio(Stage stage, String jasperFile, Map<String, Object> parametros,/*String agrupadoPor, Object dados,*/ String extensao/*, String tipo*/, boolean isAnual, List<Anual> listaAnual, boolean enviarEmail) {
 
         try {
             FileChooser fileChooser = new FileChooser();
@@ -115,14 +116,19 @@ public class GerarRelatorios {
                     SceneManager.getInstance().getRelatorioController().setIsAnual(false);
                 }
                 SceneManager.getInstance().getRelatorioController().actionBtnLimpar();
-                ObservableList<File> anexos = FXCollections.observableArrayList();
-                anexos.add(file);
-                if (fileSubRelatorio != null) {
-                    anexos.add(fileSubRelatorio);
+
+                if (enviarEmail) {
+                    Email e = new Email();
+                    ObservableList<File> anexos = FXCollections.observableArrayList();
+                    e.getAnexos().getAnexos().add(file.getAbsolutePath());
+                    if (fileSubRelatorio != null) {
+                        e.getAnexos().getAnexos().add(fileSubRelatorio.getAbsolutePath());
+                    }
+                    e.setAssunto("Relatório PAF-ECF");
+
+                    SceneManager.getInstance().showEmail(e);
                 }
-                SceneManager.getInstance().showEmail(anexos);
             }
-            JPA.em(false).close();
         } catch (Exception e) {
             mensagem.erro("Informação", "Informação do sistema", "Erro ao gerar!!!", e);
             e.printStackTrace();

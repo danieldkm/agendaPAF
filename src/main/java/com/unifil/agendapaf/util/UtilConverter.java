@@ -41,6 +41,10 @@ public class UtilConverter {
         return java.util.Date.from(instant);
     }
 
+    public static java.util.Date converterLocalDateTimeToUtilDate(LocalDateTime localDateTime) {
+        return java.util.Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+    }
+
     public static LocalDate converterSqlDateToLocalDate(java.sql.Date sqlDate) {
         java.util.Date uDate = converteSqlDateToUtilDate(sqlDate);
         Instant instant = uDate.toInstant();

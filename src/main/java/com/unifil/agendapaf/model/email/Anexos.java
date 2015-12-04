@@ -12,21 +12,21 @@ import javax.xml.bind.annotation.XmlType;
  *
  * @author danielmorita
  */
-@XmlRootElement(name = "Emails")
+@XmlRootElement(name = "Anexos")
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Emails", propOrder = {
-    "emails"
+@XmlType(name = "Anexos", propOrder = {
+    "anexos"
 })
-public class Emails {
+public class Anexos {
 
-    @XmlElement(name = "Email", required = true)
-    private List<Email> emails;
+    @XmlElement(name = "Anexo", required = true)
+    private List<String> anexos;
 
-    public List<Email> getEmails() {
-        if (emails == null) {
-            emails = new ArrayList<Email>();
+    public List<String> getAnexos() {
+        if (anexos == null) {
+            anexos = new ArrayList<String>();
         }
-        return this.emails;
+        return this.anexos;
     }
 
 }
