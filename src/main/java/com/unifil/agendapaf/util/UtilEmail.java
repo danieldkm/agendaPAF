@@ -110,7 +110,7 @@ public class UtilEmail {
             email.setHostName("smtp.googlemail.com");
             email.setSmtpPort(465);
 //        email.setSmtpPort(587);
-            email.setAuthenticator(new DefaultAuthenticator("danielkeyti@gmail.com", "daniel@morita"));
+            email.setAuthenticator(new DefaultAuthenticator("danielkeyti@gmail.com", "??"));
             email.setSSLOnConnect(true);
             email.setFrom("danielkeyti@gmail.com");//remetente
             email.setSubject(assunto); //Assunto
