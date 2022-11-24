@@ -13,7 +13,7 @@
     <properties>
         <mainClass>com.unifil.agendapaf.MainApp</mainClass>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <hibernate.version>4.3.11.Final</hibernate.version>
+        <hibernate.version>5.3.20.Final</hibernate.version>
     </properties>
 
     <organization>
